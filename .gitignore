@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+env/
+venv/
+ENV/
+
+# Checkpoints d'entraînement lourds & états d'optimiseur
+models/nllb_lora_dioula/checkpoint-*/
+*.pt
+*.bin
+*.pth
+*.ckpt
+
+# Fichiers volumineux > 100 Mo (GitHub Limit)
+LIVRABLE/03_Donnees_Nettoyees/R005_AfriSpeech_Dioula/dioula_afrispeech_clean.csv
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
