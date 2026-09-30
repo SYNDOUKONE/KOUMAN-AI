@@ -1,6 +1,6 @@
-# 🌍 Kouman AI — Traduction Automatique Français ↔ Dioula (NLLB-200)
+# 🌍 Kouman AI — Traduction Automatique Français ↔ Dioula (NLLB-200 + Gemini)
 
-Projet de traduction automatique neuronale haute performance spécialisé pour la langue **Dioula** (*dyu_Latn*) à partir du **Français** (*fra_Latn*), basé sur le modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)**, enrichi d'un corpus consolidé et d'un glossaire lexical.
+Projet de traduction automatique neuronale haute performance spécialisé pour la langue **Dioula** (*dyu_Latn*) à partir du **Français** (*fra_Latn*), basé sur le modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)**, couplé à l'API **Gemini** pour la recherche contextuelle et culturelle.
 
 ---
 
@@ -10,6 +10,11 @@ Projet de traduction automatique neuronale haute performance spécialisé pour l
 kouman_AI/
 ├── 📄 README.md                                    # Documentation générale du projet
 ├── 📄 requirements.txt                             # Dépendances Python
+│
+├── 📂 api/                                         # Serveur Backend FastAPI (NLLB + Gemini)
+│   ├── 📄 app.py                                   # Endpoints REST API (/translate, /research, /smart)
+│   ├── 📄 translation_service.py                   # Service de chargement et inférence NLLB LoRA
+│   └── 📄 research_service.py                      # Service de recherche contextuelle via Gemini API
 │
 ├── 📂 docs/                                        # Cahier des charges et gestion de projet
 │   ├── 📄 Kouma_AI_Cahier_des_charges.docx.pdf
@@ -57,7 +62,23 @@ pip install -r requirements.txt
 
 ---
 
-## 🛠️ Guide d'Utilisation
+## 🌐 Serveur Backend API (NLLB + Gemini)
+
+Pour lancer le serveur API FastAPI (hybride NLLB-1.3B Fine-Tuné + Gemini API) :
+
+```bash
+export GEMINI_API_KEY="votre_cle_api_gemini"  # Optionnel
+uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Endpoints disponibles :
+* `POST /api/v1/translate` : Traduction brute Français ↔ Dioula via **NLLB-1.3B LoRA**.
+* `POST /api/v1/research` : Recherche linguistique, lexicale et explications culturelles via **Gemini API**.
+* `POST /api/v1/smart` : Pipeline complet — Traduction NLLB + Analyse grammaire & culturelle Gemini.
+
+---
+
+## 🛠️ Guide d'Utilisation des Scripts
 
 ### 1. Tester une traduction en direct (Modèle Fine-Tuné)
 Pour traduire des phrases françaises en Dioula avec le modèle entraîné :
@@ -87,15 +108,13 @@ python3 scripts/finetune_nllb.py
 
 ## 🧠 Architecture du Modèle & Méthode
 
-* **Modèle de base** : `facebook/nllb-200-1.3B` (1,3 milliard de paramètres).
+* **Modèle NMT** : `facebook/nllb-200-1.3B` (1,3 milliard de paramètres).
 * **Fine-Tuning PEFT / LoRA** :
   * **Rang ($r$)** : 16, **Alpha** : 32, **Dropout** : 0.1.
   * **Modules ciblés** : Matrices de projection d'attention (`q_proj`, `v_proj`).
-  * **Paramètres entraînés** : ~4,7 Millions (seulement **0.34%** du modèle total), garantissant une sauvegarde ultra-légère (~19 Mo) et une exécution rapide sans saturation mémoire.
-* **Jeu de données combiné** :
-  * Corpus de phrases consolidé : **13 674 paires**
-  * Glossaire lexical extrait du dictionnaire : **3 267 paires**
-  * **Total** : **16 941 paires bilingues**.
+  * **Paramètres entraînés** : ~4,7 Millions (seulement **0.34%** du modèle total), sauvegardés en ~19 Mo.
+* **Intégration LLM (Gemini)** :
+  * Traitement des requêtes contextuelles, explications lexicales et culturelles relatives au Dioula.
 
 ---
 
