@@ -1,6 +1,6 @@
 """
 Kouman AI — Démonstrateur Synthèse Vocale (Text-To-Speech / TTS)
-Français -> Traduction NLLB LoRA (Dioula) -> Synthèse Vocale MMS-TTS (facebook/mms-tts-dyu) -> Fichier WAV
+Français -> Traduction NLLB LoRA (Dioula) + Normalisation -> Synthèse Vocale MMS-TTS (facebook/mms-tts-dyu) -> Fichier WAV
 """
 
 import os
@@ -25,6 +25,16 @@ def load_nllb_translator():
     lora_model.eval()
     return tokenizer, lora_model
 
+def post_process_greetings(text_tgt: str) -> str:
+    # Correction de 'Bonya' (respect/honneur) au profit de salutations dioula authentiques
+    if text_tgt.startswith("Bonya,"):
+        return "Aw ni sɔgɔma," + text_tgt[6:]
+    elif text_tgt.startswith("Bonya "):
+        return "Aw ni sɔgɔma " + text_tgt[6:]
+    elif text_tgt.strip() == "Bonya":
+        return "Aw ni sɔgɔma"
+    return text_tgt
+
 def translate_fr_to_dyu(tokenizer, model, text: str) -> str:
     inputs = tokenizer(text, return_tensors="pt").to(device)
     forced_bos_token_id = tokenizer.lang_code_to_id["dyu_Latn"]
@@ -35,7 +45,8 @@ def translate_fr_to_dyu(tokenizer, model, text: str) -> str:
             max_length=128,
             num_beams=4,
         )
-    return tokenizer.batch_decode(out, skip_special_tokens=True)[0]
+    raw_translation = tokenizer.batch_decode(out, skip_special_tokens=True)[0]
+    return post_process_greetings(raw_translation)
 
 def speak_dioula(text_dioula: str, output_path: str = "sortie_dioula.wav"):
     print(f"Chargement de MMS-TTS ({TTS_MODEL_ID})...", flush=True)

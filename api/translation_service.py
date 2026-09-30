@@ -28,6 +28,17 @@ class TranslationService:
         self.is_loaded = True
         print("Modèle NLLB LoRA chargé avec succès !", flush=True)
 
+    def _post_process(self, text_src: str, text_tgt: str) -> str:
+        # Correction des hallucinations sémantiques connues sur les salutations
+        # Ex: "Bonya" (qui signifie respect/honneur) généré à la place de "Aw ni sɔgɔma" (bonjour)
+        if text_tgt.startswith("Bonya,"):
+            text_tgt = "Aw ni sɔgɔma," + text_tgt[6:]
+        elif text_tgt.startswith("Bonya "):
+            text_tgt = "Aw ni sɔgɔma " + text_tgt[6:]
+        elif text_tgt.strip() == "Bonya":
+            text_tgt = "Aw ni sɔgɔma"
+        return text_tgt
+
     def translate(self, text: str, src_lang: str = "fra_Latn", tgt_lang: str = "dyu_Latn", max_length: int = 128, num_beams: int = 4) -> str:
         if not self.is_loaded:
             self.load_model()
@@ -46,4 +57,8 @@ class TranslationService:
             )
         
         translated_text = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+        
+        if src_lang == "fra_Latn" and tgt_lang == "dyu_Latn":
+            translated_text = self._post_process(text, translated_text)
+            
         return translated_text
