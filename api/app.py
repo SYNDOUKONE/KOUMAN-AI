@@ -1,16 +1,19 @@
 import os
-from fastapi import FastAPI, HTTPException, Header, Depends
+import tempfile
+from fastapi import FastAPI, HTTPException, Header, UploadFile, File, Form
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional
 
 from api.translation_service import TranslationService
 from api.research_service import ResearchService
+from api.audio_service import AudioService
 
 app = FastAPI(
-    title="Kouman AI - API de Traduction & Recherche Dioula",
-    description="API Hybride : NLLB-1.3B Fine-Tuné (Traduction NMT) + Gemini API (Recherche & Explications culturelles)",
-    version="1.0.0"
+    title="Kouman AI - API Multimodale (Traduction, Audio STT/TTS & Recherche)",
+    description="API Hybride : NLLB-1.3B Fine-Tuné (Traduction NMT) + Gemini API (Recherche) + Whisper Tiny (STT) + MMS-TTS (TTS)",
+    version="1.1.0"
 )
 
 app.add_middleware(
@@ -21,8 +24,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Global service instance
+# Global service instances
 translation_service = TranslationService()
+audio_service = AudioService()
 
 class TranslationRequest(BaseModel):
     text: str = Field(..., example="Bonjour, comment vas-tu ?")
@@ -43,8 +47,12 @@ class ResearchRequest(BaseModel):
 
 class SmartRequest(BaseModel):
     text: str = Field(..., example="Je vais au marché pour acheter de la nourriture.")
-    ask_explanation: bool = Field(default=True, description="Si vrai, demande à Gemini des explications grammaticales/culturelles sur la traduction")
+    ask_explanation: bool = Field(default=True, description="Si vrai, demande à Gemini des explications grammaticales/culturelles")
     gemini_api_key: Optional[str] = Field(default=None)
+
+class TTSRequest(BaseModel):
+    text: str = Field(..., example="Bonjour, comment allez-vous aujourd'hui ?")
+    is_french: bool = Field(default=True, description="Si vrai, le texte est d'abord traduit du français vers le dioula avant la synthèse vocale")
 
 @app.on_event("startup")
 def startup_event():
@@ -55,11 +63,18 @@ def read_root():
     return {
         "status": "online",
         "service": "Kouman AI API",
-        "model_nllb": "facebook/nllb-200-1.3B + LoRA (dioula)",
+        "models": {
+            "nmt": "facebook/nllb-200-1.3B + LoRA (dioula)",
+            "research": "gemini-2.5-flash",
+            "stt": "Dama12/whisper-tiny-dioula",
+            "tts": "facebook/mms-tts-dyu"
+        },
         "endpoints": {
             "/api/v1/translate": "POST - Traduction directe via NLLB LoRA",
             "/api/v1/research": "POST - Recherche culturelle et linguistique via Gemini",
-            "/api/v1/smart": "POST - Pipeline combiné Traduction NLLB + Analyse Gemini"
+            "/api/v1/smart": "POST - Pipeline combiné Traduction NLLB + Analyse Gemini",
+            "/api/v1/tts": "POST - Synthèse vocale Dioula (MMS-TTS) -> Fichier WAV",
+            "/api/v1/stt": "POST - Reconnaissance vocale Dioula (Whisper Tiny) -> Texte"
         }
     }
 
@@ -92,7 +107,6 @@ def research_endpoint(req: ResearchRequest, x_gemini_key: Optional[str] = Header
 
 @app.post("/api/v1/smart")
 def smart_endpoint(req: SmartRequest, x_gemini_key: Optional[str] = Header(None)):
-    # Step 1: Traduction avec NLLB Fine-Tuné
     try:
         translated = translation_service.translate(
             text=req.text,
@@ -108,7 +122,6 @@ def smart_endpoint(req: SmartRequest, x_gemini_key: Optional[str] = Header(None)
         "explanation": None
     }
 
-    # Step 2: Recherche / Explication avec Gemini si demandée
     if req.ask_explanation:
         api_key = req.gemini_api_key or x_gemini_key or os.environ.get("GEMINI_API_KEY")
         research_svc = ResearchService(api_key=api_key)
@@ -122,3 +135,57 @@ def smart_endpoint(req: SmartRequest, x_gemini_key: Optional[str] = Header(None)
             response_data["explanation_note"] = res["error"]
 
     return response_data
+
+@app.post("/api/v1/tts")
+def tts_endpoint(req: TTSRequest):
+    try:
+        if req.is_french:
+            dioula_text = translation_service.translate(
+                text=req.text,
+                src_lang="fra_Latn",
+                tgt_lang="dyu_Latn"
+            )
+        else:
+            dioula_text = req.text
+
+        temp_wav = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+        output_path = temp_wav.name
+        temp_wav.close()
+
+        audio_service.text_to_speech(dioula_text, output_path)
+
+        return FileResponse(
+            path=output_path,
+            media_type="audio/wav",
+            filename="dioula_speech.wav",
+            headers={"X-Dioula-Text": dioula_text}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur de synthèse vocale : {str(e)}")
+
+@app.post("/api/v1/stt")
+async def stt_endpoint(file: UploadFile = File(...), translate_to_fr: bool = Form(True)):
+    try:
+        suffix = os.path.splitext(file.filename)[1] or ".wav"
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_audio:
+            content = await file.read()
+            temp_audio.write(content)
+            temp_audio_path = temp_audio.name
+
+        dioula_text = audio_service.speech_to_text(temp_audio_path)
+        os.remove(temp_audio_path)
+
+        french_text = None
+        if translate_to_fr and dioula_text:
+            french_text = translation_service.translate(
+                text=dioula_text,
+                src_lang="dyu_Latn",
+                tgt_lang="fra_Latn"
+            )
+
+        return {
+            "transcription_dioula": dioula_text,
+            "translation_french": french_text
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur de reconnaissance vocale : {str(e)}")

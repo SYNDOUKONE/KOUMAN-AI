@@ -1,6 +1,12 @@
-# 🌍 Kouman AI — Traduction Automatique Français ↔ Dioula (NLLB-200 + Gemini)
+# 🌍 Kouman AI — Plateforme Multimodale de Traduction & Traitement de la Langue Dioula
 
-Projet de traduction automatique neuronale haute performance spécialisé pour la langue **Dioula** (*dyu_Latn*) à partir du **Français** (*fra_Latn*), basé sur le modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)**, couplé à l'API **Gemini** pour la recherche contextuelle et culturelle.
+Projet de traduction automatique neuronale et de traitement de la parole spécialisé pour la langue **Dioula** (*dyu_Latn*) et le **Français** (*fra_Latn*).
+
+Kouman AI intègre :
+1. **NMT (Traduction)** : Modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)** (BLEU 46.88).
+2. **TTS (Synthèse Vocale)** : Modèle **MMS-TTS Jula** de Meta (`facebook/mms-tts-dyu`) basé sur VITS.
+3. **STT (Reconnaissance Vocale)** : Modèle **Whisper Tiny Dioula** (`Dama12/whisper-tiny-dioula`) affiné sur Mozilla Common Voice.
+4. **Recherche & Intelligence** : API **Gemini** pour la recherche linguistique et contextuelle.
 
 ---
 
@@ -11,10 +17,11 @@ kouman_AI/
 ├── 📄 README.md                                    # Documentation générale du projet
 ├── 📄 requirements.txt                             # Dépendances Python
 │
-├── 📂 api/                                         # Serveur Backend FastAPI (NLLB + Gemini)
-│   ├── 📄 app.py                                   # Endpoints REST API (/translate, /research, /smart)
-│   ├── 📄 translation_service.py                   # Service de chargement et inférence NLLB LoRA
-│   └── 📄 research_service.py                      # Service de recherche contextuelle via Gemini API
+├── 📂 api/                                         # Serveur Backend FastAPI Multimodal
+│   ├── 📄 app.py                                   # Endpoints API (/translate, /research, /smart, /tts, /stt)
+│   ├── 📄 translation_service.py                   # Service NLLB LoRA (FR ↔ DYU)
+│   ├── 📄 audio_service.py                         # Service Audio (STT Whisper & TTS MMS-TTS)
+│   └── 📄 research_service.py                      # Service de recherche contextuelle Gemini
 │
 ├── 📂 docs/                                        # Cahier des charges et gestion de projet
 │   ├── 📄 Kouma_AI_Cahier_des_charges.docx.pdf
@@ -34,8 +41,10 @@ kouman_AI/
 │           ├── adapter_config.json
 │           └── tokenizer / vocabulaire
 │
-├── 📂 scripts/                                     # Scripts Python de traitement & inférence
+├── 📂 scripts/                                     # Scripts Python de traitement, audio & inférence
 │   ├── 📄 demo_traduction.py                       # Démonstrateur de traduction rapide en direct
+│   ├── 📄 demo_tts.py                              # Démonstrateur Text-To-Speech (NLLB -> MMS-TTS WAV)
+│   ├── 📄 demo_stt.py                              # Démonstrateur Speech-To-Text (Whisper Tiny Audio -> Texte)
 │   ├── 📄 benchmark_nllb.py                        # Benchmark standard sur corpus CSV
 │   ├── 📄 test_and_benchmark.py                    # Benchmark comparatif Base vs Fine-tuné
 │   ├── 📄 finetune_nllb.py                         # Script d'entraînement LoRA (PEFT)
@@ -54,7 +63,7 @@ kouman_AI/
 
 ## 🚀 Installation & Prérequis
 
-Le projet est optimisé pour tourner sous **macOS (Apple Silicon / Metal Performance Shaders - MPS)** ou **Linux/CUDA**.
+Le projet est optimisé pour tourner sous **macOS (Apple Silicon / Metal Performance Shaders - MPS)**, **CUDA** ou **CPU**.
 
 ```bash
 pip install -r requirements.txt
@@ -62,9 +71,9 @@ pip install -r requirements.txt
 
 ---
 
-## 🌐 Serveur Backend API (NLLB + Gemini)
+## 🌐 Serveur Backend API (FastAPI Multimodal)
 
-Pour lancer le serveur API FastAPI (hybride NLLB-1.3B Fine-Tuné + Gemini API) :
+Pour lancer le serveur API complet :
 
 ```bash
 export GEMINI_API_KEY="votre_cle_api_gemini"  # Optionnel
@@ -73,52 +82,58 @@ uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
 
 ### Endpoints disponibles :
 * `POST /api/v1/translate` : Traduction brute Français ↔ Dioula via **NLLB-1.3B LoRA**.
+* `POST /api/v1/tts` : Synthèse vocale Dioula (FR -> NLLB -> MMS-TTS audio `.wav`).
+* `POST /api/v1/stt` : Reconnaissance vocale Dioula (Audio `.wav` -> Whisper Tiny -> Texte Dioula & FR).
 * `POST /api/v1/research` : Recherche linguistique, lexicale et explications culturelles via **Gemini API**.
-* `POST /api/v1/smart` : Pipeline complet — Traduction NLLB + Analyse grammaire & culturelle Gemini.
+* `POST /api/v1/smart` : Pipeline combiné — Traduction NLLB + Analyse grammaire & culturelle Gemini.
 
 ---
 
 ## 🛠️ Guide d'Utilisation des Scripts
 
-### 1. Tester une traduction en direct (Modèle Fine-Tuné)
-Pour traduire des phrases françaises en Dioula avec le modèle entraîné :
+### 1. Tester la Traduction Texte en Direct
 ```bash
 python3 scripts/demo_traduction.py
 ```
 
-### 2. Lancer un Benchmark sur un fichier CSV
-Pour évaluer la précision sur un jeu de test avec calcul des scores **BLEU** et **chrF** :
+### 2. Tester la Synthèse Vocale (TTS) : Texte FR -> Dioula Audio (.wav)
+```bash
+python3 scripts/demo_tts.py "Bonjour, comment allez-vous aujourd'hui ?"
+```
+*Génère le fichier `sortie_dioula.wav`.*
+
+### 3. Tester la Reconnaissance Vocale (STT) : Audio Dioula -> Texte
+```bash
+python3 scripts/demo_stt.py chemin/vers/fichier_audio.wav
+```
+
+### 4. Lancer un Benchmark NLLB sur un Fichier CSV
 ```bash
 python3 scripts/benchmark_nllb.py --samples 20
 ```
 
-### 3. Extraire / Mettre à jour le Glossaire depuis le PDF
-Pour extraire de nouveaux termes d'un dictionnaire PDF vers le format JSON :
+### 5. Extraire / Mettre à jour le Glossaire depuis le PDF
 ```bash
 python3 scripts/extract_dictionary.py
 ```
 
-### 4. Relancer le Fine-Tuning LoRA
-Pour ré-entraîner les adaptateurs LoRA sur le corpus et le glossaire mis à jour :
+### 6. Relancer le Fine-Tuning LoRA
 ```bash
 python3 scripts/finetune_nllb.py
 ```
 
 ---
 
-## 🧠 Architecture du Modèle & Méthode
+## 🧠 Modèles Utilisés
 
-* **Modèle NMT** : `facebook/nllb-200-1.3B` (1,3 milliard de paramètres).
-* **Fine-Tuning PEFT / LoRA** :
-  * **Rang ($r$)** : 16, **Alpha** : 32, **Dropout** : 0.1.
-  * **Modules ciblés** : Matrices de projection d'attention (`q_proj`, `v_proj`).
-  * **Paramètres entraînés** : ~4,7 Millions (seulement **0.34%** du modèle total), sauvegardés en ~19 Mo.
-* **Intégration LLM (Gemini)** :
-  * Traitement des requêtes contextuelles, explications lexicales et culturelles relatives au Dioula.
+* **NMT (Traduction)** : `facebook/nllb-200-1.3B` + LoRA (PEFT, 4.7M paramètres entraînés).
+* **TTS (Synthèse vocale)** : `facebook/mms-tts-dyu` (Meta VITS).
+* **STT (Reconnaissance vocale)** : `Dama12/whisper-tiny-dioula` (Whisper Tiny sur Mozilla Common Voice).
+* **Intelligence / Recherche** : `gemini-2.5-flash`.
 
 ---
 
-## 📊 Résultats du Benchmark
+## 📊 Résultats du Benchmark Traduction
 
 | Modèle | Score BLEU | Score chrF | Loss de validation |
 | :--- | :---: | :---: | :---: |
@@ -126,18 +141,3 @@ python3 scripts/finetune_nllb.py
 | **NLLB-200-1.3B + LoRA (Époque 1)** | 45.84 | 61.16 | 0.972 |
 | **NLLB-200-1.3B + LoRA (Époque 2)** | 46.54 | 61.57 | 0.951 |
 | **NLLB-200-1.3B + LoRA + Glossaire (Final)** | **46.88** | **61.73** | **0.945** |
-
----
-
-## 📝 Exemples de Traductions Obtenues
-
-| Français (Source) | Dioula (Traduction du Modèle) | Note Linguistique |
-| :--- | :--- | :--- |
-| *Merci beaucoup pour ton aide.* | `I ka dɛmɛ kosɔn, ne bɛ barika da i ye kosɛbɛ.` | *barika da* (remercier), *kosɛbɛ* (beaucoup) |
-| *Où vas-tu aujourd'hui ?* | `I bɛ taga min bi?` | Structure interrogative exacte |
-| *Je vais au marché pour acheter de la nourriture.* | `Ne bɛ taga lɔgɔfiyɛ la ka dumuni san.` | *lɔgɔfiyɛ* (marché), *dumuni* (nourriture) |
-| *Donne-moi un peu d'eau s'il te plaît.* | `Aw ye ji dɔɔnin di ne ma, ne bɛ aw deli.` | *ji dɔɔnin* (un peu d'eau), *deli* (prière) |
-| *L'enfant dort dans la chambre.* | `Den bɛ sinɔgɔ la bon kɔnɔ.` | *sinɔgɔ* (dormir), *bon kɔnɔ* (en chambre) |
-| *Le travail est difficile mais important.* | `Baara ka gɛlɛn nka a nafa ka bon.` | *baara* (travail), *nafa* (utilité/valeur) |
-| *amitié* (Glossaire) | `teriya` | Traduction lexicale exacte |
-| *amour* (Glossaire) | `kanu` | Traduction lexicale exacte |
