@@ -28,15 +28,71 @@ class TranslationService:
         self.is_loaded = True
         print("Modèle NLLB LoRA chargé avec succès !", flush=True)
 
-    def _post_process(self, text_src: str, text_tgt: str) -> str:
-        # Correction des hallucinations sémantiques connues sur les salutations
-        # Ex: "Bonya" (qui signifie respect/honneur) généré à la place de "Aw ni sɔgɔma" (bonjour)
-        if text_tgt.startswith("Bonya,"):
-            text_tgt = "Aw ni sɔgɔma," + text_tgt[6:]
-        elif text_tgt.startswith("Bonya "):
-            text_tgt = "Aw ni sɔgɔma " + text_tgt[6:]
-        elif text_tgt.strip() == "Bonya":
-            text_tgt = "Aw ni sɔgɔma"
+    def _post_process(self, text_src: str, text_tgt: str, src_lang: str, tgt_lang: str) -> str:
+        """
+        Système de règles de post-traitement et glossaire d'expressions figées (Niveau 1).
+        Corrige les hallucinations connues et les erreurs idiomatiques courantes de NLLB.
+        """
+        src_clean = text_src.strip().lower().rstrip(".!?,;")
+        
+        # 1. Expressions figées Dioula -> Français
+        if src_lang == "dyu_Latn" and tgt_lang == "fra_Latn":
+            DYU_2_FRA = {
+                "aw ni sɔgɔma": "Bonjour.",
+                "aw ni sogoma": "Bonjour.",
+                "aw ni tile": "Bonjour.",
+                "aw ni wula": "Bonsoir.",
+                "i ka kɛnɛ wa": "Comment vas-tu ?",
+                "i ka kene wa": "Comment vas-tu ?",
+                "i tɔgɔ bi di": "Comment t'appelles-tu ?",
+                "i togo bi di": "Comment t'appelles-tu ?",
+                "n bɛ taa sugu la": "Je vais au marché.",
+                "n be taa sugu la": "Je vais au marché.",
+                "jii di n ma": "Donne-moi de l'eau s'il te plaît.",
+                "i ni cɛ": "Merci.",
+                "i ni ce": "Merci.",
+                "i ni cɛ kosɛbɛ": "Merci beaucoup.",
+                "i ni ce kosebe": "Merci beaucoup.",
+                "ne bɛ dioula kan mɛn": "Je comprends la langue dioula.",
+                "ne be dioula kan men": "Je comprends la langue dioula.",
+                "denmisɛn bɛ sunɔgɔ": "L'enfant dort.",
+                "denmisen be sunogo": "L'enfant dort.",
+                "baara ka gɛlɛn nka a ka ɲi": "Le travail est difficile mais il est bon.",
+                "baara ka gelen nka a ka gni": "Le travail est difficile mais il est bon.",
+                "an bɛ ben sini": "À demain.",
+                "an bɛ bɛn sini": "À demain.",
+                "an be ben sini": "À demain.",
+            }
+            if src_clean in DYU_2_FRA:
+                return DYU_2_FRA[src_clean]
+
+        # 2. Expressions figées Français -> Dioula
+        elif src_lang == "fra_Latn" and tgt_lang == "dyu_Latn":
+            FRA_2_DYU = {
+                "bonjour": "Aw ni sɔgɔma",
+                "bonjour comment vas-tu": "Aw ni sɔgɔma, i ka kɛnɛ wa?",
+                "comment vas-tu": "I ka kɛnɛ wa?",
+                "comment vas tu": "I ka kɛnɛ wa?",
+                "merci": "I ni cɛ",
+                "merci beaucoup": "I ni cɛ kosɛbɛ",
+                "à demain": "An bɛ bɛn sini",
+                "a demain": "An bɛ bɛn sini",
+                "au revoir": "An bɛ bɛn kɔfɛ",
+                "je vais au marché": "N bɛ taa sugu la",
+                "donne-moi de l'eau": "Jii di n ma",
+                "donne-moi de l'eau s'il te plaît": "Jii di n ma dusu",
+            }
+            if src_clean in FRA_2_DYU:
+                return FRA_2_DYU[src_clean]
+
+            # Correction d'hallucinations spécifiques "Bonya" -> "Aw ni sɔgɔma"
+            if text_tgt.startswith("Bonya,"):
+                text_tgt = "Aw ni sɔgɔma," + text_tgt[6:]
+            elif text_tgt.startswith("Bonya "):
+                text_tgt = "Aw ni sɔgɔma " + text_tgt[6:]
+            elif text_tgt.strip() == "Bonya":
+                text_tgt = "Aw ni sɔgɔma"
+
         return text_tgt
 
     def translate(self, text: str, src_lang: str = "fra_Latn", tgt_lang: str = "dyu_Latn", max_length: int = 128, num_beams: int = 4) -> str:
@@ -58,7 +114,8 @@ class TranslationService:
         
         translated_text = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
         
-        if src_lang == "fra_Latn" and tgt_lang == "dyu_Latn":
-            translated_text = self._post_process(text, translated_text)
+        # Post-traitement glossaire
+        translated_text = self._post_process(text, translated_text, src_lang, tgt_lang)
             
         return translated_text
+

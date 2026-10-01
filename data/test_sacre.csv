@@ -1,0 +1,145 @@
+id,fr,dyu,domaine,traducteur_1,traducteur_2
+TEST_SACRE_001,Bonjour,Aw ni sɔgɔma,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_002,Bonjour à vous,Aw ni tile,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_003,Bonsoir,Aw ni wula,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_004,Bonne nuit,Aw ni su,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_005,Comment vas-tu ?,I ka kɛnɛ wa?,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_006,Comment allez-vous ?,Aw ka kɛnɛ wa?,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_007,As-tu passé une bonne nuit ?,Hɛrɛ sira?,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_008,As-tu passé une bonne journée ?,Hɛrɛ tilena?,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_009,Merci beaucoup,I ni cɛ kosɛbɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_010,Merci pour votre aide,I ni cɛ dɛmɛ la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_011,S'il te plaît,Dusu la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_012,À demain,An bɛ bɛn sini,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_013,À plus tard,An bɛ bɛn kɔfɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_014,Au revoir,An bɛ bɛn kɔfɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_015,Soyez le bienvenu,I bisimila,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_016,Pardonnez-moi,Yafama n ma,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_017,Que la paix soit avec vous,Hɛrɛ ka kɛ aw fɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_018,Bonne arrivée à la maison,Sɔn ka ɲi,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_019,Combien ça coûte ?,Jɔn bi di?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_020,Quel est le prix de ceci ?,Sɔngɔ ka di?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_021,C'est trop cher,Sɔngɔ ka gɛlɛn kosɛbɛ,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_022,Diminue un peu le prix,Sɔngɔ dɔ dɔgɔya,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_023,Je vais au marché,N bɛ taa sugu la,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_024,Venez acheter mon pain,Aw ye na ne ta buru san,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_025,Venez acheter de la nourriture,Aw ye na domuni san,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_026,Avez-vous du poisson ?,Jɛgɛ bɛ aw fɛ wa?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_027,Donne-moi du riz s'il te plaît,Malo di n ma dusu,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_028,Je veux acheter de l'eau,N bɛ fɛ ka jii san,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_029,Je n'ai pas d'argent,Wari tɛ n fɛ,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_030,Prends ton argent,I ta wari ta,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_031,Où puis-je acheter du pain ?,N bɛ se ka buru san min?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_032,Le marché est fermé aujourd'hui,Sugu tugulɛn bɛ bi,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_033,Comment t'appelles-tu ?,I tɔgɔ bi di?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_034,Je m'appelle Kouman,Ne tɔgɔ bi Kouman,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_035,Parles-tu dioula ?,I bɛ dioula kan mɛn wa?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_036,Je comprends le dioula,Ne bɛ dioula kan mɛn,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_037,Je ne comprends pas,N tɛ a mɛn,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_038,Pouvez-vous m'aider ?,Aw bɛ se ka n dɛmɛ wa?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_039,Que veux-tu dire ?,I bɛ mun fɔ?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_040,Répète s'il te plaît,A fɔ tugu dusu la,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_041,Parle doucement,Fɔ mounimouni,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_042,Je cherche une information,N bɛ kunnafoni dɔ ɲini,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_043,Avez-vous une question ?,Ɲininkali dɔ bɛ aw fɛ wa?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_044,Merci pour votre réponse,I ni cɛ i jaabi la,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_045,Où est l'agence la plus proche ?,Neton so bɛ min?,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_046,Je veux recharger mon téléphone,N bɛ fɛ ka ne ta fonɛn mara,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_047,Comment envoyer de l'argent ?,N bɛ wari ci cogo di?,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_048,Mon téléphone ne marche pas,Ne ta fonɛn tɛ baara kɛ,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_049,Quel est ton numéro de téléphone ?,I ta fonɛn nɔmbɔro bi di?,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_050,Envoyez-moi un message,Kuma ci n ma,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_051,Je suis malade,N bɛ bana la,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_052,J'ai mal à la tête,Koun-dimi bɛ n na,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_053,Où se trouve l'hôpital ?,Lopitani bɛ min?,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_054,Donne-moi de l'eau à boire,Jii di n ma,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_055,Appelez un docteur s'il te plaît,Dɔkɔtɔrɔ wele dusu la,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_056,Repose-toi bien,I lafiya kosɛbɛ,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_057,Est-ce que tu vas mieux ?,I ka kɛnɛ dɔɔnin wa?,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_058,Où vas-tu aujourd'hui ?,I bɛ taa min bi?,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_059,Je vais à la maison,N bɛ taa so la,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_060,Le travail est difficile mais il est bon,Baara ka gɛlɛn nka a ka ɲi,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_061,L'enfant dort dans la chambre,Denmisɛn bɛ sunɔgɔ so kɔnɔ,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_062,Il fait chaud aujourd'hui,Goueni bɛ bi,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_063,La pluie va tomber,San bɛ na ben,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_064,Nous allons manger ensemble,An bɛ taa domuni kɛ ɲɔgɔn fɛ,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_065,Attends-moi ici,N kɔnɔ yan,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_066,On se voit plus tard,An bɛ ben kɔfɛ,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_067,Quel heure est-il ?,Wati bi di?,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_068,Où habites-tu ?,I bɛ sigi min?,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_069,Quelle est votre profession ?,I ta baara bi di?,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_070,J'aime la langue dioula,Dioula kan ka di n ye,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_071,Est-ce loin d'ici ?,A janman bɛ yan wa?,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_072,C'est tout près d'ici,A surumani bɛ yan,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_073,Où est le restaurant ?,Domuniso bɛ min?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_074,Donne-moi le reçu,Sɛbɛn di n ma,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_075,Avez-vous de la monnaie ?,Wari misɛn bɛ i fɛ wa?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_076,Je cherche la gare de bus,N bɛ kisi ɲini,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_077,À quelle heure part le bus ?,Kisi bɛ bɔ wati jumɛn?,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_078,Bon voyage à vous,Sira ɲuman,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_079,Prends soin de toi,I yɛrɛ mara kosɛbɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_080,Que Dieu vous bénisse,Ala ka duba i ye,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_081,Merci beaucoup mon frère,I ni cɛ ne balima,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_082,Merci beaucoup ma sœur,I ni cɛ ne balima muso,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_083,Comment va la famille ?,Somɔgɔw ka kɛnɛ wa?,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_084,Tout le monde va bien,Mɔgɔ bɛɛ ka kɛnɛ,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_085,L'enfant va à l'école,Denmisɛn bɛ taa kalan-so la,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_086,J'apprends le dioula tous les jours,N bɛ dioula kan kalan don bɛɛ,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_087,Est-ce que le service est disponible ?,Baara bɛ yen wa?,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_088,Pouvez-vous m'expliquer cela ?,I bɛ se ka o ɲɛfɔ n ye wa?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_089,C'est une bonne idée,Hakili ɲuman bɛ o la,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_090,Je suis d'accord avec toi,N sɔnna i ta kuma ma,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_091,Je ne suis pas d'accord,N tɛ sɔn o ma,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_092,Attendez une minute s'il vous plaît,Aw ye dɔɔnin kɔnɔ dusu la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_093,C'est très gentil de votre part,O ka ɲi kosɛbɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_094,Bonne chance pour ton travail,Baara ɲuman kɛ i ye,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_095,Puis-je poser une question ?,N bɛ se ka ɲininkali dɔ kɛ wa?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_096,Où est le marché central ?,Sugu ba bɛ min?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_097,Combien coûte ce vêtement ?,Dereke nin sɔngɔ bi di?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_098,J'ai fini mon travail,N ta baara banna,travail_quotidien,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_099,Le travail commence à quelle heure ?,Baara bɛ daminɛ wati jumɛn?,travail_quotidien,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_100,Nous devons travailler dur,An ka kan ka baara gɛlɛn kɛ,travail_quotidien,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_101,Il y a beaucoup de monde ici,Mɔgɔ caman bɛ yan,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_102,Il n'y a personne dans la maison,Mɔgɔ tɛ so kɔnɔ,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_103,Avez-vous besoin d'aide ?,Dɛmɛ bɛ i fɛ wa?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_104,Je suis très content aujourd'hui,Ne nisɔndiyalen bɛ bi,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_105,Ne t'inquiète pas,I kana hami,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_106,Tout va bien se passer,Ko bɛɛ bɛna ɲɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_107,À ce soir,An bɛ wula la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_108,Passe une bonne soirée,Wula ɲuman kɛ i ye,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_109,À tout à l'heure,An bɛ dɔɔnin kɔfɛ,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_110,Prends ce livre,Sɛbɛn nin ta,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_111,Écris ton nom ici,I tɔgɔ sɛbɛ yan,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_112,Quelle est la date d'aujourd'hui ?,Bi don bi di?,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_113,Le soleil brille fort,Tile ka gɛlɛn,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_114,La nuit est calme,Su ka di,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_115,Qu'est-ce que tu en penses ?,I hakili bi di o la?,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_116,C'est parfait,A ka ɲi kosɛbɛ,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_117,Je ne me sens pas bien,N tɛ n yɛrɛ mɛn ka ɲi,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_118,Où se trouve la pharmacie de garde ?,Furuso bɛ min bi?,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_119,Prends ce médicament,Furu nin ta,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_120,Bois beaucoup d'eau,Jii caman mi,sante_bienetre,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_121,Ferme la porte s'il te plaît,Da tugu dusu la,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_122,Ouvre la fenêtre,Fɛnɛtiri dayɛlɛ,vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_123,Entrez s'il vous plaît,Aw ye don dusu la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_124,Asseyez-vous ici,Aw ye sigi yan,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_125,Que voulez-vous boire ?,Aw bɛ fɛ ka mun mi?,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_126,Apporte-moi un verre d'eau,Jii kɔpɔ di n ma,commerce_marche,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_127,Le repas est prêt,Domuni labɛnna,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_128,C'est très délicieux,Domuni ka di kosɛbɛ,famille_vie_quotidienne,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_129,Merci pour ce bon repas,I ni cɛ domuni ɲuman la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_130,Où pouvons-nous nous rencontrer ?,An bɛ se ka bɛn min?,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_131,Je t'attends devant le bâtiment,N bɛ i kɔnɔ so ɲɛfɛ,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_132,Ne sois pas en retard,I kana kɔfɛbɔ,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_133,Je suis en chemin,N bɛ sira la,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_134,Je suis arrivé,N seera,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_135,Félicitations pour ton succès,I ni cɛ sɔrɔ la,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_136,Bon anniversaire,Sankɛnɛ ɲuman kɛ i ye,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_137,Bonne année à toute la famille,San kura ɲuman somɔgɔw ye,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_138,Que cette journée soit belle,Don nin ka ɲɛ i ye,salutations_politesse,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_139,Restons en contact,An ka to kuma la,questions_frequentes,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_140,Envoie-moi un message plus tard,Kuma ci n ma kɔfɛ,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_141,Mon réseau ne marche pas bien,Rɛzo tɛ baara kɛ ka ɲi,services_digital,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_142,Où puis-je trouver un taxi ?,N bɛ takisi sɔrɔ min?,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_143,Combien pour aller au centre-ville ?,Sugu ba la taa sɔngɔ bi di?,deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER
+TEST_SACRE_144,"C'est bon, nous pouvons partir","A ka ɲi, an bɛ se ka taa",deplacement_orientation,LOCUTEUR_NATIVE_1_A_VALIDER,LOCUTEUR_NATIVE_2_A_VALIDER

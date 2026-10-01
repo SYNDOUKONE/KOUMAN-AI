@@ -1,9 +1,10 @@
 """
-Fine-Tuning EFFICACE du modèle NLLB-200-1.3B avec LoRA (PEFT).
-LoRA entraîne seulement ~1% des paramètres → 20x plus rapide, adapté à un iMac.
+Fine-Tuning BIDIRECTIONNEL (Français ↔ Dioula) du modèle NLLB-200-1.3B avec LoRA.
 
-Prérequis:
-    pip install transformers datasets accelerate peft sentencepiece sacrebleu pandas
+Améliorations (Niveau 2) :
+1. Entraînement bidirectionnel (FR -> DYU et DYU -> FR)
+2. Sur-pondération du glossaire et des expressions courantes (custom_idioms.json + glossaire_dioula.json)
+3. Adaptateurs LoRA optimisés sur attention (q, k, v, out_proj)
 """
 
 import json
@@ -24,114 +25,158 @@ import sacrebleu
 
 ROOT_DIR       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_NAME     = "facebook/nllb-200-1.3B"
-SRC_LANG       = "fra_Latn"
-TGT_LANG       = "dyu_Latn"
 CSV_PATH       = os.path.join(ROOT_DIR, "LIVRABLE", "06_Corpus_Final", "corpus_dioula_consolide.csv")
 GLOSSAIRE_PATH = os.path.join(ROOT_DIR, "data", "glossaire_dioula.json")
+CUSTOM_IDIOMS  = os.path.join(ROOT_DIR, "data", "custom_idioms.json")
 OUTPUT_DIR     = os.path.join(ROOT_DIR, "models", "nllb_lora_dioula")
-MAX_LENGTH     = 64   # Phrases courtes → entraînement plus rapide
-BATCH_SIZE     = 4    # LoRA libère beaucoup de mémoire
-GRAD_ACCUM     = 4    # Batch effectif = 4 * 4 = 16
-EPOCHS         = 3
-LEARNING_RATE  = 3e-4  # LoRA accepte un LR plus élevé
 
-# ==============================
-# CONFIG LORA
-# ==============================
+MAX_LENGTH     = 48
+BATCH_SIZE     = 2     # Ultra-léger pour garantir le support sur iMac (MPS)
+GRAD_ACCUM     = 16    # Batch effectif = 32 (2 * 16)
+EPOCHS         = 1.5   # Entraînement rapide et ciblé
+LEARNING_RATE  = 5e-4  # LR adapté LoRA
+
 LORA_CONFIG = LoraConfig(
     task_type=TaskType.SEQ_2_SEQ_LM,
-    r=16,            # Rang des matrices LoRA (16 = bon compromis)
-    lora_alpha=32,   # Scaling LoRA
-    lora_dropout=0.1,
-    target_modules=["q_proj", "v_proj"],  # Couches d'attention ciblées
+    r=16,
+    lora_alpha=32,
+    lora_dropout=0.05,
+    target_modules=["q_proj", "v_proj", "k_proj", "out_proj"],
     bias="none",
 )
 
 
+def load_custom_idioms(path, repeat=40):
+    if not os.path.exists(path):
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data * repeat
+
+
 def load_glossaire(path):
     with open(path, "r", encoding="utf-8") as f:
-        glossaire = json.load(f)
-    return [{"francais": k, "dioula": v} for k, v in glossaire.items()
-            if len(k) > 2 and len(v) > 1 and not any(c.isdigit() for c in v)]
+        data = json.load(f)
+    if isinstance(data, dict):
+        items = [{"francais": k, "dioula": v} for k, v in data.items()
+                 if len(k) > 2 and len(v) > 1 and not any(c.isdigit() for c in str(v))]
+    else:
+        items = [item for item in data
+                 if isinstance(item, dict) and "francais" in item and "dioula" in item
+                 and len(str(item["francais"])) > 1 and len(str(item["dioula"])) > 1]
+    return items
+
 
 
 def load_corpus(path, src_col="francais", tgt_col="dioula"):
     df = pd.read_csv(path).dropna(subset=[src_col, tgt_col])
     df = df[[src_col, tgt_col]].rename(columns={src_col: "francais", tgt_col: "dioula"})
-    # On filtre les phrases trop longues (> 50 mots) pour accélérer
-    df = df[df["dioula"].str.split().str.len() <= 50]
+    df = df[df["dioula"].str.split().str.len() <= 35]
     return df.to_dict(orient="records")
 
 
-def build_dataset(csv_path, glossaire_path, test_split=0.05):
-    print("Chargement du corpus CSV...")
+def make_bidirectional(pairs):
+    bidi = []
+    for p in pairs:
+        # Direction 1: FR -> DYU
+        bidi.append({
+            "src_text": p["francais"],
+            "tgt_text": p["dioula"],
+            "src_lang": "fra_Latn",
+            "tgt_lang": "dyu_Latn"
+        })
+        # Direction 2: DYU -> FR
+        bidi.append({
+            "src_text": p["dioula"],
+            "tgt_text": p["francais"],
+            "src_lang": "dyu_Latn",
+            "tgt_lang": "fra_Latn"
+        })
+    return bidi
+
+
+def build_dataset(csv_path, glossaire_path, custom_path, test_split=0.03):
+    print("Chargement des données...", flush=True)
     corpus = load_corpus(csv_path)
-    print(f"  → {len(corpus)} paires depuis le CSV.")
-    print("Chargement du glossaire...")
+    print(f"  → {len(corpus)} paires CSV.", flush=True)
     glossaire = load_glossaire(glossaire_path)
-    print(f"  → {len(glossaire)} paires depuis le glossaire.")
-    all_data = corpus + glossaire
-    print(f"  → Total : {len(all_data)} paires.")
-    dataset = Dataset.from_list(all_data)
+    print(f"  → {len(glossaire)} paires Glossaire.", flush=True)
+    idioms = load_custom_idioms(custom_path, repeat=40)
+    print(f"  → {len(idioms)} paires Expressions fondamentales (surpondérées x40).", flush=True)
+    
+    all_pairs = corpus + glossaire + idioms
+    bidi_data = make_bidirectional(all_pairs)
+    print(f"  → Total Bidirectionnel : {len(bidi_data)} exemples.", flush=True)
+    
+    dataset = Dataset.from_list(bidi_data)
     split = dataset.train_test_split(test_size=test_split, seed=42)
     return split["train"], split["test"]
 
 
-def preprocess(examples, tokenizer):
-    tokenizer.src_lang = SRC_LANG
-    tokenizer.tgt_lang = TGT_LANG
-    model_inputs = tokenizer(
-        examples["francais"],
-        text_target=examples["dioula"],
-        max_length=MAX_LENGTH,
-        padding="max_length",
-        truncation=True,
-    )
-    model_inputs["labels"] = [
-        [(t if t != tokenizer.pad_token_id else -100) for t in label]
-        for label in model_inputs["labels"]
-    ]
-    return model_inputs
+def preprocess_batch(batch, tokenizer):
+    input_ids = []
+    attention_masks = []
+    labels = []
+
+    for src, tgt, s_lang, t_lang in zip(batch["src_text"], batch["tgt_text"], batch["src_lang"], batch["tgt_lang"]):
+        tokenizer.src_lang = s_lang
+        tokenizer.tgt_lang = t_lang
+        inp = tokenizer(src, text_target=tgt, max_length=MAX_LENGTH, padding="max_length", truncation=True)
+        
+        input_ids.append(inp["input_ids"])
+        attention_masks.append(inp["attention_mask"])
+        
+        label = [(t if t != tokenizer.pad_token_id else -100) for t in inp["labels"]]
+        labels.append(label)
+
+    return {
+        "input_ids": input_ids,
+        "attention_mask": attention_masks,
+        "labels": labels
+    }
 
 
 def compute_metrics(eval_preds, tokenizer):
-    preds, labels = eval_preds
+    preds, label_ids = eval_preds
     decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-    labels = [[t if t != -100 else tokenizer.pad_token_id for t in l] for l in labels]
-    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+    clean_labels = [[(t if t != -100 else tokenizer.pad_token_id) for t in l] for l in label_ids]
+    decoded_labels = tokenizer.batch_decode(clean_labels, skip_special_tokens=True)
+    
     bleu = sacrebleu.corpus_bleu(decoded_preds, [decoded_labels])
     chrf = sacrebleu.corpus_chrf(decoded_preds, [decoded_labels])
     return {"bleu": round(bleu.score, 4), "chrf": round(chrf.score, 4)}
 
 
 def main():
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
-    print(f"\n{'='*55}")
-    print(f"  FINE-TUNING NLLB avec LoRA — Français → Dioula")
-    print(f"  Modèle  : {MODEL_NAME}")
-    print(f"  Méthode : LoRA (r={LORA_CONFIG.r}, alpha={LORA_CONFIG.lora_alpha})")
-    print(f"  Device  : {device}")
-    print(f"{'='*55}\n")
+    device = "mps" if torch.backends.mps.is_available() else ("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"\n{'='*65}", flush=True)
+    print(f"  FINE-TUNING NLLB LoRA BIDIRECTIONNEL — Français ↔ Dioula", flush=True)
+    print(f"  Modèle  : {MODEL_NAME}", flush=True)
+    print(f"  Device  : {device}", flush=True)
+    print(f"{'='*65}\n", flush=True)
 
-    train_dataset, eval_dataset = build_dataset(CSV_PATH, GLOSSAIRE_PATH)
+    train_dataset, eval_dataset = build_dataset(CSV_PATH, GLOSSAIRE_PATH, CUSTOM_IDIOMS)
 
-    print("Chargement du tokenizer et du modèle...")
+    print("Chargement du tokenizer et du modèle...", flush=True)
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
 
-    # Applique LoRA : seul ~1% des paramètres sera entraîné
     model = get_peft_model(model, LORA_CONFIG)
     model.print_trainable_parameters()
     model = model.to(device)
 
-    print("Tokenisation du dataset...")
+    print("Tokenisation du dataset bidirectionnel...", flush=True)
     tokenized_train = train_dataset.map(
-        lambda x: preprocess(x, tokenizer),
-        batched=True, remove_columns=["francais", "dioula"]
+        lambda batch: preprocess_batch(batch, tokenizer),
+        batched=True,
+        batch_size=500,
+        remove_columns=["src_text", "tgt_text", "src_lang", "tgt_lang"]
     )
     tokenized_eval = eval_dataset.map(
-        lambda x: preprocess(x, tokenizer),
-        batched=True, remove_columns=["francais", "dioula"]
+        lambda batch: preprocess_batch(batch, tokenizer),
+        batched=True,
+        batch_size=500,
+        remove_columns=["src_text", "tgt_text", "src_lang", "tgt_lang"]
     )
 
     training_args = Seq2SeqTrainingArguments(
@@ -146,7 +191,7 @@ def main():
         predict_with_generate=True,
         fp16=False,
         logging_dir=os.path.join(OUTPUT_DIR, "logs"),
-        logging_steps=20,
+        logging_steps=10,
         load_best_model_at_end=True,
         metric_for_best_model="bleu",
         report_to="none",
@@ -164,18 +209,17 @@ def main():
         compute_metrics=lambda p: compute_metrics(p, tokenizer),
     )
 
-    print("\nDébut du fine-tuning LoRA...\n")
+    print("\nDébut du fine-tuning LoRA Bidirectionnel...\n", flush=True)
     start = time.time()
     trainer.train()
     elapsed = time.time() - start
-    print(f"\nFine-tuning terminé en {elapsed/60:.1f} minutes !")
+    print(f"\nFine-tuning terminé en {elapsed/60:.1f} minutes !", flush=True)
 
-    # Sauvegarde du modèle LoRA (seulement les adaptateurs, ~100 Mo au lieu de 5 Go !)
-    print(f"Sauvegarde des adaptateurs LoRA dans : {OUTPUT_DIR}/final")
-    model.save_pretrained(os.path.join(OUTPUT_DIR, "final"))
-    tokenizer.save_pretrained(os.path.join(OUTPUT_DIR, "final"))
-    print("\nTerminé ! Pour l'utiliser dans benchmark_nllb.py :")
-    print(f'  model_name = "{OUTPUT_DIR}/final"')
+    final_path = os.path.join(OUTPUT_DIR, "final")
+    print(f"Sauvegarde des adaptateurs LoRA dans : {final_path}", flush=True)
+    model.save_pretrained(final_path)
+    tokenizer.save_pretrained(final_path)
+    print("\n✅ Fine-tuning Niveau 2 achevé avec succès !", flush=True)
 
 
 if __name__ == "__main__":

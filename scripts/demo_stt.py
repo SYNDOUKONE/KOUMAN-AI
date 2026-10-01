@@ -17,7 +17,24 @@ device = "mps" if torch.backends.mps.is_available() else ("cuda" if torch.cuda.i
 
 def transcribe_audio_dioula(audio_path: str) -> str:
     print(f"Chargement du modèle STT Whisper Dioula ({STT_MODEL_ID})...", flush=True)
-    stt_pipeline = pipeline("automatic-speech-recognition", model=STT_MODEL_ID, device=device if device != "mps" else "cpu")
+    hf_token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
+    
+    dev = device if device != "mps" else "cpu"
+    try:
+        stt_pipeline = pipeline(
+            "automatic-speech-recognition",
+            model=STT_MODEL_ID,
+            device=dev,
+            token=hf_token
+        )
+    except Exception as e:
+        if "GatedRepoError" in str(e) or "403" in str(e):
+            print("\n⚠️ ATTENTION: Le modèle 'Dama12/whisper-tiny-dioula' est un dépôt sous accès restreint (gated repo) sur Hugging Face.")
+            print("Pour y accéder :")
+            print(" 1. Demandez l'accès sur : https://huggingface.co/Dama12/whisper-tiny-dioula")
+            print(" 2. Exportez votre jeton HuggingFace : export HF_TOKEN=\"votre_jeton_hf\"\n")
+        raise e
+
     print(f"Transcription de l'audio : {audio_path}...", flush=True)
     result = stt_pipeline(audio_path)
     return result.get("text", "")
@@ -55,10 +72,13 @@ if __name__ == "__main__":
         sys.exit(1)
 
     print("=" * 70)
-    dioula_transcript = transcribe_audio_dioula(audio_file)
-    print(f"Transcription Dioula (STT) : {dioula_transcript}")
-    
-    tokenizer, nllb_model = load_nllb_translator()
-    french_text = translate_dyu_to_fr(tokenizer, nllb_model, dioula_transcript)
-    print(f"Traduction Français (NLLB)  : {french_text}")
+    try:
+        dioula_transcript = transcribe_audio_dioula(audio_file)
+        print(f"Transcription Dioula (STT) : {dioula_transcript}")
+        
+        tokenizer, nllb_model = load_nllb_translator()
+        french_text = translate_dyu_to_fr(tokenizer, nllb_model, dioula_transcript)
+        print(f"Traduction Français (NLLB)  : {french_text}")
+    except Exception as err:
+        print(f"Échec STT : {err}")
     print("=" * 70)
