@@ -1,0 +1,8 @@
+# Vrai traducteur + LLM. Installer PyTorch AVANT, selon la carte :
+#   RTX série 50 (Blackwell) : pip install torch --index-url https://download.pytorch.org/whl/cu128
+-r requirements.txt
+transformers>=4.41
+peft>=0.11
+sentencepiece>=0.1.99
+safetensors>=0.4
+google-genai>=1.0

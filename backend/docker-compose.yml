@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    env_file: .env
+    volumes:
+      - ./data_runtime:/srv/data_runtime       # base des clés d'API
+      - ./models:/srv/models:ro                # adaptateurs (lecture seule)
+      - ~/.cache/huggingface:/root/.cache/huggingface  # modèle de base déjà téléchargé
