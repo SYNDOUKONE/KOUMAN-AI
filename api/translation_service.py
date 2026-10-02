@@ -62,11 +62,24 @@ class TranslationService:
     def load_model(self):
         if self.is_loaded:
             return
-        
+
         print(f"Chargement du modèle NLLB-1.3B + LoRA sur {self.device}...", flush=True)
         self.tokenizer = AutoTokenizer.from_pretrained(self.base_model_name, src_lang="fra_Latn")
         base_model = AutoModelForSeq2SeqLM.from_pretrained(self.base_model_name).to(self.device)
-        self.model = PeftModel.from_pretrained(base_model, self.model_path).to(self.device)
+
+        # Tentative de chargement : Local d'abord, puis Hugging Face
+        try:
+            if os.path.exists(self.model_path):
+                print(f"Chargement depuis le dossier local : {self.model_path}", flush=True)
+                self.model = PeftModel.from_pretrained(base_model, self.model_path).to(self.device)
+            else:
+                hf_model_id = "syndou/nllb-lora-dioula"
+                print(f"Dossier local non trouvé. Chargement depuis Hugging Face : {hf_model_id}...", flush=True)
+                self.model = PeftModel.from_pretrained(base_model, hf_model_id).to(self.device)
+        except Exception as e:
+            print(f"Erreur lors du chargement du modèle : {e}")
+            raise e
+
         self.model.eval()
         self.is_loaded = True
         print("Modèle NLLB LoRA chargé avec succès !", flush=True)
