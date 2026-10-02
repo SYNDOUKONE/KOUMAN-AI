@@ -1,0 +1,15 @@
+{
+  "_attention": "Les textes dyu et bam sont des PLACEHOLDERS. À FAIRE TRADUIRE ET VALIDER PAR UN LOCUTEUR NATIF avant toute démo. Ne pas inventer.",
+  "messages": {
+    "generic": {
+      "fr": "Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?",
+      "dyu": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?",
+      "bam": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?"
+    },
+    "not_understood": {
+      "fr": "Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?",
+      "dyu": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?",
+      "bam": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?"
+    }
+  }
+}

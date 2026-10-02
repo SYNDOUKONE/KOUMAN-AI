@@ -1,0 +1,13 @@
+{
+  "version": "2026-09-30",
+  "_note": "Corrections de sortie du traducteur. Chaque règle doit avoir une justification et être validée par le pôle NLP. Désactiver avec enabled=false.",
+  "rules": [
+    {
+      "pair": "fr-dyu",
+      "pattern": "^Bonya\\b",
+      "replacement": "Aw ni sɔgɔma",
+      "reason": "Repris du prototype api/translation_service.py : « Bonya » (respect) produit à la place d'une salutation. À confirmer par un locuteur ; ne corrige que le matin.",
+      "enabled": false
+    }
+  ]
+}
