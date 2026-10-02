@@ -1,5 +1,6 @@
 import os
 import torch
+import json
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from peft import PeftModel
 
@@ -8,13 +9,55 @@ class TranslationService:
         if model_path is None:
             root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             model_path = os.path.join(root_dir, "models", "nllb_lora_dioula", "final")
-        
+
         self.model_path = model_path
         self.base_model_name = "facebook/nllb-200-1.3B"
         self.device = "mps" if torch.backends.mps.is_available() else ("cuda" if torch.cuda.is_available() else "cpu")
         self.tokenizer = None
         self.model = None
         self.is_loaded = False
+
+        # --- Initialisation RAG ---
+        self.glossary = {}
+        self.load_glossary_data()
+
+    def load_glossary_data(self):
+        """Charge le glossaire pour le système RAG."""
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        glossaire_path = os.path.join(root_dir, "data", "glossaire_dioula.json")
+        idioms_path = os.path.join(root_dir, "data", "custom_idioms.json")
+
+        try:
+            with open(glossaire_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                for item in data:
+                    # On indexe dans les deux sens pour le RAG bidirectionnel
+                    self.glossary[item["francais"].lower()] = item["dioula"]
+                    self.glossary[item["dioula"].lower()] = item["francais"]
+
+            if os.path.exists(idioms_path):
+                with open(idioms_path, "r", encoding="utf-8") as f:
+                    idioms = json.load(f)
+                    for item in idioms:
+                        self.glossary[item["francais"].lower()] = item["dioula"]
+                        self.glossary[item["dioula"].lower()] = item["francais"]
+            print(f"RAG: Glossaire chargé avec {len(self.glossary)} entrées.", flush=True)
+        except Exception as e:
+            print(f"Erreur chargement glossaire RAG: {e}")
+
+    def _get_rag_hints(self, text: str) -> str:
+        """Recherche des mots-clés dans le glossaire pour guider le modèle."""
+        words = text.lower().split()
+        hints = []
+        for word in words:
+            # Nettoyage simple de la ponctuation
+            clean_word = word.strip(",.!?")
+            if clean_word in self.glossary:
+                val = self.glossary[clean_word]
+                hints.append(f"{clean_word} = {val}")
+
+        return " Note: " + ", ".join(hints) if hints else ""
+
 
     def load_model(self):
         if self.is_loaded:
@@ -30,11 +73,11 @@ class TranslationService:
 
     def _post_process(self, text_src: str, text_tgt: str, src_lang: str, tgt_lang: str) -> str:
         """
-        Système de règles de post-traitement et glossaire d'expressions figées (Niveau 1).
-        Corrige les hallucinations connues et les erreurs idiomatiques courantes de NLLB.
+        Système de règles de post-traitement et glossaire d'expressions figées (Niveau 2).
+        Combine les règles fixes et les corrections d'hallucinations.
         """
         src_clean = text_src.strip().lower().rstrip(".!?,;")
-        
+
         # 1. Expressions figées Dioula -> Français
         if src_lang == "dyu_Latn" and tgt_lang == "fra_Latn":
             DYU_2_FRA = {
@@ -65,6 +108,10 @@ class TranslationService:
             }
             if src_clean in DYU_2_FRA:
                 return DYU_2_FRA[src_clean]
+
+            # Correction spécifique : Sugu -> Marché
+            if "Sugu" in text_tgt and "Où est" in text_tgt:
+                text_tgt = text_tgt.replace("Sugu", "le marché")
 
         # 2. Expressions figées Français -> Dioula
         elif src_lang == "fra_Latn" and tgt_lang == "dyu_Latn":
@@ -99,11 +146,15 @@ class TranslationService:
         if not self.is_loaded:
             self.load_model()
 
+        # --- ÉTAPE 1 : RAG (Indices du glossaire) ---
+        hints = self._get_rag_hints(text)
+        full_text = f"{text} {hints}".strip()
+
         self.tokenizer.src_lang = src_lang
-        inputs = self.tokenizer(text, return_tensors="pt").to(self.device)
-        
+        inputs = self.tokenizer(full_text, return_tensors="pt").to(self.device)
+
         forced_bos_token_id = self.tokenizer.lang_code_to_id.get(tgt_lang, self.tokenizer.lang_code_to_id["dyu_Latn"])
-        
+
         with torch.no_grad():
             outputs = self.model.generate(
                 **inputs,
@@ -111,11 +162,12 @@ class TranslationService:
                 max_length=max_length,
                 num_beams=num_beams,
             )
-        
+
         translated_text = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-        
-        # Post-traitement glossaire
+
+        # --- ÉTAPE 2 : POST-PROCESSING ---
         translated_text = self._post_process(text, translated_text, src_lang, tgt_lang)
-            
+
         return translated_text
+
 

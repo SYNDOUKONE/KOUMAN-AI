@@ -10,6 +10,15 @@ Kouman AI intègre :
 
 ---
 
+## 🛠️ Innovations Techniques (V2)
+
+Pour garantir une qualité professionnelle et éviter les hallucinations, le système utilise une approche hybride :
+- **RAG (Retrieval Augmented Generation)** : Recherche en temps réel dans le glossaire JSON pour injecter des indices de traduction exacts au modèle avant la génération.
+- **Post-Processing Intelligent** : Couche de correction finale pour rectifier les erreurs systématiques et les expressions idiomatiques (ex: gestion du mot "Sugu" / marché).
+- **Entraînement Bidirectionnel** : Capacité native de traduire dans les deux sens (FR $\leftrightarrow$ DYU) avec une précision accrue sur les expressions courantes.
+
+---
+
 ## 📁 Structure du Projet
 
 ```text
@@ -19,7 +28,7 @@ kouman_AI/
 │
 ├── 📂 api/                                         # Serveur Backend FastAPI Multimodal
 │   ├── 📄 app.py                                   # Endpoints API (/translate, /research, /smart, /tts, /stt)
-│   ├── 📄 translation_service.py                   # Service NLLB LoRA (FR ↔ DYU)
+│   ├── 📄 translation_service.py                   # Service NLLB LoRA hybride (RAG + Post-Processing)
 │   ├── 📄 audio_service.py                         # Service Audio (STT Whisper & TTS MMS-TTS)
 │   └── 📄 research_service.py                      # Service de recherche contextuelle Gemini
 │
@@ -30,12 +39,13 @@ kouman_AI/
 │
 ├── 📂 data/                                        # Données lexicales & dictionnaires
 │   ├── 📄 petit_dictionnaire.pdf                   # Dictionnaire historique Français-Dioula
-│   └── 📄 glossaire_dioula.json                    # Glossaire extrait (3 267 termes & locutions)
+│   └── 📄 glossaire_dioula.json                    # Glossaire extrait (5 560 termes & locutions)
 │
 ├── 📂 models/                                      # Modèle fine-tuné & adaptateurs LoRA
 │   └── 📂 nllb_lora_dioula/
 │       ├── 📂 checkpoint-1006/                     # Checkpoint Époque 1 (BLEU: 45.84)
-│       ├── 📂 checkpoint-2012/                     # Checkpoint Époque 2 (BLEU: 46.54)
+│       ├── 📂 checkpoint-2012/                     # Checkpoint Époque 2 (BLEH: 46.54)
+│       ├── 📂 checkpoint-3018/                     # Checkpoint Époque 3
 │       └── 📂 final/                               # Modèle Final Entraîné (BLEU: 46.88, chrF: 61.73)
 │           ├── adapter_model.safetensors           # Poids légers LoRA (~19 Mo)
 │           ├── adapter_config.json
@@ -81,7 +91,7 @@ uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### Endpoints disponibles :
-* `POST /api/v1/translate` : Traduction brute Français ↔ Dioula via **NLLB-1.3B LoRA**.
+* `POST /api/v1/translate` : Traduction hybride FR ↔ DYU via **NLLB-1.3B LoRA + RAG + Post-Processing**.
 * `POST /api/v1/tts` : Synthèse vocale Dioula (FR -> NLLB -> MMS-TTS audio `.wav`).
 * `POST /api/v1/stt` : Reconnaissance vocale Dioula (Audio `.wav` -> Whisper Tiny -> Texte Dioula & FR).
 * `POST /api/v1/research` : Recherche linguistique, lexicale et explications culturelles via **Gemini API**.
