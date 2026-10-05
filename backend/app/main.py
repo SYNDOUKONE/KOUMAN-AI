@@ -25,7 +25,7 @@ from app.services.safety import Fallbacks
 from app.services.sessions import SessionStore
 from app.services.translator import build_translator
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 _REQUEST_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")
 
 

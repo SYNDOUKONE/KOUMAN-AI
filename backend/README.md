@@ -1,4 +1,4 @@
-# KOUMA AI — API (v0.1)
+# KOUMA AI — API (v0.2)
 
 Chatbot et traduction français ↔ dioula. Pipeline :
 
@@ -123,7 +123,7 @@ config/
   postprocess_rules.json  corrections de sortie, versionnées et désactivables
 ```
 
-## 5. Limites connues (v0.1)
+## 5. Limites connues (v0.2)
 
 - Sessions et limitation de débit **en mémoire** : perdues au redémarrage, un seul processus (`--workers 1`).
 - Les messages de repli dioula sont des **placeholders** : à faire traduire avant toute démo.
@@ -133,3 +133,10 @@ config/
 - Aucun score de qualité (BLEU/chrF par sens) n'est publié pour l'adaptateur v2 ; les traductions doivent être validées par un locuteur natif.
 - Pas d'audio (V2). Pas de bambara activé tant qu'il n'est pas évalué (`KOUMA_ENABLED_LANGUAGES=dyu,bam` pour l'activer).
 - Licence : les poids NLLB-200 sont sous CC-BY-NC 4.0 (usage non commercial).
+
+## 6. Historique des versions
+
+| Version | Date | Changements |
+|---|---|---|
+| 0.2.0 | 05/10/2026 | Adaptateur NLLB v2 (`syndou/nllb-lora-dioula`, révision 160d1a9) testé sur GPU. Réponse du LLM nettoyée avant traduction. Panne du LLM : erreur 503 `llm_indisponible` au lieu de 500. |
+| 0.1.0 | 01/10/2026 | Première API : `/health`, `/languages`, `/translate`, `/chat`, clés d'API, limitation de débit, stubs, Gemini. |
