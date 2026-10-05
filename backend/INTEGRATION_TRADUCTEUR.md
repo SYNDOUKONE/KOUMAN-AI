@@ -32,3 +32,13 @@ Codes de langue : l'API parle en `fr` / `dyu` / `bam` et les convertit en `fra_L
 ## Règles de post-traitement
 
 Les corrections de sortie (ex. remplacer un mot mal traduit) ne vont **pas** dans le code : elles vont dans `config/postprocess_rules.json`, avec le sens (`fr-dyu`), l'expression régulière, le remplacement, la **raison** et un drapeau `enabled`. Chaque règle doit être validée par un locuteur.
+
+## Version en service (au 05/10/2026)
+
+| Élément | Valeur |
+|---|---|
+| Adaptateur | `syndou/nllb-lora-dioula`, révision `160d1a916d77677c9957d51a91ee120c450a9468` (02/10/2026) |
+| Base | `facebook/nllb-200-1.3B` |
+| Cibles LoRA | `q_proj`, `k_proj`, `v_proj`, `out_proj` (r=16, alpha=32) |
+| Empreinte `/health` | `5c3e584130c8` (sens `fr-dyu` et `dyu-fr`) |
+| Scores | non fournis : à demander au pôle NLP (métrique, sens, jeu de test) |

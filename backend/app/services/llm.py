@@ -7,6 +7,10 @@ from abc import ABC, abstractmethod
 from app.core.config import Settings
 
 
+class LLMUnavailable(Exception):
+    """Le LLM n'a pas pu répondre (panne, quota, réseau...). Traduite en HTTP 503 par l'API."""
+
+
 class LLMClient(ABC):
     name: str = "abstract"
 

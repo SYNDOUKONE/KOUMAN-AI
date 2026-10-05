@@ -7,20 +7,48 @@ le serveur ; un sémaphore limite les traductions simultanées (mémoire GPU).
 from __future__ import annotations
 
 import asyncio
+import logging
+import re
 import time
 from dataclasses import dataclass, field
 
 from app.core.languages import PIVOT
 from app.core.timing import elapsed_ms
-from app.services.llm import LLMClient
+from app.services.llm import LLMClient, LLMUnavailable
 from app.services.safety import Fallbacks, check_translation
 from app.services.sessions import SessionStore
 from app.services.translator import Translator
+
+log = logging.getLogger("kouma")
 
 
 def normalize_input(text: str, lang: str) -> str:
     """Point d'entrée de la future convention d'écriture (pour l'instant : espaces)."""
     return " ".join(text.split())
+
+
+_BULLET = re.compile(r"^\s*(?:[-*•]+|\d+[.)])\s+")
+_HEADING = re.compile(r"^\s*#+\s*")
+_END_OF_SENTENCE = ".!?…:;"
+
+
+def clean_llm_reply(text: str) -> str:
+    """Prépare la réponse du LLM pour la traduction : une seule ligne, sans markdown.
+
+    Le traducteur n'a vu que des phrases simples à l'entraînement : un retour à la ligne,
+    une puce ou un « ** » le perturbent. Une ligne qui ne finit pas par une ponctuation
+    reçoit un point, pour que deux lignes ne soient pas collées en une seule phrase.
+    """
+    lines = []
+    for raw in text.replace("\r", "\n").split("\n"):
+        line = _HEADING.sub("", _BULLET.sub("", raw))
+        line = " ".join(line.replace("*", "").replace("`", "").split())
+        if line:
+            lines.append(line)
+    for i in range(len(lines) - 1):
+        if lines[i][-1] not in _END_OF_SENTENCE:
+            lines[i] += "."
+    return " ".join(lines)
 
 
 @dataclass
@@ -74,8 +102,15 @@ class ChatOrchestrator:
         # 2. Réponse du LLM, en français, avec l'historique en français
         t0 = time.perf_counter()
         history = [*session.history_fr, {"role": "user", "content": fr_input}]
-        fr_reply = await asyncio.to_thread(self.llm.reply, history, self.system_prompt)
+        try:
+            raw_reply = await asyncio.to_thread(self.llm.reply, history, self.system_prompt)
+        except Exception as exc:
+            # Panne du LLM (réseau, quota, clé...) : le détail va dans les logs, pas au client.
+            # On sort AVANT d'écrire dans l'historique : l'échange raté n'est pas mémorisé.
+            log.exception("llm_erreur", extra={"fields": {"llm": self.llm.name}})
+            raise LLMUnavailable(f"{self.llm.name} indisponible") from exc
         timings["llm"] = elapsed_ms(t0)
+        fr_reply = clean_llm_reply(raw_reply)
         if not fr_reply:
             return ChatResult(
                 reply=self.fallbacks.get("generic", lang),
