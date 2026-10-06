@@ -177,11 +177,13 @@ def test_fallback_when_translation_is_empty(api):
 def test_unexpected_error_does_not_leak_details(api):
     app, client = api
 
-    class BrokenLLM(StubLLM):
-        def reply(self, history_fr, system_prompt):
+    class BrokenTranslator:
+        name = "casse"
+
+        def translate(self, text, src, tgt):
             raise RuntimeError("secret interne")
 
-    app.state.orchestrator.llm = BrokenLLM()
+    app.state.orchestrator.translator = BrokenTranslator()
     safe = TestClient(app, raise_server_exceptions=False)
     safe.headers.update(client.headers)
     r = safe.post("/api/v1/chat", json={"session_id": "e", "lang": "dyu", "message": "x"})
@@ -211,3 +213,36 @@ def test_timings_keep_decimals(api):
         "/api/v1/chat?debug=true", json={"session_id": "t", "lang": "dyu", "message": "I ni ce"}
     )
     assert all(isinstance(v, float) for v in r.json()["debug"]["timings_ms"].values())
+
+
+# ----------------------------------------------------------------- améliorations du 05/10
+def test_llm_failure_gives_503_and_keeps_history_clean(api):
+    """Panne du LLM : 503 uniforme, aucun détail interne, et l'échange raté n'est pas mémorisé."""
+    app, client = api
+
+    class BrokenLLM(StubLLM):
+        def reply(self, history_fr, system_prompt):
+            raise RuntimeError("secret interne")
+
+    app.state.orchestrator.llm = BrokenLLM()
+    r = client.post("/api/v1/chat", json={"session_id": "p", "lang": "dyu", "message": "I ni ce"})
+    assert r.status_code == 503
+    assert r.json()["error"]["code"] == "llm_indisponible"
+    assert "secret" not in r.text
+    assert app.state.sessions.get("tests:p", "dyu").history_fr == []
+
+
+def test_llm_reply_is_cleaned_before_translation(api):
+    app, client = api
+
+    class MessyLLM(StubLLM):
+        def reply(self, history_fr, system_prompt):
+            return "**Bonjour**\n- premier point\n- deuxième point\n"
+
+    app.state.orchestrator.llm = MessyLLM()
+    r = client.post(
+        "/api/v1/chat?debug=true", json={"session_id": "n", "lang": "dyu", "message": "I ni ce"}
+    )
+    assert r.json()["debug"]["fr_reply"] == "Bonjour. premier point. deuxième point"
+    history = app.state.sessions.get("tests:n", "dyu").history_fr
+    assert "\n" not in history[-1]["content"]

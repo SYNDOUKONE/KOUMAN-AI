@@ -16,3 +16,6 @@ venv/
 data_runtime/
 .pytest_cache/
 .ruff_cache/
+
+# Poids des modèles (téléchargés depuis Hugging Face, jamais dans git)
+models/
