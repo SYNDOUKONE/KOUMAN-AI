@@ -1,21 +1,6 @@
-# 🌍 Kouman AI — Plateforme Multimodale de Traduction & Traitement de la Langue Dioula
+# 🌍 Kouman AI — Traduction Automatique Français ↔ Dioula (NLLB-200)
 
-Projet de traduction automatique neuronale et de traitement de la parole spécialisé pour la langue **Dioula** (*dyu_Latn*) et le **Français** (*fra_Latn*).
-
-Kouman AI intègre :
-1. **NMT (Traduction)** : Modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)** (BLEU 46.88).
-2. **TTS (Synthèse Vocale)** : Modèle **MMS-TTS Jula** de Meta (`facebook/mms-tts-dyu`) basé sur VITS.
-3. **STT (Reconnaissance Vocale)** : Modèle **Whisper Tiny Dioula** (`Dama12/whisper-tiny-dioula`) affiné sur Mozilla Common Voice.
-4. **Recherche & Intelligence** : API **Gemini** pour la recherche linguistique et contextuelle.
-
----
-
-## 🛠️ Innovations Techniques (V2)
-
-Pour garantir une qualité professionnelle et éviter les hallucinations, le système utilise une approche hybride :
-- **RAG (Retrieval Augmented Generation)** : Recherche en temps réel dans le glossaire JSON pour injecter des indices de traduction exacts au modèle avant la génération.
-- **Post-Processing Intelligent** : Couche de correction finale pour rectifier les erreurs systématiques et les expressions idiomatiques (ex: gestion du mot "Sugu" / marché).
-- **Entraînement Bidirectionnel** : Capacité native de traduire dans les deux sens (FR $\leftrightarrow$ DYU) avec une précision accrue sur les expressions courantes.
+Projet de traduction automatique neuronale haute performance spécialisé pour la langue **Dioula** (*dyu_Latn*) à partir du **Français** (*fra_Latn*), basé sur le modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)**, enrichi d'un corpus consolidé et d'un glossaire lexical.
 
 ---
 
@@ -26,12 +11,6 @@ kouman_AI/
 ├── 📄 README.md                                    # Documentation générale du projet
 ├── 📄 requirements.txt                             # Dépendances Python
 │
-├── 📂 api/                                         # Serveur Backend FastAPI Multimodal
-│   ├── 📄 app.py                                   # Endpoints API (/translate, /research, /smart, /tts, /stt)
-│   ├── 📄 translation_service.py                   # Service NLLB LoRA hybride (RAG + Post-Processing)
-│   ├── 📄 audio_service.py                         # Service Audio (STT Whisper & TTS MMS-TTS)
-│   └── 📄 research_service.py                      # Service de recherche contextuelle Gemini
-│
 ├── 📂 docs/                                        # Cahier des charges et gestion de projet
 │   ├── 📄 Kouma_AI_Cahier_des_charges.docx.pdf
 │   ├── 📄 Retroplanning_Projet_Traduction_NLP (1).xlsx
@@ -39,22 +18,19 @@ kouman_AI/
 │
 ├── 📂 data/                                        # Données lexicales & dictionnaires
 │   ├── 📄 petit_dictionnaire.pdf                   # Dictionnaire historique Français-Dioula
-│   └── 📄 glossaire_dioula.json                    # Glossaire extrait (5 560 termes & locutions)
+│   └── 📄 glossaire_dioula.json                    # Glossaire extrait (3 267 termes & locutions)
 │
 ├── 📂 models/                                      # Modèle fine-tuné & adaptateurs LoRA
 │   └── 📂 nllb_lora_dioula/
 │       ├── 📂 checkpoint-1006/                     # Checkpoint Époque 1 (BLEU: 45.84)
-│       ├── 📂 checkpoint-2012/                     # Checkpoint Époque 2 (BLEH: 46.54)
-│       ├── 📂 checkpoint-3018/                     # Checkpoint Époque 3
+│       ├── 📂 checkpoint-2012/                     # Checkpoint Époque 2 (BLEU: 46.54)
 │       └── 📂 final/                               # Modèle Final Entraîné (BLEU: 46.88, chrF: 61.73)
 │           ├── adapter_model.safetensors           # Poids légers LoRA (~19 Mo)
 │           ├── adapter_config.json
 │           └── tokenizer / vocabulaire
 │
-├── 📂 scripts/                                     # Scripts Python de traitement, audio & inférence
+├── 📂 scripts/                                     # Scripts Python de traitement & inférence
 │   ├── 📄 demo_traduction.py                       # Démonstrateur de traduction rapide en direct
-│   ├── 📄 demo_tts.py                              # Démonstrateur Text-To-Speech (NLLB -> MMS-TTS WAV)
-│   ├── 📄 demo_stt.py                              # Démonstrateur Speech-To-Text (Whisper Tiny Audio -> Texte)
 │   ├── 📄 benchmark_nllb.py                        # Benchmark standard sur corpus CSV
 │   ├── 📄 test_and_benchmark.py                    # Benchmark comparatif Base vs Fine-tuné
 │   ├── 📄 finetune_nllb.py                         # Script d'entraînement LoRA (PEFT)
@@ -73,7 +49,7 @@ kouman_AI/
 
 ## 🚀 Installation & Prérequis
 
-Le projet est optimisé pour tourner sous **macOS (Apple Silicon / Metal Performance Shaders - MPS)**, **CUDA** ou **CPU**.
+Le projet est optimisé pour tourner sous **macOS (Apple Silicon / Metal Performance Shaders - MPS)** ou **Linux/CUDA**.
 
 ```bash
 pip install -r requirements.txt
@@ -81,95 +57,68 @@ pip install -r requirements.txt
 
 ---
 
-## 🌐 Serveur Backend API (FastAPI Multimodal)
+## 🛠️ Guide d'Utilisation
 
-Pour lancer le serveur API complet :
-
-```bash
-export GEMINI_API_KEY="votre_cle_api_gemini"  # Optionnel
-uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
-```
-
-### Endpoints disponibles :
-* `POST /api/v1/translate` : Traduction hybride FR ↔ DYU via **NLLB-1.3B LoRA + RAG + Post-Processing**.
-* `POST /api/v1/tts` : Synthèse vocale Dioula (FR -> NLLB -> MMS-TTS audio `.wav`).
-* `POST /api/v1/stt` : Reconnaissance vocale Dioula (Audio `.wav` -> Whisper Tiny -> Texte Dioula & FR).
-* `POST /api/v1/research` : Recherche linguistique, lexicale et explications culturelles via **Gemini API**.
-* `POST /api/v1/smart` : Pipeline combiné — Traduction NLLB + Analyse grammaire & culturelle Gemini.
-
----
-
-## 🛠️ Guide d'Utilisation des Scripts
-
-### 1. Tester la Traduction Texte en Direct
+### 1. Tester une traduction en direct (Modèle Fine-Tuné)
+Pour traduire des phrases françaises en Dioula avec le modèle entraîné :
 ```bash
 python3 scripts/demo_traduction.py
 ```
 
-### 2. Tester la Synthèse Vocale (TTS) : Texte FR -> Dioula Audio (.wav)
-```bash
-python3 scripts/demo_tts.py "Bonjour, comment allez-vous aujourd'hui ?"
-```
-*Génère le fichier `sortie_dioula.wav`.*
-
-### 3. Tester la Reconnaissance Vocale (STT) : Audio Dioula -> Texte
-```bash
-python3 scripts/demo_stt.py chemin/vers/fichier_audio.wav
-```
-
-### 4. Lancer un Benchmark NLLB sur un Fichier CSV
+### 2. Lancer un Benchmark sur un fichier CSV
+Pour évaluer la précision sur un jeu de test avec calcul des scores **BLEU** et **chrF** :
 ```bash
 python3 scripts/benchmark_nllb.py --samples 20
 ```
 
-### 5. Extraire / Mettre à jour le Glossaire depuis le PDF
+### 3. Extraire / Mettre à jour le Glossaire depuis le PDF
+Pour extraire de nouveaux termes d'un dictionnaire PDF vers le format JSON :
 ```bash
 python3 scripts/extract_dictionary.py
 ```
 
-### 6. Relancer le Fine-Tuning LoRA
+### 4. Relancer le Fine-Tuning LoRA
+Pour ré-entraîner les adaptateurs LoRA sur le corpus et le glossaire mis à jour :
 ```bash
 python3 scripts/finetune_nllb.py
 ```
 
 ---
 
-## 🧠 Modèles Utilisés
+## 🧠 Architecture du Modèle & Méthode
 
-* **NMT (Traduction)** : `facebook/nllb-200-1.3B` + LoRA (PEFT, 4.7M paramètres entraînés).
-* **TTS (Synthèse vocale)** : `facebook/mms-tts-dyu` (Meta VITS).
-* **STT (Reconnaissance vocale)** : `Dama12/whisper-tiny-dioula` (Whisper Tiny sur Mozilla Common Voice).
-* **Intelligence / Recherche** : `gemini-2.5-flash`.
-
----
-
-## 📊 Résultats du Benchmark & Évaluation Qualité
-
-### 1. Synthèse des Résultats (V1 vs V2)
-
-| Version | Modèle & Pipeline | Dataset d'Évaluation | Direction | Score BLEU | Score chrF++ | Loss Val |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| **Baseline** | NLLB-200-1.3B (Zero-Shot) | Split Validation | Global (Bidirectionnel) | 18.50 | 34.20 | — |
-| **v1** | NLLB-1.3B + LoRA (Époque 1) | Split Validation v1 | Global (Bidirectionnel) | 45.84 | 61.16 | 0.972 |
-| **v1** | NLLB-1.3B + LoRA (Époque 2) | Split Validation v1 | Global (Bidirectionnel) | 46.54 | 61.57 | 0.951 |
-| **v1 (Final)**| NLLB-1.3B + LoRA + Glossaire | Split Validation v1 | Global (Bidirectionnel) | **46.88** | **61.73** | **0.945** |
-| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Val V2 (`processed_v2_val.json`) | **FR ➔ DYU** | **46.20** | **61.45** | **0.938** |
-| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Val V2 (`processed_v2_val.json`) | **DYU ➔ FR** | **47.10** | **62.05** | **0.931** |
-| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Test Sacré (`test_sacre.csv`) | **FR ➔ DYU** | **44.80** | **59.90** | — |
-| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Test Sacré (`test_sacre.csv`) | **DYU ➔ FR** | **45.60** | **60.30** | — |
+* **Modèle de base** : `facebook/nllb-200-1.3B` (1,3 milliard de paramètres).
+* **Fine-Tuning PEFT / LoRA** :
+  * **Rang ($r$)** : 16, **Alpha** : 32, **Dropout** : 0.1.
+  * **Modules ciblés** : Matrices de projection d'attention (`q_proj`, `v_proj`).
+  * **Paramètres entraînés** : ~4,7 Millions (seulement **0.34%** du modèle total), garantissant une sauvegarde ultra-légère (~19 Mo) et une exécution rapide sans saturation mémoire.
+* **Jeu de données combiné** :
+  * Corpus de phrases consolidé : **13 674 paires**
+  * Glossaire lexical extrait du dictionnaire : **3 267 paires**
+  * **Total** : **16 941 paires bilingues**.
 
 ---
 
-### 2. Précisions Techniques & Méthodologiques
+## 📊 Résultats du Benchmark
 
-* **Origine de la Baseline Zero-Shot (18.5 BLEU) :**  
-  Mesurée avec le modèle natif non fine-tuné `facebook/nllb-200-1.3B`. Bien que Meta prenne en charge le code langue `dyu_Latn`, le manque de données initiales entraîne un score faible (~18.5 BLEU) avec de fréquentes hallucinations. Le fine-tuning LoRA multiplie par **> 2.5x** les performances.
+| Modèle | Score BLEU | Score chrF | Loss de validation |
+| :--- | :---: | :---: | :---: |
+| **NLLB-200-1.3B (Zero-Shot)** | ~18.5 | ~34.2 | — |
+| **NLLB-200-1.3B + LoRA (Époque 1)** | 45.84 | 61.16 | 0.972 |
+| **NLLB-200-1.3B + LoRA (Époque 2)** | 46.54 | 61.57 | 0.951 |
+| **NLLB-200-1.3B + LoRA + Glossaire (Final)** | **46.88** | **61.73** | **0.945** |
 
-* **Procédure Anti-Fuite & Étanchéité (Anti-Data Leakage) :**  
-  Le script [`check_test_leakage.py`](file:///Users/oda_51/Downloads/kouman_AI/scripts/check_test_leakage.py) analyse l'étanchéité entre le jeu de test et le train. Le script de préparation V2 [`prepare_dataset_v2.py`](file:///Users/oda_51/Downloads/kouman_AI/scripts/prepare_dataset_v2.py) extrait les empreintes orthographiques du Test Sacré (`load_test_keys`) et **exclut à 100%** ces 50 phrases du corpus d'entraînement et de validation, garantissant l'absence totale de fuite pour l'évaluation v2.
+---
 
-* **Architecture Pipeline Hybride (« + Glossaire (Final) ») :**  
-  Implémenté dans [`api/translation_service.py`](file:///Users/oda_51/Downloads/kouman_AI/api/translation_service.py), ce pipeline à 2 niveaux est **activé par défaut dans l'API** :
-  1. **RAG / Prompt Hints (`_get_rag_hints`) :** Injection préalable des traductions du glossaire directement dans le contexte d'entrée du modèle.
-  2. **Post-Processing (`_post_process`) :** Correction finale des expressions figées et filtrage des hallucinations résiduelles.
+## 📝 Exemples de Traductions Obtenues
 
+| Français (Source) | Dioula (Traduction du Modèle) | Note Linguistique |
+| :--- | :--- | :--- |
+| *Merci beaucoup pour ton aide.* | `I ka dɛmɛ kosɔn, ne bɛ barika da i ye kosɛbɛ.` | *barika da* (remercier), *kosɛbɛ* (beaucoup) |
+| *Où vas-tu aujourd'hui ?* | `I bɛ taga min bi?` | Structure interrogative exacte |
+| *Je vais au marché pour acheter de la nourriture.* | `Ne bɛ taga lɔgɔfiyɛ la ka dumuni san.` | *lɔgɔfiyɛ* (marché), *dumuni* (nourriture) |
+| *Donne-moi un peu d'eau s'il te plaît.* | `Aw ye ji dɔɔnin di ne ma, ne bɛ aw deli.` | *ji dɔɔnin* (un peu d'eau), *deli* (prière) |
+| *L'enfant dort dans la chambre.* | `Den bɛ sinɔgɔ la bon kɔnɔ.` | *sinɔgɔ* (dormir), *bon kɔnɔ* (en chambre) |
+| *Le travail est difficile mais important.* | `Baara ka gɛlɛn nka a nafa ka bon.` | *baara* (travail), *nafa* (utilité/valeur) |
+| *amitié* (Glossaire) | `teriya` | Traduction lexicale exacte |
+| *amour* (Glossaire) | `kanu` | Traduction lexicale exacte |

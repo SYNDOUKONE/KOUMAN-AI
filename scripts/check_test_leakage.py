@@ -98,7 +98,11 @@ def check_leakage(test_file: str, train_csv_files: List[str], glossaire_files: L
             if isinstance(data, dict):
                 pairs = list(data.items())
             elif isinstance(data, list):
-                pairs = [(item.get("francais", ""), item.get("dioula", "")) for item in data if isinstance(item, dict)]
+                for item in data:
+                    if isinstance(item, dict):
+                        fr = item.get("francais") or item.get("src_text" if item.get("src_lang") == "fra_Latn" else "tgt_text") or ""
+                        dyu = item.get("dioula") or item.get("tgt_text" if item.get("src_lang") == "fra_Latn" else "src_text") or ""
+                        pairs.append((fr, dyu))
             
             for fr, dyu in pairs:
                 fr_clean = normalize_text(str(fr), "fr")
@@ -168,9 +172,20 @@ def check_leakage(test_file: str, train_csv_files: List[str], glossaire_files: L
 
 if __name__ == "__main__":
     test_path = os.path.join(ROOT_DIR, "data", "test_sacre.csv")
-    csv_sources = [os.path.join(ROOT_DIR, "LIVRABLE", "06_Corpus_Final", "corpus_dioula_consolide.csv")]
-    json_sources = [
-        os.path.join(ROOT_DIR, "data", "glossaire_dioula.json"),
-        os.path.join(ROOT_DIR, "data", "custom_idioms.json")
-    ]
+    
+    # Par défaut, on contrôle le dataset V2 préparé s'il existe
+    v2_train = os.path.join(ROOT_DIR, "data", "processed_v2_train.json")
+    v2_val = os.path.join(ROOT_DIR, "data", "processed_v2_val.json")
+    
+    if os.path.exists(v2_train) and os.path.exists(v2_val):
+        print("ℹ️ Contrôle de l'étanchéité sur le dataset préparé V2 (processed_v2_train.json & processed_v2_val.json)...")
+        csv_sources = []
+        json_sources = [v2_train, v2_val]
+    else:
+        csv_sources = [os.path.join(ROOT_DIR, "LIVRABLE", "06_Corpus_Final", "corpus_dioula_consolide.csv")]
+        json_sources = [
+            os.path.join(ROOT_DIR, "data", "glossaire_dioula.json"),
+            os.path.join(ROOT_DIR, "data", "custom_idioms.json")
+        ]
     check_leakage(test_path, csv_sources, json_sources)
+

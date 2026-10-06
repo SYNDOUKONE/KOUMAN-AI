@@ -67,15 +67,16 @@ class TranslationService:
         self.tokenizer = AutoTokenizer.from_pretrained(self.base_model_name, src_lang="fra_Latn")
         base_model = AutoModelForSeq2SeqLM.from_pretrained(self.base_model_name).to(self.device)
 
-        # Tentative de chargement : Local d'abord, puis Hugging Face
+        # Tentative de chargement : Local d'abord, puis Hugging Face (révision v2: 160d1a9)
         try:
             if os.path.exists(self.model_path):
                 print(f"Chargement depuis le dossier local : {self.model_path}", flush=True)
                 self.model = PeftModel.from_pretrained(base_model, self.model_path).to(self.device)
             else:
                 hf_model_id = "syndou/nllb-lora-dioula"
-                print(f"Dossier local non trouvé. Chargement depuis Hugging Face : {hf_model_id}...", flush=True)
-                self.model = PeftModel.from_pretrained(base_model, hf_model_id).to(self.device)
+                revision = os.getenv("HF_REVISION", "160d1a9")
+                print(f"Dossier local non trouvé. Chargement depuis Hugging Face : {hf_model_id} (révision: {revision})...", flush=True)
+                self.model = PeftModel.from_pretrained(base_model, hf_model_id, revision=revision).to(self.device)
         except Exception as e:
             print(f"Erreur lors du chargement du modèle : {e}")
             raise e

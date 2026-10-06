@@ -152,10 +152,7 @@ def main():
     # Traitement Custom Idioms (Surpondérés x20 dans Train)
     for _ in range(20):
         for item in custom_pairs:
-            fr = normalize_text(item.get("francais", ""), "fr")
-            dyu = normalize_text(item.get("dioula", ""), "dyu")
-            if fr and dyu and normalize_key(fr) not in test_keys:
-                train_pairs.append({"francais": fr, "dioula": dyu})
+            process_item(item.get("francais", ""), item.get("dioula", ""), train_pairs)
 
     print(f"🚫 Phrases du test sacré strictement exclues du corpus d'entraînement : {excluded_count} occurrences écartées.")
 
