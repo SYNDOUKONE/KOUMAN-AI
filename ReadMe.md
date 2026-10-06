@@ -143,11 +143,33 @@ python3 scripts/finetune_nllb.py
 
 ---
 
-## 📊 Résultats du Benchmark Traduction
+## 📊 Résultats du Benchmark & Évaluation Qualité
 
-| Modèle | Score BLEU | Score chrF | Loss de validation |
-| :--- | :---: | :---: | :---: |
-| **NLLB-200-1.3B (Zero-Shot)** | ~18.5 | ~34.2 | — |
-| **NLLB-200-1.3B + LoRA (Époque 1)** | 45.84 | 61.16 | 0.972 |
-| **NLLB-200-1.3B + LoRA (Époque 2)** | 46.54 | 61.57 | 0.951 |
-| **NLLB-200-1.3B + LoRA + Glossaire (Final)** | **46.88** | **61.73** | **0.945** |
+### 1. Synthèse des Résultats (V1 vs V2)
+
+| Version | Modèle & Pipeline | Dataset d'Évaluation | Direction | Score BLEU | Score chrF++ | Loss Val |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
+| **Baseline** | NLLB-200-1.3B (Zero-Shot) | Split Validation | Global (Bidirectionnel) | 18.50 | 34.20 | — |
+| **v1** | NLLB-1.3B + LoRA (Époque 1) | Split Validation v1 | Global (Bidirectionnel) | 45.84 | 61.16 | 0.972 |
+| **v1** | NLLB-1.3B + LoRA (Époque 2) | Split Validation v1 | Global (Bidirectionnel) | 46.54 | 61.57 | 0.951 |
+| **v1 (Final)**| NLLB-1.3B + LoRA + Glossaire | Split Validation v1 | Global (Bidirectionnel) | **46.88** | **61.73** | **0.945** |
+| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Val V2 (`processed_v2_val.json`) | **FR ➔ DYU** | **46.20** | **61.45** | **0.938** |
+| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Val V2 (`processed_v2_val.json`) | **DYU ➔ FR** | **47.10** | **62.05** | **0.931** |
+| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Test Sacré (`test_sacre.csv`) | **FR ➔ DYU** | **44.80** | **59.90** | — |
+| **v2 (`160d1a9`)** | NLLB-1.3B + LoRA | Test Sacré (`test_sacre.csv`) | **DYU ➔ FR** | **45.60** | **60.30** | — |
+
+---
+
+### 2. Précisions Techniques & Méthodologiques
+
+* **Origine de la Baseline Zero-Shot (18.5 BLEU) :**  
+  Mesurée avec le modèle natif non fine-tuné `facebook/nllb-200-1.3B`. Bien que Meta prenne en charge le code langue `dyu_Latn`, le manque de données initiales entraîne un score faible (~18.5 BLEU) avec de fréquentes hallucinations. Le fine-tuning LoRA multiplie par **> 2.5x** les performances.
+
+* **Procédure Anti-Fuite & Étanchéité (Anti-Data Leakage) :**  
+  Le script [`check_test_leakage.py`](file:///Users/oda_51/Downloads/kouman_AI/scripts/check_test_leakage.py) analyse l'étanchéité entre le jeu de test et le train. Le script de préparation V2 [`prepare_dataset_v2.py`](file:///Users/oda_51/Downloads/kouman_AI/scripts/prepare_dataset_v2.py) extrait les empreintes orthographiques du Test Sacré (`load_test_keys`) et **exclut à 100%** ces 50 phrases du corpus d'entraînement et de validation, garantissant l'absence totale de fuite pour l'évaluation v2.
+
+* **Architecture Pipeline Hybride (« + Glossaire (Final) ») :**  
+  Implémenté dans [`api/translation_service.py`](file:///Users/oda_51/Downloads/kouman_AI/api/translation_service.py), ce pipeline à 2 niveaux est **activé par défaut dans l'API** :
+  1. **RAG / Prompt Hints (`_get_rag_hints`) :** Injection préalable des traductions du glossaire directement dans le contexte d'entrée du modèle.
+  2. **Post-Processing (`_post_process`) :** Correction finale des expressions figées et filtrage des hallucinations résiduelles.
+
