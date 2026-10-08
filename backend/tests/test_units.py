@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 
 from app.core.security import ApiKeyStore, RateLimiter, hash_key
+from app.services.orchestrator import clean_llm_reply
 from app.services.safety import check_translation, has_loop
 from app.services.sessions import SessionStore
 from app.services.translator import PostProcessor
@@ -63,3 +64,15 @@ def test_postprocessor_respects_enabled_flag(tmp_path):
     assert PostProcessor(path).apply("A x", "dyu", "fr") == "A x"
     path.write_text(json.dumps({"version": "t", "rules": [{**rule, "enabled": False}]}))
     assert PostProcessor(path).apply("A x", "fr", "dyu") == "A x"
+
+
+def test_clean_llm_reply():
+    assert clean_llm_reply("Bonjour !\nComment allez-vous ?") == "Bonjour ! Comment allez-vous ?"
+    assert clean_llm_reply("Une idée\nUne autre idée.") == "Une idée. Une autre idée."
+    assert clean_llm_reply("## Titre\n**Gras** et `code`") == "Titre. Gras et code"
+    assert (
+        clean_llm_reply("Voici deux conseils :\n1. Buvez de l'eau\n2) Reposez-vous\n")
+        == "Voici deux conseils : Buvez de l'eau. Reposez-vous"
+    )
+    assert clean_llm_reply("  \n \r\n ") == ""
+    assert clean_llm_reply("Déjà propre.") == "Déjà propre."

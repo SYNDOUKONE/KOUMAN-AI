@@ -19,6 +19,7 @@ from app.schemas import (
     TranslateRequest,
     TranslateResponse,
 )
+from app.services.llm import LLMUnavailable
 
 router = APIRouter(prefix="/api/v1")
 public_router = APIRouter()
@@ -142,7 +143,12 @@ async def chat(
     _check_length(state, req.message)
 
     # La session est rattachée au client : deux applis ne partagent jamais un historique.
-    result = await state.orchestrator.chat(f"{client}:{req.session_id}", req.message, req.lang)
+    try:
+        result = await state.orchestrator.chat(f"{client}:{req.session_id}", req.message, req.lang)
+    except LLMUnavailable as exc:
+        raise ApiError(
+            503, "llm_indisponible", "Le service de conversation est indisponible, réessayez."
+        ) from exc
     log_event(
         "chat",
         request_id=request.state.request_id,

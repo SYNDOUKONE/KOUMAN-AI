@@ -1,0 +1,2 @@
+model,eval_ok,eval_errors,truncated_count,compliant_count,compliance_rate,latency_median_s,latency_runs_ok,latency_errors
+openrouter:nvidia/nemotron-3.5-lightning:free,5,5,5,0,0.0,6.912,5,0

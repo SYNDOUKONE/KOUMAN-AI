@@ -5,6 +5,10 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from app.core.config import Settings
+from openai import OpenAI
+
+class LLMUnavailable(Exception):
+    """Le LLM n'a pas pu répondre (panne, quota, réseau...). Traduite en HTTP 503 par l'API."""
 
 
 class LLMClient(ABC):
@@ -57,9 +61,72 @@ class GeminiLLM(LLMClient):
         return (response.text or "").strip()
 
 
+class OpenRouterLLM(LLMClient):
+    name = "openrouter"
+
+    def __init__(self, settings: Settings) -> None:
+        if not settings.openrouter_api_key:
+            raise RuntimeError(
+                "OPENROUTER_API_KEY absente : "
+                "impossible d'utiliser KOUMA_LLM=openrouter."
+            )
+
+        self.client = OpenAI(
+            api_key=settings.openrouter_api_key,
+            base_url="https://openrouter.ai/api/v1",
+            timeout=60.0,
+            max_retries=0,
+        )
+
+        self.model = settings.openrouter_model
+
+    def reply(
+        self,
+        history_fr: list[dict],
+        system_prompt: str,
+    ) -> str:
+
+        messages = [
+            {
+                "role": "system",
+                "content": system_prompt,
+            }
+        ]
+
+        messages.extend(
+            {
+                "role": turn["role"],
+                "content": turn["content"],
+            }
+            for turn in history_fr
+        )
+
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_completion_tokens=1000,
+            )
+        except Exception as exc:
+            raise LLMUnavailable(
+                f"OpenRouter indisponible : {exc}"
+            ) from exc
+
+        content = response.choices[0].message.content
+
+        if not content:
+            raise LLMUnavailable(
+                "OpenRouter a retourné une réponse vide."
+            )
+
+        return content.strip()
+
+
 def build_llm(settings: Settings) -> LLMClient:
     if settings.llm_backend == "stub":
         return StubLLM()
     if settings.llm_backend == "gemini":
         return GeminiLLM(settings)
+    if settings.llm_backend == "openrouter":
+        return OpenRouterLLM(settings)
     raise ValueError(f"KOUMA_LLM inconnu : {settings.llm_backend!r}")

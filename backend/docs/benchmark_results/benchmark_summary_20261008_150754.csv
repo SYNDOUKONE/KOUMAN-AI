@@ -1,0 +1,2 @@
+model,eval_ok,eval_errors,truncated_count,compliant_count,compliance_rate,latency_median_s,latency_runs_ok,latency_errors
+openrouter:poolside/laguna-s-2.1:free,4,6,0,4,1.0,3.254,1,4

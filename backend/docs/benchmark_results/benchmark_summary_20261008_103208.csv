@@ -1,0 +1,2 @@
+model,eval_ok,eval_errors,truncated_count,compliant_count,compliance_rate,latency_median_s,latency_runs_ok,latency_errors
+openai:gpt-6-sol,0,10,0,0,,,0,0

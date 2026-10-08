@@ -62,6 +62,9 @@ class Settings:
     gemini_model: str = "gemini-2.5-flash"
     system_prompt_path: Path = ROOT_DIR / "config" / "system_prompt_fr.txt"
 
+    openrouter_api_key: str | None = None
+    openrouter_model: str = "anthropic/claude-sonnet-5"
+
     # --- Langues -----------------------------------------------------------
     enabled_languages: list[str] = field(default_factory=lambda: ["dyu"])
 
@@ -91,8 +94,10 @@ class Settings:
             max_new_tokens=_env_int("KOUMA_MAX_NEW_TOKENS", 128),
             no_repeat_ngram_size=_env_int("KOUMA_NO_REPEAT_NGRAM_SIZE", 3),
             max_concurrent_translations=_env_int("KOUMA_MAX_CONCURRENT_TRANSLATIONS", 2),
-            gemini_api_key=_env("GEMINI_API_KEY"),
-            gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
+            # gemini_api_key=_env("GEMINI_API_KEY"),
+            # gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
+            openrouter_api_key=_env("OPENROUTER_API_KEY"),
+            openrouter_model=_env("KOUMA_OPENROUTER_MODEL", cls.gemini_model),
             enabled_languages=_env_list("KOUMA_ENABLED_LANGUAGES", ["dyu"]),
             history_max_turns=_env_int("KOUMA_HISTORY_MAX_TURNS", 6),
             session_ttl_seconds=_env_int("KOUMA_SESSION_TTL_SECONDS", 1800),

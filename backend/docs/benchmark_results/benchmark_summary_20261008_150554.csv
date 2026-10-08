@@ -1,0 +1,2 @@
+model,eval_ok,eval_errors,truncated_count,compliant_count,compliance_rate,latency_median_s,latency_runs_ok,latency_errors
+openrouter:liquid/lfm-2.5-2.6b:free,3,7,3,0,0.0,,0,5

@@ -1,0 +1,2 @@
+model,eval_ok,eval_errors,truncated_count,compliant_count,compliance_rate,latency_median_s,latency_runs_ok,latency_errors
+gemini:gemini-3.5-flash-lite,7,3,0,7,1.0,1.127,2,3
