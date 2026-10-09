@@ -42,7 +42,7 @@ def _env_list(name: str, default: list[str]) -> list[str]:
 class Settings:
     # --- Implémentations -------------------------------------------------
     translator_backend: str = "stub"  # "stub" | "nllb"
-    llm_backend: str = "stub"  # "stub" | "gemini"
+    llm_backend: str = "stub"  # "stub" | "gemini" | "openrouter"
 
     # --- Traducteur NLLB + LoRA ------------------------------------------
     nllb_base_model: str = "facebook/nllb-200-1.3B"
@@ -64,6 +64,10 @@ class Settings:
 
     openrouter_api_key: str | None = None
     openrouter_model: str = "anthropic/claude-sonnet-5"
+    # Plafond de tokens de la réponse. Les modèles « à raisonnement » (ex. GPT-5 Mini)
+    # comptent aussi leur réflexion : en dessous de ~1000 ils tronquent (benchmark du 08/10).
+    llm_max_tokens: int = 1000
+    llm_timeout_seconds: float = 60.0
 
     # --- Langues -----------------------------------------------------------
     enabled_languages: list[str] = field(default_factory=lambda: ["dyu"])
@@ -94,10 +98,14 @@ class Settings:
             max_new_tokens=_env_int("KOUMA_MAX_NEW_TOKENS", 128),
             no_repeat_ngram_size=_env_int("KOUMA_NO_REPEAT_NGRAM_SIZE", 3),
             max_concurrent_translations=_env_int("KOUMA_MAX_CONCURRENT_TRANSLATIONS", 2),
-            # gemini_api_key=_env("GEMINI_API_KEY"),
-            # gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
+            gemini_api_key=_env("GEMINI_API_KEY"),
+            gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
             openrouter_api_key=_env("OPENROUTER_API_KEY"),
-            openrouter_model=_env("KOUMA_OPENROUTER_MODEL", cls.gemini_model),
+            openrouter_model=_env("KOUMA_OPENROUTER_MODEL", cls.openrouter_model),
+            llm_max_tokens=_env_int("KOUMA_LLM_MAX_TOKENS", cls.llm_max_tokens),
+            llm_timeout_seconds=float(
+                _env("KOUMA_LLM_TIMEOUT_SECONDS", str(cls.llm_timeout_seconds))
+            ),
             enabled_languages=_env_list("KOUMA_ENABLED_LANGUAGES", ["dyu"]),
             history_max_turns=_env_int("KOUMA_HISTORY_MAX_TURNS", 6),
             session_ttl_seconds=_env_int("KOUMA_SESSION_TTL_SECONDS", 1800),

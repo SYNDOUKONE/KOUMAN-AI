@@ -5,7 +5,9 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from app.core.config import Settings
-from openai import OpenAI
+
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+
 
 class LLMUnavailable(Exception):
     """Le LLM n'a pas pu répondre (panne, quota, réseau...). Traduite en HTTP 503 par l'API."""
@@ -67,18 +69,21 @@ class OpenRouterLLM(LLMClient):
     def __init__(self, settings: Settings) -> None:
         if not settings.openrouter_api_key:
             raise RuntimeError(
-                "OPENROUTER_API_KEY absente : "
-                "impossible d'utiliser KOUMA_LLM=openrouter."
+                "OPENROUTER_API_KEY absente : impossible d'utiliser KOUMA_LLM=openrouter."
             )
+
+        # Import ici, pas en tête de fichier : l'API et les tests doivent démarrer
+        # sans le paquet `openai` tant qu'on n'utilise pas OpenRouter.
+        from openai import OpenAI
 
         self.client = OpenAI(
             api_key=settings.openrouter_api_key,
-            base_url="https://openrouter.ai/api/v1",
-            timeout=60.0,
+            base_url=OPENROUTER_BASE_URL,
+            timeout=settings.llm_timeout_seconds,
             max_retries=0,
         )
-
         self.model = settings.openrouter_model
+        self.max_tokens = settings.llm_max_tokens
 
     def reply(
         self,
@@ -105,19 +110,15 @@ class OpenRouterLLM(LLMClient):
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                max_completion_tokens=1000,
+                max_completion_tokens=self.max_tokens,
             )
         except Exception as exc:
-            raise LLMUnavailable(
-                f"OpenRouter indisponible : {exc}"
-            ) from exc
+            raise LLMUnavailable(f"OpenRouter indisponible : {exc}") from exc
 
         content = response.choices[0].message.content
 
         if not content:
-            raise LLMUnavailable(
-                "OpenRouter a retourné une réponse vide."
-            )
+            raise LLMUnavailable("OpenRouter a retourné une réponse vide.")
 
         return content.strip()
 

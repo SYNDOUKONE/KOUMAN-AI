@@ -52,7 +52,7 @@ Configuration testée : GTX 1650 Ti (4 Go), fp16, `KOUMA_MAX_CONCURRENT_TRANSLAT
 - Le premier démarrage télécharge `facebook/nllb-200-1.3B` (~5 Go). Pendant le chargement, `/health` répond `"status": "chargement"` et les autres routes 503.
 - Test avec le vrai modèle : `pytest -m model` (voir `tests/test_model_integration.py`).
 
-Pour le LLM : `export KOUMA_LLM=gemini GEMINI_API_KEY=...`. La clé ne vient **que** de l'environnement, jamais d'une requête.
+Pour le LLM : `export KOUMA_LLM=openrouter OPENROUTER_API_KEY=...` (modèle par défaut `anthropic/claude-sonnet-5`, changeable avec `KOUMA_OPENROUTER_MODEL`), ou `KOUMA_LLM=gemini GEMINI_API_KEY=...`. La clé ne vient **que** de l'environnement, jamais d'une requête.
 
 ## 3. Utiliser l'API
 
