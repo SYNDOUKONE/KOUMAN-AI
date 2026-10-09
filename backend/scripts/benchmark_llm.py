@@ -43,20 +43,13 @@ DEFAULT_MODELS = [
     "openai:gpt-6-sol",
 ]
 
-EMOJI_RE = re.compile(
-    "["
-    "\U0001F300-\U0001FAFF"
-    "\U00002700-\U000027BF"
-    "\U0001F1E6-\U0001F1FF"
-    "]"
-)
+EMOJI_RE = re.compile("[\U0001f300-\U0001faff\U00002700-\U000027bf\U0001f1e6-\U0001f1ff]")
 
 SENTENCE_RE = re.compile(r"[.!?](?=\s|$)")
 MARKDOWN_RE = re.compile(
     r"(^\s*[-*+]\s+)|(^\s*\d+[.)]\s+)|(```?|[*_#>])",
     re.MULTILINE,
 )
-
 
 
 def load_messages() -> list[dict[str, str]]:
@@ -71,16 +64,12 @@ def load_messages() -> list[dict[str, str]]:
         rows.append({"id": parts[0], "category": parts[1], "message": parts[2]})
 
     if len(rows) != 10:
-        raise ValueError(
-            f"Le fichier doit contenir exactement 10 messages, trouvé: {len(rows)}"
-        )
+        raise ValueError(f"Le fichier doit contenir exactement 10 messages, trouvé: {len(rows)}")
     return rows
-
 
 
 def count_sentences(text: str) -> int:
     return len(SENTENCE_RE.findall(text))
-
 
 
 def is_truncated(text: str, finish_reason: Any) -> bool:
@@ -92,7 +81,6 @@ def is_truncated(text: str, finish_reason: Any) -> bool:
     if not stripped:
         return False
     return not bool(re.search(r'[.!?…]["»”\']*$', stripped))
-
 
 
 def evaluate_form(text: str, finish_reason: Any) -> dict[str, Any]:
@@ -118,7 +106,6 @@ def evaluate_form(text: str, finish_reason: Any) -> dict[str, Any]:
         "truncated": truncated,
         "compliant": compliant,
     }
-
 
 
 def call_gemini(model: str, messages: list[dict[str, str]], system_prompt: str) -> tuple[str, str]:
@@ -163,7 +150,6 @@ def call_gemini(model: str, messages: list[dict[str, str]], system_prompt: str) 
     return (response.text or "").strip(), str(finish_reason)
 
 
-
 def call_openai(model: str, messages: list[dict[str, str]], system_prompt: str) -> tuple[str, str]:
     from openai import OpenAI
 
@@ -193,7 +179,6 @@ def call_openai(model: str, messages: list[dict[str, str]], system_prompt: str) 
     )
 
 
-
 def call_hf(model: str, messages: list[dict[str, str]], system_prompt: str) -> tuple[str, str]:
     from huggingface_hub import InferenceClient
 
@@ -221,6 +206,8 @@ def call_hf(model: str, messages: list[dict[str, str]], system_prompt: str) -> t
         (choice.message.content or "").strip(),
         str(choice.finish_reason or ""),
     )
+
+
 def call_openrouter(
     model: str,
     messages: list[dict[str, str]],
@@ -243,7 +230,6 @@ def call_openrouter(
         model=model,
         temperature=0.3,
         max_tokens=1000,
-        
         messages=[
             {"role": "system", "content": system_prompt},
             *messages,
@@ -273,7 +259,6 @@ def call_model(
     if provider == "openrouter":
         return call_openrouter(model, messages, system_prompt)
     raise ValueError(f"Provider inconnu: {provider!r}")
-
 
 
 def run_benchmark_for_model(
@@ -366,18 +351,11 @@ def run_benchmark_for_model(
         "eval_errors": eval_errors,
         "truncated_count": truncated_count,
         "compliant_count": compliant_count,
-        "compliance_rate": (
-            round(compliant_count / eval_ok, 3) if eval_ok else ""
-        ),
-        "latency_median_s": (
-            round(statistics.median(latency_values), 3)
-            if latency_values
-            else ""
-        ),
+        "compliance_rate": (round(compliant_count / eval_ok, 3) if eval_ok else ""),
+        "latency_median_s": (round(statistics.median(latency_values), 3) if latency_values else ""),
         "latency_runs_ok": len(latency_values),
         "latency_errors": latency_errors,
     }
-
 
 
 def main() -> None:
@@ -386,11 +364,7 @@ def main() -> None:
         "--models",
         nargs="+",
         default=DEFAULT_MODELS,
-        help=(
-            "Ex: gemini:gemini-3.8-flash "
-            "openai:gpt-6-luna "
-            "hf:Qwen/Qwen3-4B-Instruct-2507"
-        ),
+        help=("Ex: gemini:gemini-3.8-flash openai:gpt-6-luna hf:Qwen/Qwen3-4B-Instruct-2507"),
     )
     parser.add_argument("--latency-runs", type=int, default=5)
     args = parser.parse_args()
