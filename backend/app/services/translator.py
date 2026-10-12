@@ -98,14 +98,15 @@ class NllbLoraTranslator(Translator):
         dtype = torch.float16 if self.device == "cuda" else torch.float32
 
         log.info("chargement_nllb", extra={"fields": {"device": self.device}})
-        self.tokenizer = AutoTokenizer.from_pretrained(settings.nllb_base_model)
+        rev = {"revision": settings.nllb_revision} if settings.nllb_revision else {}
+        self.tokenizer = AutoTokenizer.from_pretrained(settings.nllb_base_model, **rev)
         # transformers >= 4.56 attend `dtype`, les versions plus anciennes `torch_dtype`.
         import transformers
 
         major, minor = (int(x) for x in transformers.__version__.split(".")[:2])
         dtype_kw = "dtype" if (major, minor) >= (4, 56) else "torch_dtype"
         base = AutoModelForSeq2SeqLM.from_pretrained(
-            settings.nllb_base_model, use_safetensors=True, **{dtype_kw: dtype}
+            settings.nllb_base_model, use_safetensors=True, **rev, **{dtype_kw: dtype}
         )
 
         # Adaptateurs : un nom par dossier distinct (un dossier partagé = chargé une fois).
@@ -130,6 +131,16 @@ class NllbLoraTranslator(Translator):
             self.adapters[direction] = loaded[path]
 
         self.model = model.to(self.device).eval()
+        if not self.adapters:
+            log.info(
+                "modele_sans_adaptateur",
+                extra={
+                    "fields": {
+                        "model": settings.nllb_base_model,
+                        "revision": settings.nllb_revision or "non figée",
+                    }
+                },
+            )
         self.postprocessor = PostProcessor(settings.postprocess_rules_path)
 
     @staticmethod
@@ -176,17 +187,31 @@ class NllbLoraTranslator(Translator):
         return [self.postprocessor.apply(t.strip(), src, tgt) for t in decoded]
 
     def info(self) -> dict:
-        return {
+        info = {
             "name": self.name,
+            # "model" : un seul modèle chargé (déjà fusionné, ou NLLB de base sans adaptateur).
+            # "adapters" : NLLB de base + au moins un adaptateur LoRA.
+            "mode": "adapters" if self.adapters else "model",
             "base_model": self.settings.nllb_base_model,
+            "revision": self.settings.nllb_revision,
             "device": self.device,
-            "directions": {
-                d: {"adapter": a, "fingerprint": self.fingerprints.get(a)}
-                for d, a in self.adapters.items()
+            # Réglages de génération : indispensables pour comparer deux mesures de latence.
+            "generation": {
+                "num_beams": self.settings.num_beams,
+                "max_new_tokens": self.settings.max_new_tokens,
+                "no_repeat_ngram_size": self.settings.no_repeat_ngram_size,
             },
-            "directions_base_only": [d for d in ("fr-dyu", "dyu-fr") if d not in self.adapters],
             "postprocess_rules_version": self.postprocessor.version,
         }
+        if self.adapters:
+            info["directions"] = {
+                d: {"adapter": a, "fingerprint": self.fingerprints.get(a)}
+                for d, a in self.adapters.items()
+            }
+            info["directions_base_only"] = [
+                d for d in ("fr-dyu", "dyu-fr") if d not in self.adapters
+            ]
+        return info
 
 
 def build_translator(settings: Settings) -> Translator:

@@ -1,4 +1,15 @@
-# Livrer un nouvel adaptateur à l'API (pôle NLP)
+# Livrer un nouveau modèle de traduction à l'API (pôle NLP)
+
+Deux formats sont acceptés, sans toucher au code :
+
+| Format | Configuration |
+|---|---|
+| **Modèle fusionné** sur Hugging Face (ex. `syndou/nllb-200-dioula`) | `KOUMA_NLLB_BASE_MODEL=<id>`, `KOUMA_NLLB_REVISION=<hash du commit>`, `KOUMA_ADAPTER_*` vides |
+| **Adaptateur LoRA** (dossier) | `KOUMA_NLLB_BASE_MODEL=facebook/nllb-200-1.3B` et `KOUMA_ADAPTER_*` (détails ci-dessous) |
+
+Pour un modèle fusionné, livrer avec chaque version : le **hash du commit** Hugging Face, la carte du modèle (données, découpage, scores avec métrique, sens et jeu de test) et les paramètres de génération recommandés. L'API ne change de version que quand `KOUMA_NLLB_REVISION` est modifié : une nouvelle publication sur le dépôt ne casse donc pas une démo en cours.
+
+## Adaptateur LoRA
 
 L'API charge `facebook/nllb-200-1.3B` puis un adaptateur LoRA **par sens de traduction**. Aucune ligne de code à modifier : tout passe par la configuration.
 

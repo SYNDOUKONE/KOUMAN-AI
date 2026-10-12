@@ -45,7 +45,15 @@ class Settings:
     llm_backend: str = "stub"  # "stub" | "gemini" | "openrouter"
 
     # --- Traducteur NLLB + LoRA ------------------------------------------
+    # Modèle chargé par transformers : un identifiant Hugging Face ou un dossier local.
+    # - NLLB de base + adaptateurs LoRA : laisser "facebook/nllb-200-1.3B" et renseigner
+    #   KOUMA_ADAPTER_*.
+    # - Modèle déjà fusionné (ex. syndou/nllb-200-dioula) : mettre son identifiant ici et
+    #   laisser KOUMA_ADAPTER_* vides.
     nllb_base_model: str = "facebook/nllb-200-1.3B"
+    # Version exacte du modèle (hash de commit Hugging Face) : évite qu'une mise à jour
+    # du dépôt change les traductions sans que personne ne s'en aperçoive.
+    nllb_revision: str | None = None
     # Un adaptateur par sens. Vide = modèle de base sans adaptateur pour ce sens.
     # Les deux peuvent pointer vers le même dossier (adaptateur bidirectionnel).
     adapter_fra_dyu: str | None = None
@@ -91,6 +99,7 @@ class Settings:
             translator_backend=_env("KOUMA_TRANSLATOR", "stub"),
             llm_backend=_env("KOUMA_LLM", "stub"),
             nllb_base_model=_env("KOUMA_NLLB_BASE_MODEL", cls.nllb_base_model),
+            nllb_revision=_env("KOUMA_NLLB_REVISION"),
             adapter_fra_dyu=_env("KOUMA_ADAPTER_FRA_DYU"),
             adapter_dyu_fra=_env("KOUMA_ADAPTER_DYU_FRA"),
             device=_env("KOUMA_DEVICE", "auto"),

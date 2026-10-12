@@ -1,4 +1,4 @@
-# KOUMA AI — API (v0.2)
+# KOUMA AI — API (v0.3)
 
 Chatbot et traduction français ↔ dioula. Pipeline :
 
@@ -15,7 +15,7 @@ L'historique est gardé en français et n'est jamais retraduit : chaque tour ne 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest -q                                          # 30 tests, sans GPU ni réseau
+pytest -q                                          # 39 tests, sans GPU ni réseau
 python -m scripts.manage_keys create demo          # note la clé kma_... affichée
 cp .env.example .env                               # puis remplir .env (jamais commité)
 uvicorn app.main:app --env-file .env --reload
@@ -33,21 +33,34 @@ Par défaut tout est factice (« stub ») : les réponses contiennent `[stub dyu
 # RTX série 50 (Blackwell) : PyTorch compilé pour CUDA 12.8 ou plus
 pip install torch --index-url https://download.pytorch.org/whl/cu128
 pip install -r requirements-model.txt
-
-# Adaptateur v2 (02/10/2026), publié sur Hugging Face, bidirectionnel
-python -c "from huggingface_hub import snapshot_download as d; d('syndou/nllb-lora-dioula', revision='160d1a916d77677c9957d51a91ee120c450a9468', local_dir='models/nllb_lora_dioula_v2')"
-
-export KOUMA_TRANSLATOR=nllb
-export KOUMA_ADAPTER_FRA_DYU=models/nllb_lora_dioula_v2
-export KOUMA_ADAPTER_DYU_FRA=models/nllb_lora_dioula_v2   # même dossier : adaptateur bidirectionnel
-uvicorn app.main:app --env-file .env
 ```
 
-L'adaptateur v2 doit afficher l'empreinte `5c3e584130c8` dans `/health`, pour les deux sens. Le dossier `final/` de la branche `dev` est l'ancienne version (29/09, 19 Mo) : ne pas l'utiliser. Le dossier `models/` est ignoré par git.
+**Option A — modèle fusionné de Syndoux (recommandée depuis le 12/10/2026).** Un seul modèle complet, entraîné sur ~48 000 paires fr↔dyu, sans adaptateur. Dans `.env` :
+
+```bash
+KOUMA_TRANSLATOR=nllb
+KOUMA_NLLB_BASE_MODEL=syndou/nllb-200-dioula
+KOUMA_NLLB_REVISION=6763611f09814472f84763d0ade3c6116fd4cb2c   # version du 12/10, figée
+KOUMA_ADAPTER_FRA_DYU=
+KOUMA_ADAPTER_DYU_FRA=
+```
+
+Le premier démarrage télécharge le modèle (~2,6 Go) dans le cache Hugging Face. `/health` doit afficher `"mode": "model"`, le nom du modèle et la révision. On ne change `KOUMA_NLLB_REVISION` qu'après avoir comparé la nouvelle version sur le jeu de test gelé.
+
+**Option B — NLLB de base + adaptateur LoRA (ancienne méthode, adaptateur v2 du 02/10).**
+
+```bash
+python -c "from huggingface_hub import snapshot_download as d; d('syndou/nllb-lora-dioula', revision='160d1a916d77677c9957d51a91ee120c450a9468', local_dir='models/nllb_lora_dioula_v2')"
+KOUMA_NLLB_BASE_MODEL=facebook/nllb-200-1.3B
+KOUMA_ADAPTER_FRA_DYU=models/nllb_lora_dioula_v2
+KOUMA_ADAPTER_DYU_FRA=models/nllb_lora_dioula_v2   # même dossier : adaptateur bidirectionnel
+```
+
+Dans ce cas `/health` affiche `"mode": "adapters"` et l'empreinte `5c3e584130c8` pour les deux sens. Le dossier `models/` est ignoré par git.
 
 Configuration testée : GTX 1650 Ti (4 Go), fp16, `KOUMA_MAX_CONCURRENT_TRANSLATIONS=1`, environ 2 s par traduction courte. Si la mémoire GPU manque : `KOUMA_NUM_BEAMS=2`, puis `KOUMA_DEVICE=cpu`.
 
-- Un adaptateur **par sens**. Un sens sans adaptateur utilise le modèle de base NLLB pur.
+- Option B : un adaptateur **par sens**. Un sens sans adaptateur utilise le modèle chargé sans adaptateur.
 - `GET /health` affiche, pour chaque sens, l'adaptateur et l'**empreinte** de ses poids : on sait toujours quelle version tourne.
 - Le premier démarrage télécharge `facebook/nllb-200-1.3B` (~5 Go). Pendant le chargement, `/health` répond `"status": "chargement"` et les autres routes 503.
 - Test avec le vrai modèle : `pytest -m model` (voir `tests/test_model_integration.py`).
@@ -93,9 +106,26 @@ console.log((await r.json()).reply);
 
 Test rapide d'un serveur lancé : `python -m scripts.smoke_api --key $KEY --dyu "<phrase validée>"`.
 
+### Mesurer qualité et latence : `scripts/run_scenarios.py`
+
+Rejoue une liste de messages sur `/chat?debug=true` et écrit un CSV par passage : textes (`message`, `fr_input`, `fr_reply`, `reply`), temps par étape (`mt_in`, `llm`, `mt_out`), statut, repli, et la configuration lue dans `/health` (modèle, révision, `num_beams`, appareil, LLM).
+
+```bash
+# 1. Remplir docs/scenarios_dyu.csv avec des phrases VALIDÉES par un locuteur (id,lang,message,categorie)
+# 2. Lancer une série par réglage, avec un nom explicite
+python -m scripts.run_scenarios --key $KEY --label gtx1650-beams4 --repeat 3
+# changer KOUMA_NUM_BEAMS=2 dans .env, relancer uvicorn, puis :
+python -m scripts.run_scenarios --key $KEY --label gtx1650-beams2 --repeat 3
+```
+
+- Résultats : `docs/scenarios_results/<date>_<label>.csv`, lisible dans Excel ou LibreOffice. Le script affiche aussi la médiane et le maximum de chaque étape.
+- Par défaut, chaque message ouvre une session neuve : les temps sont comparables d'un passage à l'autre. `--chain` joue tous les messages dans une seule conversation, pour tester l'historique.
+- Un seul réglage changé entre deux passages, et toujours le même fichier d'entrée. Les chiffres de référence se mesurent sur la machine de démo (RTX 5090), pas sur un portable.
+- Les colonnes `reply` sont à faire relire par un locuteur natif : le script mesure, il ne juge pas la qualité du dioula.
+
 | Route | Rôle |
 |---|---|
-| `GET /health` | État, implémentations, empreintes des adaptateurs (public) |
+| `GET /health` | État, modèle de traduction (mode, révision, réglages de génération), LLM et son modèle (public) |
 | `GET /api/v1/languages` | Langues connues et activées |
 | `POST /api/v1/translate` | Traduction seule, fr ↔ langue locale |
 | `POST /api/v1/chat` | Tour de conversation (`?debug=true` si autorisé) |
@@ -112,8 +142,9 @@ app/
   core/languages.py       seul endroit qui connaît les codes NLLB
   core/security.py        clés d'API hachées (SQLite), limitation de débit
   core/errors.py          format d'erreur uniforme
-  services/translator.py  Translator : StubTranslator, NllbLoraTranslator, post-traitement
-  services/llm.py         LLMClient : StubLLM, GeminiLLM
+  services/translator.py  Translator : StubTranslator, NllbLoraTranslator (modèle fusionné
+                          ou base + LoRA), post-traitement
+  services/llm.py         LLMClient : StubLLM, GeminiLLM, OpenRouterLLM
   services/orchestrator.py pipeline MT → LLM → MT, chronométrage, replis
   services/safety.py      sorties vides / identiques / trop longues / en boucle
   services/sessions.py    sessions en mémoire avec durée de vie
@@ -121,16 +152,26 @@ config/
   system_prompt_fr.txt    consigne du LLM (phrases courtes = meilleure traduction)
   fallbacks.json          messages de repli — PLACEHOLDERS à faire traduire par un locuteur
   postprocess_rules.json  corrections de sortie, versionnées et désactivables
+scripts/
+  manage_keys.py          créer / lister / révoquer les clés d'API
+  smoke_api.py            test rapide d'un serveur lancé
+  run_scenarios.py        rejoue des messages et mesure textes + latences (CSV)
+  benchmark_llm.py        comparaison des LLM (pôle LLM, campagne du 08/10)
+docs/
+  scenarios_dyu.csv       messages de test (à remplir avec des phrases validées)
+  scenarios_results/      CSV produits par run_scenarios.py
 ```
 
-## 5. Limites connues (v0.2)
+## 5. Limites connues (v0.3)
 
 - Sessions et limitation de débit **en mémoire** : perdues au redémarrage, un seul processus (`--workers 1`).
 - Les messages de repli dioula sont des **placeholders** : à faire traduire avant toute démo.
 - `normalize_input` ne fait rien encore : il attend la convention d'écriture de l'équipe.
 - La réponse du LLM est nettoyée avant traduction (une seule ligne, sans puces ni markdown) : voir `clean_llm_reply` dans `services/orchestrator.py`.
-- Le modèle Gemini (`KOUMA_GEMINI_MODEL`) reste à confirmer dans AI Studio : `gemini-2.5-flash` n'est plus ouvert aux nouveaux projets. `max_output_tokens=200` peut couper une réponse si le modèle « réfléchit ».
-- Aucun score de qualité (BLEU/chrF par sens) n'est publié pour l'adaptateur v2 ; les traductions doivent être validées par un locuteur natif.
+- Gemini n'est plus que le LLM de secours (OpenRouter est le principal). Son modèle (`KOUMA_GEMINI_MODEL`) reste à confirmer dans AI Studio : `gemini-2.5-flash` n'est plus ouvert aux nouveaux projets. `max_output_tokens=200` peut couper une réponse si le modèle « réfléchit ».
+- Scores du modèle fusionné (carte Hugging Face, 2 447 phrases) : fr→dyu BLEU 42,45 / chrF 60,24 ; dyu→fr BLEU 28,53 / chrF 51,51. Ils sont calculés sur un découpage du corpus fusionné, pas sur le jeu de test gelé : absence de fuite entraînement/test à vérifier avant de les présenter. Les traductions doivent être validées par un locuteur natif.
+- Latence mesurée le 12/10 sur GTX 1650 Ti (4 Go), `num_beams=4` : `/translate` ≈ 2,2 s (médiane), `/chat` 10 à 14 s, dont ≈ 70 % de traduction. À remesurer sur la RTX 5090 avec `run_scenarios.py`.
+- Avertissement `transformers` « Both max_new_tokens and max_length » à chaque traduction : sans effet (c'est `KOUMA_MAX_NEW_TOKENS` qui s'applique), seulement du bruit dans les logs.
 - Pas d'audio (V2). Pas de bambara activé tant qu'il n'est pas évalué (`KOUMA_ENABLED_LANGUAGES=dyu,bam` pour l'activer).
 - Licence : les poids NLLB-200 sont sous CC-BY-NC 4.0 (usage non commercial).
 
@@ -138,5 +179,6 @@ config/
 
 | Version | Date | Changements |
 |---|---|---|
+| 0.3.0 | 12/10/2026 | Modèle fusionné `syndou/nllb-200-dioula` (révision 6763611f) chargé sans adaptateur ; `KOUMA_NLLB_REVISION` fige la version. LLM via OpenRouter (`anthropic/claude-sonnet-5`, PR #3). `/health` expose le mode du traducteur, les réglages de génération et le modèle du LLM. Script `run_scenarios.py` pour mesurer textes et latences. |
 | 0.2.0 | 05/10/2026 | Adaptateur NLLB v2 (`syndou/nllb-lora-dioula`, révision 160d1a9) testé sur GPU. Réponse du LLM nettoyée avant traduction. Panne du LLM : erreur 503 `llm_indisponible` au lieu de 500. |
 | 0.1.0 | 01/10/2026 | Première API : `/health`, `/languages`, `/translate`, `/chat`, clés d'API, limitation de débit, stubs, Gemini. |
