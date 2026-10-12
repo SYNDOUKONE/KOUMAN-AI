@@ -28,6 +28,8 @@ MODEL_NAME     = "facebook/nllb-200-1.3B"
 CSV_PATH       = os.path.join(ROOT_DIR, "LIVRABLE", "06_Corpus_Final", "corpus_dioula_consolide.csv")
 GLOSSAIRE_PATH = os.path.join(ROOT_DIR, "data", "glossaire_dioula.json")
 CUSTOM_IDIOMS  = os.path.join(ROOT_DIR, "data", "custom_idioms.json")
+TRAIN_V2_PATH  = os.path.join(ROOT_DIR, "data", "processed_v2_train.json")
+VAL_V2_PATH    = os.path.join(ROOT_DIR, "data", "processed_v2_val.json")
 OUTPUT_DIR     = os.path.join(ROOT_DIR, "models", "nllb_lora_dioula")
 
 MAX_LENGTH     = 48
@@ -113,6 +115,23 @@ def build_dataset(csv_path, glossaire_path, custom_path, test_split=0.03):
     return split["train"], split["test"]
 
 
+def load_dataset_v2(train_path=TRAIN_V2_PATH, val_path=VAL_V2_PATH, test_split=0.03):
+    print(f"Chargement du dataset V2 préparé & étanche : {train_path}...", flush=True)
+    with open(train_path, "r", encoding="utf-8") as f:
+        train_data = json.load(f)
+    print(f"  → {len(train_data)} exemples d'entraînement V2 chargés.", flush=True)
+
+    if os.path.exists(val_path):
+        with open(val_path, "r", encoding="utf-8") as f:
+            val_data = json.load(f)
+        print(f"  → {len(val_data)} exemples de validation V2 chargés.", flush=True)
+        return Dataset.from_list(train_data), Dataset.from_list(val_data)
+    else:
+        dataset = Dataset.from_list(train_data)
+        split = dataset.train_test_split(test_size=test_split, seed=42)
+        return split["train"], split["test"]
+
+
 def preprocess_batch(batch, tokenizer):
     input_ids = []
     attention_masks = []
@@ -155,7 +174,10 @@ def main():
     print(f"  Device  : {device}", flush=True)
     print(f"{'='*65}\n", flush=True)
 
-    train_dataset, eval_dataset = build_dataset(CSV_PATH, GLOSSAIRE_PATH, CUSTOM_IDIOMS)
+    if os.path.exists(TRAIN_V2_PATH):
+        train_dataset, eval_dataset = load_dataset_v2(TRAIN_V2_PATH, VAL_V2_PATH)
+    else:
+        train_dataset, eval_dataset = build_dataset(CSV_PATH, GLOSSAIRE_PATH, CUSTOM_IDIOMS)
 
     print("Chargement du tokenizer et du modèle...", flush=True)
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
