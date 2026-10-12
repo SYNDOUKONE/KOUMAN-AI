@@ -88,6 +88,7 @@ def health(request: Request):
         body.update(
             translator=state.translator.info(),
             llm=state.llm.name,
+            llm_model=getattr(state.llm, "model", None),
             languages_enabled=state.settings.enabled_languages,
             sessions_actives=len(state.sessions),
         )

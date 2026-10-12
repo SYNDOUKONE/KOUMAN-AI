@@ -1,6 +1,9 @@
 """Tests avec le VRAI modèle. Ignorés par défaut.
 
-    KOUMA_ADAPTER_FRA_DYU=/chemin/final KOUMA_ADAPTER_DYU_FRA=/chemin/final \
+    # Modèle fusionné :
+    KOUMA_NLLB_BASE_MODEL=syndou/nllb-200-dioula KOUMA_NLLB_REVISION=6763611f... pytest -m model
+    # NLLB de base + adaptateur :
+    KOUMA_ADAPTER_FRA_DYU=/chemin/adaptateur KOUMA_ADAPTER_DYU_FRA=/chemin/adaptateur \
     pytest -m model
 """
 
@@ -45,5 +48,5 @@ def test_dyu_to_fr_returns_text(translator):
 def test_info_exposes_fingerprints(translator):
     info = translator.info()
     print(info)
-    for direction in info["directions"].values():
+    for direction in info.get("directions", {}).values():
         assert direction["fingerprint"] not in (None, "introuvable")
