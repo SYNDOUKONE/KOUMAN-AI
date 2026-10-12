@@ -42,10 +42,18 @@ def _env_list(name: str, default: list[str]) -> list[str]:
 class Settings:
     # --- Implémentations -------------------------------------------------
     translator_backend: str = "stub"  # "stub" | "nllb"
-    llm_backend: str = "stub"  # "stub" | "gemini"
+    llm_backend: str = "stub"  # "stub" | "gemini" | "openrouter"
 
     # --- Traducteur NLLB + LoRA ------------------------------------------
+    # Modèle chargé par transformers : un identifiant Hugging Face ou un dossier local.
+    # - NLLB de base + adaptateurs LoRA : laisser "facebook/nllb-200-1.3B" et renseigner
+    #   KOUMA_ADAPTER_*.
+    # - Modèle déjà fusionné (ex. syndou/nllb-200-dioula) : mettre son identifiant ici et
+    #   laisser KOUMA_ADAPTER_* vides.
     nllb_base_model: str = "facebook/nllb-200-1.3B"
+    # Version exacte du modèle (hash de commit Hugging Face) : évite qu'une mise à jour
+    # du dépôt change les traductions sans que personne ne s'en aperçoive.
+    nllb_revision: str | None = None
     # Un adaptateur par sens. Vide = modèle de base sans adaptateur pour ce sens.
     # Les deux peuvent pointer vers le même dossier (adaptateur bidirectionnel).
     adapter_fra_dyu: str | None = None
@@ -61,6 +69,13 @@ class Settings:
     gemini_api_key: str | None = None
     gemini_model: str = "gemini-2.5-flash"
     system_prompt_path: Path = ROOT_DIR / "config" / "system_prompt_fr.txt"
+
+    openrouter_api_key: str | None = None
+    openrouter_model: str = "anthropic/claude-sonnet-5"
+    # Plafond de tokens de la réponse. Les modèles « à raisonnement » (ex. GPT-5 Mini)
+    # comptent aussi leur réflexion : en dessous de ~1000 ils tronquent (benchmark du 08/10).
+    llm_max_tokens: int = 1000
+    llm_timeout_seconds: float = 60.0
 
     # --- Langues -----------------------------------------------------------
     enabled_languages: list[str] = field(default_factory=lambda: ["dyu"])
@@ -84,6 +99,7 @@ class Settings:
             translator_backend=_env("KOUMA_TRANSLATOR", "stub"),
             llm_backend=_env("KOUMA_LLM", "stub"),
             nllb_base_model=_env("KOUMA_NLLB_BASE_MODEL", cls.nllb_base_model),
+            nllb_revision=_env("KOUMA_NLLB_REVISION"),
             adapter_fra_dyu=_env("KOUMA_ADAPTER_FRA_DYU"),
             adapter_dyu_fra=_env("KOUMA_ADAPTER_DYU_FRA"),
             device=_env("KOUMA_DEVICE", "auto"),
@@ -93,6 +109,12 @@ class Settings:
             max_concurrent_translations=_env_int("KOUMA_MAX_CONCURRENT_TRANSLATIONS", 2),
             gemini_api_key=_env("GEMINI_API_KEY"),
             gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
+            openrouter_api_key=_env("OPENROUTER_API_KEY"),
+            openrouter_model=_env("KOUMA_OPENROUTER_MODEL", cls.openrouter_model),
+            llm_max_tokens=_env_int("KOUMA_LLM_MAX_TOKENS", cls.llm_max_tokens),
+            llm_timeout_seconds=float(
+                _env("KOUMA_LLM_TIMEOUT_SECONDS", str(cls.llm_timeout_seconds))
+            ),
             enabled_languages=_env_list("KOUMA_ENABLED_LANGUAGES", ["dyu"]),
             history_max_turns=_env_int("KOUMA_HISTORY_MAX_TURNS", 6),
             session_ttl_seconds=_env_int("KOUMA_SESSION_TTL_SECONDS", 1800),

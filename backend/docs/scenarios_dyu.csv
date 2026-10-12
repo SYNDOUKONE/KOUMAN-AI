@@ -1,0 +1,6 @@
+# Messages rejoués par scripts/run_scenarios.py.
+# À REMPLACER par 10 phrases dioula courtes ÉCRITES OU VALIDÉES PAR UN LOCUTEUR NATIF (via Aicha).
+# Ne jamais inventer de dioula ni en faire générer par un LLM.
+# Garder les mêmes id d'une mesure à l'autre pour pouvoir comparer.
+id,lang,message,categorie
+S01,dyu,I ni ce,salutation
