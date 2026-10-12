@@ -195,6 +195,12 @@ class NllbLoraTranslator(Translator):
             "base_model": self.settings.nllb_base_model,
             "revision": self.settings.nllb_revision,
             "device": self.device,
+            # Réglages de génération : indispensables pour comparer deux mesures de latence.
+            "generation": {
+                "num_beams": self.settings.num_beams,
+                "max_new_tokens": self.settings.max_new_tokens,
+                "no_repeat_ngram_size": self.settings.no_repeat_ngram_size,
+            },
             "postprocess_rules_version": self.postprocessor.version,
         }
         if self.adapters:
