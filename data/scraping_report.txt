@@ -1,0 +1,18 @@
+============================================================
+RAPPORT DE COLLECTE — KOUMAN-AI Dioula Scraper
+============================================================
+Source 1 (Targumi Dioula)   :    196 paires
+Source 2 (Webonary PDF)     :    732 paires
+Source 3 (Glossaire interne):   6348 paires
+Source 4 (Targumi Bambara)  :    196 paires
+------------------------------------------------------------
+Total brut                  :   7472 paires
+Paires nettes après filtres :    912 paires
+Fuites Test Sacré éliminées :     42
+Doublons dataset existant   :   6198
+============================================================
+
+PROCHAINE ÉTAPE :
+  python scripts/prepare_dataset_v2.py --extra data/scraped_dioula_pairs.json
+  (puis relancer le fine-tuning avec le dataset enrichi)
+============================================================

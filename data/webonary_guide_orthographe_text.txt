@@ -1,0 +1,1456 @@
+COMMISSION NATIONALE Burkina Faso
+DES LANGUES BURKINABE Unité Progrès Justice
+SOUS COMMISSION DU DIOULA
+BURKINA FASO
+GUIDE DE TRANSCRIPTION ORTHOGRAPHIQUE
+DU D I O U L A
+(Version définitive)
+Avril 2003
+Réalisé avec le concours financier du Programme Alpha de la Coopération Suisse au Développement
+
+--- PAGE ---
+INTRODUCTION ............................................................................. 5
+I- CONVENTIONS ............................................................................ 6
+ABREVIATIONS........................................................................................................ 7
+II- DE L'ORTHOGRAPHE DU DIOULA .............................................. 7
+2-1 L'alphabet du dioula .......................................................................................... 7
+2-1 Les lettres de l'alphabet .................................................................................... 9
+2.2 Comment épeler les lettres ............................................................................... 10
+Tableau des lettres de l'alphabet du dioula ............................................................ 10
+2-3 Les consonnes et les voyelles .......................................................................... 11
+2-3-1 Les consonnes ........................................................................................... 11
+2-3- 2 Les voyelles.............................................................................................. 11
+2- 4 Les phénomènes d'alternance ........................................................................ 13
+2-4-1 Alternances des voyelles ........................................................................... 13
+2-4-2 Alternance des consonnes ......................................................................... 13
+III - LA SYLLABE .......................................................................... 14
+3 -1 Les différentes sortes de syllabes ................................................................... 14
+3 -2 Les groupes de consonnes .............................................................................. 15
+IV- LES TONS ............................................................................... 16
+4-1 Ecrire ou ne pas écrire les tons ? ..................................................................... 16
+4-2 Le problème posé par la non représentation des tons ..................................... 16
+V- LA FORMATION DES MOTS ...................................................... 17
+5 -1 Quelques précisions terminologiques préalables ............................................ 17
+5 - 2 La dérivation................................................................................................. 17
+5 - 2 -1 Les dérivatifs préfixés ............................................................................ 18
+5 -2 - 2 Les dérivatifs suffixés............................................................................. 18
+5-2-3 Le redoublement ........................................................................................ 19
+5-3 La composition ............................................................................................... 20
+Les types de mots composés ................................................................................... 21
+5 - 4 Les expressions-mots ..................................................................................... 23
+VI- LE NOM .................................................................................. 24
+6-1 Les marques du nom ....................................................................................... 24
+6-1-1 Les marques de l'indéfini et du défini ........................................................ 24
+2
+
+--- PAGE ---
+6- 1- 2 La marque du pluriel .............................................................................. 24
+7- LES MOTS COMPARABLES AU NOM .......................................... 25
+7-1 Les pronoms personnels ................................................................................... 25
+7-2 D'autres sortes de pronoms ............................................................................. 25
+7-2-1 le démonstratif ........................................................................................... 25
+7-2-2 Le totalisateur ............................................................................................ 26
+7-2-3 L'indéfini .................................................................................................... 26
+7-2-4 Les interrogatifs ......................................................................................... 26
+7-2-5 Le pronom possessif indépendant .............................................................. 27
+7-2-6 Foyi  fosi, si .......................................................................................... 27
+7-2-7 Wɛrɛ, yɛrɛ, ɲɔgɔn ................................................................. 28
+7-3 Les mots indiquant le temps, le lieu et la manière.......................................... 28
+7-4 Les chiffres et les nombres ............................................................................... 29
+8- LE VERBE ................................................................................. 29
+8-1 Les marques du verbe ...................................................................................... 29
+8-1- 1 Les marques de l'accompli ........................................................................ 29
+8-1-2 Les marques de l'inaccompli ...................................................................... 30
+8-1-3 l'impératif : ................................................................................................ 30
+8-1- 4 L'optatif..................................................................................................... 31
+8- 1- 5 Le conditionnel : ..................................................................................... 31
+8- 1- 6 L'inactuel ................................................................................................. 31
+8- 2 Les marques de l'adjectif ................................................................................. 31
+IX- LES PREDICATIFS NOMINAUX ................................................. 32
+X - LES ADVERBES ........................................................................ 32
+XI- LES IDEOPHONES.................................................................... 33
+XII- LES MORPHENES RELATEURS ................................................ 34
+11-1 Les prépositions et les postpositions .............................................................. 34
+11-1-1 Les prépositions ....................................................................................... 34
+11-1- 2 Les postpositions .................................................................................... 34
+11- 2 Les noms relationnels .................................................................................. 35
+11- 3 Le relatif et les conjonctions ......................................................................... 36
+11-3-1 Le relatif .................................................................................................. 36
+11-4 - Les conjonctions ....................................................................................... 36
+3
+
+--- PAGE ---
+11- 5 Les coordinatifs ............................................................................................ 37
+11- 6 Le connectif et le distributif .......................................................................... 37
+11- 6 -2 Le distributif .......................................................................................... 37
+XII- LES PARTICULES .................................................................... 38
+12- 1 Les particules ................................................................................................ 38
+12-2 Les particules d'exclamation .......................................................................... 38
+12-3 Particules d'interrogation ............................................................................... 38
+XIII - L'ELISION DES VOYELLES ET L'EMPLOI DE l'APOSTROPHE ... 39
+XIV- QUELQUES POINTS D'ORTHOGRAPHE D'USAGE .................... 39
+14-1 Ecrire collé ou séparé ? .................................................................................. 39
+14-1-1 En un seul mot ......................................................................................... 40
+14-1-2 en séparant les éléments ............................................................................. 40
+14-2 Les emprunts ................................................................................................. 40
+14-3 Les néologismes ............................................................................................. 41
+14-4 Les sigles ........................................................................................................ 41
+14 - 5 la date .......................................................................................................... 42
+14-6 Les mois ......................................................................................................... 42
+14-7 Les jours de la semaine .................................................................................. 42
+14-8 Les points cardinaux ...................................................................................... 43
+XV INSERTION DES CITATIONS .................................................... 43
+XV - QUELQUES ABREVIATIONS ................................................... 43
+XVII - LES SIGNES DE PONCTUATION ........................................... 43
+XVIII - IDENTIFICATION DES DOCUMENTS ................................... 44
+XIX ANNEXE ................................................................................. 45
+4
+
+--- PAGE ---
+INTRODUCTION
+La sous-commission nationale du dioula a organisé du 27 août au 5 septembre 1998 à
+Ouagadougou un séminaire de révision des règles de transcription orthographiques du dioula
+avec l'appui financier du Programme Alpha de la Coopération Suisse au développement.
+Durant dix (10) jours, les séminaristes avec l'appui de professeurs Linguistes de l'Université de
+Ouagadougou ont élaboré des nouvelles règles de transcription orthographiques du dioula. Ces
+nouvelles règles ont été multipliées et diffusées auprès des utilisateurs pour être testées. Les
+différents tests qui ont été effectués, ont révélé un certain nombre de difficultés dans la mise en
+application de ces nouvelles règles.
+Aussi, les responsables de la sous-commission ont jugé nécessaire qu'une relecture soit faite en
+vue d'harmoniser et de finaliser les nouvelles règles. Une fois de plus avec le concours financier
+du Programme Alpha de la Coopération Suisse au Développement, il a été organisé un atelier de
+relecture, qui s'est déroulé du 4 au 6 septembre 2000 au CRPA des Hauts Bassins à Bobo-
+Dioulasso.
+A la suite de cette relecture des tests ont été organisés au niveau de trois zones à savoir Bobo-
+Dioulasso, Banfora-Orodara et Dédougou-Nouna. Ces tests ont été effectués auprès des
+superviseurs, des animateurs de centres d’alphabétisation, des auditeurs de centre
+d'alphabétisation ainsi qu’auprès d’un certain nombre d’utilisateurs du Dioula.
+Le présent document est le résultat de tous ces travaux qui de façon concertée a été retenus par
+les différents acteurs.
+Dans le processus de test et de validation, nous avons rencontré des difficultés organisationnelles
+qui très sensiblement ont retardé la sortie du présent document. En effet, l'attente des résultats du
+test de la zone de Banfora-Orodara ne nous a pas permis de sortir à temps le fruit du travail
+attendu par tous.
+Nous remercions le Programme Alpha de la Coopération Suisse au Développement qui a bien
+voulu nous soutenir financièrement dans cette activité dont le résultat était très attendu par les
+scripteurs.
+Nous leur présentons très sincèrement notre regret pour ce grand retard indépendant de notre
+bonne volonté
+A tous les utilisateurs de ce document, nous leur souhaitons un très bon usage.
+5
+
+--- PAGE ---
+I- CONVENTIONS
+Outre les abréviations habituelles telles que cf., etc., N.B. : les conventions suivantes sont
+employées dans le présent Guide.
++ : “associé à”
+------► : “devient”
+Exemple : n + n “n associé à n”
+Exemple : nsiirin ------►siirin “nsiirin devient siirin”
+“devient”
+Exemple : siran + ya ------►siranya “siran associé à ya devient siranya”
+= : Traduction en français
+Exemple : soo = la maison (soo est traduit par “la maison”)
+( ) : 1) Précisions complémentaires
+Exemples : CV (Consonne + voyelle) CV c'est-à-dire consonne associée
+à voyelle
+Nbaa (réponse masculine à salutation)
+Nsee (réponse féminine à salutation)
+2) Indication du choix à opérer
+Exemple : Ni ka gwɛlɛ ou nin ka gwɛlɛ ? (Nin). Faut-il écrire Ni ka gwɛlɛ ou Nin ka
+gwɛlɛ ? (Ecrire Nin)
+3) Elément à ajouter ou à supprimer en fonction de l'accord
+Exemple il/elle est sorti (e) / il est sorti ou elle est sortie.
+[ ] Prononciation ; transcription phonétique
+Exemple : gwabugu=cuisine [ gbabugu ] ou [ gabugu ]
+/ : ou
+Exemple : il/elle il ou elle
+~ : Autre forme ou autre prononciation d'un mot
+Exemple : yi ~ ye yi ou encore ye.
+6
+
+--- PAGE ---
+2- ABREVIATIONS
+Adj. : adjectif
+C : consonne
+E : énoncé
+N : lexème ou base nominal (e)
+V : voyelle
+v : lexème ou base verbal (e)
+VN : voyelle nasale
+vn : lexème ou base verbo-nominal (e)
+VO : voyelle orale
+3- DE L'ORTHOGRAPHE DU DIOULA
+Il est convenu que dans un texte français on écrira désormais dioula et que la forme jula figurera
+exclusivement dans les textes en dioula.
+3-1 l'alphabet du dioula
+L’alphabet est l'ensemble des lettres retenues pour l'écriture orthographique d'une langue donnée.
+Par rapport à la décision N°367/ENC/CNU du 27 juillet 1973, l'alphabet du dioula subit quelques
+modifications qui sont l'ajout de la lettre «V», l'abandon de la lettre «sh» au profit de la lettre «S»
+et le remplacement de la lettre “ny” par la lettre “ɲ”
+La lettre “V” a été ajoutée compte tenu de son existence en dioula dans certains mots et aussi sa
+fréquence de plus en plus élevée dans les mots d'emprunt, des mots spécialisés et des néologismes.
+Les mots prononcés avec “S” sont plus courants en dioula que ceux prononcés avec [  ]. De ce
+fait la lettre “Sh” représentant le son [  ] est abandonnée au profit de la lettre “S”.
+7
+
+--- PAGE ---
+Exemples :
+Shɔ sɔsɔ = haricot
+Shiyɛ sisɛ = poulet
+Shu suu = nuit
+Shi sii = karité
+L'adoption de la lettre “ɲ” permettra de distinguer dans l'écriture le son [ ɲ ] d'une voyelle nasale
+VN suivi de la consonne “y” et une voyelle orale VO suivie de la consonne “ɲ”.
+Exemples :
+VN suivie de y:
+Siran + ya -------------► siranya = peur
+Bon + ya ----- ---------► bonya = grosseur
+Soon + ya ---------------► sonya = vol
+VN suivi de ɲ :
+Kaan + ɲaa -----------► kanɲa = Voix, syllabe
+Biin + ɲaga --------------► binɲaga = foin
+VO suivi de ɲ
+Boon + ɲaa -------------► bonɲa = anti-chambre
+Kɔnↄ + ɲa ----------► kɔnɔɲa=nombre de grossesse, de geste
+ɲɔɔ + ɲaga -------------► ɲɔɲaga= drêche de mil.
+L'ordre alphabétique est modifié et de ce fait, on trouvera “c” entre “b et d, j” ; entre “i” et “k”.
+Pour sa part, “v” viendra s'insérer entre “u” et “w”.
+Les lettres “gw et kw” bien que ne figurant pas dans l'alphabet sont acceptées dans l'orthographe
+et considérées comme ne représentant chacune qu’une seule consonne.
+On admettra que “gw” peut être prononcé [ gb ] ou [ g ] et que “kw” peut être prononcé [ kp ]
+ou [ k ]
+Exemples :
+Gwabugu = (cuisine) peut être prononcé [gbabugu] ou [gabugu].
+Gwɛrɛ = (approcher) peut être prononcé [gbɛrɛ] ou [gɛrɛ].
+Gwata = (hangar) peut être prononcé [gbata] ou [gata].
+Kwɛrɛ = (métier à tisser) peut être prononcé [kpɛrɛ] ou [kɛlɛ] ou encore [kwɛlɛ]
+Il existe en bambara un type assez fréquent de consonnes appelées consonnes prénasalisées. Elles
+sont habituellement représentées par la lettre “n” suivi d'une consonne.
+8
+
+--- PAGE ---
+Les prénasalisées sont généralement simplifiées en dioula et les mots qui les contiennent sont
+prononcés avec des consonnes simples comme dans les exemples suivants :
+nsiirin -------------► siirin = conte
+nsira -------------► zira = cuivre
+nsaban -------------► zaban = liane goïne
+nkɔni -------------► gɔni = violon
+nkalon -------------► galon = mensonge
+ntɔmɔnɔ -------------► tɔmɔnɔ = jujube
+Les consonnes simples seront retenues de préférence aux formes prénasalisées comme cela
+apparaît dans les exemples ci-dessus.
+Font exception à cette disposition le “nga” = (mais) et les réponses à une salutation :
+❑ de la part d'un homme : nbaa
+❑ de la part d'une femme : nsee
+3-2 Les lettres de l'alphabet
+L'alphabet dioula comporte 28 lettres représentées ainsi qu'il suit :
+Les minuscules
+a, b, c, d, e, ɛ, f, g, h, i, j, k, l, m, n, ɲ, ŋ, o, ɔ, p, r, s, t, u, v, w, y, z.
+Les majuscules
+A, B, C, D, E, Ɛ, F, G, H, I, J, K, L, M, N, Ɲ, Ŋ, O, Ɔ, P, R, S, T, U, V, W, Y, Z.
+L'utilisation des majuscules est retenue dans certains cas :
+- en début d'énoncé ;
+- après un point ;
+- à l'initiale des noms propres ;
+- dans les sigles ;
+- chaque fois que de besoin
+9
+
+--- PAGE ---
+3-3 Comment épeler les lettres
+Pour épeler les lettres de l'alphabet du dioula, on garde aux voyelles leur valeur phonétique et on
+associe aux consonnes la voyelle neutre [ə].
+Tableau des lettres de l'alphabet du dioula
+Lettre Valeur Epelée Exemple traduction
+phonétique
+a [a] a ale lui
+b [b] bə baba papa
+c [c] cə cɛɛ l'homme
+d [d] də daba la houe
+e [e] e bere le bâton
+ɛ [ɛ] ɛ kɛlɛ la bagarre
+f [f] fə foro Le champ
+g [g] gə galama la louche
+h [h] fə hakili la mémoire
+i [i] i sigi le buffle
+j [j] jə jaba l'oignon
+k [k] kə kala la tige
+l [l] lə lɛɛ le porc
+m [m] mə mɔgɔ l'être humain
+n [n] nə nɔnɔ le lait
+ɲ [ɲ] ɲə ɲɔɔ le mil
+ŋ [ŋ] ŋə ɲuna la fontanelle
+o [o] o bolo le bras
+ɔ [ɔ] ɔ bɔlɔ le piquet
+p [p] pə pan sauter
+r [r] rə yɔrɔ le lieu
+s [s] sə sanu l'or
+t [t] tə tan dix
+u [u] u muru le couteau
+v [v] və van (ka van) s'envoler
+w [w] wə wari l'argent
+y [y] yə yan ici
+z [z] zə zaban la liane goïne
+10
+
+--- PAGE ---
+3- 4 Les consonnes et les voyelles
+Les lettres se répartissent en consonnes et en voyelles.
+3-4-1 Les consonnes
+Les consonnes sont au nombres de 21 :
+b, c, d, f, g, h, j, k, l, m, n, ɲ, ŋ, p, r, s, t, v, w, y, z.
+3-4- 2 Les voyelles
+Les voyelles sont au nombre de 7 a, e, ɛ, i, o, ɔ, u.
+Chacune a une correspondante longue : aa, ee, ɛɛ, ii, oo, ɔɔ, uu ;
+une correspondante nasale brève ; an, en, ɛn, in, on, ɔn, un
+et une correspondante nasale longue : aan, een, ɛɛn, iin, oon, ɔɔn, uun.
+Seules les voyelles orales brèves apparaissent dans l'alphabet.
+3.4.2.1 Les voyelles longues
+Pour représenter une voyelle longue, on la double dans l'écriture.
+La longueur vocalique a une fonction distinctive en dioula : elle sert à marquer une différence de
+sens entre deux mots. De ce fait, un mot contenant une voyelle longue doit s'écrire toujours avec
+sa voyelle longue.
+Exemples :
+baara = travail bara = nombril ; gourde
+seere = témoin sere = kwashiorkor
+fɛɛrɛ = technique fɛrɛ = aisance
+miina = étape du Hadj mina = attraper
+sooro = couler soro = hanche
+kɔɔri = coton kɔri = virgule
+tuuru = s'écarter turu = planter ; huile.
+La longueur vocalique a une fonction expressive. Aussi la voyelle est doublée dans l'écriture.
+11
+
+--- PAGE ---
+Exemples :
+Caaman = très grande quantité (présence de la fonction expressive).
+Fɔɔ = très loin, jusqu'à... (présence de la fonction expressive).
+La longueur vocalique peut être le résultat de la chute de la lettre “g” entre deux voyelles. Dans
+ce cas la consonne “g”sera rétablie à l'écrit.
+Exemples :
+taa -----------------------► taga = aller
+waati -----------------------► wagati = moment
+salibaatɔ -----------------------► salibagatɔ = paresseux
+taamasiɲɛ -----------------------► tagamasiɲɛ = signe
+L'on rencontre dans les écrits dɔɔ ; dɔɔw = (certain ; certains) ; sii = (rien, aucun) avec des
+voyelles redoublées alors que ces mots sont des spécificatifs. On les écrira avec une voyelle
+brève : dɔ, dɔw et si.
+3-4-2-2 Les voyelles nasales
+Pour représenter une voyelle nasale ont écrit la voyelle orale suivie de la lettre “n”.
+Dans l'ordre alphabétique les voyelles nasales sont les suivantes :
+an, en, ɛn, in, on, ɔn, un,
+Comme la longueur, la nasalité des voyelles a une fonction distinctive en dioula. Elle sert à
+marquer une différence de sens entre deux mots. De ce fait, un mot contenant une voyelle nasale
+doit s'écrire toujours avec sa voyelle nasale.
+Exemples :
+sanga = funérailles saga = mouton
+tilen = redresser tile = soleil
+jɛngɛ = écarter, incliner jɛgɛ = poisson
+sinsin = panier sisi = fumée
+kolon = mortier kolo = os
+kɔlɔn = puits kɔlɔ = noix de karité
+sunsun = pomme cannelle susu = piler
+Remarques : en cas d'hésitation sur le caractère orale ou nasale d'une voyelle dans le mot,
+il est recommandé de se référer à un lexique ou à un dictionnaire.
+Exemples :
+a yi jii mi ou a yi jii min ? il/elle a bu l'eau adopter “min”
+12
+
+--- PAGE ---
+ni ka gwɛlɛ ou nin ka gwɛlɛ ? ŋŋça c'est difficile adopter “nin”
+3-5 Les phénomènes d'alternance
+Parfois, il arrive qu'un mot ait deux formes et que l'on se demande alors laquelle choisir. La liste
+de ces mots ne peut être donnée ici de façon exhaustive mais les exemples ci-après peuvent servir
+de guide.
+Prenons les cas d’alternances suivantes :
+3-5-1 Alternances des voyelles
+a) à l'intérieur des mots
+a  i : fani ou fini = habit adopter a ou i
+baraka ou barika = force bénédiction adopter a ou i
+walasa ou walisa = pour que adopter a ou i
+walama ou walima = ou adopter a ou i
+a  e : daali ou deeli = demander, prier adopter a ou e
+a  o : malobali ou molobali = qui n'a pas honte adopter a ou o
+o  i : tobi ou tibi = cuisiner adopter o ou i
+i  ɛ : tigɛ ou tɛgɛ = main adopter i ou ɛ
+nigɛ ou nɛgɛ = fer “
+digɛ ou dɛgɛ = boule d'akassa “
+jigɛ ou jɛgɛ = poisson “
+b) En fin de mots
+aɛ ɲa ou ɲɛ = devant adopter a ou ɛ
+mina ou minɛ = attraper “
+dinga ou dingɛ = fossé “
+ei bange ou bangi = procréer adopter e ou i
+uo kafu ou kafo = additionner adopter u ou o
+Ce phénomène peut être expliqué par l'évolution des voyelles plus ouvertes vers les voyelles plus
+fermées selon la loi du moindre effort.
+On peut opter d'écrire l'une ou l'autre forme mais dans un souci de cohérence, on écrira toujours
+la même forme choisie dans le même texte.
+3-5-2 Alternance des consonnes
+a) En début de mot
+l  d lii ou dii = miel adopter l
+13
+
+--- PAGE ---
+(le ou de particule de focalisation)
+lɔn ou dɔn = connaître adopter l
+lo ou do = c'est “ l
+c  k cɛɛ ou kɛɛ = homme adopter c
+celiya ou keliya = jalousie “ c
+t c tiɲɛ ou ciɲɛ = vérité adopter t
+tiɲɛn ou ciɲɛn = abîmer “ t
+y j yiran ou jiran = frire adopter y
+yiri ou jiri = arbre “ y
+d j dusu ou jusu = coeur adopter d
+t  k tile ou kile = solei, jour adopter t
+d  g dilan ou gilan = réparer adopter d
+b) en milieu de mot
+r  l barabara ou balabala = bouillir adopter r
+s z kunsigi ou kunzigi = cheveux adopter s
+ɲ y fiɲɛ ou finyɛ = vent adopter ɲ
+biɲɛ ou binyɛ = foie “ ɲ
+biɲɛ ou binyɛ = flèche “ ɲ
+g k ɲiningali ou ɲininkali = interrogation adopter g
+wagati ou wakati = moment adopter g
+4 - LA SYLLABE
+4 -1 Les différentes sortes de syllabes
+la structure de base de la syllabe en dioula est CV (consonne + voyelle).
+C’est la raison pour laquelle les mots empruntés à d’autres langues s’y conforment le plus
+fidèlement possible.
+Exemples :
+Soo = la maison
+Taga = pars
+Kile = clé
+Un deuxième type de syllabe du dioula est la voyelle. Il se rencontre plus souvent dans les
+pronoms.
+Exemples :
+A bɔra = il/elle est sorti(e)
+14
+
+--- PAGE ---
+An bɛnna = nous nous sommes mis d'accord
+Adama nana = Adama est venu
+Arajo Burukina = Radio Burkina
+Le troisième type de syllabe que l'on relève en dioula est la nasale syllabique.
+Elle est représentée dans les différentes formes du pronom de la première personne du singulier et
+s'écrit invariablement “n” quel que soit son contexte d’apparition.
+Exemples :
+n bi taga ka na = je vais et je reviens
+a yi n weele = il m'a appelé
+a y'a di n ma = il me l'a donné
+n tilara n ka baara la = j'ai fini mon travail
+n fana b'a fɛ = moi aussi j'en veux
+4 -2 Les groupes de consonnes
+Les groupes de consonnes que l'on entend souvent en dioula résultent de la prononciation
+affaiblie d'une voyelle qui sépare ces consonnes.
+En ce qui concerne les mots prononcés avec des groupes de consonnes, la forme pleine du mot
+doit être rétablie à l'écrit par l'insertion de la voyelle.
+La voyelle à rétablir est “i” si le mot est terminé par i, e, ɛ, ou in, en, ɛn.
+La voyelle à rétablir est “u” si le mot est terminé par u, o, ɔ, ou un, on, ɔn.
+Exemples :
+tle -----------------------► tile = soleil, jour
+tlo -----------------------► tulo = oreille
+tlɔ -----------------------► tulɔ = grossir
+flen -----------------------► filen = sifflet
+tlon -----------------------► tulon = jeu
+Pour les mots terminés par “a” ou “an”, il peut s'agir de “i” ou de “u” .
+Il faut dans ce cas se référer à un lexique ou à un dictionnaire.
+Exemples :
+fla -----------------------► fila = deux
+fla -----------------------► fula = peulh
+sra -----------------------► sira = route
+sran -----------------------► siran = avoir peur
+fran -----------------------► furan = balayer
+15
+
+--- PAGE ---
+fra -----------------------► fura = médicament
+yran -----------------------► yiran = frire
+5- LES TONS
+5-1 Ecrire ou ne pas écrire les tons ?
+A l'oral, les tons en dioula permettent de distinguer :
+a) Du point de vue sémantique :
+❑ deux mots qui s'écrivent avec les mêmes lettres ;
+❑ les mots composés des groupes nominaux ou verbaux comprenant les mêmes éléments.
+b) Du point de vue grammatical
+❑ la forme définie de la forme indéfinie en ce qui concerne les noms.
+Compte tenu de ces fonctions des tons, leur notation avait été préconisée dans les règles
+orthographiques du dioula. Dans la pratique cependant, ces unités n'ont jamais été écrites. Le fait
+de ne pas écrire les tons ne gêne aucunement les dioulaphones qui apprennent à lire les textes
+écrits en dioula. Ils parviennent à rétablir les tons dès qu'ils savent reconnaître les lettres.
+Par conséquent, les tons ne seront pas écrits dans l'orthographe du dioula. Cependant, pour les
+ouvrages lexicographiques tels que les dictionnaires et les lexiques généraux ou spécialisés, les
+tons doivent êtres notés.
+Dans ces mêmes ouvrages, la voyelle des substantifs monosyllabiques ne doit pas être redoublée.
+4-2 Le problème posé par la non représentation des tons
+Le fait de ne pas écrire les tons dans l'orthographe entraîne le problème de la distinction entre les
+pronoms personnels a “il/elle” et “vous”.
+Pour résoudre ce problème, on écrira la troisième personne du singulier comme suit :
+“ a ” sans accent.
+Le pronom de la deuxième personne du pluriel s'écrira alors
+“ á ” avec accent aigu.
+On retiendra que le fait de noter la deuxième personne du pluriel par “ á ” est simplement une
+convention orthographique pour pallier l'absence de l'écriture des tons dans l'orthographe. Ce
+pronom devra se conformer à cette convention quel que soit son contexte d'apparition à l'écrit et
+même sous sa forme majuscule.
+Exemples :
+A y'a weele k'a di yan = il l'a appelé pour moi
+Á y'a weele k'a di yan = appelez-le moi.
+16
+
+--- PAGE ---
+6- LA FORMATION DES MOTS
+6 -1 Quelques précisions terminologiques préalables
+Il est rare que tous les mots d'une langue soient des unités simples.
+Certains sont dérivés : les mots dérivés sont formés avec plusieurs unités parmi lesquelles une
+peut être reconnue comme dérivatif (voir liste des dérivatifs).
+D'autres sont composés : les mots composés sont formés avec plusieurs unités reconnaissables
+comme noms, verbes ou adjectifs.
+Les unités simples de la langue qui peuvent être des noms, des verbes, des adjectifs ou des
+adverbes sont appelées lexèmes.
+Le lexème est donc une unité simple, c'est-à-dire une unité qui n'est ni dérivée ni composée.
+Dans une langue, les lexèmes coexistent avec d'autres unités simples appelées morphèmes.
+Les morphèmes sont les unités grammaticales de la langue. Parmi elle, nous avons les dérivatifs,
+les marques du nom, les marques du verbe, les relateurs, les particules, etc.
+En dioula les noms ou les verbes utilisés dans les phrases sont formés à partir d'une base à
+laquelle est associée une marque soit nominale (indéfini, défini, singulier, pluriel) soit verbal
+(marque de conjugaison).
+a) Une base est simple si elle coïncide avec le lexème.
+b) Une base est dérivée si elle comporte un lexème et un ou plusieurs dérivatifs.
+c) Une base est composée si elle est formée avec plusieurs lexèmes.
+d) Une base est nominale si elle ne peut être associée qu'à des marques du nom.
+e) Une base est verbale si elle ne peut être associée qu'à des marques du verbe.
+f) Une base est verbo-nominale si elle peut être associée aussi bien à des marques du nom
+qu'à des marques du verbe sans être préalablement associée à un dérivatif.
+g) Les bases verbo-adjectivales du dioula employées dans une phrase sont caractérisées par
+un couple de marques : ka (affirmatif) / man (négatif)
+6 - 2 La dérivation
+La dérivation est un processus de formation des mots. Le mot dérivé est obtenu par l'adjonction à
+un lexème ou à une base, d'un morphème appelé “dérivatif”.
+Qu'il soit placé avant (c'est-à-dire préfixé) ou après (c'est-à-dire suffixé), le dérivatif s'écrit
+toujours collé au lexème ou à la base.
+La liste des dérivatifs les plus fréquents est donnée ci-après.
+Conventionnellement, on place un tiret après les dérivatifs pour indiquer qu'ils se collent à gauche
+du terme, c'est-à-dire qu'il sont préfixés. Le tiret est placé avant les dérivatifs qui se collent à
+droite du terme, c'est-à-dire ceux qui sont suffixés.
+17
+
+--- PAGE ---
+6 - 2 -1 Les dérivatifs préfixés
+Les dérivatifs préfixés s'ajoutent à des lexèmes ou à des bases verbaux uniquement ; ce sont :
+la - lataga = faire partir
+ma- magwɛn = poursuivre
+6 -2 - 2 Les dérivatifs suffixés
+- baga fanikobaga = laveur d'habits
+- bali malobali = impudique
+- ba tasaba = bassine
+musoba = grosse femme
+- ci tugubagaci = qui fait exprès
+janfaci = traitre
+- ka boboka = bobolais
+- la  na bozola = territoire bozo
+nagakɔrɔla = bas-ventre
+farafinna = Afrique Noire
+- la hakilila = opinion
+- la sɛnɛkɛla = agriculteur
+fanikola = laveur d'habits
+- man jiman = liquide
+finman = noir
+- nan sabanan = troisième
+- nan lan wusunan = encens
+sigilan = siège
+- ri li  ni tobiri = cuisiner
+susuli = pilage
+danni = semis
+- nin cɛnin = bonhomme
+- ta santa = à acheter
+feereta = à vendre
+- tan waritan = qui manque d'argent
+fangatan = pauvre, «sans force»
+- tɔ kɔngɔtɔ = affamé
+- ya teriya = amitié
+N.B. Les mots dérivés s'écrivent collés aux noms qu'ils déterminent.
+18
+
+--- PAGE ---
+6-2-3 Le redoublement
+Le redoublement est considéré comme une forme de dérivation. Il consiste en la répétition d'un
+mot donné. Quand on écrit un mot redoublé, on peut en séparer les parties ou les coller.
+6-2.3.1 S'écrivent séparés
+Les éléments des mots redoublés s'écrivent séparés lorsque le mot redoublé appartient à une des
+catégories suivantes : s'ils entrent dans des cas suivants :
+- Adjectifs
+Exemples :
+nunu ka bon bon = ceux-ci sont gros
+jalayiriw ka jan jan = les caïlcédrats sont hauts.
+- Adverbes
+Exemples :
+joona joona = très vite
+dɔɔnin dɔɔnin = doucement, petit à petit
+- Mots indiquant le temps
+Exemples :
+bii bii nin na = actuellement
+fɔlɔ fɔlɔ = jadis
+sisan sisan = immédiatement
+galen galen = jadis
+- Numéraux
+Exemples :
+kelen kelen = un à un
+duuru duuru = cinq par cinq
+fila fila = deux par deux ; deux chacun
+tan tan = dix par dix ; dix chacun
+En cas de redoublement partiel en ce qui concerne essentiellement les numéraux, on utilisera le
+trait d'union.
+Exemples :
+du-duuru = cinq par cinq ; cinq à chacun
+na-naani = quatre par quatre ; quatre chacun
+wɔ-wɔɔrɔ = six par six ; six chacun.
+19
+
+--- PAGE ---
+6-2-3-2 S'écrivent collés
+- Les noms redoublés
+Exemples :
+wowo = beaucoup de trous
+tomitomi = pointillés
+ɲamaɲama = ordures
+- Les verbes redoublés
+Exemples :
+kurukuru = faire des boutons à plusieurs endroits
+magamaga = bouger
+tɔnitɔni = goutter
+sirisiri = attacher à plusieurs endroits
+tantan = donner des coups de pied.
+- Les mots ressemblant à des redoublés
+Il existe des mots qui présentent la structure des redoublés mais qui ne peuvent pas être
+segmentés en deux éléments. En fait, la forme répétée n'existe pas seule ou si elle existe, son sens
+n'est en rien proche de celui de la forme redoublée.
+Ce type de forme s'écrit en un seul mot.
+Exemples :
+ka ŋunuŋunu = murmurer k'a barabara = faire bouillir
+k'a kɛnɛkɛnɛ = circoncire ka yɛrɛyɛrɛ = trembler
+ka sɔgɔsɔgɔ = tousser k'a funfun = asperger
+k'a yuguyugu = secouer k'a kalankalan = bigarrer
+sanbɛsanbɛ = bonne année fɔgɔfɔgɔ = poumon
+6 -3 La composition
+La composition est un processus de formation de mots qui consiste en l'adjonction de deux
+lexèmes au moins. Les différentes catégories grammaticales du dioula peuvent intervenir dans la
+formation des bases composées.
+Les éléments des composés s'écrivent collés en un seul mot.
+La liste des différents types de bases composées est donnée ci-après avec l'utilisation des
+abréviations suivantes :
+Avant les flèches :
+20
+
+--- PAGE ---
+n = lexème ou base nominal (e)
+v = lexème ou base verbal (e)
+vn = lexème ou base verbo-nominal (e)
+Après les flèches :
+n = base nominale
+v = base verbale
+vn = base verbo-nominale
+Les types de mots composés
+n +n ------------------► n
+Exemples :
+juru + fiyɛ ----------------► jurufiyɛ =puisette
+kami + faan --------------► kamifan =œuf de pintade
+saga + sogo--------------► sagasogo =viande de mouton
+siin + jii ---------------► sinji =lait maternel
+dugu + tigi ---------------►dugutigi =chef de village
+wari + koo ---------------►wariko =affaire d'argent
+saga + muso------------►sagamuso =brebis ; femme au caractère de mouton.
+fɛɛn + gwansan--------►fɛngwansan =chose de peu de valeur
+lɔgɔ + jalan-------------► lɔgɔjalan =bois sec
+mɔgɔ + sɔbɛ -------------► mɔgɔsɔbɛ =personne honorable
+Awa + fitinin-----------► Awafitinin =Haoua la petite
+Donso + ŋana ------------► donsoŋana =grand chasseur
+n + v ------------------► n
+Exemples :
+deen + wolo -----------------►denwolo = procréation
+muso + furu -----------------►musofuru = mariage
+soo + boli -----------------►soboli = chevauchée
+kurun + dilan ------------------►kurundilan = fabrication de pirogues
+kuun + dimi -----------------►kundimi = maux de tête
+bɔgɔ + toli ------------------► bɔgɔtoli = terre pourrie
+jii + nɔgɔ ------------------► jinɔgɔ = eau sale
+ɲɔɔ + tigɛ ------------------►ɲɔtigɛ = récolte de mil.
+21
+
+--- PAGE ---
+n +v ------------------► v
+Exemples :
+kɔrɔ + ta ----------------► kɔrɔta = soulever (v)
+fura + kɛ ----------------► furakɛ = soigner (v)
+ɲaa + fɔ ----------------► ɲafɔ = expliquer (v)
+lɔgɔ + la ----------------► lɔgɔla = programmer (v)
+n + postposition + n ------------------► n
+Exemples :
+jii + ra + fɛɛn --------------► jirafɛn = aquatique
+bolo + la + nɛgɛ --------------► bololanɛgɛ = bracelet
+su + ra + fɛɛn --------------► surafɛn = pot - de - vin
+dugu + ma + fɛn --------------► dugumafɛn = terrestre
+gaman + kɔrɔ + sii ---------------► gamankɔrɔsi = poils d'aisselle.
+n + adj. ----------------► n
+Exemples :
+nɔnɔ + kɛnɛ ----------------► nɔnɔkɛnɛ = lait frais
+wulu + jugu ----------------►wulujugu = chien méchant
+fanga + fin ----------------► fangafin = force pure
+wari + misɛn ----------------►warimisɛn = monnaie
+cɛɛ + gwɛ ----------------► cɛgwɛ = homme au teint claire
+n + adj. ----------------► n
+N.B. S'écrivent séparés les mots suivants :
+muso + gwɛma-------------► muso gwɛman = femme de teint claire
+misi + finman--------------► misi finman = bœuf de robe noire
+nɔnɔ + jiman ------------► nɔnɔ jiman = lait liquide ou non concentré
+22
+
+--- PAGE ---
+n +postposition + v -------------► vn
+Cette composition ne peut s'appliquer qu'avec des noms qui indiquent une partie du corps
+humain.
+Exemples :
+daa + ra + bɔ -----------► darabɔ = provoquer
+kuun + na + la -----------► kunnala = faire des reproches
+bolo + ma + fara -----------► bolomafara = contribution
+ɲaa + ma + lɔ -----------► ɲamalɔ = sérénité
+ɲaa + ma + nɔgɔ -----------► ɲamanɔgɔ = souillure
+n +v --------------► vn
+Exemples :
+Jakuma + tagama -----------► jakumatagama = adopter une démarche de félin
+fali + bugɔ -----------► falibugɔ = battre comme un âne
+suu + ta -----------► suta = prendre comme un cadavre
+wulu + mina -----------►wulumina = traiter comme un chien
+wulu + bugɔ -----------► wulubugɔ = battre comme un chien
+nɔgɔsi + tagama -----------► nɔgɔsitagama = adopter un démarche de caméléon
+soo + girin -----------► sogirin = adopter un vitesse de cheval au galop
+6- 4 Les expressions-mots
+Les expressions-mots sont des phrases ou des parties de phrases se comportant comme un mot
+unique. On les écrit en un seul mot comme le montrent les exemples donnés ci-après :
+Dans certains de ces expressions-mots, on peut reconnaître un verbe suivi du pronom de la
+première personne du singulier, ce pronom remplissant la fonction de complément circonstanciel.
+Exemples :
+Sigi + n+ fɛ -------------► siginfɛ = cohabitant, réfugié
+ton + n + kan -------------► tonnkan = choléra
+bila + n + kɔrɔ -------------►bilankɔrɔ = épargne
+don + n + kɔnɔ --------------► donnkɔnɔ = poison
+fara + n + kan --------------►farankan = additif
+diya + n + ye ---------------► diyanye = objet de désire
+jigi + n + na ---------------► jiginna = reproche
+see + n + yɛrɛ + kɔrɔ------------► senyɛrɛkɔrɔ = autosuffisance
+bolo + di + ɲɔgɔn + ma --------► bolodiɲɔgɔnma = entraide, solidarité
+D'autres types d'expressions-mots sont des phrases.
+23
+
+--- PAGE ---
+A certaines de ces phrases il peut manquer le complément d'objet ou le sujet :
+Exemples :
+cɛɛ + tɛ + muso + tɛ ---------------►cɛtɛmusotɛ = hermaphrodite
+ta + ka + yuguyugu ---------------► takayuguyugu= friperie
+don + ka + filɛ ----------------► donkafilɛ = friperie
+fɔ + ka + bɛn ----------------► fɔkabɛn = entente verbale
+bila + ka + suma ----------------►bilakasuma = report, repris
+taga + ka + segi -----------------► tagakasegi = aller - retour
+jɛɛn + ka + baara -----------------► jɛnkabaara = travail de groupe
+bari + ka + wili -----------------► barikawili = progrès surprenant
+pan + ka + cun -----------------► pankacun = sautillement
+bari + n + na + koo -----------------► barinnako = surprise
+saan + fa + dugu + fa-----------------► sanfadugufa = un géant.
+7 LE NOM
+Dans une phrase, le nom peut être sujet ou complément. Il se caractérise par le fait qu'il comporte
+certains morphèmes que l'on appellera ici marques du nom.
+7-1 Les marques du nom
+parmi les diverses marques du nom, seule celle du pluriel se manifeste sous la forme du son [ u ].
+Les noms monosyllabiques doublent la voyelle. La marque du singulier et celle de l'indéfini n'ont
+pas de manifestation particulière. Alors que celle du défini plus subtile, se caractérise par une
+différence de ton par rapport à celle de l'indéfini.
+7-1-1 Les marques de l'indéfini et du défini
+Soient les exemples suivants comportant des marques de tons sur les noms :
+soo ma ye (ton haut - indéfini) = aucun cheval n'a été retrouvé
+soo ma ye (ton modulé - défini) = le cheval n'a pas été retrouvé
+muso ti yan (ton haut - indéfini) = il n’y a pas de femme ici
+muso ti yan (ton bas - défini) = la femme n'est pas ici.
+Il n'apparaît aucune différence orthographique dans l'écriture de ces noms.
+7- 1- 2 La marque du pluriel
+Le pluriel est conventionnellement représenté par “w” dans l'orthographe. Il s'écrit suffixé au
+nom.
+Exemples :
+24
+
+--- PAGE ---
+Singulier Pluriel
+soon = le voleur soonw = les voleurs
+misi = le bovin misiw = les bovins
+bese = la machette besew = les machettes
+muso = la femme musow= les femmes
+balan = le balafon balanw= les balafons
+suruku = l'hyène surukuw= les hyènes
+8- LES MOTS COMPARABLES AU NOM
+Certains mots de la langue remplissent les mêmes fonctions que les noms sans pour autant en
+être. Ce sont ces mots que nous considérons comme comparables au nom. Il peut s'agir de
+pronoms, de mots désignant le temps, le lieu, la manière, etc.
+8-1 Les pronoms personnels
+Ils s'écrivent comme suit :
+Pronoms simples Pronoms d'insistance
+1ere personne n Nne
+Singulier 2ème personne i  e e  ile  ele
+3eme personne a ale
+1ere personne an anw
+Pluriel 2eme personne á áw
+3eme personne o  u olu  ulu
+7-2 D'autres sortes de pronoms
+Il existe un certain nombre de mots qui peuvent s'associer au nom mais qui contrairement aux
+marques, s'écrivent séparés de lui. La plupart de ces mots peuvent être employés seuls comme
+pronoms et remplir la fonction de sujet ou de complément dans la phrase. Ce sont le démonstratif,
+le totalisateur, l'indéfini, les interrogatifs, le possessif indépendant, de même que les mots
+“foyi/fosi, si, wɛrɛ, yɛrɛ, ɲɔgɔn”.
+7-2-1 le démonstratif
+nin = ce, cet, cette ; celui-ci, celle-ci.
+Ce mot a pour pluriel la forme nunu = ces ; ceux-ci, celles-ci.
+Exemples :
+nin bɔra Bobo = celui-ci vient de Bobo
+sanji yi nunu bugɔ = la pluie a battu ceux-ci
+jii kɛ nunu kan = arrose ceux-ci
+tasa nunu ka bon bon = ces assiettes sont grandes.
+25
+
+--- PAGE ---
+7-2-2 Le totalisateur
+bɛɛ = tout, tous
+ce mot s'écrit avec une voyelle longue. Il garde la même forme au singulier et au pluriel.
+Exemples :
+bɛɛ ka na = venez tous
+muso ye bɛɛ fo = la femme a salué tout le monde
+a ye dubabu don bɛɛ ye = elle a béni tout le monde
+a ye fani bɛɛ ko = il a lavé tous les habits
+a y'a bɛɛ fɔ = il a tout dit.
+7-2-3 L'indéfini
+dɔ = quelqu'un
+Ce mot a pour pluriel dɔw = certains
+Exemples :
+dɔ nana = quelqu'un est venu
+a yi dɔ weele = il a appelé quelqu'un
+a y'a fɔ dɔ ye = il l'a dit à quelqu'un
+mɔgɔ dɔ lo = c'est quelqu'un
+cɛɛ dɔw nana kunu = certains hommes sont venus hier.
+7-2-4 Les interrogatifs
+Les interrogatifs peuvent être employés seuls comme sujet ou complément, ou être associés à un
+nom dont ils s'écrivent séparés.
+joli ? = combien ?
+Exemples :
+joli tununa ? = combien sont égarés ?
+saga joli tununa ? = combien de moutons sont-ils égarés ?
+juman = lequel, laquelle ? jumanw ? = lesquels, lesquelles ?
+Exemples :
+juman le nana ? = lequel est venu ?
+fura juman le bi yen = quel médicament y a-t-il ici ?
+mun ? = que ; quoi ?
+Exemples :
+mun le benna ? = qu'est-ce qui est tombé ?
+mun fɛɛnw le bena = quelles choses sont-elles tombées ?
+26
+
+--- PAGE ---
+di ? = comment ? ; qu'est-ce que ?
+Exemples :
+a ko di ? = qu'a-t-il dit ?
+cogo di ? = de quelles manière ? comment ?
+jɔn ? = qui ? et min ? = où
+Ces deux interrogatifs s'emploient toujours seuls comme sujet ou complément.
+Exemples :
+Jɔn le y'a fɔ ? = qui l'a dit ?
+jɔnw le y'a fɔ ? = quels sont ceux qui l'on dit ?
+a ye jɔn yira ? = qui a-t-il montré ?
+a fɔra jɔn ye ? = à qui cela a-t-il été dit ?
+Musa tagara min ? = où est allé Moussa ?
+7-2-5 Le pronom possessif indépendant
+Le pronom possessif indépendant s'écrit “taa” au singulier et “taaw” au pluriel.
+Exemples :
+Musa taa lo = c'est à Moussa
+nne taaw tununa = les miens sont perdus
+ile taa tɛmɛn'a daan kan ! = toi, tu dépasses les bornes !
+7-2-6 Foyi  fosi, si
+foyi  fosi = rien, aucun
+Il peut être employé comme sujet ou complément, ou être associé à un nom dont il s'écrit séparé.
+Exemples :
+foyi ma kɛ = rien ne s'est passé
+a ma foyi fɔ = il n'a rien dit
+a ma kɛ foyi ye = il n'est devenu rien
+mɔbili foyi ma na = il n'est venu aucune voiture
+- Si = aucun
+“si” est toujours associé à un nom ou pronom dont il est toujours séparé dans l'écriture.
+Exemples :
+mɔgɔ si ma na = personne n'est venue
+an si ma bɔ = aucun de nous n'est sorti.
+27
+
+--- PAGE ---
+7-2-7 Wɛrɛ, yɛrɛ, ɲɔgɔn
+wɛrɛ, yɛrɛ, et ɲɔgɔn s'écrivent séparés des mots auxquels ils sont associés
+Exemples :
+- wɛrɛ = un autre a pour pluriel wɛrɛw = d'autres
+loon wɛrɛ an bina kuma = nous parlerons un autre jour
+mɔgɔ wɛrɛw fɛ, a bi ten = chez d'autres, c'est ainsi.
+- yɛrɛ = même
+fagamancɛ yɛrɛ nana = le chef lui-même est venu
+karamɔgɔcɛ yɛrɛ siranna = le marabout lui-même prit peur
+- ɲɔgɔn = semblable
+n ka muru ɲɔgɔn san = achète un couteau semblable au mien
+i ka fani ɲɔgɔn bi n fɛ = j'ai un habit semblable au tien
+7-3 Les mots indiquant le temps, le lieu et la manière
+Ces mots peuvent assumer les fonctions de sujet et de complément dans une phrase. Ils ne
+prennent pas les marques du nom.
+- Temps
+salon = l'année dernière
+kunu = hier
+kɔsa = il n'y a pas longtemps
+ɲinan = cette année
+bii = aujourd'hui
+sisan = maintenant
+sini = demain
+- Lieu
+yan = ici
+yen = là-bas
+- Manière
+tan = comme ceci
+ten = comme cela
+28
+
+--- PAGE ---
+7-4 Les chiffres et les nombres
+On choisit de les écrire en lettre ou en chiffres en observant la cohérence dans le même texte.
+Dans une traduction, il faut se conformer à leur écriture dans le texte de départ.
+Quand la confusion est possible entre une classe de numéraux, “ani” sera utilisé seulement avant
+les unités simples.
+Exemples :
+miliyɔn tan ni duuru = 15.000.000
+miliyɔn tan ani duuru = 15.000.005
+8- LE VERBE
+Dans une phrase, le verbe est élément central. Il assure la fonction de prédicat. Il est caractérisé
+par certains morphèmes qu'on appellera ici marques du verbe.
+8-1 Les marques du verbe
+Les marques placées avant le verbe s'écrivent séparées de lui. Pour sa part la marque “ra” et ses
+variantes, placées après le verbe s'écrit collée.
+8-1- 1 Les marques de l'accompli
+construction transitive
+Affirmatif Négatif
+verbe + - ra  -la  na ma + verbe
+Exemples :
+a tagara = il/elle est parti (e) a ma taga = il/elle n'est pas parti (e)
+á bolila = vous avez couru ma boli = vous n'avez pas couru
+a benna = il/elle est tombé (e) a ma ben = il/elle n'est pas tomé (e)
+Construction intransitive
+Affirmatif Négatif
+yi  ye + objet + verbe ma + objet + verbe
+Exemples :
+á yi sogo san = vous avez acheté de la viande
+á ma sogo san = vous n'avez pas acheté de la viande
+Les formes “yi” ou “ye” peuvent être employées indifféremment mais, par souci de cohérence, il
+est recommandé de garder la même forme dans le même texte. Cette observation est valable pour
+toutes les marques qui connaissent une variation entre une forme contenant la voyelle -i- et une
+forme contenant la voyelle -e-. Il s'agit notamment de: bi  be, ti  te, bina  bena, tina  tena.
+29
+
+--- PAGE ---
+8-1-2 Les marques de l'inaccompli
+- L'habituel :
+Affirmatif Négatif
+bi  be ti  te
+Exemples :
+a bi na = il vient a ti na = il ne vient pas
+a bi sogo san = il achète de la viande a ti sogo san = il n'achète pas de la viande
+- Le progressif
+Affirmatif Négatif
+bi  be - ra  la  na ti  te - ra  la  na
+Exemples :
+A bi bɔra = il est entrain de sortir / a ti bɔra = il n'est pas entrain de sortir
+A bi fani kora = il est entrain de laver un habit / a ti fani kora = il n'est pas
+entrain de laver un habits.
+- Le futur
+Affirmatif Négatif
+bina  bena tina  tena
+Exemples :
+a bina taga = il partira a tina taga = il ne partira pas
+a bina lɔgɔ ci = il cassera du bois a tina lɔgɔ ci = il ne cassera pas du bois
+- Le projectif
+Affirmatif Négatif
+Ka kana
+Exemples :
+(a ko) n ka taga = il m'a dit de partir (a ko) n kana taga = il m'a dit de ne pas partir
+(a ko) n ka soo lɔ = il m'a dit de construire (a ko) n kana soo lɔ = il m'a dit de ne
+pas construire.
+8-1-3 l'impératif :
+Affirmatif Négatif
+1re personne plur. ka kana
+2e personne plur. yi  ye kana
+Exemples :
+an ka taga = partons ! an kana taga = ne partons pas !
+30
+
+--- PAGE ---
+an k'a la = couchons-le ! an kan'a la = ne le couchons pas !
+á yi taga = partez ! á kana taga = ne le couchez pas !
+8-1- 4 L'optatif
+Affirmatif Négatif
+Ma ... - ra  - la  - na kana
+Ka kana
+Exemples :
+Ala m'a balora= que Dieu lui donne longue vie
+Ala k'a balo = que Dieu lui donne une longue vie
+Ala kan'a balo = que Dieu ne lui donne pas une longue vie
+8- 1- 5 Le conditionnel :
+mana
+Exemples :
+a mana kɛ ten.... = si c'est ainsi...
+a mana mɔgɔ ye.... = quand il voit quelqu'un.....
+8- 1- 6 L'inactuel
+tun
+Exemples :
+a tun bɔra = il était sorti
+o tun bi ɲɔɔ susura = elles pilaient le mil
+tun peut être associé avec les autres marques. Il ne se colle pas à elles ni à aucun autre mot.
+Exemples :
+a tun kana bɔ = il ne fallait pas qu'il sorte
+o tun kana ɲɔɔ susu = il ne fallait pas qu'elles pilent le mil.
+8- 2 Les marques de l'adjectif
+On trouve parfois l'expression verbes statifs pour désigner les adjectifs. Les adjectifs ont leurs
+marques caractéristiques.
+Affirmatif Négatif
+Ka man
+Exemples :
+A ka bon = il est gros a man bon = il n'est pas gros
+31
+
+--- PAGE ---
+IX- LES PREDICATIFS NOMINAUX
+Il est possible de former des phrases ne contenant pas de verbe. On appelle ce type de phrases des
+phrases nominales. Les marques caractéristiques des phrases nominales sont appelées des
+indicatifs nominaux. Ils s'écrivent séparés du nom.
+Les différents prédicatifs nominaux sont donnés ci-après avec des exemples illustratifs.
+- Identification
+Affirmatif Négatif
+lo tɛ
+Exemples :
+Musa lo = c'est Moussa Musa tɛ = ce n'est pas Moussa
+- Egalité
+Affirmatif Négatif
+yi ... ye ti ... ye
+Exemples :
+Sebe yi yiri ye sebe ti yiri ye
+Le rônier est un arbre le rônier n'est pas un arbre.
+- Localisation
+Affirmatif Négatif
+bi  be ti  te
+Exemples :
+Banba bi jii ra banba ti jii ra
+Le caïman est dans l'eau le caïman n'est pas dans l'eau
+Dans certains contextes l'archiverbal bɛ est admis.
+Exemples :
+Nɛnɛ bɛ = il fait froid
+Funteni bɛ = il fait chaud
+Hɛɛrɛ bɛ ? = comment ça va ?
+X - LES ADVERBES
+En parlant d'adverbe, nous nous en tiendrons à l'étymologie de ce mot c'est-à-dire ce qui s'ajoute
+au verbe ou le complète.
+Dans cette catégorie de mots, on relève des formes simples et des formes redoublées.
+Formes simples
+32
+
+--- PAGE ---
+Exemples :
+a tagara suwɛyi = il est parti à la sauvette
+a y'a ta yewu = il l'a pris correctement
+a y'a ta cɔ = c'est lui exactement qui l'as pris
+a sɛbɛn kudayi = écris toujours
+a dumu faasi = mange sans problème
+Formes redoublées (1er cas)
+Exemples :
+kalo gwɛra pasi pasi = la lune est très claire
+saan finna ti ti ti = le ciel s'est vraiment assombri
+daga fara tewu tewu = le canaris est très plein
+jii sumana tɔn tɔn = l'eau est très fraîche
+baara gwanna pa pa pa = le travail est très chaud
+Dans le cas contraire, l'élément répété s'écrit en un seul mot.
+Formes redoublée (2e cas)
+Exemples :
+ko nin kɛra ten tigitigi = ça s’est passé exactement comme çà.
+a ye baara nin walowalo = il a fait ce travail avec agilité.
+XI- LES IDEOPHONES
+Les idéophones sont des mots qui évoquent d'une façon imaginée un bruit ou un mouvement.
+Certain appartiennent à la catégorie des adverbes et sont de ce fait appelés des adverbes
+idéophoniques. Ils posent souvent des problèmes de traduction parce qu'ils sont propres à la
+langue qui les utilise et ne connaissent pas forcément d'équivalents dans une autre langue.
+D'autres idéophones trouvent leur place parmi les noms ou les verbes.
+Les idéophones s'écrivent en un seul mot.
+Exemples :
+❑ titati
+❑ kirikara
+❑ wowawo
+❑ giribigaraba
+❑ vɛlɛkɛvɛlɛkɛ
+❑ yuruguyurugu
+❑ mulukumɛlɛkɛ
+❑ zogolozogolo
+❑ onaw.
+33
+
+--- PAGE ---
+XII- LES MORPHENES RELATEURS
+Les morphèmes relateurs sont des unités grammaticales qui interviennent pour relier deux mots,
+deux groupes de mots ou deux phrases entre eux. Ils s'écrivent séparés des formes qu'ils relient.
+11-1 Les prépositions et les postpositions
+Les prépositions et les postpositions relient un complément circonstanciel et un verbe.
+11-1-1 Les prépositions
+Fɔɔ = jusqu'à ; sauf
+Exemples :
+A tagara fɔɔ Bobo = il est allé jusqu'à Bobo
+Dunancɛ yi dumuni kɛ fɔɔ ka fa = l'étranger mangea à satiéter
+O tagamana ka taga fɔɔ dugu nana gwɛ = ils/elles marchèrent jusqu'au lever du
+jour
+Bɛɛ nana fɔɔ Maadu = tous sont venus sauf Madou
+- kabini  kabi = depuis
+Exemples :
+A bɔra kabini sɔgɔma = il/elle est sorti(e) depuis le matin
+Kabi o kɛra = depuis que cela s'est passé...
+11-1- 2 Les postpositions
+- ma
+Exemples :
+A yi wari di Musa ma = il/elle a donné de l'argent à Moussa
+A ko, an ma ko an kana sigi = il nous a dit de ne pas nous asseoir.
+- ye
+Exemples :
+sebe yi yiri ye = le rônier est un arbre
+bana le yi mɔgɔ jugu ye = c'est la maladie qui est l'ennemi de l'homme
+- fɛ
+Exemples :
+A tagara Musa fɛ = elle est allée chez Moussa
+sukaro bi n fɛ = j'ai du sucre
+34
+
+--- PAGE ---
+- ra  la  na
+Exemples :
+a la tile ra = étales-le au soleil
+a bɔra foro la = il vient du champ
+a don suma na = mets-le à l’ombre
+(N.B. : la forme la plus fréquente en dioula est ra)
+11- 2 Les noms relationnels
+Il arrive qu'un mot généralement un nom de partie du corps humain, soit employé pour jouer le
+rôle de postposition. On parle de nom relationnel ou de non fonctionnalisé.
+Liste des mots susceptibles de remplir le rôle de postposition :
+Sens en tant que postposition
+bolo dans, chez
+cɛ milieu, entre, parmi
+kan sur, dessus
+kɔ derrière, après
+kɔnɔ dans
+kɔrɔ à proximité
+kun sur, avec
+ɲa devant, avant
+lorsqu'un mot susceptible de remplir le rôle d'une postposition est suivi d'une postposition, les
+deux s'écrivent collés.
+ɲa + fɛ---------------► ɲafɛ : taga ɲafɛ = va devant
+ɲa + na---------------► ɲana : a kɛra n ɲana = cela s'est passé en ma présence
+kan + ma-------------► kanma : o le kanma = c'est pour cela
+ju + kɔrɔ-------------► jukɔrɔ : a bi yiri jukɔrɔ= il est sous l'arbre
+kɔnɔ + na-------------► kɔnɔna : don kɔnɔna = entres
+kun + cɛ--------------► kuncɛ : a bi kuru kuncɛ = il se trouve au sommet de la montagne
+cɛ + ma --------------► cɛma : a donna mɔgɔw cɛma = il s'est mêlé à la foule
+cɛ + ra----------------► cɛra : a siginin lo a deenw cɛra = il est aussi parmi ses enfants
+kun + fɛ--------------► kunfɛ : a bi kuma a kunfɛ = il parle sans faire attention
+kun + na--------------► kunna : a bi an kunna = il est à notre tête (il nous commande)
+35
+
+--- PAGE ---
+lorsqu'une postposition succède aux formes suivantes : nɔɔ = trace ; seen = pied ;
+gɛrɛn = côté ; faan = direction : elles s'écrivent séparée.
+Exemples :
+nɔɔ + fɛ = ----------►nɔɔ fɛ = à la suite de, à cause de
+seen + fɛ = ----------►seen fɛ = à l'occasion de
+gɛrɛn +na = ----------►gɛrɛn na = près de, à côté de
+faan + fɛ = ----------► faan fɛ = vers, en direction de, en ce qui concerne.
+11- 3 Le relatif et les conjonctions
+Le relatif et les conjonctions relient deux propositions.
+11-3-1 Le relatif
+min = qui, que
+Ce mot est indéfini, il peut aussi prendre la marque du pluriel.
+Exemples :
+mɔgɔ min nana = la personne qui est venue
+mɔgɔ minw nana = les personnes qui sont venues
+Fanta ye tagafe min san = le pagne que Fanta a acheté.
+11-4 - Les conjonctions
+barisa  bari = parce que
+bawo = car
+kasɔrɔ  kamasɔrɔ = alors que
+minkɛ = du fait
+nasɔrɔ = peut-être
+nga = mais
+sabu = parce que
+sango  jango = pour que
+yanni sanni = avant de, au lieu de.
+36
+
+--- PAGE ---
+11- 5 Les coordinatifs
+Les coordinatifs relient deux mots ou deux propositions.
+ni  ani = et
+ni ... ye = avec
+walima waa = ou bien
+“ka” sert à relier des verbes ayant le même sujet.
+La voyelle finale de “ni” ou “ani” peut être élidée lorsque ces mots sont suivis d'un pronom autre
+“n” première personne du singulier.
+Exemples :
+Kalifa nana ni a ka nɛgɛso ye = Kalifa a amené son vélo
+Watara ni ale le be yen = c'est Ouattara et lui qui y sont.
+11- 6 Le connectif et le distributif
+Le connectif et le distributif servent à relier deux noms dans le groupe nominal.
+11- 6 -1 Le connectif
+ka  ta = pour, appartement à
+Exemples :
+deen ka fani = l'habit de l'enfant
+a ka fani = son habit
+11- 6 -2 Le distributif
+o = quel que soit..., quelque..., que, chaque
+Les noms placés de part et d'autres de ce mot sont à la forme indéfinie.
+Exemples :
+mɔgɔ o mɔgɔ = quelle que soit la personne
+deen o deen = quel que soit l'enfant
+juma o juma = chaque vendredi.
+37
+
+--- PAGE ---
+XII- LES PARTICULES
+Les particules sont des morphèmes qui se surajoutent à des structures déjà formées (noms, verbes
+ou phrases) pour exprimer une valeur d'insistance, d'interrogation ou d'exclamation. Elles
+s'écrivent séparées des structures qu'elles accompagnent;
+12- 1 Les particules
+le lo muso le y'a fɔ = c'est la femme qui l'a dit
+fana a yi fani fana san = elle a aussi acheté l'habit
+dɔrɔn a fɔ dɔrɔn = dis le seulement
+kɔni a yi nin nɛnɛ kɔni = elle a effectivement goûté cela
+yɛrɛ a ma sɔn yɛrɛ = elle n'a même pas accepté
+hali hali n'i ma sɔn = même si tu n'es pas d'accord
+jaati o kɛra jaati = cela s'est vraiment passé
+dun ele dun ko di ? = qu'en dis-tu alors, toi ?
+12-2 Les particules d'exclamation
+dɛ o to tan dɛ ! = laisse donc ainsi !
+kɛ na ni fani ye kɛ ! = amène donc l'habit !
+sa a bɛɛ fɔ sa ! = dis tout donc !
+koyi a ma kuma koyi ! = il n'a pas parlé hein !
+wɛ a fɔra wɛ = cela a été dit, voyons !
+haan a sɔnna haan ! = elle a osé accepter !
+jaa jaa, an tor'a ra ! = nous sommes alors faits !
+12-3 Particules d'interrogation
+kɔni kɔni baba ka kɛnɛ ? = Papa serait-il en bonne santé ?
+wa i bi taga wa ? = t'en vas-tu ?
+wa a nana wa ? = est-il vraiment là ?
+do somɔgɔw do ? = comment vont les gens de la famille ?
+yala yala a ma na ? = n'est-elle pas venu ?
+38
+
+--- PAGE ---
+XIII - L'ELISION DES VOYELLES ET L'EMPLOI DE l'APOSTROPHE
+L'élision se produit quand deux voyelles appartenant à des mots différents se retrouvent en
+contact. La première voyelle est élidée et remplacée par une apostrophe et les deux mots se
+retrouvent à former pratiquement un mot.
+Exemples :
+an y'o weele ka dɛsɛ = nous les avons appelés en vain
+u nana n'u ka nigɛsow ye = il ont amené leurs vélos.
+Seules les voyelles finales des marques des verbes et celles des coordinatifs ni, ani pourront être
+élidées dans l'orthographe. Les voyelles finales des verbes monosyllabiques seront maintenues
+mêmes si à l'oral on observe une élision.
+Exemples :
+a fɔ u ye u ka taga = dis-leur de partir
+valisi nin ta a ye = prend cette valise pour lui
+On notera que dans les deux derniers exemples, les voyelles des verbes monosyllabiques fɔ et ta
+ne sont pas élidées.
+Exemples :
+Tɛmɛ an fɛ = passe chez nous ou tɛm’an fɛ
+a tun fɔra u ye = on le leur avait dit ou a tun fɔr’u ye
+XIV- QUELQUES POINTS D'ORTHOGRAPHE D'USAGE
+Sous cette rubrique, sont abordés divers points à propos desquels on peut relever des divergences
+orthographiques. Il s'agit donc d'aboutir à une harmonisation dans l'écriture de ces mots ou
+expressions.
+14-1 Ecrire collé ou séparé ?
+Les éléments suivants posent parfois des problèmes d'écriture. On les représentera comme suit :
+39
+
+--- PAGE ---
+14-1-1 En un seul mot
+damanin  daman = un certain nombre
+dɔwɛrɛ = un autre
+kabini  kabi = depuis ; depuis
+kasɔrɔ  kamasɔrɔ = alors que
+kojugu = trop
+kokura = à nouveau
+koɲuman = bien
+kosɔbɛ = beaucoup
+kɔlɔkɔlɔ = sans importance
+minkɛ = après
+naganaga = sans raison
+nasɔrɔ = peut-être
+sanfɛ = en haut
+duguma = par terre
+dara = proximité
+furancɛ = entre ; au milieu
+cɛmancɛ = milieu
+kuncɛ = sommet
+sɔbɛkɔrɔ = très bien
+14-1-2 en séparant les éléments
+bi yen = il y a ; y est. Comme par exemple dans : u bi yen wa ?= sont-ils présents ?
+i n'a fɔ = comme
+i ko = comme
+jɔn ko Ala = en vérité, de grâce
+k'a la a kan = sur cette base
+14-2 Les emprunts
+Pour écrire les emprunts (noms communs ou noms propres), on utilisera les lettres de l'alphabet
+dioula et on veillera au respect de la structure syllabique CV.
+Il faut se rappeler que ces lettres ne se prononcent pas toujours de la même façon dans d'autres
+langues Jean-Paul et Alexis par exemple doivent subir cette modification avant de figurer dans un
+texte en dioula. On aura de fait : Zanpoli et Alɛkisi.
+40
+
+--- PAGE ---
+Autres exemples d'emprunts :
+Mots en français Mots en dioula
+Courroie = kuruwa
+Calendrier = kalandiriye
+Ecrou = ekuru
+Marie = Maari
+Clémentine = Kelemantini
+Burkina = Burukina
+Sénégal = Sɛnɛgali
+14-3 Les néologismes
+Le dioula partage souvent les mêmes néologismes avec le bambara. Dans le cas où il existe une
+possibilité de réalisation typiquement dioula, il faut veiller au choix des lettres en se conformant
+aux alternances mentionnées au chapitre 1.2.
+Exemples :
+dafalen deviendra dafanin = voyelle
+samalen deviendra samanin = allongé
+dolonin deviendra lolonin = astérisque
+Etc.
+14-4 Les sigles
+Les sigles sont à considérer comme des noms propres. Ils seront écrits avec des majuscules sous
+leur forme en langue étrangère suivie de la façon de les écrire en dioula entre parenthèses.
+Exemples :
+PNUD (Pinidi)
+ONU (Oni)
+CRPA (Sɛrɛpeya)
+UNESCO (Inɛsiko)
+MEBA (Meba)
+Etc.
+41
+
+--- PAGE ---
+Lorsque le sigle apparaît pour la première fois dans un texte, on peut l'expliquer.
+Il faut opter de représenter les sigles soit sous leur forme en langue étrangère, soit sous leur forme
+en dioula et s'en tenir à la même option dans le même texte.
+14 - 5 la date
+Pour écrire la date on fera suivre l'année du nom du mois puis du quantième. Le nom du jour peut
+se placer avant ou après ces éléments.
+Exemples :
+Lamusalon, saan 1998, sumanmɔkalo, tile 3
+ou saan 1998, sumanmɔkalo tile 3, lamusalon.
+jeudi le 3 septembre 1998.
+14-6 Les mois
+sanyɛlɛmakalo = janvier
+foonɛnɛkalo = février
+funtenikalo = mars
+funtenibakalo = avril
+samiɲadonkalo = mai
+dannikalo = juin
+samiɲakalo = juillet
+cɔcɔkalo = août
+sumanmɔkalo = septembre
+samiɲalabankalo = octobre
+sumanladonkalo = novembre
+sanlabankalo = décembre
+14-7 Les jours de la semaine
+tɛnɛ = lundi
+tarata = mardi
+araba = mercredi
+lamusa = jeudi
+juma = vendredi
+sibiri = samedi
+kari, haati, dimansi = dimanche
+42
+
+--- PAGE ---
+14-8 Les points cardinaux
+kɔrɔn  tilebɔ = Est
+tileben = Ouest
+kɔgɔdugu = Nord
+worodugu = Sud
+tilesenkuncɛ = zénith
+XV INSERTION DES CITATIONS
+On écrira entre guillemets la traduction proposée en langue nationale pour un passage cité. Après
+avoir fermé les guillemets délimitant la citation, on écrira un petit chiffre en haut.
+Exemple : traduction en dioula²
+Le même chiffre sera repris en bas de page ou à la fin du document suivi de la version originale.
+XV - QUELQUES ABREVIATIONS
+Les formes ci-après sont retenues comme équivalent aux abréviations usuelles que l'on relève dans
+les écrits ;
+Etc. = onaw lire o n'a ɲɔgɔnnaw
+Cf. = atf lire a ye tag'a filɛ
+N.B. = Jt lire jantoli
+1er = 1 lɔ lire fɔlɔ
+2e = 2nan lire filanan
+Remarques: sera traduit en dioula par kɔrɔsili
+XVII - LES SIGNES DE PONCTUATION
+Les signes de ponctuation devront être utilisés d'une façon adéquate dans les écrits en dioula. Ils
+reçoivent en dioula les dénominations données ci-après en face des mots français présentés dans
+l'ordre alphabétique (les articles ne sont pas pris en comptes pour cet ordre).
+L'accent = tintinnan
+Les accolades = kɔnkɔnw
+L'alinéa = sirakura
+43
+
+--- PAGE ---
+L'astérisque = lolonin
+Les crochets = sinsabaw
+Deux points = tomi filaw
+Les guillemets = kɔnkɔnliw
+Les parenthèses = sinsanninw/ kalaninw
+Le point = tomi
+Le point d'exclamation = kabalitomi
+Le point d'interrogation = ɲiningalitomi
+Les pointillés = tomininw / tomi tomiw
+Les points de suspension = tomi saba
+Le point-virgule = tomi ni kɔri
+Le tiret = cinin
+Le trait d'union = daɲɛkɔnɔci
+La virgule = kɔri
+XVIII - IDENTIFICATION DES DOCUMENTS
+Compte tenu du nombre écrits en langues nationales, tout document publié gagnerait à être
+désormais mieux identifié. Pour ce faire on fournira les informations suivantes :
+- Titre du document ;
+- Editeur ;
+- Lieu de l'édition ;
+- Année de l'édition ;
+- Nombre de volumes ;
+- Nom et prénom (s) du / des traducteur (s) ;
+- Nom et prénom (s) de l'auteur ou des auteurs ;
+- Numéro d'édition ;
+- Indication de la langue.
+N.B. une bibliographie ne se traduit pas en langue nationale.
+44
+
+--- PAGE ---
+XIX ANNEXE
+Ont participé à la finalisation de ce document :
+- DRAME Tidiani Bobo-Dioulasso
+- SOULAMA Ibrahim Bobo-Dioulasso
+- GOUO Jean Bobo-Dioulasso
+- HEMA Tiegbè Bobo-Dioulasso
+- HIEBIE Dramane Alphonse Banfora
+- TRAORE Alfred Orodara
+- TRAORE Madani Nouna
+- DESSA Dédougou
+- DRAME Adama Ouagadougou
+- HIEN Grégoire Ouagadougou
+Test
+Les superviseurs (5), animateurs (17), auditeurs (4) de centre d'alphabétisation de la région de
+Bobo-Dioulasso (village de Tondogosso), et de la région de Dédougou ont été le public cible
+auprès duquel le présent document a été testé.
+45

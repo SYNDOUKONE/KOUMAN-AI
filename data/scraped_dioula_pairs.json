@@ -1,0 +1,5474 @@
+[
+  {
+    "src_text": "Bonjour (à une personne)",
+    "tgt_text": "I ni ce",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "I ni ce",
+    "tgt_text": "Bonjour (à une personne)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Bonjour (à plusieurs)",
+    "tgt_text": "Aw ni ce",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Aw ni ce",
+    "tgt_text": "Bonjour (à plusieurs)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Bonjour (matin)",
+    "tgt_text": "I ni sogoma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "I ni sogoma",
+    "tgt_text": "Bonjour (matin)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Bonjour (milieu de journée)",
+    "tgt_text": "I ni tile",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "I ni tile",
+    "tgt_text": "Bonjour (milieu de journée)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Merci",
+    "tgt_text": "Abaraka",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Abaraka",
+    "tgt_text": "Merci",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Pas de problème / Rien",
+    "tgt_text": "Ntɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Ntɛ",
+    "tgt_text": "Pas de problème / Rien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Bon courage (au travail)",
+    "tgt_text": "Aw ni baara",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Aw ni baara",
+    "tgt_text": "Bon courage (au travail)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Tu vas bien ?",
+    "tgt_text": "Kɛnɛ wa?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kɛnɛ wa?",
+    "tgt_text": "Tu vas bien ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Nourriture / Repas",
+    "tgt_text": "Dùmuni",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Dùmuni",
+    "tgt_text": "Nourriture / Repas",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Poisson",
+    "tgt_text": "Jège",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Jège",
+    "tgt_text": "Poisson",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Tô (boule de mil)",
+    "tgt_text": "Tô",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tô",
+    "tgt_text": "Tô (boule de mil)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Sauce arachide",
+    "tgt_text": "Mafè",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Mafè",
+    "tgt_text": "Sauce arachide",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Banane plantain frite",
+    "tgt_text": "Aloko",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Aloko",
+    "tgt_text": "Banane plantain frite",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Attiéké (semoule de manioc)",
+    "tgt_text": "Attiéké",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Attiéké",
+    "tgt_text": "Attiéké (semoule de manioc)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Café",
+    "tgt_text": "Kɔɔfe",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kɔɔfe",
+    "tgt_text": "Café",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Père",
+    "tgt_text": "Fa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Fa",
+    "tgt_text": "Père",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Aîné(e)",
+    "tgt_text": "Kɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kɔrɔ",
+    "tgt_text": "Aîné(e)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Cadet(te)",
+    "tgt_text": "Dɔgɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Dɔgɔ",
+    "tgt_text": "Cadet(te)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Mari / Homme",
+    "tgt_text": "Cɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Cɛ",
+    "tgt_text": "Mari / Homme",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Femme / Épouse",
+    "tgt_text": "Muso",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Muso",
+    "tgt_text": "Femme / Épouse",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Grand-mère",
+    "tgt_text": "Mama",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Mama",
+    "tgt_text": "Grand-mère",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Grand-père",
+    "tgt_text": "Kɔkɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kɔkɔ",
+    "tgt_text": "Grand-père",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Ami(e)",
+    "tgt_text": "Tɔgɔmabaga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tɔgɔmabaga",
+    "tgt_text": "Ami(e)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Tête",
+    "tgt_text": "Kun",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kun",
+    "tgt_text": "Tête",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Œil",
+    "tgt_text": "Nyɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Nyɛ",
+    "tgt_text": "Œil",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Nez",
+    "tgt_text": "Buru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Buru",
+    "tgt_text": "Nez",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Main / Bras",
+    "tgt_text": "Bolo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Bolo",
+    "tgt_text": "Main / Bras",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Pied / Jambe",
+    "tgt_text": "Sɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Sɛ",
+    "tgt_text": "Pied / Jambe",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Cœur",
+    "tgt_text": "Sɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Sɔn",
+    "tgt_text": "Cœur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Un (1)",
+    "tgt_text": "kelen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kelen",
+    "tgt_text": "Un (1)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Deux (2)",
+    "tgt_text": "fila",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fila",
+    "tgt_text": "Deux (2)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Trois (3)",
+    "tgt_text": "saba",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "saba",
+    "tgt_text": "Trois (3)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Quatre (4)",
+    "tgt_text": "naani",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "naani",
+    "tgt_text": "Quatre (4)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Cinq (5)",
+    "tgt_text": "duuru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "duuru",
+    "tgt_text": "Cinq (5)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Six (6)",
+    "tgt_text": "wɔɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wɔɔrɔ",
+    "tgt_text": "Six (6)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Sept (7)",
+    "tgt_text": "wolonfila",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wolonfila",
+    "tgt_text": "Sept (7)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Huit (8)",
+    "tgt_text": "segin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "segin",
+    "tgt_text": "Huit (8)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Neuf (9)",
+    "tgt_text": "kɔnɔntɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔnɔntɔn",
+    "tgt_text": "Neuf (9)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Dix (10)",
+    "tgt_text": "tan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan",
+    "tgt_text": "Dix (10)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Onze (11)",
+    "tgt_text": "tan ni kelen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni kelen",
+    "tgt_text": "Onze (11)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Douze (12)",
+    "tgt_text": "tan ni fila",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni fila",
+    "tgt_text": "Douze (12)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Treize (13)",
+    "tgt_text": "tan ni saba",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni saba",
+    "tgt_text": "Treize (13)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Quatorze (14)",
+    "tgt_text": "tan ni naani",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni naani",
+    "tgt_text": "Quatorze (14)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Quinze (15)",
+    "tgt_text": "tan ni duuru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni duuru",
+    "tgt_text": "Quinze (15)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Seize (16)",
+    "tgt_text": "tan ni wɔɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni wɔɔrɔ",
+    "tgt_text": "Seize (16)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Dix-sept (17)",
+    "tgt_text": "tan ni wolonfila",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni wolonfila",
+    "tgt_text": "Dix-sept (17)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Dix-huit (18)",
+    "tgt_text": "tan ni segin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni segin",
+    "tgt_text": "Dix-huit (18)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Dix-neuf (19)",
+    "tgt_text": "tan ni kɔnɔntɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan ni kɔnɔntɔn",
+    "tgt_text": "Dix-neuf (19)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Vingt (20)",
+    "tgt_text": "mugan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mugan",
+    "tgt_text": "Vingt (20)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Blanc",
+    "tgt_text": "jɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jɛ",
+    "tgt_text": "Blanc",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Rouge",
+    "tgt_text": "fulari",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fulari",
+    "tgt_text": "Rouge",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Bleu",
+    "tgt_text": "bulubulu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bulubulu",
+    "tgt_text": "Bleu",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Vert",
+    "tgt_text": "gwɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "gwɛ",
+    "tgt_text": "Vert",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Jaune",
+    "tgt_text": "sanan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sanan",
+    "tgt_text": "Jaune",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Orange",
+    "tgt_text": "wulen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wulen",
+    "tgt_text": "Orange",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Gris",
+    "tgt_text": "sɛnɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sɛnɛ",
+    "tgt_text": "Gris",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Lion",
+    "tgt_text": "Waraba",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Waraba",
+    "tgt_text": "Lion",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Éléphant",
+    "tgt_text": "Sèn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Sèn",
+    "tgt_text": "Éléphant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Poulet",
+    "tgt_text": "Nɔgɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Nɔgɔn",
+    "tgt_text": "Poulet",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Chèvre",
+    "tgt_text": "Baa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Baa",
+    "tgt_text": "Chèvre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Vache",
+    "tgt_text": "Nantugu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Nantugu",
+    "tgt_text": "Vache",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Porte",
+    "tgt_text": "Daa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Daa",
+    "tgt_text": "Porte",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Chambre",
+    "tgt_text": "Bon",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Bon",
+    "tgt_text": "Chambre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Marché",
+    "tgt_text": "Marɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Marɛ",
+    "tgt_text": "Marché",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "École",
+    "tgt_text": "Kalanso",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kalanso",
+    "tgt_text": "École",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Tissu / Vêtement",
+    "tgt_text": "Fani",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Fani",
+    "tgt_text": "Tissu / Vêtement",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Guerre / Bagarre",
+    "tgt_text": "Kɛlɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kɛlɛ",
+    "tgt_text": "Guerre / Bagarre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Travailleurs",
+    "tgt_text": "Baarakɛlaw",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Baarakɛlaw",
+    "tgt_text": "Travailleurs",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Soleil",
+    "tgt_text": "Tèle",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tèle",
+    "tgt_text": "Soleil",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Froid",
+    "tgt_text": "Flankan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Flankan",
+    "tgt_text": "Froid",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Chaleur",
+    "tgt_text": "Gbèlèn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Gbèlèn",
+    "tgt_text": "Chaleur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Vent",
+    "tgt_text": "Fɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Fɔn",
+    "tgt_text": "Vent",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Saison sèche",
+    "tgt_text": "Sùman",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Sùman",
+    "tgt_text": "Saison sèche",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "(cuisine)",
+    "tgt_text": "ou [ k ]\nExemples :\nGwabugu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ou [ k ]\nExemples :\nGwabugu",
+    "tgt_text": "(cuisine)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "peur",
+    "tgt_text": "siranya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "siranya",
+    "tgt_text": "peur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "grosseur",
+    "tgt_text": "bonya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bonya",
+    "tgt_text": "grosseur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "vol",
+    "tgt_text": "sonya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sonya",
+    "tgt_text": "vol",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Voix, syllabe",
+    "tgt_text": "kanɲa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kanɲa",
+    "tgt_text": "Voix, syllabe",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "foin",
+    "tgt_text": "binɲaga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "binɲaga",
+    "tgt_text": "foin",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "anti-chambre",
+    "tgt_text": "bonɲa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bonɲa",
+    "tgt_text": "anti-chambre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "nombre de grossesse, de geste",
+    "tgt_text": "kɔnɔɲa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔnɔɲa",
+    "tgt_text": "nombre de grossesse, de geste",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "conte",
+    "tgt_text": "siirin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "siirin",
+    "tgt_text": "conte",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cuivre",
+    "tgt_text": "zira",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "zira",
+    "tgt_text": "cuivre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "liane goïne",
+    "tgt_text": "zaban",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "zaban",
+    "tgt_text": "liane goïne",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "violon",
+    "tgt_text": "gɔni",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "gɔni",
+    "tgt_text": "violon",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mensonge",
+    "tgt_text": "galon",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "galon",
+    "tgt_text": "mensonge",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "jujube",
+    "tgt_text": "tɔmɔnɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tɔmɔnɔ",
+    "tgt_text": "jujube",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "kwashiorkor",
+    "tgt_text": "seere = témoin sere",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "seere = témoin sere",
+    "tgt_text": "kwashiorkor",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aisance",
+    "tgt_text": "fɛɛrɛ = technique fɛrɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fɛɛrɛ = technique fɛrɛ",
+    "tgt_text": "aisance",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "attraper",
+    "tgt_text": "miina = étape du Hadj mina",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "miina = étape du Hadj mina",
+    "tgt_text": "attraper",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "hanche",
+    "tgt_text": "sooro = couler soro",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sooro = couler soro",
+    "tgt_text": "hanche",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "virgule",
+    "tgt_text": "kɔɔri = coton kɔri",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔɔri = coton kɔri",
+    "tgt_text": "virgule",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "planter ; huile",
+    "tgt_text": "tuuru = s'écarter turu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tuuru = s'écarter turu",
+    "tgt_text": "planter ; huile",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "soleil",
+    "tgt_text": "tilen = redresser tile",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tilen = redresser tile",
+    "tgt_text": "soleil",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "poisson",
+    "tgt_text": "jɛngɛ = écarter, incliner jɛgɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jɛngɛ = écarter, incliner jɛgɛ",
+    "tgt_text": "poisson",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "fumée",
+    "tgt_text": "sinsin = panier sisi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sinsin = panier sisi",
+    "tgt_text": "fumée",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "os",
+    "tgt_text": "kolon = mortier kolo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kolon = mortier kolo",
+    "tgt_text": "os",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "noix de karité",
+    "tgt_text": "kɔlɔn = puits kɔlɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔlɔn = puits kɔlɔ",
+    "tgt_text": "noix de karité",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "piler",
+    "tgt_text": "sunsun = pomme cannelle susu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sunsun = pomme cannelle susu",
+    "tgt_text": "piler",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "moment",
+    "tgt_text": "wagati",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wagati",
+    "tgt_text": "moment",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "paresseux",
+    "tgt_text": "salibagatɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "salibagatɔ",
+    "tgt_text": "paresseux",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "signe",
+    "tgt_text": "tagamasiɲɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tagamasiɲɛ",
+    "tgt_text": "signe",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "force bénédiction adopter a ou i",
+    "tgt_text": "baraka ou barika",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "baraka ou barika",
+    "tgt_text": "force bénédiction adopter a ou i",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "pour que adopter a ou i",
+    "tgt_text": "walasa ou walisa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "walasa ou walisa",
+    "tgt_text": "pour que adopter a ou i",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ou adopter a ou i",
+    "tgt_text": "walama ou walima",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "walama ou walima",
+    "tgt_text": "ou adopter a ou i",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "fer “",
+    "tgt_text": "nigɛ ou nɛgɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nigɛ ou nɛgɛ",
+    "tgt_text": "fer “",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "boule d'akassa “",
+    "tgt_text": "digɛ ou dɛgɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "digɛ ou dɛgɛ",
+    "tgt_text": "boule d'akassa “",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "poisson “",
+    "tgt_text": "jigɛ ou jɛgɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jigɛ ou jɛgɛ",
+    "tgt_text": "poisson “",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "attraper “",
+    "tgt_text": "mina ou minɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mina ou minɛ",
+    "tgt_text": "attraper “",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "fossé “",
+    "tgt_text": "dinga ou dingɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dinga ou dingɛ",
+    "tgt_text": "fossé “",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "connaître adopter l",
+    "tgt_text": "lɔn ou dɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "lɔn ou dɔn",
+    "tgt_text": "connaître adopter l",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "c'est “ l",
+    "tgt_text": "lo ou do",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "lo ou do",
+    "tgt_text": "c'est “ l",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "jalousie “ c",
+    "tgt_text": "celiya ou keliya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "celiya ou keliya",
+    "tgt_text": "jalousie “ c",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "abîmer “ t",
+    "tgt_text": "tiɲɛn ou ciɲɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tiɲɛn ou ciɲɛn",
+    "tgt_text": "abîmer “ t",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "arbre “ y",
+    "tgt_text": "yiri ou jiri",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "yiri ou jiri",
+    "tgt_text": "arbre “ y",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "foie “ ɲ",
+    "tgt_text": "biɲɛ ou binyɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "biɲɛ ou binyɛ",
+    "tgt_text": "foie “ ɲ",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "flèche “ ɲ",
+    "tgt_text": "biɲɛ ou binyɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "biɲɛ ou binyɛ",
+    "tgt_text": "flèche “ ɲ",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "moment adopter g",
+    "tgt_text": "wagati ou wakati",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wagati ou wakati",
+    "tgt_text": "moment adopter g",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "la maison",
+    "tgt_text": "fidèlement possible.\nExemples :\nSoo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fidèlement possible.\nExemples :\nSoo",
+    "tgt_text": "la maison",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il/elle est sorti",
+    "tgt_text": "pronoms.\nExemples :\nA bɔra",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "pronoms.\nExemples :\nA bɔra",
+    "tgt_text": "il/elle est sorti",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il m'a appelé",
+    "tgt_text": "a yi n weele",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a yi n weele",
+    "tgt_text": "il m'a appelé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il me l'a donné",
+    "tgt_text": "a y'a di n ma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a y'a di n ma",
+    "tgt_text": "il me l'a donné",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "moi aussi j'en veux",
+    "tgt_text": "n fana b'a fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "n fana b'a fɛ",
+    "tgt_text": "moi aussi j'en veux",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "soleil, jour",
+    "tgt_text": "tile",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tile",
+    "tgt_text": "soleil, jour",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "grossir",
+    "tgt_text": "tulɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tulɔ",
+    "tgt_text": "grossir",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "sifflet",
+    "tgt_text": "filen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "filen",
+    "tgt_text": "sifflet",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "peulh",
+    "tgt_text": "fula",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fula",
+    "tgt_text": "peulh",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "avoir peur",
+    "tgt_text": "siran",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "siran",
+    "tgt_text": "avoir peur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "balayer",
+    "tgt_text": "furan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "furan",
+    "tgt_text": "balayer",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "faire partir",
+    "tgt_text": "la - lataga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "la - lataga",
+    "tgt_text": "faire partir",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "poursuivre",
+    "tgt_text": "ma- magwɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ma- magwɛn",
+    "tgt_text": "poursuivre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "laveur d'habits",
+    "tgt_text": "- baga fanikobaga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- baga fanikobaga",
+    "tgt_text": "laveur d'habits",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "impudique",
+    "tgt_text": "- bali malobali",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- bali malobali",
+    "tgt_text": "impudique",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "grosse femme",
+    "tgt_text": "- ba tasaba = bassine\nmusoba",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- ba tasaba = bassine\nmusoba",
+    "tgt_text": "grosse femme",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui fait exprès",
+    "tgt_text": "- ci tugubagaci",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- ci tugubagaci",
+    "tgt_text": "qui fait exprès",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "bobolais",
+    "tgt_text": "janfaci = traitre\n- ka boboka",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "janfaci = traitre\n- ka boboka",
+    "tgt_text": "bobolais",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Afrique Noire",
+    "tgt_text": "nagakɔrɔla = bas-ventre\nfarafinna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nagakɔrɔla = bas-ventre\nfarafinna",
+    "tgt_text": "Afrique Noire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "opinion",
+    "tgt_text": "- la hakilila",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- la hakilila",
+    "tgt_text": "opinion",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "agriculteur",
+    "tgt_text": "- la sɛnɛkɛla",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- la sɛnɛkɛla",
+    "tgt_text": "agriculteur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "laveur d'habits",
+    "tgt_text": "fanikola",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fanikola",
+    "tgt_text": "laveur d'habits",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "noir",
+    "tgt_text": "- man jiman = liquide\nfinman",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- man jiman = liquide\nfinman",
+    "tgt_text": "noir",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "troisième",
+    "tgt_text": "- nan sabanan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- nan sabanan",
+    "tgt_text": "troisième",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "semis",
+    "tgt_text": "susuli = pilage\ndanni",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "susuli = pilage\ndanni",
+    "tgt_text": "semis",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "à acheter",
+    "tgt_text": "- nin cɛnin = bonhomme\n- ta santa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- nin cɛnin = bonhomme\n- ta santa",
+    "tgt_text": "à acheter",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui manque d'argent",
+    "tgt_text": "feereta = à vendre\n- tan waritan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "feereta = à vendre\n- tan waritan",
+    "tgt_text": "qui manque d'argent",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "pauvre, «sans force»",
+    "tgt_text": "fangatan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fangatan",
+    "tgt_text": "pauvre, «sans force»",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "amitié",
+    "tgt_text": "- tɔ kɔngɔtɔ = affamé\n- ya teriya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- tɔ kɔngɔtɔ = affamé\n- ya teriya",
+    "tgt_text": "amitié",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "poursuivre",
+    "tgt_text": "lataga = faire partir\nma- magwɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "lataga = faire partir\nma- magwɛn",
+    "tgt_text": "poursuivre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "laveur d'habits",
+    "tgt_text": "baga fanikobaga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "baga fanikobaga",
+    "tgt_text": "laveur d'habits",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "impudique",
+    "tgt_text": "bali malobali",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bali malobali",
+    "tgt_text": "impudique",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "grosse femme",
+    "tgt_text": "ba tasaba = bassine\nmusoba",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ba tasaba = bassine\nmusoba",
+    "tgt_text": "grosse femme",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui fait exprès",
+    "tgt_text": "ci tugubagaci",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ci tugubagaci",
+    "tgt_text": "qui fait exprès",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "bobolais",
+    "tgt_text": "ka boboka",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ka boboka",
+    "tgt_text": "bobolais",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Afrique Noire",
+    "tgt_text": "ventre\nfarafinna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ventre\nfarafinna",
+    "tgt_text": "Afrique Noire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "agriculteur",
+    "tgt_text": "la hakilila = opinion\n- la sɛnɛkɛla",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "la hakilila = opinion\n- la sɛnɛkɛla",
+    "tgt_text": "agriculteur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "noir",
+    "tgt_text": "man jiman = liquide\nfinman",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "man jiman = liquide\nfinman",
+    "tgt_text": "noir",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "troisième",
+    "tgt_text": "nan sabanan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nan sabanan",
+    "tgt_text": "troisième",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "à acheter",
+    "tgt_text": "nin cɛnin = bonhomme\n- ta santa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nin cɛnin = bonhomme\n- ta santa",
+    "tgt_text": "à acheter",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui manque d'argent",
+    "tgt_text": "tan waritan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan waritan",
+    "tgt_text": "qui manque d'argent",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "amitié",
+    "tgt_text": "tɔ kɔngɔtɔ = affamé\n- ya teriya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tɔ kɔngɔtɔ = affamé\n- ya teriya",
+    "tgt_text": "amitié",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les caïlcédrats sont hauts",
+    "tgt_text": "jalayiriw ka jan jan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jalayiriw ka jan jan",
+    "tgt_text": "les caïlcédrats sont hauts",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "très vite",
+    "tgt_text": "- Adverbes\nExemples :\njoona joona",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- Adverbes\nExemples :\njoona joona",
+    "tgt_text": "très vite",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "doucement, petit à petit",
+    "tgt_text": "dɔɔnin dɔɔnin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dɔɔnin dɔɔnin",
+    "tgt_text": "doucement, petit à petit",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "immédiatement",
+    "tgt_text": "fɔlɔ fɔlɔ = jadis\nsisan sisan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fɔlɔ fɔlɔ = jadis\nsisan sisan",
+    "tgt_text": "immédiatement",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "jadis",
+    "tgt_text": "galen galen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "galen galen",
+    "tgt_text": "jadis",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "un à un",
+    "tgt_text": "- Numéraux\nExemples :\nkelen kelen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- Numéraux\nExemples :\nkelen kelen",
+    "tgt_text": "un à un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cinq par cinq",
+    "tgt_text": "duuru duuru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "duuru duuru",
+    "tgt_text": "cinq par cinq",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "deux par deux ; deux chacun",
+    "tgt_text": "fila fila",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fila fila",
+    "tgt_text": "deux par deux ; deux chacun",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "dix par dix ; dix chacun",
+    "tgt_text": "tan tan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tan tan",
+    "tgt_text": "dix par dix ; dix chacun",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cinq par cinq ; cinq à chacun",
+    "tgt_text": "trait d'union.\nExemples :\ndu-duuru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "trait d'union.\nExemples :\ndu-duuru",
+    "tgt_text": "cinq par cinq ; cinq à chacun",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quatre par quatre ; quatre chacun",
+    "tgt_text": "na-naani",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "na-naani",
+    "tgt_text": "quatre par quatre ; quatre chacun",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "six par six ; six chacun",
+    "tgt_text": "wɔ-wɔɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wɔ-wɔɔrɔ",
+    "tgt_text": "six par six ; six chacun",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cinq par cinq",
+    "tgt_text": "duuru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "duuru",
+    "tgt_text": "cinq par cinq",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quatre par quatre",
+    "tgt_text": "naani",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "naani",
+    "tgt_text": "quatre par quatre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "six par six",
+    "tgt_text": "wɔɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wɔɔrɔ",
+    "tgt_text": "six par six",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ordures",
+    "tgt_text": "tomitomi = pointillés\nɲamaɲama",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tomitomi = pointillés\nɲamaɲama",
+    "tgt_text": "ordures",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "goutter",
+    "tgt_text": "magamaga = bouger\ntɔnitɔni",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "magamaga = bouger\ntɔnitɔni",
+    "tgt_text": "goutter",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "attacher à plusieurs endroits",
+    "tgt_text": "sirisiri",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sirisiri",
+    "tgt_text": "attacher à plusieurs endroits",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "donner des coups de pied",
+    "tgt_text": "tantan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tantan",
+    "tgt_text": "donner des coups de pied",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "faire bouillir",
+    "tgt_text": "ka ŋunuŋunu = murmurer k'a barabara",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ka ŋunuŋunu = murmurer k'a barabara",
+    "tgt_text": "faire bouillir",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "asperger",
+    "tgt_text": "ka sɔgɔsɔgɔ = tousser k'a funfun",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ka sɔgɔsɔgɔ = tousser k'a funfun",
+    "tgt_text": "asperger",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "poumon",
+    "tgt_text": "sanbɛsanbɛ = bonne année fɔgɔfɔgɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sanbɛsanbɛ = bonne année fɔgɔfɔgɔ",
+    "tgt_text": "poumon",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lexème ou base verbal",
+    "tgt_text": "n = lexème ou base nominal (e)\nv",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "n = lexème ou base nominal (e)\nv",
+    "tgt_text": "lexème ou base verbal",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "base verbo-nominale",
+    "tgt_text": "v = base verbale\nvn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "v = base verbale\nvn",
+    "tgt_text": "base verbo-nominale",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "base nominale",
+    "tgt_text": "nominal (e)\nAprès les flèches :\nn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nominal (e)\nAprès les flèches :\nn",
+    "tgt_text": "base nominale",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "puisette",
+    "tgt_text": "jurufiyɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jurufiyɛ",
+    "tgt_text": "puisette",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "viande de mouton",
+    "tgt_text": "sagasogo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sagasogo",
+    "tgt_text": "viande de mouton",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lait maternel",
+    "tgt_text": "sinji",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sinji",
+    "tgt_text": "lait maternel",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chef de village",
+    "tgt_text": "dugutigi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dugutigi",
+    "tgt_text": "chef de village",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "affaire d'argent",
+    "tgt_text": "wariko",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wariko",
+    "tgt_text": "affaire d'argent",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "brebis",
+    "tgt_text": "sagamuso",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sagamuso",
+    "tgt_text": "brebis",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chose de peu de valeur",
+    "tgt_text": "fɛngwansan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fɛngwansan",
+    "tgt_text": "chose de peu de valeur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "bois sec",
+    "tgt_text": "lɔgɔjalan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "lɔgɔjalan",
+    "tgt_text": "bois sec",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "personne honorable",
+    "tgt_text": "mɔgɔsɔbɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mɔgɔsɔbɛ",
+    "tgt_text": "personne honorable",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "grand chasseur",
+    "tgt_text": "donsoŋana",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "donsoŋana",
+    "tgt_text": "grand chasseur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "procréation",
+    "tgt_text": "denwolo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "denwolo",
+    "tgt_text": "procréation",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mariage",
+    "tgt_text": "musofuru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "musofuru",
+    "tgt_text": "mariage",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chevauchée",
+    "tgt_text": "soboli",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "soboli",
+    "tgt_text": "chevauchée",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "fabrication de pirogues",
+    "tgt_text": "kurundilan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kurundilan",
+    "tgt_text": "fabrication de pirogues",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "maux de tête",
+    "tgt_text": "kundimi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kundimi",
+    "tgt_text": "maux de tête",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "terre pourrie",
+    "tgt_text": "bɔgɔtoli",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bɔgɔtoli",
+    "tgt_text": "terre pourrie",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "eau sale",
+    "tgt_text": "jinɔgɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jinɔgɔ",
+    "tgt_text": "eau sale",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aquatique",
+    "tgt_text": "jirafɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jirafɛn",
+    "tgt_text": "aquatique",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "bracelet",
+    "tgt_text": "bololanɛgɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bololanɛgɛ",
+    "tgt_text": "bracelet",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "pot - de - vin",
+    "tgt_text": "surafɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "surafɛn",
+    "tgt_text": "pot - de - vin",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "terrestre",
+    "tgt_text": "dugumafɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dugumafɛn",
+    "tgt_text": "terrestre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lait frais",
+    "tgt_text": "nɔnɔkɛnɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nɔnɔkɛnɛ",
+    "tgt_text": "lait frais",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chien méchant",
+    "tgt_text": "wulujugu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wulujugu",
+    "tgt_text": "chien méchant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "force pure",
+    "tgt_text": "fangafin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fangafin",
+    "tgt_text": "force pure",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "monnaie",
+    "tgt_text": "warimisɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "warimisɛn",
+    "tgt_text": "monnaie",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "homme au teint claire",
+    "tgt_text": "cɛgwɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɛgwɛ",
+    "tgt_text": "homme au teint claire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "femme de teint claire",
+    "tgt_text": "muso gwɛman",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "muso gwɛman",
+    "tgt_text": "femme de teint claire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lait liquide ou non concentré",
+    "tgt_text": "nɔnɔ jiman",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nɔnɔ jiman",
+    "tgt_text": "lait liquide ou non concentré",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "provoquer",
+    "tgt_text": "darabɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "darabɔ",
+    "tgt_text": "provoquer",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "faire des reproches",
+    "tgt_text": "kunnala",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kunnala",
+    "tgt_text": "faire des reproches",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "contribution",
+    "tgt_text": "bolomafara",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bolomafara",
+    "tgt_text": "contribution",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "sérénité",
+    "tgt_text": "ɲamalɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ɲamalɔ",
+    "tgt_text": "sérénité",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "souillure",
+    "tgt_text": "ɲamanɔgɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ɲamanɔgɔ",
+    "tgt_text": "souillure",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "adopter une démarche de félin",
+    "tgt_text": "jakumatagama",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jakumatagama",
+    "tgt_text": "adopter une démarche de félin",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "battre comme un âne",
+    "tgt_text": "falibugɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "falibugɔ",
+    "tgt_text": "battre comme un âne",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "prendre comme un cadavre",
+    "tgt_text": "suta",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "suta",
+    "tgt_text": "prendre comme un cadavre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "traiter comme un chien",
+    "tgt_text": "wulumina",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wulumina",
+    "tgt_text": "traiter comme un chien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "battre comme un chien",
+    "tgt_text": "wulubugɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wulubugɔ",
+    "tgt_text": "battre comme un chien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "adopter un démarche de caméléon",
+    "tgt_text": "nɔgɔsitagama",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nɔgɔsitagama",
+    "tgt_text": "adopter un démarche de caméléon",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "adopter un vitesse de cheval au galop",
+    "tgt_text": "sogirin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sogirin",
+    "tgt_text": "adopter un vitesse de cheval au galop",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cohabitant, réfugié",
+    "tgt_text": "siginfɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "siginfɛ",
+    "tgt_text": "cohabitant, réfugié",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "choléra",
+    "tgt_text": "tonnkan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tonnkan",
+    "tgt_text": "choléra",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "épargne",
+    "tgt_text": "bilankɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bilankɔrɔ",
+    "tgt_text": "épargne",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "poison",
+    "tgt_text": "donnkɔnɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "donnkɔnɔ",
+    "tgt_text": "poison",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "additif",
+    "tgt_text": "farankan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "farankan",
+    "tgt_text": "additif",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "objet de désire",
+    "tgt_text": "diyanye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "diyanye",
+    "tgt_text": "objet de désire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "reproche",
+    "tgt_text": "jiginna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jiginna",
+    "tgt_text": "reproche",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "autosuffisance",
+    "tgt_text": "senyɛrɛkɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "senyɛrɛkɔrɔ",
+    "tgt_text": "autosuffisance",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "entraide, solidarité",
+    "tgt_text": "bolodiɲɔgɔnma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bolodiɲɔgɔnma",
+    "tgt_text": "entraide, solidarité",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aucun cheval n'a été retrouvé",
+    "tgt_text": "soo ma ye (ton haut - indéfini)",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "soo ma ye (ton haut - indéfini)",
+    "tgt_text": "aucun cheval n'a été retrouvé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le cheval n'a pas été retrouvé",
+    "tgt_text": "soo ma ye (ton modulé - défini)",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "soo ma ye (ton modulé - défini)",
+    "tgt_text": "le cheval n'a pas été retrouvé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il n’y a pas de femme ici",
+    "tgt_text": "muso ti yan (ton haut - indéfini)",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "muso ti yan (ton haut - indéfini)",
+    "tgt_text": "il n’y a pas de femme ici",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "la femme n'est pas ici",
+    "tgt_text": "muso ti yan (ton bas - défini)",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "muso ti yan (ton bas - défini)",
+    "tgt_text": "la femme n'est pas ici",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "hermaphrodite",
+    "tgt_text": "cɛtɛmusotɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɛtɛmusotɛ",
+    "tgt_text": "hermaphrodite",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "friperie",
+    "tgt_text": "takayuguyugu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "takayuguyugu",
+    "tgt_text": "friperie",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "friperie",
+    "tgt_text": "donkafilɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "donkafilɛ",
+    "tgt_text": "friperie",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "entente verbale",
+    "tgt_text": "fɔkabɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fɔkabɛn",
+    "tgt_text": "entente verbale",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "report, repris",
+    "tgt_text": "bilakasuma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bilakasuma",
+    "tgt_text": "report, repris",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aller - retour",
+    "tgt_text": "tagakasegi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tagakasegi",
+    "tgt_text": "aller - retour",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "travail de groupe",
+    "tgt_text": "jɛnkabaara",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jɛnkabaara",
+    "tgt_text": "travail de groupe",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "progrès surprenant",
+    "tgt_text": "barikawili",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "barikawili",
+    "tgt_text": "progrès surprenant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "sautillement",
+    "tgt_text": "pankacun",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "pankacun",
+    "tgt_text": "sautillement",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "surprise",
+    "tgt_text": "barinnako",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "barinnako",
+    "tgt_text": "surprise",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aucun cheval n'a été retrouvé",
+    "tgt_text": "indéfini)",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "indéfini)",
+    "tgt_text": "aucun cheval n'a été retrouvé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le cheval n'a pas été retrouvé",
+    "tgt_text": "défini)",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "défini)",
+    "tgt_text": "le cheval n'a pas été retrouvé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les voleurs",
+    "tgt_text": "soon = le voleur soonw",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "soon = le voleur soonw",
+    "tgt_text": "les voleurs",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les bovins",
+    "tgt_text": "misi = le bovin misiw",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "misi = le bovin misiw",
+    "tgt_text": "les bovins",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les machettes",
+    "tgt_text": "bese = la machette besew",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bese = la machette besew",
+    "tgt_text": "les machettes",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les femmes",
+    "tgt_text": "muso = la femme musow",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "muso = la femme musow",
+    "tgt_text": "les femmes",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les balafons",
+    "tgt_text": "balan = le balafon balanw",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "balan = le balafon balanw",
+    "tgt_text": "les balafons",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les hyènes",
+    "tgt_text": "suruku = l'hyène surukuw",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "suruku = l'hyène surukuw",
+    "tgt_text": "les hyènes",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ce, cet, cette ; celui-ci, celle-ci",
+    "tgt_text": "7-2-1 le démonstratif\nnin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "7-2-1 le démonstratif\nnin",
+    "tgt_text": "ce, cet, cette ; celui-ci, celle-ci",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "la pluie a battu ceux-ci",
+    "tgt_text": "sanji yi nunu bugɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sanji yi nunu bugɔ",
+    "tgt_text": "la pluie a battu ceux-ci",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "arrose ceux-ci",
+    "tgt_text": "jii kɛ nunu kan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jii kɛ nunu kan",
+    "tgt_text": "arrose ceux-ci",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ces assiettes sont grandes",
+    "tgt_text": "tasa nunu ka bon bon",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tasa nunu ka bon bon",
+    "tgt_text": "ces assiettes sont grandes",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ce, cet, cette",
+    "tgt_text": "2-1 le démonstratif\nnin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "2-1 le démonstratif\nnin",
+    "tgt_text": "ce, cet, cette",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "celui-ci vient de Bobo",
+    "tgt_text": "ci.\nExemples :\nnin bɔra Bobo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ci.\nExemples :\nnin bɔra Bobo",
+    "tgt_text": "celui-ci vient de Bobo",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "arrose ceux-ci",
+    "tgt_text": "ci\njii kɛ nunu kan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ci\njii kɛ nunu kan",
+    "tgt_text": "arrose ceux-ci",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "tout, tous",
+    "tgt_text": "7-2-2 Le totalisateur\nbɛɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "7-2-2 Le totalisateur\nbɛɛ",
+    "tgt_text": "tout, tous",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "la femme a salué tout le monde",
+    "tgt_text": "muso ye bɛɛ fo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "muso ye bɛɛ fo",
+    "tgt_text": "la femme a salué tout le monde",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle a béni tout le monde",
+    "tgt_text": "a ye dubabu don bɛɛ ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ye dubabu don bɛɛ ye",
+    "tgt_text": "elle a béni tout le monde",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il a lavé tous les habits",
+    "tgt_text": "a ye fani bɛɛ ko",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ye fani bɛɛ ko",
+    "tgt_text": "il a lavé tous les habits",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il a tout dit",
+    "tgt_text": "a y'a bɛɛ fɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a y'a bɛɛ fɔ",
+    "tgt_text": "il a tout dit",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quelqu'un",
+    "tgt_text": "7-2-3 L'indéfini\ndɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "7-2-3 L'indéfini\ndɔ",
+    "tgt_text": "quelqu'un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il a appelé quelqu'un",
+    "tgt_text": "a yi dɔ weele",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a yi dɔ weele",
+    "tgt_text": "il a appelé quelqu'un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il l'a dit à quelqu'un",
+    "tgt_text": "a y'a fɔ dɔ ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a y'a fɔ dɔ ye",
+    "tgt_text": "il l'a dit à quelqu'un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "c'est quelqu'un",
+    "tgt_text": "mɔgɔ dɔ lo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mɔgɔ dɔ lo",
+    "tgt_text": "c'est quelqu'un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "certains hommes sont venus hier",
+    "tgt_text": "cɛɛ dɔw nana kunu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɛɛ dɔw nana kunu",
+    "tgt_text": "certains hommes sont venus hier",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "combien ?",
+    "tgt_text": "joli ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "joli ?",
+    "tgt_text": "combien ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "combien de moutons sont-ils égarés ?",
+    "tgt_text": "saga joli tununa ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "saga joli tununa ?",
+    "tgt_text": "combien de moutons sont-ils égarés ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lesquels, lesquelles ?",
+    "tgt_text": "juman = lequel, laquelle ? jumanw ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "juman = lequel, laquelle ? jumanw ?",
+    "tgt_text": "lesquels, lesquelles ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quel médicament y a-t-il ici ?",
+    "tgt_text": "fura juman le bi yen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fura juman le bi yen",
+    "tgt_text": "quel médicament y a-t-il ici ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "que ; quoi ?",
+    "tgt_text": "mun ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mun ?",
+    "tgt_text": "que ; quoi ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quelles choses sont-elles tombées ?",
+    "tgt_text": "mun fɛɛnw le bena",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mun fɛɛnw le bena",
+    "tgt_text": "quelles choses sont-elles tombées ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "tout, tous",
+    "tgt_text": "2-2 Le totalisateur\nbɛɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "2-2 Le totalisateur\nbɛɛ",
+    "tgt_text": "tout, tous",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quelqu'un",
+    "tgt_text": "2-3 L'indéfini\ndɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "2-3 L'indéfini\ndɔ",
+    "tgt_text": "quelqu'un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "que",
+    "tgt_text": "t-il ici ?\nmun ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "t-il ici ?\nmun ?",
+    "tgt_text": "que",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "comment ? ; qu'est-ce que ?",
+    "tgt_text": "di ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "di ?",
+    "tgt_text": "comment ? ; qu'est-ce que ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "de quelles manière ? comment ?",
+    "tgt_text": "cogo di ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cogo di ?",
+    "tgt_text": "de quelles manière ? comment ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "où",
+    "tgt_text": "jɔn ? = qui ? et min ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jɔn ? = qui ? et min ?",
+    "tgt_text": "où",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quels sont ceux qui l'on dit ?",
+    "tgt_text": "jɔnw le y'a fɔ ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jɔnw le y'a fɔ ?",
+    "tgt_text": "quels sont ceux qui l'on dit ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui a-t-il montré ?",
+    "tgt_text": "a ye jɔn yira ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ye jɔn yira ?",
+    "tgt_text": "qui a-t-il montré ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "à qui cela a-t-il été dit ?",
+    "tgt_text": "a fɔra jɔn ye ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a fɔra jɔn ye ?",
+    "tgt_text": "à qui cela a-t-il été dit ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les miens sont perdus",
+    "tgt_text": "nne taaw tununa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nne taaw tununa",
+    "tgt_text": "les miens sont perdus",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "toi, tu dépasses les bornes !",
+    "tgt_text": "ile taa tɛmɛn'a daan kan !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ile taa tɛmɛn'a daan kan !",
+    "tgt_text": "toi, tu dépasses les bornes !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il n'a rien dit",
+    "tgt_text": "a ma foyi fɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ma foyi fɔ",
+    "tgt_text": "il n'a rien dit",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il n'est devenu rien",
+    "tgt_text": "a ma kɛ foyi ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ma kɛ foyi ye",
+    "tgt_text": "il n'est devenu rien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il n'est venu aucune voiture",
+    "tgt_text": "mɔbili foyi ma na",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mɔbili foyi ma na",
+    "tgt_text": "il n'est venu aucune voiture",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aucun",
+    "tgt_text": "- Si",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- Si",
+    "tgt_text": "aucun",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aucun de nous n'est sorti",
+    "tgt_text": "an si ma bɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "an si ma bɔ",
+    "tgt_text": "aucun de nous n'est sorti",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "nous parlerons un autre jour",
+    "tgt_text": "loon wɛrɛ an bina kuma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "loon wɛrɛ an bina kuma",
+    "tgt_text": "nous parlerons un autre jour",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chez d'autres, c'est ainsi",
+    "tgt_text": "mɔgɔ wɛrɛw fɛ, a bi ten",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mɔgɔ wɛrɛw fɛ, a bi ten",
+    "tgt_text": "chez d'autres, c'est ainsi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le chef lui-même est venu",
+    "tgt_text": "- yɛrɛ = même\nfagamancɛ yɛrɛ nana",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- yɛrɛ = même\nfagamancɛ yɛrɛ nana",
+    "tgt_text": "le chef lui-même est venu",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le marabout lui-même prit peur",
+    "tgt_text": "karamɔgɔcɛ yɛrɛ siranna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "karamɔgɔcɛ yɛrɛ siranna",
+    "tgt_text": "le marabout lui-même prit peur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "semblable",
+    "tgt_text": "- ɲɔgɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- ɲɔgɔn",
+    "tgt_text": "semblable",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "achète un couteau semblable au mien",
+    "tgt_text": "n ka muru ɲɔgɔn san",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "n ka muru ɲɔgɔn san",
+    "tgt_text": "achète un couteau semblable au mien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "j'ai un habit semblable au tien",
+    "tgt_text": "i ka fani ɲɔgɔn bi n fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "i ka fani ɲɔgɔn bi n fɛ",
+    "tgt_text": "j'ai un habit semblable au tien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "l'année dernière",
+    "tgt_text": "- Temps\nsalon",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- Temps\nsalon",
+    "tgt_text": "l'année dernière",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il n'y a pas longtemps",
+    "tgt_text": "kunu = hier\nkɔsa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kunu = hier\nkɔsa",
+    "tgt_text": "il n'y a pas longtemps",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "aujourd'hui",
+    "tgt_text": "ɲinan = cette année\nbii",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ɲinan = cette année\nbii",
+    "tgt_text": "aujourd'hui",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "demain",
+    "tgt_text": "sisan = maintenant\nsini",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sisan = maintenant\nsini",
+    "tgt_text": "demain",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "là-bas",
+    "tgt_text": "- Lieu\nyan = ici\nyen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- Lieu\nyan = ici\nyen",
+    "tgt_text": "là-bas",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "comme cela",
+    "tgt_text": "- Manière\ntan = comme ceci\nten",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- Manière\ntan = comme ceci\nten",
+    "tgt_text": "comme cela",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le chef lui-même est venu",
+    "tgt_text": "yɛrɛ = même\nfagamancɛ yɛrɛ nana",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "yɛrɛ = même\nfagamancɛ yɛrɛ nana",
+    "tgt_text": "le chef lui-même est venu",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "semblable",
+    "tgt_text": "même prit peur\n- ɲɔgɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "même prit peur\n- ɲɔgɔn",
+    "tgt_text": "semblable",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "vous n'avez pas couru",
+    "tgt_text": "á bolila = vous avez couru ma boli",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "á bolila = vous avez couru ma boli",
+    "tgt_text": "vous n'avez pas couru",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il/elle est tombé",
+    "tgt_text": "a benna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a benna",
+    "tgt_text": "il/elle est tombé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "vous n'avez pas acheté de la viande",
+    "tgt_text": "á ma sogo san",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "á ma sogo san",
+    "tgt_text": "vous n'avez pas acheté de la viande",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il ne vient pas",
+    "tgt_text": "a bi na = il vient a ti na",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a bi na = il vient a ti na",
+    "tgt_text": "il ne vient pas",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il m'a dit de construire",
+    "tgt_text": "(a ko) n ka soo lɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "(a ko) n ka soo lɔ",
+    "tgt_text": "il m'a dit de construire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ne partons pas !",
+    "tgt_text": "an ka taga = partons ! an kana taga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "an ka taga = partons ! an kana taga",
+    "tgt_text": "ne partons pas !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ne le couchez pas !",
+    "tgt_text": "á yi taga = partez ! á kana taga",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "á yi taga = partez ! á kana taga",
+    "tgt_text": "ne le couchez pas !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "si c'est ainsi",
+    "tgt_text": "mana\nExemples :\na mana kɛ ten....",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mana\nExemples :\na mana kɛ ten....",
+    "tgt_text": "si c'est ainsi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quand il voit quelqu'un",
+    "tgt_text": "a mana mɔgɔ ye....",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a mana mɔgɔ ye....",
+    "tgt_text": "quand il voit quelqu'un",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il était sorti",
+    "tgt_text": "tun\nExemples :\na tun bɔra",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tun\nExemples :\na tun bɔra",
+    "tgt_text": "il était sorti",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elles pilaient le mil",
+    "tgt_text": "o tun bi ɲɔɔ susura",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "o tun bi ɲɔɔ susura",
+    "tgt_text": "elles pilaient le mil",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il ne fallait pas qu'elles pilent le mil",
+    "tgt_text": "o tun kana ɲɔɔ susu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "o tun kana ɲɔɔ susu",
+    "tgt_text": "il ne fallait pas qu'elles pilent le mil",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il l'a pris correctement",
+    "tgt_text": "a y'a ta yewu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a y'a ta yewu",
+    "tgt_text": "il l'a pris correctement",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "c'est lui exactement qui l'as pris",
+    "tgt_text": "a y'a ta cɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a y'a ta cɔ",
+    "tgt_text": "c'est lui exactement qui l'as pris",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "écris toujours",
+    "tgt_text": "a sɛbɛn kudayi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a sɛbɛn kudayi",
+    "tgt_text": "écris toujours",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mange sans problème",
+    "tgt_text": "a dumu faasi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a dumu faasi",
+    "tgt_text": "mange sans problème",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le ciel s'est vraiment assombri",
+    "tgt_text": "saan finna ti ti ti",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "saan finna ti ti ti",
+    "tgt_text": "le ciel s'est vraiment assombri",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le canaris est très plein",
+    "tgt_text": "daga fara tewu tewu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "daga fara tewu tewu",
+    "tgt_text": "le canaris est très plein",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "l'eau est très fraîche",
+    "tgt_text": "jii sumana tɔn tɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jii sumana tɔn tɔn",
+    "tgt_text": "l'eau est très fraîche",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le travail est très chaud",
+    "tgt_text": "baara gwanna pa pa pa",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "baara gwanna pa pa pa",
+    "tgt_text": "le travail est très chaud",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il a fait ce travail avec agilité",
+    "tgt_text": "a ye baara nin walowalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ye baara nin walowalo",
+    "tgt_text": "il a fait ce travail avec agilité",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "jusqu'à ; sauf",
+    "tgt_text": "11-1-1 Les prépositions\nFɔɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "11-1-1 Les prépositions\nFɔɔ",
+    "tgt_text": "jusqu'à ; sauf",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "tous sont venus sauf Madou",
+    "tgt_text": "jour\nBɛɛ nana fɔɔ Maadu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jour\nBɛɛ nana fɔɔ Maadu",
+    "tgt_text": "tous sont venus sauf Madou",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le rônier est un arbre",
+    "tgt_text": "- ye\nExemples :\nsebe yi yiri ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- ye\nExemples :\nsebe yi yiri ye",
+    "tgt_text": "le rônier est un arbre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "c'est la maladie qui est l'ennemi de l'homme",
+    "tgt_text": "bana le yi mɔgɔ jugu ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bana le yi mɔgɔ jugu ye",
+    "tgt_text": "c'est la maladie qui est l'ennemi de l'homme",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle est allée chez Moussa",
+    "tgt_text": "- fɛ\nExemples :\nA tagara Musa fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "- fɛ\nExemples :\nA tagara Musa fɛ",
+    "tgt_text": "elle est allée chez Moussa",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "j'ai du sucre",
+    "tgt_text": "sukaro bi n fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sukaro bi n fɛ",
+    "tgt_text": "j'ai du sucre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "jusqu'à",
+    "tgt_text": "1-1 Les prépositions\nFɔɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "1-1 Les prépositions\nFɔɔ",
+    "tgt_text": "jusqu'à",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "le rônier est un arbre",
+    "tgt_text": "ye\nExemples :\nsebe yi yiri ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ye\nExemples :\nsebe yi yiri ye",
+    "tgt_text": "le rônier est un arbre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle est allée chez Moussa",
+    "tgt_text": "fɛ\nExemples :\nA tagara Musa fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fɛ\nExemples :\nA tagara Musa fɛ",
+    "tgt_text": "elle est allée chez Moussa",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il vient du champ",
+    "tgt_text": "a bɔra foro la",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a bɔra foro la",
+    "tgt_text": "il vient du champ",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mets-le à l’ombre",
+    "tgt_text": "a don suma na",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a don suma na",
+    "tgt_text": "mets-le à l’ombre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il vient du champ",
+    "tgt_text": "le au soleil\na bɔra foro la",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "le au soleil\na bɔra foro la",
+    "tgt_text": "il vient du champ",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "va devant",
+    "tgt_text": "ɲafɛ : taga ɲafɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ɲafɛ : taga ɲafɛ",
+    "tgt_text": "va devant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cela s'est passé en ma présence",
+    "tgt_text": "ɲana : a kɛra n ɲana",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ɲana : a kɛra n ɲana",
+    "tgt_text": "cela s'est passé en ma présence",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "c'est pour cela",
+    "tgt_text": "kanma : o le kanma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kanma : o le kanma",
+    "tgt_text": "c'est pour cela",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il est sous l'arbre",
+    "tgt_text": "jukɔrɔ : a bi yiri jukɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jukɔrɔ : a bi yiri jukɔrɔ",
+    "tgt_text": "il est sous l'arbre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "entres",
+    "tgt_text": "kɔnɔna : don kɔnɔna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔnɔna : don kɔnɔna",
+    "tgt_text": "entres",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il se trouve au sommet de la montagne",
+    "tgt_text": "kuncɛ : a bi kuru kuncɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kuncɛ : a bi kuru kuncɛ",
+    "tgt_text": "il se trouve au sommet de la montagne",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il s'est mêlé à la foule",
+    "tgt_text": "cɛma : a donna mɔgɔw cɛma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɛma : a donna mɔgɔw cɛma",
+    "tgt_text": "il s'est mêlé à la foule",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il est aussi parmi ses enfants",
+    "tgt_text": "cɛra : a siginin lo a deenw cɛra",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɛra : a siginin lo a deenw cɛra",
+    "tgt_text": "il est aussi parmi ses enfants",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il parle sans faire attention",
+    "tgt_text": "kunfɛ : a bi kuma a kunfɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kunfɛ : a bi kuma a kunfɛ",
+    "tgt_text": "il parle sans faire attention",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "direction : elles s'écrivent séparée",
+    "tgt_text": "gɛrɛn = côté ; faan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "gɛrɛn = côté ; faan",
+    "tgt_text": "direction : elles s'écrivent séparée",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui, que",
+    "tgt_text": "11-3-1 Le relatif\nmin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "11-3-1 Le relatif\nmin",
+    "tgt_text": "qui, que",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "les personnes qui sont venues",
+    "tgt_text": "mɔgɔ minw nana",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "mɔgɔ minw nana",
+    "tgt_text": "les personnes qui sont venues",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "car",
+    "tgt_text": "bawo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bawo",
+    "tgt_text": "car",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "peut-être",
+    "tgt_text": "minkɛ = du fait\nnasɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "minkɛ = du fait\nnasɔrɔ",
+    "tgt_text": "peut-être",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "parce que",
+    "tgt_text": "nga = mais\nsabu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nga = mais\nsabu",
+    "tgt_text": "parce que",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "à la suite de, à cause de",
+    "tgt_text": "nɔɔ fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "nɔɔ fɛ",
+    "tgt_text": "à la suite de, à cause de",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "à l'occasion de",
+    "tgt_text": "seen fɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "seen fɛ",
+    "tgt_text": "à l'occasion de",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "près de, à côté de",
+    "tgt_text": "gɛrɛn na",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "gɛrɛn na",
+    "tgt_text": "près de, à côté de",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qui, que",
+    "tgt_text": "3-1 Le relatif\nmin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "3-1 Le relatif\nmin",
+    "tgt_text": "qui, que",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "parce que",
+    "tgt_text": "être\nnga = mais\nsabu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "être\nnga = mais\nsabu",
+    "tgt_text": "parce que",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "avec",
+    "tgt_text": "ni ... ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ni ... ye",
+    "tgt_text": "avec",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "son habit",
+    "tgt_text": "a ka fani",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a ka fani",
+    "tgt_text": "son habit",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quel que soit..., quelque..., que, chaque",
+    "tgt_text": "11- 6 -2 Le distributif\no",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "11- 6 -2 Le distributif\no",
+    "tgt_text": "quel que soit..., quelque..., que, chaque",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "quel que soit l'enfant",
+    "tgt_text": "deen o deen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "deen o deen",
+    "tgt_text": "quel que soit l'enfant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chaque vendredi",
+    "tgt_text": "juma o juma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "juma o juma",
+    "tgt_text": "chaque vendredi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle a aussi acheté l'habit",
+    "tgt_text": "fana a yi fani fana san",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "fana a yi fani fana san",
+    "tgt_text": "elle a aussi acheté l'habit",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "dis le seulement",
+    "tgt_text": "dɔrɔn a fɔ dɔrɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dɔrɔn a fɔ dɔrɔn",
+    "tgt_text": "dis le seulement",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle a effectivement goûté cela",
+    "tgt_text": "kɔni a yi nin nɛnɛ kɔni",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔni a yi nin nɛnɛ kɔni",
+    "tgt_text": "elle a effectivement goûté cela",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle n'a même pas accepté",
+    "tgt_text": "yɛrɛ a ma sɔn yɛrɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "yɛrɛ a ma sɔn yɛrɛ",
+    "tgt_text": "elle n'a même pas accepté",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "même si tu n'es pas d'accord",
+    "tgt_text": "hali hali n'i ma sɔn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "hali hali n'i ma sɔn",
+    "tgt_text": "même si tu n'es pas d'accord",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cela s'est vraiment passé",
+    "tgt_text": "jaati o kɛra jaati",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jaati o kɛra jaati",
+    "tgt_text": "cela s'est vraiment passé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "qu'en dis-tu alors, toi ?",
+    "tgt_text": "dun ele dun ko di ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dun ele dun ko di ?",
+    "tgt_text": "qu'en dis-tu alors, toi ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "laisse donc ainsi !",
+    "tgt_text": "dɛ o to tan dɛ !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dɛ o to tan dɛ !",
+    "tgt_text": "laisse donc ainsi !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "amène donc l'habit !",
+    "tgt_text": "kɛ na ni fani ye kɛ !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɛ na ni fani ye kɛ !",
+    "tgt_text": "amène donc l'habit !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "dis tout donc !",
+    "tgt_text": "sa a bɛɛ fɔ sa !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sa a bɛɛ fɔ sa !",
+    "tgt_text": "dis tout donc !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il n'a pas parlé hein !",
+    "tgt_text": "koyi a ma kuma koyi !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "koyi a ma kuma koyi !",
+    "tgt_text": "il n'a pas parlé hein !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cela a été dit, voyons !",
+    "tgt_text": "wɛ a fɔra wɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wɛ a fɔra wɛ",
+    "tgt_text": "cela a été dit, voyons !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "elle a osé accepter !",
+    "tgt_text": "haan a sɔnna haan !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "haan a sɔnna haan !",
+    "tgt_text": "elle a osé accepter !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "nous sommes alors faits !",
+    "tgt_text": "jaa jaa, an tor'a ra !",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jaa jaa, an tor'a ra !",
+    "tgt_text": "nous sommes alors faits !",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Papa serait-il en bonne santé ?",
+    "tgt_text": "kɔni kɔni baba ka kɛnɛ ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔni kɔni baba ka kɛnɛ ?",
+    "tgt_text": "Papa serait-il en bonne santé ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "t'en vas-tu ?",
+    "tgt_text": "wa i bi taga wa ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wa i bi taga wa ?",
+    "tgt_text": "t'en vas-tu ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "est-il vraiment là ?",
+    "tgt_text": "wa a nana wa ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wa a nana wa ?",
+    "tgt_text": "est-il vraiment là ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "comment vont les gens de la famille ?",
+    "tgt_text": "do somɔgɔw do ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "do somɔgɔw do ?",
+    "tgt_text": "comment vont les gens de la famille ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "n'est-elle pas venu ?",
+    "tgt_text": "yala yala a ma na ?",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "yala yala a ma na ?",
+    "tgt_text": "n'est-elle pas venu ?",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il ont amené leurs vélos",
+    "tgt_text": "u nana n'u ka nigɛsow ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "u nana n'u ka nigɛsow ye",
+    "tgt_text": "il ont amené leurs vélos",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "prend cette valise pour lui",
+    "tgt_text": "valisi nin ta a ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "valisi nin ta a ye",
+    "tgt_text": "prend cette valise pour lui",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "on le leur avait dit ou a tun fɔr’u ye",
+    "tgt_text": "a tun fɔra u ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "a tun fɔra u ye",
+    "tgt_text": "on le leur avait dit ou a tun fɔr’u ye",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "prend cette valise pour lui",
+    "tgt_text": "leur de partir\nvalisi nin ta a ye",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "leur de partir\nvalisi nin ta a ye",
+    "tgt_text": "prend cette valise pour lui",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "un autre",
+    "tgt_text": "dɔwɛrɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dɔwɛrɛ",
+    "tgt_text": "un autre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "à nouveau",
+    "tgt_text": "kojugu = trop\nkokura",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kojugu = trop\nkokura",
+    "tgt_text": "à nouveau",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "beaucoup",
+    "tgt_text": "koɲuman = bien\nkosɔbɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "koɲuman = bien\nkosɔbɛ",
+    "tgt_text": "beaucoup",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "après",
+    "tgt_text": "kɔlɔkɔlɔ = sans importance\nminkɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kɔlɔkɔlɔ = sans importance\nminkɛ",
+    "tgt_text": "après",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "peut-être",
+    "tgt_text": "naganaga = sans raison\nnasɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "naganaga = sans raison\nnasɔrɔ",
+    "tgt_text": "peut-être",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "par terre",
+    "tgt_text": "sanfɛ = en haut\nduguma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sanfɛ = en haut\nduguma",
+    "tgt_text": "par terre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "entre ; au milieu",
+    "tgt_text": "dara = proximité\nfurancɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dara = proximité\nfurancɛ",
+    "tgt_text": "entre ; au milieu",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "sommet",
+    "tgt_text": "cɛmancɛ = milieu\nkuncɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɛmancɛ = milieu\nkuncɛ",
+    "tgt_text": "sommet",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "très bien",
+    "tgt_text": "sɔbɛkɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sɔbɛkɔrɔ",
+    "tgt_text": "très bien",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "comme",
+    "tgt_text": "i n'a fɔ = comme\ni ko",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "i n'a fɔ = comme\ni ko",
+    "tgt_text": "comme",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "en vérité, de grâce",
+    "tgt_text": "jɔn ko Ala",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "jɔn ko Ala",
+    "tgt_text": "en vérité, de grâce",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "sur cette base",
+    "tgt_text": "k'a la a kan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "k'a la a kan",
+    "tgt_text": "sur cette base",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "par terre",
+    "tgt_text": "être\nsanfɛ = en haut\nduguma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "être\nsanfɛ = en haut\nduguma",
+    "tgt_text": "par terre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "il y a",
+    "tgt_text": "1-2 en séparant les éléments\nbi yen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "1-2 en séparant les éléments\nbi yen",
+    "tgt_text": "il y a",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "comme",
+    "tgt_text": "ils présents ?\ni n'a fɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "ils présents ?\ni n'a fɔ",
+    "tgt_text": "comme",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "voyelle",
+    "tgt_text": "dafalen deviendra dafanin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dafalen deviendra dafanin",
+    "tgt_text": "voyelle",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "allongé",
+    "tgt_text": "samalen deviendra samanin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "samalen deviendra samanin",
+    "tgt_text": "allongé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "astérisque",
+    "tgt_text": "dolonin deviendra lolonin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dolonin deviendra lolonin",
+    "tgt_text": "astérisque",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "janvier",
+    "tgt_text": "14-6 Les mois\nsanyɛlɛmakalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "14-6 Les mois\nsanyɛlɛmakalo",
+    "tgt_text": "janvier",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mars",
+    "tgt_text": "foonɛnɛkalo = février\nfuntenikalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "foonɛnɛkalo = février\nfuntenikalo",
+    "tgt_text": "mars",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mai",
+    "tgt_text": "funtenibakalo = avril\nsamiɲadonkalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "funtenibakalo = avril\nsamiɲadonkalo",
+    "tgt_text": "mai",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "juillet",
+    "tgt_text": "dannikalo = juin\nsamiɲakalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "dannikalo = juin\nsamiɲakalo",
+    "tgt_text": "juillet",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "septembre",
+    "tgt_text": "cɔcɔkalo = août\nsumanmɔkalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "cɔcɔkalo = août\nsumanmɔkalo",
+    "tgt_text": "septembre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "octobre",
+    "tgt_text": "samiɲalabankalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "samiɲalabankalo",
+    "tgt_text": "octobre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "novembre",
+    "tgt_text": "sumanladonkalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sumanladonkalo",
+    "tgt_text": "novembre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "décembre",
+    "tgt_text": "sanlabankalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sanlabankalo",
+    "tgt_text": "décembre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lundi",
+    "tgt_text": "14-7 Les jours de la semaine\ntɛnɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "14-7 Les jours de la semaine\ntɛnɛ",
+    "tgt_text": "lundi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mercredi",
+    "tgt_text": "tarata = mardi\naraba",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tarata = mardi\naraba",
+    "tgt_text": "mercredi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "vendredi",
+    "tgt_text": "lamusa = jeudi\njuma",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "lamusa = jeudi\njuma",
+    "tgt_text": "vendredi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "dimanche",
+    "tgt_text": "kari, haati, dimansi",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kari, haati, dimansi",
+    "tgt_text": "dimanche",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "janvier",
+    "tgt_text": "6 Les mois\nsanyɛlɛmakalo",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "6 Les mois\nsanyɛlɛmakalo",
+    "tgt_text": "janvier",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "lundi",
+    "tgt_text": "7 Les jours de la semaine\ntɛnɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "7 Les jours de la semaine\ntɛnɛ",
+    "tgt_text": "lundi",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Nord",
+    "tgt_text": "tileben = Ouest\nkɔgɔdugu",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "tileben = Ouest\nkɔgɔdugu",
+    "tgt_text": "Nord",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "zénith",
+    "tgt_text": "worodugu = Sud\ntilesenkuncɛ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "worodugu = Sud\ntilesenkuncɛ",
+    "tgt_text": "zénith",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "onaw lire o n'a ɲɔgɔnnaw",
+    "tgt_text": "les écrits ;\nEtc.",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "les écrits ;\nEtc.",
+    "tgt_text": "onaw lire o n'a ɲɔgɔnnaw",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "2nan lire filanan",
+    "tgt_text": "1er = 1 lɔ lire fɔlɔ\n2e",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "1er = 1 lɔ lire fɔlɔ\n2e",
+    "tgt_text": "2nan lire filanan",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cinin",
+    "tgt_text": "virgule = tomi ni kɔri\nLe tiret",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "virgule = tomi ni kɔri\nLe tiret",
+    "tgt_text": "cinin",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "dɔ, dɔw et si.",
+    "tgt_text": "brève",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "brève",
+    "tgt_text": "dɔ, dɔw et si.",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "ami",
+    "tgt_text": "téri",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "téri",
+    "tgt_text": "ami",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "apprendre",
+    "tgt_text": "kalan",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "kalan",
+    "tgt_text": "apprendre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "cheval",
+    "tgt_text": "sô",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sô",
+    "tgt_text": "cheval",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "chèvre",
+    "tgt_text": "bâ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "bâ",
+    "tgt_text": "chèvre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "eléphant",
+    "tgt_text": "sama",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sama",
+    "tgt_text": "eléphant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "jambe",
+    "tgt_text": "sén",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sén",
+    "tgt_text": "jambe",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "mais",
+    "tgt_text": "n'ka",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "n'ka",
+    "tgt_text": "mais",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "peur",
+    "tgt_text": "sirân",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sirân",
+    "tgt_text": "peur",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "pied",
+    "tgt_text": "sén",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sén",
+    "tgt_text": "pied",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "prier",
+    "tgt_text": "déli",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "déli",
+    "tgt_text": "prier",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "salaire",
+    "tgt_text": "sara",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "sara",
+    "tgt_text": "salaire",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "voir",
+    "tgt_text": "yé",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "yé",
+    "tgt_text": "voir",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Merci d'être venu",
+    "tgt_text": "Aw ni na",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Aw ni na",
+    "tgt_text": "Merci d'être venu",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Tô (boule de mil/maïs)",
+    "tgt_text": "Tô",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tô",
+    "tgt_text": "Tô (boule de mil/maïs)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Sauce d'arachide",
+    "tgt_text": "Tigadèguèna",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tigadèguèna",
+    "tgt_text": "Sauce d'arachide",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Sucre",
+    "tgt_text": "Surukou",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Surukou",
+    "tgt_text": "Sucre",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Thé",
+    "tgt_text": "Tee",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tee",
+    "tgt_text": "Thé",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Enfant",
+    "tgt_text": "Denmisɛn",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Denmisɛn",
+    "tgt_text": "Enfant",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Frère / Sœur aîné(e)",
+    "tgt_text": "Kɔrɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Kɔrɔ",
+    "tgt_text": "Frère / Sœur aîné(e)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Frère / Sœur cadet(te)",
+    "tgt_text": "Dɔgɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Dɔgɔ",
+    "tgt_text": "Frère / Sœur cadet(te)",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Orange / Roux",
+    "tgt_text": "wulen",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "wulen",
+    "tgt_text": "Orange / Roux",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Mouton",
+    "tgt_text": "Sagafin",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Sagafin",
+    "tgt_text": "Mouton",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Panthère",
+    "tgt_text": "Jara",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Jara",
+    "tgt_text": "Panthère",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Lit / Couchette",
+    "tgt_text": "Bɔ",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Bɔ",
+    "tgt_text": "Lit / Couchette",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Corde / Fil",
+    "tgt_text": "Juru",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Juru",
+    "tgt_text": "Corde / Fil",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Soleil / Journée",
+    "tgt_text": "Tèle",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Tèle",
+    "tgt_text": "Soleil / Journée",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  },
+  {
+    "src_text": "Saison des pluies",
+    "tgt_text": "Samiya",
+    "src_lang": "fra_Latn",
+    "tgt_lang": "dyu_Latn"
+  },
+  {
+    "src_text": "Samiya",
+    "tgt_text": "Saison des pluies",
+    "src_lang": "dyu_Latn",
+    "tgt_lang": "fra_Latn"
+  }
+]
