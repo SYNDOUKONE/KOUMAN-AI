@@ -33,21 +33,34 @@ Par défaut tout est factice (« stub ») : les réponses contiennent `[stub dyu
 # RTX série 50 (Blackwell) : PyTorch compilé pour CUDA 12.8 ou plus
 pip install torch --index-url https://download.pytorch.org/whl/cu128
 pip install -r requirements-model.txt
-
-# Adaptateur v2 (02/10/2026), publié sur Hugging Face, bidirectionnel
-python -c "from huggingface_hub import snapshot_download as d; d('syndou/nllb-lora-dioula', revision='160d1a916d77677c9957d51a91ee120c450a9468', local_dir='models/nllb_lora_dioula_v2')"
-
-export KOUMA_TRANSLATOR=nllb
-export KOUMA_ADAPTER_FRA_DYU=models/nllb_lora_dioula_v2
-export KOUMA_ADAPTER_DYU_FRA=models/nllb_lora_dioula_v2   # même dossier : adaptateur bidirectionnel
-uvicorn app.main:app --env-file .env
 ```
 
-L'adaptateur v2 doit afficher l'empreinte `5c3e584130c8` dans `/health`, pour les deux sens. Le dossier `final/` de la branche `dev` est l'ancienne version (29/09, 19 Mo) : ne pas l'utiliser. Le dossier `models/` est ignoré par git.
+**Option A — modèle fusionné de Syndoux (recommandée depuis le 12/10/2026).** Un seul modèle complet, entraîné sur ~48 000 paires fr↔dyu, sans adaptateur. Dans `.env` :
+
+```bash
+KOUMA_TRANSLATOR=nllb
+KOUMA_NLLB_BASE_MODEL=syndou/nllb-200-dioula
+KOUMA_NLLB_REVISION=6763611f09814472f84763d0ade3c6116fd4cb2c   # version du 12/10, figée
+KOUMA_ADAPTER_FRA_DYU=
+KOUMA_ADAPTER_DYU_FRA=
+```
+
+Le premier démarrage télécharge le modèle (~2,6 Go) dans le cache Hugging Face. `/health` doit afficher `"mode": "model"`, le nom du modèle et la révision. On ne change `KOUMA_NLLB_REVISION` qu'après avoir comparé la nouvelle version sur le jeu de test gelé.
+
+**Option B — NLLB de base + adaptateur LoRA (ancienne méthode, adaptateur v2 du 02/10).**
+
+```bash
+python -c "from huggingface_hub import snapshot_download as d; d('syndou/nllb-lora-dioula', revision='160d1a916d77677c9957d51a91ee120c450a9468', local_dir='models/nllb_lora_dioula_v2')"
+KOUMA_NLLB_BASE_MODEL=facebook/nllb-200-1.3B
+KOUMA_ADAPTER_FRA_DYU=models/nllb_lora_dioula_v2
+KOUMA_ADAPTER_DYU_FRA=models/nllb_lora_dioula_v2   # même dossier : adaptateur bidirectionnel
+```
+
+Dans ce cas `/health` affiche `"mode": "adapters"` et l'empreinte `5c3e584130c8` pour les deux sens. Le dossier `models/` est ignoré par git.
 
 Configuration testée : GTX 1650 Ti (4 Go), fp16, `KOUMA_MAX_CONCURRENT_TRANSLATIONS=1`, environ 2 s par traduction courte. Si la mémoire GPU manque : `KOUMA_NUM_BEAMS=2`, puis `KOUMA_DEVICE=cpu`.
 
-- Un adaptateur **par sens**. Un sens sans adaptateur utilise le modèle de base NLLB pur.
+- Option B : un adaptateur **par sens**. Un sens sans adaptateur utilise le modèle chargé sans adaptateur.
 - `GET /health` affiche, pour chaque sens, l'adaptateur et l'**empreinte** de ses poids : on sait toujours quelle version tourne.
 - Le premier démarrage télécharge `facebook/nllb-200-1.3B` (~5 Go). Pendant le chargement, `/health` répond `"status": "chargement"` et les autres routes 503.
 - Test avec le vrai modèle : `pytest -m model` (voir `tests/test_model_integration.py`).
