@@ -21,3 +21,9 @@ LIVRABLE/03_Donnees_Nettoyees/R005_AfriSpeech_Dioula/dioula_afrispeech_clean.csv
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Secrets (HF_TOKEN, clés d'API...) : tout fichier .env est ignoré, sauf les modèles
+.env
+.env.*
+!.env.example
+*.save
