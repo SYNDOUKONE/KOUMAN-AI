@@ -1,7 +1,7 @@
 import os
-from huggingface_hub import HfApi
+from huggingface_hub import HfApi, HfFolder
 
-TOKEN = os.getenv("HF_TOKEN")
+TOKEN = os.getenv("HF_TOKEN") or HfFolder.get_token()
 REPO_ID = "syndou/nllb-lora-dioula"
 LOCAL_FOLDER = "models/nllb_lora_dioula/final"
 
