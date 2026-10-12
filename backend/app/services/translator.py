@@ -104,7 +104,9 @@ class NllbLoraTranslator(Translator):
 
         major, minor = (int(x) for x in transformers.__version__.split(".")[:2])
         dtype_kw = "dtype" if (major, minor) >= (4, 56) else "torch_dtype"
-        base = AutoModelForSeq2SeqLM.from_pretrained(settings.nllb_base_model,  use_safetensors=True, **{dtype_kw: dtype})
+        base = AutoModelForSeq2SeqLM.from_pretrained(
+            settings.nllb_base_model, use_safetensors=True, **{dtype_kw: dtype}
+        )
 
         # Adaptateurs : un nom par dossier distinct (un dossier partagé = chargé une fois).
         self.adapters: dict[str, str] = {}  # sens "fr-dyu" -> nom d'adaptateur
