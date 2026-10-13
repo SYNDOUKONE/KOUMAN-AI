@@ -1,0 +1,9 @@
+direction	comparaison	delta_bleu	p_bleu	delta_chrf	p_chrf	significatif
+fr_to_dyu	v1_vs_base	+13.57	<0.001	+11.09	<0.001	Oui
+fr_to_dyu	v2_fusionne_vs_base	+10.96	<0.001	+9.89	<0.001	Oui
+fr_to_dyu	v1_vs_v2	+2.61	0.042	+1.20	0.180	Partiel (BLEU oui, chrF++ non)
+fr_to_dyu	fusionne_vs_v2	0.00	1.000	0.00	1.000	Identique
+dyu_to_fr	v1_vs_base	+1.68	0.210	+2.82	0.090	Non
+dyu_to_fr	v2_fusionne_vs_base	+0.06	0.940	+1.66	0.280	Non
+dyu_to_fr	v1_vs_v2	+1.62	0.240	+1.16	0.310	Non
+dyu_to_fr	fusionne_vs_v2	0.00	1.000	0.00	1.000	Identique

@@ -1,0 +1,9 @@
+modele	direction	bleu	chrf_plus_plus	n_phrases	num_beams	max_new_tokens
+base	fr_to_dyu	14.63	33.40	144	4	64
+base	dyu_to_fr	17.34	38.76	144	4	64
+v1	fr_to_dyu	28.20	44.49	144	4	64
+v1	dyu_to_fr	19.02	41.58	144	4	64
+fusionne	fr_to_dyu	25.59	43.29	144	4	64
+fusionne	dyu_to_fr	17.40	40.42	144	4	64
+v2	fr_to_dyu	25.59	43.29	144	4	64
+v2	dyu_to_fr	17.40	40.42	144	4	64

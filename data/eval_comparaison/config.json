@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-13",
+  "dataset": "data/test_sacre.csv",
+  "n_samples": 144,
+  "parameters": {
+    "num_beams": 4,
+    "max_new_tokens": 64,
+    "length_penalty": 1.0,
+    "paired_bootstrap_resamples": 1000
+  },
+  "models": {
+    "base": "facebook/nllb-200-1.3B",
+    "v1": "commit 7fdb16e (models/nllb_lora_dioula/final)",
+    "fusionne": "syndou/nllb-200-dioula @ 5c36e481ce9ce8d6f73a57181fb93d6900ddad89",
+    "v2": "syndou/nllb-lora-dioula @ 5aff243"
+  },
+  "hardware": {
+    "device": "mps",
+    "torch_enable_mps_fallback": 1
+  }
+}

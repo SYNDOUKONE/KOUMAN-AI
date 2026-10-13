@@ -63,14 +63,14 @@ Le Test Sacré est un jeu de référence représentatif des échanges du quotidi
 
 | Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
 |:---|:---:|:---:|:---:|:---:|
-| **NLLB-200-1.3B (Zéro-Shot Base)** | Français ➔ Dioula | 12.03 | 33.76 | 144 |
-| **NLLB-200-1.3B (Zéro-Shot Base)** | Dioula ➔ Français | 17.30 | 38.79 | 144 |
-| **NLLB + LoRA v1 (Fine-Tuné)** | Français ➔ Dioula | **29.14** | **44.24** | 144 |
-| **NLLB + LoRA v1 (Fine-Tuné)** | Dioula ➔ Français | **19.71** | **41.92** | 144 |
-| **NLLB Fusionné (Officiel `5c36e48`)** | Français ➔ Dioula | 25.59 | 43.29 | 144 |
-| **NLLB Fusionné (Officiel `5c36e48`)** | Dioula ➔ Français | 15.36 | 39.69 | 144 |
+| **NLLB-200-1.3B (Zéro-Shot Base)** | Français ➔ Dioula | 14.63 | 33.40 | 144 |
+| **NLLB-200-1.3B (Zéro-Shot Base)** | Dioula ➔ Français | 17.34 | 38.76 | 144 |
+| **NLLB + LoRA v1** | Français ➔ Dioula | **28.20** | **44.49** | 144 |
+| **NLLB + LoRA v1** | Dioula ➔ Français | **19.02** | **41.58** | 144 |
+| **NLLB Fusionné (`5c36e48`) / LoRA v2** | Français ➔ Dioula | 25.59 | 43.29 | 144 |
+| **NLLB Fusionné (`5c36e48`) / LoRA v2** | Dioula ➔ Français | 17.40 | 40.42 | 144 |
 
-> 💡 **Note méthodologique** : Comparaison à réglages identiques en cours (`scripts/compare_models_test_sacre.py`). La fusion étant mathématiquement équivalente à l'adaptateur, l'écart observé (29,14 vs 25,59 en FR➔DYU ; 19,71 vs 15,36 en DYU➔FR) s'explique très probablement par les paramètres de décodage (`num_beams=1` greedy pour LoRA v1 vs `num_beams=4` beam search pour le fusionné).
+> 💡 **Comparaison à réglages identiques (num_beams=4, max_new_tokens=64, 144 phrases, bootstrap apparié)** : en fr→dyu, le fine-tuning apporte environ +11 BLEU et +10 chrF++ par rapport au zéro-shot (significatif). La v1 dépasse la v2 de +2,6 BLEU, mais l'écart en chrF++ (+1,2) n'est pas significatif. En dyu→fr, aucun modèle n'est significativement meilleur que le zéro-shot. Le modèle fusionné donne des sorties identiques au LoRA v2. Références non encore validées par des locuteurs natifs.
 
 ### 2. Validation V2 (940 phrases bilingues, split décorrélé)
 | Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
