@@ -131,6 +131,15 @@ class NllbLoraTranslator(Translator):
             self.adapters[direction] = loaded[path]
 
         self.model = model.to(self.device).eval()
+        # Le generation_config du modèle fusionné fixe max_length (200, puis 64 en 5c36e48).
+        # L'API passe toujours max_new_tokens : transformers avertirait à CHAQUE traduction
+        # que les deux sont réglés. On remet max_length à sa valeur par défaut :
+        # c'est max_new_tokens (KOUMA_MAX_NEW_TOKENS) qui borne la sortie.
+        from transformers import GenerationConfig
+
+        gen_config = getattr(self.model, "generation_config", None)
+        if gen_config is not None:
+            gen_config.max_length = GenerationConfig().max_length
         if not self.adapters:
             log.info(
                 "modele_sans_adaptateur",

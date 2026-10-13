@@ -58,6 +58,8 @@ def tiny_model_dir(tmp_path_factory):
         decoder_start_token_id=tok.eos_token_id,
     )
     model = M2M100ForConditionalGeneration(config)
+    # Comme le modèle fusionné de Syndoux : max_length fixé dans generation_config.
+    model.generation_config.max_length = 64
     out = root / "model"
     model.save_pretrained(out, safe_serialization=True)
     tok.save_pretrained(out)
@@ -111,3 +113,19 @@ def test_base_plus_lora_adapter_still_works(tiny_model_dir, tmp_path):
     assert info["mode"] == "adapters"
     assert set(info["directions"]) == {"fr-dyu"}
     assert info["directions_base_only"] == ["dyu-fr"]
+
+
+def test_no_max_length_warning_at_each_translation(tiny_model_dir, caplog):
+    """generation_config.max_length + max_new_tokens => avertissement à chaque appel (12/10)."""
+    import logging
+
+    tr = NllbLoraTranslator(_settings(tiny_model_dir))
+    with caplog.at_level(logging.WARNING):
+        tr.translate("Bonjour, comment allez-vous ?", "fr", "dyu")
+    assert not [r for r in caplog.records if "max_length" in r.getMessage()]
+
+
+def test_translate_batch_keeps_order(tiny_model_dir):
+    tr = NllbLoraTranslator(_settings(tiny_model_dir))
+    out = tr.translate_batch(["Bonjour.", "Merci beaucoup."], "fr", "dyu")
+    assert len(out) == 2 and all(isinstance(o, str) for o in out)

@@ -25,7 +25,7 @@ from app.services.safety import Fallbacks
 from app.services.sessions import SessionStore
 from app.services.translator import build_translator
 
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 _REQUEST_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")
 
 
@@ -44,6 +44,7 @@ def _load_components(app: FastAPI, settings: Settings) -> None:
         fallbacks=Fallbacks(settings.fallbacks_path),
         system_prompt=settings.system_prompt_path.read_text(encoding="utf-8"),
         max_concurrent_translations=settings.max_concurrent_translations,
+        split_reply_sentences=settings.split_reply_sentences,
     )
     state.ready = True
 

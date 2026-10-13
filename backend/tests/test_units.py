@@ -76,3 +76,20 @@ def test_clean_llm_reply():
     )
     assert clean_llm_reply("  \n \r\n ") == ""
     assert clean_llm_reply("Déjà propre.") == "Déjà propre."
+
+
+def test_split_sentences():
+    from app.services.orchestrator import split_sentences
+
+    assert split_sentences("Bonjour ! Comment vas-tu ? Très bien.") == [
+        "Bonjour !",
+        "Comment vas-tu ?",
+        "Très bien.",
+    ]
+    assert split_sentences("Une seule phrase") == ["Une seule phrase"]
+    assert split_sentences("Il est 3.5 fois plus grand. Fin.") == [
+        "Il est 3.5 fois plus grand.",
+        "Fin.",
+    ]
+    assert split_sentences("Attends… Voilà.") == ["Attends…", "Voilà."]
+    assert split_sentences("   ") == []

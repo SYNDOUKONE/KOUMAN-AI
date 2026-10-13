@@ -60,10 +60,15 @@ class Settings:
     adapter_dyu_fra: str | None = None
     device: str = "auto"  # "auto" | "cuda" | "mps" | "cpu"
     num_beams: int = 4
-    max_new_tokens: int = 128
+    # 64 = valeur recommandée par la carte du modèle (entraîné sur des phrases de 48 tokens
+    # au plus). Les réponses du LLM sont traduites phrase par phrase : 64 suffit largement.
+    max_new_tokens: int = 64
     no_repeat_ngram_size: int = 3
     max_concurrent_translations: int = 2
     postprocess_rules_path: Path = ROOT_DIR / "config" / "postprocess_rules.json"
+    # Traduire la réponse du LLM phrase par phrase, en un seul lot (plus rapide et plus
+    # fidèle : le modèle a été entraîné sur des phrases courtes). false = un seul bloc.
+    split_reply_sentences: bool = True
 
     # --- LLM ---------------------------------------------------------------
     gemini_api_key: str | None = None
@@ -104,9 +109,10 @@ class Settings:
             adapter_dyu_fra=_env("KOUMA_ADAPTER_DYU_FRA"),
             device=_env("KOUMA_DEVICE", "auto"),
             num_beams=_env_int("KOUMA_NUM_BEAMS", 4),
-            max_new_tokens=_env_int("KOUMA_MAX_NEW_TOKENS", 128),
+            max_new_tokens=_env_int("KOUMA_MAX_NEW_TOKENS", cls.max_new_tokens),
             no_repeat_ngram_size=_env_int("KOUMA_NO_REPEAT_NGRAM_SIZE", 3),
             max_concurrent_translations=_env_int("KOUMA_MAX_CONCURRENT_TRANSLATIONS", 2),
+            split_reply_sentences=_env_bool("KOUMA_SPLIT_REPLY_SENTENCES", True),
             gemini_api_key=_env("GEMINI_API_KEY"),
             gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
             openrouter_api_key=_env("OPENROUTER_API_KEY"),

@@ -101,7 +101,10 @@ def test_chat_pipeline_and_debug(api):
     dbg = body["debug"]
     assert dbg["fr_input"] == "[stub dyu→fr] I ni ce"
     assert dbg["fr_reply"].startswith("Réponse de test.")
-    assert body["reply"] == f"[stub fr→dyu] {dbg['fr_reply']}"
+    # La réponse du LLM factice a deux phrases : chacune est traduite (v0.3.1).
+    assert body["reply"] == (
+        "[stub fr→dyu] Réponse de test. [stub fr→dyu] Vous avez dit : [stub dyu→fr] I ni ce"
+    )
     assert set(dbg["timings_ms"]) == {"mt_in", "llm", "mt_out"}
 
 
@@ -246,3 +249,77 @@ def test_llm_reply_is_cleaned_before_translation(api):
     assert r.json()["debug"]["fr_reply"] == "Bonjour. premier point. deuxième point"
     history = app.state.sessions.get("tests:n", "dyu").history_fr
     assert "\n" not in history[-1]["content"]
+
+
+# ----------------------------------------------------------------- v0.3.1 (13/10)
+class _RecordingTranslator:
+    """Traducteur factice qui note chaque appel (simple ou par lot).
+
+    Préfixe « tr » : une sortie identique à l'entrée serait rejetée par le filet de sécurité.
+    """
+
+    name = "enregistreur"
+
+    def __init__(self):
+        self.calls = []
+
+    def translate(self, text, src, tgt):
+        self.calls.append(("un", src, tgt, [text]))
+        return f"tr {text}"
+
+    def translate_batch(self, texts, src, tgt):
+        self.calls.append(("lot", src, tgt, list(texts)))
+        return [f"tr {t}" for t in texts]
+
+    def info(self):
+        return {"name": self.name}
+
+
+class _TwoSentenceLLM(StubLLM):
+    def reply(self, history_fr, system_prompt):
+        return "Je vais bien. Et toi ?"
+
+
+def test_llm_reply_translated_sentence_by_sentence_in_one_batch(api):
+    app, client = api
+    recorder = _RecordingTranslator()
+    app.state.orchestrator.translator = recorder
+    app.state.orchestrator.llm = _TwoSentenceLLM()
+
+    r = client.post(
+        "/api/v1/chat?debug=true", json={"session_id": "b", "lang": "dyu", "message": "I ni ce"}
+    )
+    assert r.status_code == 200
+    out_calls = [c for c in recorder.calls if c[1] == "fr"]
+    assert out_calls == [("lot", "fr", "dyu", ["Je vais bien.", "Et toi ?"])]
+    assert r.json()["reply"] == "tr Je vais bien. tr Et toi ?"
+    # L'historique garde la réponse française entière.
+    history = app.state.sessions.get("tests:b", "dyu").history_fr
+    assert history[-1]["content"] == "Je vais bien. Et toi ?"
+
+
+def test_sentence_split_can_be_disabled(api):
+    app, client = api
+    recorder = _RecordingTranslator()
+    app.state.orchestrator.translator = recorder
+    app.state.orchestrator.llm = _TwoSentenceLLM()
+    app.state.orchestrator.split_reply_sentences = False
+
+    client.post("/api/v1/chat", json={"session_id": "c", "lang": "dyu", "message": "I ni ce"})
+    out_calls = [c for c in recorder.calls if c[1] == "fr"]
+    assert out_calls == [("un", "fr", "dyu", ["Je vais bien. Et toi ?"])]
+
+
+def test_single_sentence_reply_uses_simple_translate(api):
+    app, client = api
+    recorder = _RecordingTranslator()
+    app.state.orchestrator.translator = recorder
+
+    class OneSentenceLLM(StubLLM):
+        def reply(self, history_fr, system_prompt):
+            return "Je vais bien, merci."
+
+    app.state.orchestrator.llm = OneSentenceLLM()
+
+    client.post("/api/v1/chat", json={"session_id": "d", "lang": "dyu", "message": "I ni ce"})
+    assert all(c[0] == "un" for c in recorder.calls)

@@ -1,4 +1,4 @@
-# KOUMA AI — API (v0.3)
+# KOUMA AI — API (v0.3.1)
 
 Chatbot et traduction français ↔ dioula. Pipeline :
 
@@ -35,12 +35,12 @@ pip install torch --index-url https://download.pytorch.org/whl/cu128
 pip install -r requirements-model.txt
 ```
 
-**Option A — modèle fusionné de Syndoux (recommandée depuis le 12/10/2026).** Un seul modèle complet, entraîné sur ~48 000 paires fr↔dyu, sans adaptateur. Dans `.env` :
+**Option A — modèle fusionné de Syndoux (recommandée depuis le 12/10/2026).** Un seul modèle complet, sans adaptateur (données d'entraînement : voir le README racine). Dans `.env` :
 
 ```bash
 KOUMA_TRANSLATOR=nllb
 KOUMA_NLLB_BASE_MODEL=syndou/nllb-200-dioula
-KOUMA_NLLB_REVISION=6763611f09814472f84763d0ade3c6116fd4cb2c   # version du 12/10, figée
+KOUMA_NLLB_REVISION=5c36e481ce9ce8d6f73a57181fb93d6900ddad89   # 13/10 : mêmes poids que 6763611, generation_config corrigé
 KOUMA_ADAPTER_FRA_DYU=
 KOUMA_ADAPTER_DYU_FRA=
 ```
@@ -162,16 +162,17 @@ docs/
   scenarios_results/      CSV produits par run_scenarios.py
 ```
 
-## 5. Limites connues (v0.3)
+## 5. Limites connues (v0.3.1)
 
 - Sessions et limitation de débit **en mémoire** : perdues au redémarrage, un seul processus (`--workers 1`).
 - Les messages de repli dioula sont des **placeholders** : à faire traduire avant toute démo.
 - `normalize_input` ne fait rien encore : il attend la convention d'écriture de l'équipe.
 - La réponse du LLM est nettoyée avant traduction (une seule ligne, sans puces ni markdown) : voir `clean_llm_reply` dans `services/orchestrator.py`.
 - Gemini n'est plus que le LLM de secours (OpenRouter est le principal). Son modèle (`KOUMA_GEMINI_MODEL`) reste à confirmer dans AI Studio : `gemini-2.5-flash` n'est plus ouvert aux nouveaux projets. `max_output_tokens=200` peut couper une réponse si le modèle « réfléchit ».
-- Scores du modèle fusionné (carte Hugging Face, 2 447 phrases) : fr→dyu BLEU 42,45 / chrF 60,24 ; dyu→fr BLEU 28,53 / chrF 51,51. Ils sont calculés sur un découpage du corpus fusionné, pas sur le jeu de test gelé : absence de fuite entraînement/test à vérifier avant de les présenter. Les traductions doivent être validées par un locuteur natif.
+- Scores du modèle fusionné annoncés par la carte Hugging Face (2 447 phrases) : fr→dyu BLEU 42,45 / chrF 60,24 ; dyu→fr BLEU 28,53 / chrF 51,51. Ils sont calculés sur un découpage du corpus fusionné, pas sur le jeu de test gelé : absence de fuite entraînement/test à vérifier avant de les présenter. Les traductions doivent être validées par un locuteur natif.
 - Latence mesurée le 12/10 sur GTX 1650 Ti (4 Go), `num_beams=4` : `/translate` ≈ 2,2 s (médiane), `/chat` 10 à 14 s, dont ≈ 70 % de traduction. À remesurer sur la RTX 5090 avec `run_scenarios.py`.
-- Avertissement `transformers` « Both max_new_tokens and max_length » à chaque traduction : sans effet (c'est `KOUMA_MAX_NEW_TOKENS` qui s'applique), seulement du bruit dans les logs.
+- La réponse du LLM est traduite **phrase par phrase, en un seul lot** (`KOUMA_SPLIT_REPLY_SENTENCES=true`). Mettre `false` pour comparer avec la traduction d'un seul bloc.
+- Les scores du modèle officiel sur le test sacré (144 phrases) ne sont pas encore publiés, et le test sacré attend la validation de deux locuteurs natifs.
 - Pas d'audio (V2). Pas de bambara activé tant qu'il n'est pas évalué (`KOUMA_ENABLED_LANGUAGES=dyu,bam` pour l'activer).
 - Licence : les poids NLLB-200 sont sous CC-BY-NC 4.0 (usage non commercial).
 
@@ -179,6 +180,7 @@ docs/
 
 | Version | Date | Changements |
 |---|---|---|
+| 0.3.1 | 13/10/2026 | Modèle officiel en révision `5c36e48`. Réponse du LLM traduite phrase par phrase en un seul lot. Plus d'avertissement `max_length` de transformers à chaque traduction. `KOUMA_MAX_NEW_TOKENS` par défaut à 64 (valeur recommandée pour le modèle). |
 | 0.3.0 | 12/10/2026 | Modèle fusionné `syndou/nllb-200-dioula` (révision 6763611f) chargé sans adaptateur ; `KOUMA_NLLB_REVISION` fige la version. LLM via OpenRouter (`anthropic/claude-sonnet-5`, PR #3). `/health` expose le mode du traducteur, les réglages de génération et le modèle du LLM. Script `run_scenarios.py` pour mesurer textes et latences. |
 | 0.2.0 | 05/10/2026 | Adaptateur NLLB v2 (`syndou/nllb-lora-dioula`, révision 160d1a9) testé sur GPU. Réponse du LLM nettoyée avant traduction. Panne du LLM : erreur 503 `llm_indisponible` au lieu de 500. |
 | 0.1.0 | 01/10/2026 | Première API : `/health`, `/languages`, `/translate`, `/chat`, clés d'API, limitation de débit, stubs, Gemini. |
