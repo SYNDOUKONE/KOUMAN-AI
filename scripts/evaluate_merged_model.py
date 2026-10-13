@@ -24,7 +24,7 @@ def evaluate_direction(model, tokenizer, pairs, src_lang, tgt_lang, label_dir):
     refs = [p["tgt"] for p in pairs]
     
     tokenizer.src_lang = src_lang
-    forced_bos_token_id = tokenizer.lang_code_to_id[tgt_lang]
+    forced_bos_token_id = tokenizer.convert_tokens_to_ids(tgt_lang)
     
     predictions = []
     batch_size = 16
@@ -65,13 +65,7 @@ def main():
     print(f"Chargement du tokenizer et du modèle sur {device}...")
     tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-1.3B")
     
-    try:
-        model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_ID, revision=REVISION).to(device)
-    except Exception as e:
-        print(f"Modèle fusionné distant non disponible immédiatement ({e}), utilisation de la base + LoRA v2...")
-        from peft import PeftModel
-        base = AutoModelForSeq2SeqLM.from_pretrained("facebook/nllb-200-1.3B").to(device)
-        model = PeftModel.from_pretrained(base, "syndou/nllb-lora-dioula", revision="5aff243").to(device)
+    model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_ID, revision=REVISION).to(device)
     model.eval()
     
     res_fr2dyu = evaluate_direction(model, tokenizer, pairs_fr2dyu, "fra_Latn", "dyu_Latn", "FR -> DYU")
