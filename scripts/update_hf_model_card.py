@@ -145,8 +145,123 @@ Projet **Kouman AI** — Préservation et valorisation numérique des langues de
 Base NLLB fournie par Meta AI.
 """
 
+LORA_CARD_CONTENT = """---
+base_model: facebook/nllb-200-1.3B
+library_name: peft
+pipeline_tag: translation
+language:
+- dyu
+- fr
+tags:
+- translation
+- nllb
+- nllb-200
+- lora
+- peft
+- dioula
+- jula
+- french
+- african-languages
+- kouman-ai
+metrics:
+- bleu
+- chrf
+---
+
+# 🌍 Kouman AI — NLLB-200-1.3B LoRA v1 (Français ⟷ Dioula / Jula)
+
+Modèle de traduction automatique bidirectionnelle **Français ⟷ Dioula (Jula)** basé sur **[facebook/nllb-200-1.3B](https://huggingface.co/facebook/nllb-200-1.3B)** et optimisé avec **LoRA (PEFT)**.
+
+Développé dans le cadre du projet **Kouman AI** dédié au traitement automatique des langues de Côte d'Ivoire et d'Afrique de l'Ouest (Baoulé, Dioula).
+
+> ℹ️ **Note** : Une version entièrement fusionnée et autonome (`merge_and_unload`) est disponible sur [`syndou/nllb-200-dioula`](https://huggingface.co/syndou/nllb-200-dioula).
+
+---
+
+## 📊 Performances & Évaluations Scientifiques
+
+### 1. Jeu de Test Sacré (144 phrases étanches — 0 fuite)
+| Direction | Langue Source | Langue Cible | Échantillons | Score BLEU | Score chrF++ |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| **Français ➔ Dioula** | `fra_Latn` | `dyu_Latn` | 144 | **29.14** *(vs 12.03 en Zéro-Shot)* | **44.24** *(vs 33.76 en Zéro-Shot)* |
+| **Dioula ➔ Français** | `dyu_Latn` | `fra_Latn` | 144 | **19.71** *(vs 17.30 en Zéro-Shot)* | **41.92** *(vs 38.79 en Zéro-Shot)* |
+
+### 2. Validation V2 Décorrélée (940 exemples bidirectionnels)
+| Direction | Langue Source | Langue Cible | Échantillons | Score BLEU | Score chrF++ |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| **Français ➔ Dioula** | `fra_Latn` | `dyu_Latn` | 470 | **45.84** | **63.05** |
+| **Dioula ➔ Français** | `dyu_Latn` | `fra_Latn` | 470 | **31.27** | **54.23** |
+
+---
+
+## 🛠️ Utilisation Rapide (Python)
+
+### Installation
+```bash
+pip install torch transformers peft sentencepiece
+```
+
+### Exemple d'inférence (Français ➔ Dioula)
+
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from peft import PeftModel
+
+BASE_MODEL = "facebook/nllb-200-1.3B"
+LORA_MODEL = "syndou/nllb-lora-dioula"
+
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+dtype = torch.float32
+
+tokenizer = AutoTokenizer.from_pretrained(LORA_MODEL)
+base_model = AutoModelForSeq2SeqLM.from_pretrained(BASE_MODEL, torch_dtype=dtype)
+model = PeftModel.from_pretrained(base_model, LORA_MODEL).to(device)
+model.eval()
+
+# Traduction FR -> DYU
+texte_fr = "Bonjour, comment allez-vous aujourd'hui ?"
+tokenizer.src_lang = "fra_Latn"
+forced_bos = tokenizer.convert_tokens_to_ids("dyu_Latn")
+
+inputs = tokenizer(texte_fr, return_tensors="pt").to(device)
+
+with torch.no_grad():
+    generated = model.generate(
+        **inputs,
+        forced_bos_token_id=forced_bos,
+        max_new_tokens=64,
+        num_beams=4,
+    )
+
+traduction = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
+print("Traduction :", traduction)
+```
+
+---
+
+## 📚 Données d'Entraînement
+
+Le modèle a été entraîné sur le **Dataset V2 Nettoyé & Équilibré** totalisant **17 674 exemples bidirectionnels** (soit **8 837 paires uniques** FR ⟷ Dioula), garanti **100% sans fuite** vers le Jeu de Test Sacré :
+- Corpus Consolidé (textes bibliques équilibrés à max 40%) : ~4 700 paires
+- Glossaire Dioula institutionnel & usuel : ~3 100 paires
+- Guide Orthographe Webonary : 732 paires
+- Targumi Dioula & Bambara : 392 paires
+- *Test Sacré : exclu à 100% de l'entraînement.*
+- *AfriSpeech : classé Baoulé dans l'inventaire, exclu du modèle Dioula.*
+
+---
+
+## 📜 Citation & Remerciements
+
+Projet **Kouman AI** — Préservation et valorisation numérique des langues de Côte d'Ivoire.
+Base NLLB fournie par Meta AI.
+"""
+
 def main():
     api = HfApi()
+    
+    # 1. Modèle fusionné officiel
     api.upload_file(
         path_or_fileobj=MODEL_CARD_CONTENT.encode("utf-8"),
         path_in_repo="README.md",
@@ -154,6 +269,15 @@ def main():
         commit_message="docs: aligner la carte de modèle sur les 8 837 paires réelles et ajouter traçabilité 6763611 (S4)",
     )
     print("✅ Carte Hugging Face syndou/nllb-200-dioula mise à jour avec succès !")
+
+    # 2. Modèle LoRA
+    api.upload_file(
+        path_or_fileobj=LORA_CARD_CONTENT.encode("utf-8"),
+        path_in_repo="README.md",
+        repo_id="syndou/nllb-lora-dioula",
+        commit_message="docs: aligner la carte LoRA sur les 8 837 paires réelles et ajouter métriques Test Sacré",
+    )
+    print("✅ Carte Hugging Face syndou/nllb-lora-dioula mise à jour avec succès !")
 
 if __name__ == "__main__":
     main()
