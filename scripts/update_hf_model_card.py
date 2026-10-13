@@ -139,6 +139,12 @@ print("Traduction :", traduction)
 
 ---
 
+## 📖 Dictionnaires & Ressources Linguistiques
+- 📕 [Petit Dictionnaire Français - Dioula (PDF)](https://huggingface.co/syndou/nllb-200-dioula/resolve/main/docs/petit_dictionnaire.pdf)
+- 📗 [Guide Orthographe Dioula (Webonary)](https://www.webonary.org/dioula-bf/files/Guide-orthographe-dioula.pdf)
+
+---
+
 ## 📜 Citation & Remerciements
 
 Projet **Kouman AI** — Préservation et valorisation numérique des langues de Côte d'Ivoire.
@@ -252,6 +258,12 @@ Le modèle a été entraîné sur le **Dataset V2 Nettoyé & Équilibré** total
 
 ---
 
+## 📖 Dictionnaires & Ressources Linguistiques
+- 📕 [Petit Dictionnaire Français - Dioula (PDF)](https://huggingface.co/syndou/nllb-200-dioula/resolve/main/docs/petit_dictionnaire.pdf)
+- 📗 [Guide Orthographe Dioula (Webonary)](https://www.webonary.org/dioula-bf/files/Guide-orthographe-dioula.pdf)
+
+---
+
 ## 📜 Citation & Remerciements
 
 Projet **Kouman AI** — Préservation et valorisation numérique des langues de Côte d'Ivoire.
@@ -266,7 +278,7 @@ def main():
         path_or_fileobj=MODEL_CARD_CONTENT.encode("utf-8"),
         path_in_repo="README.md",
         repo_id="syndou/nllb-200-dioula",
-        commit_message="docs: aligner la carte de modèle sur les 8 837 paires réelles et ajouter traçabilité 6763611 (S4)",
+        commit_message="docs: 8 837 paires réelles, liens dictionnaires PDF & métriques test sacré (S4)",
     )
     print("✅ Carte Hugging Face syndou/nllb-200-dioula mise à jour avec succès !")
 
@@ -275,7 +287,7 @@ def main():
         path_or_fileobj=LORA_CARD_CONTENT.encode("utf-8"),
         path_in_repo="README.md",
         repo_id="syndou/nllb-lora-dioula",
-        commit_message="docs: aligner la carte LoRA sur les 8 837 paires réelles et ajouter métriques Test Sacré",
+        commit_message="docs: 8 837 paires réelles, liens dictionnaires PDF & métriques test sacré",
     )
     print("✅ Carte Hugging Face syndou/nllb-lora-dioula mise à jour avec succès !")
 

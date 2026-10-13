@@ -70,7 +70,7 @@ Le Test Sacré est un jeu de référence représentatif des échanges du quotidi
 | **NLLB Fusionné (Officiel `5c36e48`)** | Français ➔ Dioula | 25.59 | 43.29 | 144 |
 | **NLLB Fusionné (Officiel `5c36e48`)** | Dioula ➔ Français | 15.36 | 39.69 | 144 |
 
-> 💡 **Analyse comparative** : Le modèle fusionné officiel (`5c36e48`) surpasse très largement le modèle NLLB de base (+13,56 BLEU en FR ➔ DYU). L'écart avec l'adaptateur LoRA v1 isolé (29,14 vs 25,59) est inhérent à la fusion des poids en fp32/bf16 (`merge_and_unload`) et aux paramètres d'évaluation standardisés.
+> 💡 **Note méthodologique** : Comparaison à réglages identiques en cours (`scripts/compare_models_test_sacre.py`). La fusion étant mathématiquement équivalente à l'adaptateur, l'écart observé (29,14 vs 25,59 en FR➔DYU ; 19,71 vs 15,36 en DYU➔FR) s'explique très probablement par les paramètres de décodage (`num_beams=1` greedy pour LoRA v1 vs `num_beams=4` beam search pour le fusionné).
 
 ### 2. Validation V2 (940 phrases bilingues, split décorrélé)
 | Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
@@ -145,6 +145,7 @@ python3 scripts/check_test_leakage.py
 ### 4. Dépendances Modèle
 Les dépendances spécifiques au modèle NMT (transformers, peft, etc.) sont listées dans [`backend/requirements-model.txt`](backend/requirements-model.txt).
 
-### 5. Dictionnaire & Guide Orthographe Dioula
-Le guide orthographe Dioula (PDF Webonary) est disponible sur le drive partagé du projet.
-> 📎 [Guide orthographe Dioula (Webonary)](https://www.webonary.org/dioula-bf/files/Guide-orthographe-dioula.pdf)
+### 5. Dictionnaires & Guide Orthographe Dioula
+Les ressources lexicographiques du projet sont accessibles directement en ligne :
+- 📕 [Petit Dictionnaire Français - Dioula (PDF)](https://huggingface.co/syndou/nllb-200-dioula/resolve/main/docs/petit_dictionnaire.pdf)
+- 📗 [Guide orthographe Dioula (Webonary)](https://www.webonary.org/dioula-bf/files/Guide-orthographe-dioula.pdf)
