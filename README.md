@@ -21,7 +21,6 @@ Le projet propose deux formats de modèles hébergés publiquement sur Hugging F
 kouman_AI/
 ├── 📄 README.md                        # Documentation générale du projet
 ├── 📄 requirements.txt                 # Dépendances Python de base
-├── 📄 requirements-model.txt           # Dépendances NMT, PEFT & LLM
 │
 ├── 📂 backend/                         # 🌟 API Officielle de Démo (FastAPI, sessions, orchestrateur, LLM)
 │   ├── 📄 README.md                    # Guide complet de déploiement de l'API de démo
@@ -68,6 +67,10 @@ Le Test Sacré est un jeu de référence représentatif des échanges du quotidi
 | **NLLB-200-1.3B (Zéro-Shot Base)** | Dioula ➔ Français | 17.30 | 38.79 | 144 |
 | **NLLB + LoRA v1 (Fine-Tuné)** | Français ➔ Dioula | **29.14** | **44.24** | 144 |
 | **NLLB + LoRA v1 (Fine-Tuné)** | Dioula ➔ Français | **19.71** | **41.92** | 144 |
+| **NLLB Fusionné (Officiel `5c36e48`)** | Français ➔ Dioula | 25.59 | 43.29 | 144 |
+| **NLLB Fusionné (Officiel `5c36e48`)** | Dioula ➔ Français | 15.36 | 39.69 | 144 |
+
+> 💡 **Note méthodologique** : Comparaison à réglages identiques en cours (`scripts/compare_models_test_sacre.py`). La fusion étant mathématiquement équivalente à l'adaptateur, l'écart observé (29,14 vs 25,59 en FR➔DYU ; 19,71 vs 15,36 en DYU➔FR) s'explique très probablement par les paramètres de décodage (`num_beams=1` greedy pour LoRA v1 vs `num_beams=4` beam search pour le fusionné).
 
 ### 2. Validation V2 (940 phrases bilingues, split décorrélé)
 | Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
@@ -117,7 +120,7 @@ model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_ID, revision=REVISION)
 
 # Traduction Français -> Dioula
 tokenizer.src_lang = "fra_Latn"
-forced_bos = tokenizer.lang_code_to_id["dyu_Latn"]
+forced_bos = tokenizer.convert_tokens_to_ids("dyu_Latn")
 
 inputs = tokenizer("Bonjour, comment vas-tu ?", return_tensors="pt")
 outputs = model.generate(**inputs, forced_bos_token_id=forced_bos, max_length=64)
@@ -138,3 +141,11 @@ Pour vérifier l'étanchéité stricte d'un nouveau jeu de données contre le Te
 ```bash
 python3 scripts/check_test_leakage.py
 ```
+
+### 4. Dépendances Modèle
+Les dépendances spécifiques au modèle NMT (transformers, peft, etc.) sont listées dans [`backend/requirements-model.txt`](backend/requirements-model.txt).
+
+### 5. Dictionnaires & Guide Orthographe Dioula
+Les ressources lexicographiques du projet sont accessibles directement en ligne :
+- 📕 [Petit Dictionnaire Français - Dioula (PDF)](https://huggingface.co/syndou/nllb-200-dioula/resolve/main/docs/petit_dictionnaire.pdf)
+- 📗 [Guide orthographe Dioula (Webonary)](https://www.webonary.org/dioula-bf/files/Guide-orthographe-dioula.pdf)

@@ -99,11 +99,11 @@ class KoumanAudioTester:
 
         sampling_rate = self.tts_model.config.sampling_rate
 
-        # Ajustement de la vitesse par rééchantillonnage (speaking_rate < 1.0 = plus lent)
+        # Ajustement de la vitesse SANS changer la hauteur de voix (time-stretch)
         if speaking_rate != 1.0:
-            import scipy.signal as signal
-            target_length = int(len(waveform) / speaking_rate)
-            waveform = signal.resample(waveform, target_length)
+            import librosa
+            # time_stretch(rate > 1 = accélérer, rate < 1 = ralentir)
+            waveform = librosa.effects.time_stretch(waveform, rate=speaking_rate)
         wavfile.write(output_path, sampling_rate, waveform)
         duree = len(waveform) / sampling_rate
         print(f"💾 Audio généré : {output_path} ({sampling_rate}Hz, {duree:.2f}s)", flush=True)
