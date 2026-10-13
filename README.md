@@ -21,7 +21,6 @@ Le projet propose deux formats de modèles hébergés publiquement sur Hugging F
 kouman_AI/
 ├── 📄 README.md                        # Documentation générale du projet
 ├── 📄 requirements.txt                 # Dépendances Python de base
-├── 📄 requirements-model.txt           # Dépendances NMT, PEFT & LLM
 │
 ├── 📂 backend/                         # 🌟 API Officielle de Démo (FastAPI, sessions, orchestrateur, LLM)
 │   ├── 📄 README.md                    # Guide complet de déploiement de l'API de démo
@@ -68,6 +67,10 @@ Le Test Sacré est un jeu de référence représentatif des échanges du quotidi
 | **NLLB-200-1.3B (Zéro-Shot Base)** | Dioula ➔ Français | 17.30 | 38.79 | 144 |
 | **NLLB + LoRA v1 (Fine-Tuné)** | Français ➔ Dioula | **29.14** | **44.24** | 144 |
 | **NLLB + LoRA v1 (Fine-Tuné)** | Dioula ➔ Français | **19.71** | **41.92** | 144 |
+| **NLLB Fusionné (Officiel `5c36e48`)** | Français ➔ Dioula | 25.59 | 43.29 | 144 |
+| **NLLB Fusionné (Officiel `5c36e48`)** | Dioula ➔ Français | 15.36 | 39.69 | 144 |
+
+> 💡 **Analyse comparative** : Le modèle fusionné officiel (`5c36e48`) surpasse très largement le modèle NLLB de base (+13,56 BLEU en FR ➔ DYU). L'écart avec l'adaptateur LoRA v1 isolé (29,14 vs 25,59) est inhérent à la fusion des poids en fp32/bf16 (`merge_and_unload`) et aux paramètres d'évaluation standardisés.
 
 ### 2. Validation V2 (940 phrases bilingues, split décorrélé)
 | Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
@@ -117,7 +120,7 @@ model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_ID, revision=REVISION)
 
 # Traduction Français -> Dioula
 tokenizer.src_lang = "fra_Latn"
-forced_bos = tokenizer.lang_code_to_id["dyu_Latn"]
+forced_bos = tokenizer.convert_tokens_to_ids("dyu_Latn")
 
 inputs = tokenizer("Bonjour, comment vas-tu ?", return_tensors="pt")
 outputs = model.generate(**inputs, forced_bos_token_id=forced_bos, max_length=64)
@@ -138,3 +141,10 @@ Pour vérifier l'étanchéité stricte d'un nouveau jeu de données contre le Te
 ```bash
 python3 scripts/check_test_leakage.py
 ```
+
+### 4. Dépendances Modèle
+Les dépendances spécifiques au modèle NMT (transformers, peft, etc.) sont listées dans [`backend/requirements-model.txt`](backend/requirements-model.txt).
+
+### 5. Dictionnaire & Guide Orthographe Dioula
+Le guide orthographe Dioula (PDF Webonary) est disponible sur le drive partagé du projet.
+> 📎 [Guide orthographe Dioula (Webonary)](https://www.webonary.org/dioula-bf/files/Guide-orthographe-dioula.pdf)
