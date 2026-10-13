@@ -43,8 +43,8 @@ Mesuré sur le modèle officiel fusionné (`5c36e48`) avec les métriques standa
 
 | Direction | Langue Source (`src_lang`) | Langue Cible (`tgt_lang`) | Échantillons | Score BLEU | Score chrF++ |
 |:---|:---:|:---:|:---:|:---:|:---:|
-| **Français ➔ Dioula** | `fra_Latn` | `dyu_Latn` | 144 | **25.59** *(vs 12.03 en Zéro-Shot)* | **43.29** *(vs 33.76 en Zéro-Shot)* |
-| **Dioula ➔ Français** | `dyu_Latn` | `fra_Latn` | 144 | **15.36** *(vs 17.30 en Zéro-Shot)* | **39.69** *(vs 38.79 en Zéro-Shot)* |
+| **Français ➔ Dioula** | `fra_Latn` | `dyu_Latn` | 144 | **25.59** *(vs 14.63 en Zéro-Shot)* | **43.29** *(vs 33.40 en Zéro-Shot)* |
+| **Dioula ➔ Français** | `dyu_Latn` | `fra_Latn` | 144 | **17.40** *(vs 17.34 en Zéro-Shot)* | **40.42** *(vs 38.76 en Zéro-Shot)* |
 
 ### 2. Validation V2 Décorrélée (940 exemples bidirectionnels)
 | Direction | Langue Source (`src_lang`) | Langue Cible (`tgt_lang`) | Échantillons | Score BLEU | Score chrF++ |
@@ -174,13 +174,13 @@ metrics:
 - chrf
 ---
 
-# 🌍 Kouman AI — NLLB-200-1.3B LoRA v1 (Français ⟷ Dioula / Jula)
+# 🌍 Kouman AI — NLLB-200-1.3B LoRA v2 (Français ⟷ Dioula / Jula)
 
 Modèle de traduction automatique bidirectionnelle **Français ⟷ Dioula (Jula)** basé sur **[facebook/nllb-200-1.3B](https://huggingface.co/facebook/nllb-200-1.3B)** et optimisé avec **LoRA (PEFT)**.
 
 Développé dans le cadre du projet **Kouman AI** dédié au traitement automatique des langues de Côte d'Ivoire et d'Afrique de l'Ouest (Baoulé, Dioula).
 
-> ℹ️ **Note** : Une version entièrement fusionnée et autonome (`merge_and_unload`) est disponible sur [`syndou/nllb-200-dioula`](https://huggingface.co/syndou/nllb-200-dioula).
+> ℹ️ **Note** : Une version entièrement fusionnée et autonome (`merge_and_unload`) est disponible sur [`syndou/nllb-200-dioula`](https://huggingface.co/syndou/nllb-200-dioula). Les poids fusionnés et cet adaptateur LoRA v2 produisent des inférences strictement identiques.
 
 ---
 
@@ -189,8 +189,8 @@ Développé dans le cadre du projet **Kouman AI** dédié au traitement automati
 ### 1. Jeu de Test Sacré (144 phrases étanches — 0 fuite)
 | Direction | Langue Source | Langue Cible | Échantillons | Score BLEU | Score chrF++ |
 |:---|:---:|:---:|:---:|:---:|:---:|
-| **Français ➔ Dioula** | `fra_Latn` | `dyu_Latn` | 144 | **29.14** *(vs 12.03 en Zéro-Shot)* | **44.24** *(vs 33.76 en Zéro-Shot)* |
-| **Dioula ➔ Français** | `dyu_Latn` | `fra_Latn` | 144 | **19.71** *(vs 17.30 en Zéro-Shot)* | **41.92** *(vs 38.79 en Zéro-Shot)* |
+| **Français ➔ Dioula** | `fra_Latn` | `dyu_Latn` | 144 | **25.59** *(vs 14.63 en Zéro-Shot)* | **43.29** *(vs 33.40 en Zéro-Shot)* |
+| **Dioula ➔ Français** | `dyu_Latn` | `fra_Latn` | 144 | **17.40** *(vs 17.34 en Zéro-Shot)* | **40.42** *(vs 38.76 en Zéro-Shot)* |
 
 ### 2. Validation V2 Décorrélée (940 exemples bidirectionnels)
 | Direction | Langue Source | Langue Cible | Échantillons | Score BLEU | Score chrF++ |
