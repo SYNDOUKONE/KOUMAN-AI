@@ -11,9 +11,9 @@ from api.research_service import ResearchService
 from api.audio_service import AudioService
 
 app = FastAPI(
-    title="Kouman AI - API Multimodale (Traduction, Audio STT/TTS & Recherche)",
-    description="API Hybride : NLLB-1.3B Fine-Tuné (Traduction NMT) + Gemini API (Recherche) + Whisper Tiny (STT) + MMS-TTS (TTS)",
-    version="1.1.0"
+    title="Kouman AI — Prototype Multimodal V2 (Audio & Traduction)",
+    description="Prototype de recherche et d'exploration multimodale (Whisper STT, MMS TTS, NLLB Traduction Dioula). Note : Pour l'API de démo officielle avec orchestrateur, sessions et LLM, se référer à backend/.",
+    version="2.1.0"
 )
 
 app.add_middleware(

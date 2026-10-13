@@ -63,27 +63,32 @@ class TranslationService:
         if self.is_loaded:
             return
 
-        print(f"Chargement du modèle NLLB-1.3B + LoRA sur {self.device}...", flush=True)
+        print(f"Chargement du traducteur NLLB sur {self.device}...", flush=True)
         self.tokenizer = AutoTokenizer.from_pretrained(self.base_model_name, src_lang="fra_Latn")
-        base_model = AutoModelForSeq2SeqLM.from_pretrained(self.base_model_name).to(self.device)
 
-        # Tentative de chargement : Local d'abord, puis Hugging Face (révision v2: 160d1a9)
+        # Tentative de chargement : Local d'abord, puis Hugging Face officiel
         try:
             if os.path.exists(self.model_path):
                 print(f"Chargement depuis le dossier local : {self.model_path}", flush=True)
+                base_model = AutoModelForSeq2SeqLM.from_pretrained(self.base_model_name).to(self.device)
                 self.model = PeftModel.from_pretrained(base_model, self.model_path).to(self.device)
             else:
-                hf_model_id = "syndou/nllb-lora-dioula"
-                revision = os.getenv("HF_REVISION", "160d1a9")
-                print(f"Dossier local non trouvé. Chargement depuis Hugging Face : {hf_model_id} (révision: {revision})...", flush=True)
-                self.model = PeftModel.from_pretrained(base_model, hf_model_id, revision=revision).to(self.device)
+                hf_model_id = os.getenv("HF_MODEL_ID", "syndou/nllb-200-dioula")
+                revision = os.getenv("HF_REVISION", "5c36e481ce9ce8d6f73a57181fb93d6900ddad89")
+                print(f"Chargement depuis Hugging Face : {hf_model_id} (révision: {revision[:7]})...", flush=True)
+
+                if "lora" in hf_model_id.lower():
+                    base_model = AutoModelForSeq2SeqLM.from_pretrained(self.base_model_name).to(self.device)
+                    self.model = PeftModel.from_pretrained(base_model, hf_model_id, revision=revision).to(self.device)
+                else:
+                    self.model = AutoModelForSeq2SeqLM.from_pretrained(hf_model_id, revision=revision).to(self.device)
         except Exception as e:
             print(f"Erreur lors du chargement du modèle : {e}")
             raise e
 
         self.model.eval()
         self.is_loaded = True
-        print("Modèle NLLB LoRA chargé avec succès !", flush=True)
+        print("Modèle NLLB chargé avec succès !", flush=True)
 
     def _post_process(self, text_src: str, text_tgt: str, src_lang: str, tgt_lang: str) -> str:
         """

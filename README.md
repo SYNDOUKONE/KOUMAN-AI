@@ -1,124 +1,140 @@
 # 🌍 Kouman AI — Traduction Automatique Français ↔ Dioula (NLLB-200)
 
-Projet de traduction automatique neuronale haute performance spécialisé pour la langue **Dioula** (*dyu_Latn*) à partir du **Français** (*fra_Latn*), basé sur le modèle **NLLB-200-1.3B** de Meta optimisé par **Fine-Tuning LoRA (PEFT)**, enrichi d'un corpus consolidé et d'un glossaire lexical.
+Projet de traduction automatique neuronale haute performance spécialisé pour la langue **Dioula** (*dyu_Latn*) et le **Français** (*fra_Latn*), basé sur le modèle **NLLB-200-1.3B** de Meta, optimisé par **Fine-Tuning LoRA (PEFT)** et consolidé en **modèle autonome fusionné**.
 
 ---
 
-## 📁 Structure du Projet
+## 🚀 Modèles Officiels Déployés (Hugging Face)
+
+Le projet propose deux formats de modèles hébergés publiquement sur Hugging Face :
+
+| Format | Identifiant Hugging Face | Révision figée | Taille | Description |
+|:---|:---|:---:|:---:|:---|
+| **Modèle Fusionné (Officiel Démo)** | [`syndou/nllb-200-dioula`](https://huggingface.co/syndou/nllb-200-dioula) | `5c36e48` | **2,6 Go** | Modèle complet autonome (`merge_and_unload`). Utilisable directement avec `transformers` sans dépendance `peft`. |
+| **Adaptateur LoRA (Modulaire)** | [`syndou/nllb-lora-dioula`](https://huggingface.co/syndou/nllb-lora-dioula) | `5aff243` | **18 Mo** | Adaptateur léger PEFT appliqué sur `facebook/nllb-200-1.3B`. |
+
+---
+
+## 📁 Structure du Dépôt
 
 ```text
 kouman_AI/
-├── 📄 README.md                                    # Documentation générale du projet
-├── 📄 requirements.txt                             # Dépendances Python
+├── 📄 README.md                        # Documentation générale du projet
+├── 📄 requirements.txt                 # Dépendances Python de base
+├── 📄 requirements-model.txt           # Dépendances NMT, PEFT & LLM
 │
-├── 📂 docs/                                        # Cahier des charges et gestion de projet
-│   ├── 📄 Kouma_AI_Cahier_des_charges.docx.pdf
-│   ├── 📄 Retroplanning_Projet_Traduction_NLP (1).xlsx
-│   └── 📄 Inventaire_Ressources_Baoule_Dioula.xlsx
+├── 📂 backend/                         # 🌟 API Officielle de Démo (FastAPI, sessions, orchestrateur, LLM)
+│   ├── 📄 README.md                    # Guide complet de déploiement de l'API de démo
+│   ├── 📄 .env.example                 # Variables d'environnement & configuration modèles
+│   ├── 📂 app/                         # Cœur applicatif (routes, services, traducteurs)
+│   └── 📂 scripts/                     # Benchmarks LLM et scénarios de test
 │
-├── 📂 data/                                        # Données lexicales & dictionnaires
-│   ├── 📄 petit_dictionnaire.pdf                   # Dictionnaire historique Français-Dioula
-│   └── 📄 glossaire_dioula.json                    # Glossaire extrait (3 267 termes & locutions)
+├── 📂 api/                             # 🧪 Prototype Multimodal V2 (Audio Whisper STT / MMS-TTS / Recherche)
+│   ├── 📄 app.py                       # Serveur FastAPI prototype multimodal
+│   ├── 📄 translation_service.py       # Service de traduction local / Hugging Face
+│   └── 📄 audio_service.py             # Service de synthèse et reconnaissance vocale
 │
-├── 📂 models/                                      # Modèle fine-tuné & adaptateurs LoRA
-│   └── 📂 nllb_lora_dioula/
-│       ├── 📂 checkpoint-1006/                     # Checkpoint Époque 1 (BLEU: 45.84)
-│       ├── 📂 checkpoint-2012/                     # Checkpoint Époque 2 (BLEU: 46.54)
-│       └── 📂 final/                               # Modèle Final Entraîné (BLEU: 46.88, chrF: 61.73)
-│           ├── adapter_model.safetensors           # Poids légers LoRA (~19 Mo)
-│           ├── adapter_config.json
-│           └── tokenizer / vocabulaire
+├── 📂 data/                            # Datasets, glossaires et jeux d'évaluation
+│   ├── 📄 test_sacre.csv               # Jeu de Test Sacré (144 phrases conversationnelles étanches)
+│   ├── 📄 glossaire_dioula.json        # Glossaire bilingue (3 174 termes FR↔Dioula)
+│   ├── 📄 custom_idioms.json           # Expressions courantes et formules de politesse
+│   ├── 📄 processed_v2_train.json      # Dataset d'entraînement V2 étanche (17 674 exemples)
+│   ├── 📄 processed_v2_val.json        # Dataset de validation V2 (940 exemples)
+│   └── 📄 baselines_results.tsv        # Résultats comparatifs des baselines et modèles
 │
-├── 📂 scripts/                                     # Scripts Python de traitement & inférence
-│   ├── 📄 demo_traduction.py                       # Démonstrateur de traduction rapide en direct
-│   ├── 📄 benchmark_nllb.py                        # Benchmark standard sur corpus CSV
-│   ├── 📄 test_and_benchmark.py                    # Benchmark comparatif Base vs Fine-tuné
-│   ├── 📄 finetune_nllb.py                         # Script d'entraînement LoRA (PEFT)
-│   └── 📄 extract_dictionary.py                    # Script d'extraction OCR/texte du dictionnaire PDF
+├── 📂 scripts/                         # Scripts de préparation, entraînement et benchmarks
+│   ├── 📄 prepare_dataset_v2.py        # Préparation du dataset V2 avec filtrage anti-fuite
+│   ├── 📄 scrape_dioula.py             # Collecte Webonary PDF & Targumi
+│   ├── 📄 integrate_scraped_data.py    # Fusion sécurisée des données scrapées
+│   ├── 📄 check_test_leakage.py        # Contrôle d'étanchéité strict contre le Test Sacré
+│   ├── 📄 finetune_nllb.py             # Pipeline d'entraînement NLLB LoRA bidirectionnel
+│   └── 📄 upload_to_hf.py              # Publication des adaptateurs sur Hugging Face
 │
-└── 📂 LIVRABLE/                                    # Livrables de données et documentation
-    ├── 📂 03_Donnees_Nettoyees/                    # Données brutes nettoyées et filtrées
-    ├── 📂 05_Validation_Linguistique/              # Évaluations et retours linguistiques
-    ├── 📂 06_Corpus_Final/                         # Corpus consolidé bilingue (13 674 paires)
-    │   └── corpus_dioula_consolide.csv
-    ├── 📂 07_Documentation/                        # Fiches techniques et guides
-    └── 📂 08_Inventaire/                           # Inventaires détaillés
+└── 📂 docs/                            # Spécifications, cahier des charges et inventaires
 ```
 
 ---
 
-## 🚀 Installation & Prérequis
+## 📊 Performances & Résultats des Évaluations
 
-Le projet est optimisé pour tourner sous **macOS (Apple Silicon / Metal Performance Shaders - MPS)** ou **Linux/CUDA**.
+Pour garantir une rigueur scientifique absolue, les métriques sont mesurées par **direction**, par **jeu de test** et avec des jeux **totalement étanches** (0 fuite de données) :
 
-```bash
-pip install -r requirements.txt
-```
+### 1. Jeu de Test Sacré (144 phrases conversationnelles étanches)
+Le Test Sacré est un jeu de référence représentatif des échanges du quotidien (salutations, marché, santé, famille) avec **0 contamination** dans les données d'entraînement :
 
----
+| Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
+|:---|:---:|:---:|:---:|:---:|
+| **NLLB-200-1.3B (Zéro-Shot Base)** | Français ➔ Dioula | 12.03 | 33.76 | 144 |
+| **NLLB-200-1.3B (Zéro-Shot Base)** | Dioula ➔ Français | 17.30 | 38.79 | 144 |
+| **NLLB + LoRA v1 (Fine-Tuné)** | Français ➔ Dioula | **29.14** | **44.24** | 144 |
+| **NLLB + LoRA v1 (Fine-Tuné)** | Dioula ➔ Français | **19.71** | **41.92** | 144 |
 
-## 🛠️ Guide d'Utilisation
+### 2. Validation V2 (940 phrases bilingues, split décorrélé)
+| Modèle | Direction | BLEU | chrF++ | Nombre de phrases |
+|:---|:---:|:---:|:---:|:---:|
+| **NLLB-200-1.3B (Zéro-Shot Base)** | Français ➔ Dioula | 44.63 | 61.87 | 470 |
+| **NLLB-200-1.3B (Zéro-Shot Base)** | Dioula ➔ Français | 30.52 | 53.53 | 470 |
+| **NLLB + LoRA v1 (Fine-Tuné)** | Français ➔ Dioula | **45.84** | **63.05** | 470 |
+| **NLLB + LoRA v1 (Fine-Tuné)** | Dioula ➔ Français | **31.27** | **54.23** | 470 |
 
-### 1. Tester une traduction en direct (Modèle Fine-Tuné)
-Pour traduire des phrases françaises en Dioula avec le modèle entraîné :
-```bash
-python3 scripts/demo_traduction.py
-```
+### 3. Split de Test Consolidé Hugging Face (2 447 phrases bilingues)
+Mesuré sur le modèle complet fusionné [`syndou/nllb-200-dioula`](https://huggingface.co/syndou/nllb-200-dioula) :
 
-### 2. Lancer un Benchmark sur un fichier CSV
-Pour évaluer la précision sur un jeu de test avec calcul des scores **BLEU** et **chrF** :
-```bash
-python3 scripts/benchmark_nllb.py --samples 20
-```
-
-### 3. Extraire / Mettre à jour le Glossaire depuis le PDF
-Pour extraire de nouveaux termes d'un dictionnaire PDF vers le format JSON :
-```bash
-python3 scripts/extract_dictionary.py
-```
-
-### 4. Relancer le Fine-Tuning LoRA
-Pour ré-entraîner les adaptateurs LoRA sur le corpus et le glossaire mis à jour :
-```bash
-python3 scripts/finetune_nllb.py
-```
+| Direction | BLEU | chrF | Vitesse d'inférence |
+|:---|:---:|:---:|:---:|
+| **Français ➔ Dioula** | **42.45** | **60.24** | ~11.8 ph/s |
+| **Dioula ➔ Français** | **28.53** | **51.51** | ~10.5 ph/s |
 
 ---
 
-## 🧠 Architecture du Modèle & Méthode
+## 📚 Données d'Entraînement & Inventaire des Sources
 
-* **Modèle de base** : `facebook/nllb-200-1.3B` (1,3 milliard de paramètres).
-* **Fine-Tuning PEFT / LoRA** :
-  * **Rang ($r$)** : 16, **Alpha** : 32, **Dropout** : 0.1.
-  * **Modules ciblés** : Matrices de projection d'attention (`q_proj`, `v_proj`).
-  * **Paramètres entraînés** : ~4,7 Millions (seulement **0.34%** du modèle total), garantissant une sauvegarde ultra-légère (~19 Mo) et une exécution rapide sans saturation mémoire.
-* **Jeu de données combiné** :
-  * Corpus de phrases consolidé : **13 674 paires**
-  * Glossaire lexical extrait du dictionnaire : **3 267 paires**
-  * **Total** : **16 941 paires bilingues**.
+Le dataset d'entraînement V2 enrichi totalise **17 674 exemples bidirectionnels** (soit 8 837 paires uniques FR ⟷ Dioula), garanti sans fuite vers le Test Sacré :
 
----
-
-## 📊 Résultats du Benchmark
-
-| Modèle | Score BLEU | Score chrF | Loss de validation |
-| :--- | :---: | :---: | :---: |
-| **NLLB-200-1.3B (Zero-Shot)** | ~18.5 | ~34.2 | — |
-| **NLLB-200-1.3B + LoRA (Époque 1)** | 45.84 | 61.16 | 0.972 |
-| **NLLB-200-1.3B + LoRA (Époque 2)** | 46.54 | 61.57 | 0.951 |
-| **NLLB-200-1.3B + LoRA + Glossaire (Final)** | **46.88** | **61.73** | **0.945** |
+| Source | Type de ressource | Langue | Paires nettes | Notes & Rôle |
+|:---|:---|:---:|:---:|:---|
+| **Corpus Consolidé (R008 / R006)** | Textes bibliques et dialogues | Dioula | ~4 700 | Domaine biblique rééquilibré à max 40% pour favoriser le conversationnel |
+| **Glossaire Dioula** | Vocabulaire & locutions | Dioula | ~3 100 | Vocabulaire institutionnel, médical et usuel |
+| **Guide Orthographe Webonary** | Lexique & grammaire | Dioula BF | 732 | Correspondances orthographiques standardisées |
+| **Targumi Dioula** | Vocabulaire web structuré | Dioula | 196 | Paires conversationnelles extraites par JSON-LD |
+| **Targumi Bambara** | Vocabulaire web proche | Bambara | 196 | Intégration justifiée par la proximité linguistique (~85% d'intercompréhension) |
+| **Test Sacré** | Phrases de référence | Dioula | 144 | **Exclu à 100% de l'entraînement** (réservé à l'évaluation) |
+| *AfriSpeech (R003)* | *Corpus audio transcrit* | *Baoulé* | *0* | *Classé Baoulé dans l'inventaire, exclu du modèle Dioula* |
 
 ---
 
-## 📝 Exemples de Traductions Obtenues
+## 🛠️ Utilisation Rapide
 
-| Français (Source) | Dioula (Traduction du Modèle) | Note Linguistique |
-| :--- | :--- | :--- |
-| *Merci beaucoup pour ton aide.* | `I ka dɛmɛ kosɔn, ne bɛ barika da i ye kosɛbɛ.` | *barika da* (remercier), *kosɛbɛ* (beaucoup) |
-| *Où vas-tu aujourd'hui ?* | `I bɛ taga min bi?` | Structure interrogative exacte |
-| *Je vais au marché pour acheter de la nourriture.* | `Ne bɛ taga lɔgɔfiyɛ la ka dumuni san.` | *lɔgɔfiyɛ* (marché), *dumuni* (nourriture) |
-| *Donne-moi un peu d'eau s'il te plaît.* | `Aw ye ji dɔɔnin di ne ma, ne bɛ aw deli.` | *ji dɔɔnin* (un peu d'eau), *deli* (prière) |
-| *L'enfant dort dans la chambre.* | `Den bɛ sinɔgɔ la bon kɔnɔ.` | *sinɔgɔ* (dormir), *bon kɔnɔ* (en chambre) |
-| *Le travail est difficile mais important.* | `Baara ka gɛlɛn nka a nafa ka bon.` | *baara* (travail), *nafa* (utilité/valeur) |
-| *amitié* (Glossaire) | `teriya` | Traduction lexicale exacte |
-| *amour* (Glossaire) | `kanu` | Traduction lexicale exacte |
+### 1. Inférence avec le Modèle Officiel Fusionné
+```python
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+MODEL_ID = "syndou/nllb-200-dioula"
+REVISION = "5c36e481ce9ce8d6f73a57181fb93d6900ddad89"
+
+tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, revision=REVISION)
+model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_ID, revision=REVISION)
+
+# Traduction Français -> Dioula
+tokenizer.src_lang = "fra_Latn"
+forced_bos = tokenizer.lang_code_to_id["dyu_Latn"]
+
+inputs = tokenizer("Bonjour, comment vas-tu ?", return_tensors="pt")
+outputs = model.generate(**inputs, forced_bos_token_id=forced_bos, max_length=64)
+print(tokenizer.batch_decode(outputs, skip_special_tokens=True)[0])
+# Sortie : Aw ni sɔgɔma, i ka kɛnɛ wa?
+```
+
+### 2. Lancer l'API de Démo
+Consultez le guide complet dans [`backend/README.md`](backend/README.md) :
+```bash
+cd backend
+cp .env.example .env
+uvicorn app.main:app --reload --port 8000
+```
+
+### 3. Contrôle d'Étanchéité Anti-Fuite
+Pour vérifier l'étanchéité stricte d'un nouveau jeu de données contre le Test Sacré :
+```bash
+python3 scripts/check_test_leakage.py
+```

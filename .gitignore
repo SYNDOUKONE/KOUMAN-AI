@@ -27,3 +27,17 @@ LIVRABLE/03_Donnees_Nettoyees/R005_AfriSpeech_Dioula/dioula_afrispeech_clean.csv
 .env.*
 !.env.example
 *.save
+
+# Fichiers volumineux déportés sur Hugging Face (S12)
+models/nllb_lora_dioula/final/
+models/**/final/
+models/**/*.safetensors
+
+# Médias binaires et documents lourds (S12)
+*.wav
+*.mp3
+*.m4a
+*.pptx
+*.docx
+data/*.pdf
+data/*.backup*
