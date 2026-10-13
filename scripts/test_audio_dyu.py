@@ -84,16 +84,26 @@ class KoumanAudioTester:
             tokens = self.nllb_model.generate(**inputs, forced_bos_token_id=forced_bos, max_length=64, num_beams=4)
         return self.nllb_tokenizer.batch_decode(tokens, skip_special_tokens=True)[0]
 
-    def text_to_speech(self, text_dioula: str, output_path: str = "audio_sortie_dioula.wav", play: bool = True) -> str:
-        """Synthétise une phrase en Dioula en fichier audio WAV et la joue en direct."""
+    def text_to_speech(self, text_dioula: str, output_path: str = "audio_sortie_dioula.wav", play: bool = True, speaking_rate: float = 0.75) -> str:
+        """Synthétise une phrase en Dioula en fichier audio WAV et la joue en direct.
+        
+        Args:
+            speaking_rate: Vitesse de parole (< 1.0 = plus lent, > 1.0 = plus rapide). Défaut 0.75.
+        """
         self.load_tts()
-        print(f"🎵 Synthèse vocale de : « {text_dioula} »...", flush=True)
+        print(f"🎵 Synthèse vocale de : « {text_dioula} » (vitesse={speaking_rate})...", flush=True)
         inputs = self.tts_tokenizer(text_dioula.lower(), return_tensors="pt").to(device)
         torch.manual_seed(42)
         with torch.no_grad():
             waveform = self.tts_model(**inputs).waveform[0].cpu().numpy()
 
         sampling_rate = self.tts_model.config.sampling_rate
+
+        # Ajustement de la vitesse par rééchantillonnage (speaking_rate < 1.0 = plus lent)
+        if speaking_rate != 1.0:
+            import scipy.signal as signal
+            target_length = int(len(waveform) / speaking_rate)
+            waveform = signal.resample(waveform, target_length)
         wavfile.write(output_path, sampling_rate, waveform)
         duree = len(waveform) / sampling_rate
         print(f"💾 Audio généré : {output_path} ({sampling_rate}Hz, {duree:.2f}s)", flush=True)
@@ -168,15 +178,17 @@ def main():
     parser.add_argument("--fr2audio", type=str, help="Phrase en Français -> Traduction Dioula -> Synthèse vocale")
     parser.add_argument("--auto", action="store_true", help="Lancer la suite de tests automatiques")
     parser.add_argument("--no-play", action="store_true", help="Ne pas jouer le son sur le Mac")
+    parser.add_argument("--speed", type=float, default=0.75, help="Vitesse de parole TTS (0.5=lent, 1.0=normal, 1.5=rapide). Défaut: 0.75")
     args = parser.parse_args()
 
     tester = KoumanAudioTester()
     play = not args.no_play
+    speed = args.speed
 
     if args.auto:
         tester.run_benchmark_scenarios()
     elif args.tts:
-        tester.text_to_speech(args.tts, play=play)
+        tester.text_to_speech(args.tts, play=play, speaking_rate=speed)
     elif args.stt:
         text = tester.speech_to_text(args.stt)
         trad = tester.translate(text, "dyu_Latn", "fra_Latn")
@@ -185,7 +197,7 @@ def main():
         print(f"🇫🇷 Français : « {args.fr2audio} »")
         dyu = tester.translate(args.fr2audio, "fra_Latn", "dyu_Latn")
         print(f"🌍 Traduction Dioula : « {dyu} »")
-        tester.text_to_speech(dyu, play=play)
+        tester.text_to_speech(dyu, play=play, speaking_rate=speed)
     else:
         # Démo rapide par défaut si aucun argument
         print("=" * 70)
