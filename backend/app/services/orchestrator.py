@@ -51,6 +51,14 @@ def clean_llm_reply(text: str) -> str:
     return " ".join(lines)
 
 
+_SENTENCE_END = re.compile(r"(?<=[.!?…])\s+")
+
+
+def split_sentences(text: str) -> list[str]:
+    """Découpe un texte en phrases, sur . ! ? … suivis d'un espace (ponctuation conservée)."""
+    return [s for s in (part.strip() for part in _SENTENCE_END.split(text)) if s]
+
+
 @dataclass
 class ChatResult:
     reply: str
@@ -69,6 +77,7 @@ class ChatOrchestrator:
         fallbacks: Fallbacks,
         system_prompt: str,
         max_concurrent_translations: int,
+        split_reply_sentences: bool = True,
     ) -> None:
         self.translator = translator
         self.llm = llm
@@ -76,10 +85,24 @@ class ChatOrchestrator:
         self.fallbacks = fallbacks
         self.system_prompt = system_prompt
         self._mt_slots = asyncio.Semaphore(max_concurrent_translations)
+        self.split_reply_sentences = split_reply_sentences
 
     async def translate(self, text: str, src: str, tgt: str) -> str:
         async with self._mt_slots:
             return await asyncio.to_thread(self.translator.translate, text, src, tgt)
+
+    async def translate_reply(self, text: str, src: str, tgt: str) -> str:
+        """Traduit une réponse de plusieurs phrases en UN lot, une entrée par phrase.
+
+        Le traducteur a été entraîné sur des phrases courtes : un bloc de 2-3 phrases
+        est plus lent à décoder et souvent tronqué ou déformé.
+        """
+        sentences = split_sentences(text) if self.split_reply_sentences else [text]
+        if len(sentences) <= 1:
+            return await self.translate(text, src, tgt)
+        async with self._mt_slots:
+            parts = await asyncio.to_thread(self.translator.translate_batch, sentences, src, tgt)
+        return " ".join(p.strip() for p in parts if p.strip())
 
     async def chat(self, session_id: str, text: str, lang: str) -> ChatResult:
         timings: dict[str, float] = {}
@@ -122,7 +145,7 @@ class ChatOrchestrator:
 
         # 3. Français -> langue locale
         t0 = time.perf_counter()
-        reply = await self.translate(fr_reply, PIVOT, lang)
+        reply = await self.translate_reply(fr_reply, PIVOT, lang)
         timings["mt_out"] = elapsed_ms(t0)
         fallback_reason = None
         if (reason := check_translation(fr_reply, reply)) is not None:

@@ -1,7 +1,7 @@
 """Tests avec le VRAI modèle. Ignorés par défaut.
 
     # Modèle fusionné :
-    KOUMA_NLLB_BASE_MODEL=syndou/nllb-200-dioula KOUMA_NLLB_REVISION=6763611f... pytest -m model
+    KOUMA_NLLB_BASE_MODEL=syndou/nllb-200-dioula KOUMA_NLLB_REVISION=5c36e48... pytest -m model
     # NLLB de base + adaptateur :
     KOUMA_ADAPTER_FRA_DYU=/chemin/adaptateur KOUMA_ADAPTER_DYU_FRA=/chemin/adaptateur \
     pytest -m model
