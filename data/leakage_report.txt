@@ -1,0 +1,18 @@
+ℹ️ Contrôle de l'étanchéité sur le dataset préparé V2 (processed_v2_train.json & processed_v2_val.json)...
+======================================================================
+  CONTROLE ANTI-FUITE (DATA LEAKAGE CHECK)
+======================================================================
+📥 Jeu de test sacré chargé : 144 phrases.
+📊 Corpus d'entraînement global chargé : 8550 phrases FR uniques, 8104 phrases DYU uniques.
+----------------------------------------------------------------------
+
+🔍 Analyse des fuites...
+
+======================================================================
+  RAPPORT ETANCHEITE DU JEU DE TEST
+======================================================================
+🔴 Fuites exactes Français : 0
+🔴 Fuites exactes Dioula   : 0
+🟠 Quasi-doublons trouvés  : 0
+
+✅ VÉRIFICATION REUSSIE : Le jeu de test sacré est 100% ÉTANCHE !
