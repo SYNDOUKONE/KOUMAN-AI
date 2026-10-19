@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import base64
 import time
 
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, Depends, File, Form, Query, Request, Response, UploadFile
 from fastapi.security import APIKeyHeader
 
 from app.core.errors import ApiError
@@ -12,12 +13,16 @@ from app.core.languages import LANGUAGES, PIVOT
 from app.core.logging import log_event
 from app.core.timing import elapsed_ms
 from app.schemas import (
+    AudioSynthesizeRequest,
+    AudioSynthesizeResponse,
+    AudioTranscribeResponse,
     ChatDebug,
     ChatRequest,
     ChatResponse,
     LanguageInfo,
     TranslateRequest,
     TranslateResponse,
+    VoiceChatResponse,
 )
 from app.services.llm import LLMUnavailable
 
@@ -89,6 +94,7 @@ def health(request: Request):
             translator=state.translator.info(),
             llm=state.llm.name,
             llm_model=getattr(state.llm, "model", None),
+            audio=getattr(state, "audio", None) and state.audio.info(),
             languages_enabled=state.settings.enabled_languages,
             sessions_actives=len(state.sessions),
         )
@@ -165,5 +171,167 @@ async def chat(
             fr_reply=result.fr_reply,
             timings_ms=result.timings_ms,
             fallback_reason=result.fallback_reason,
+        )
+    return response
+
+
+# --------------------------------------------------------------------------- #
+# Points d'accès Audio (TTS, STT & Voice Chat)                                 #
+# --------------------------------------------------------------------------- #
+@router.post("/audio/synthesize", response_model=AudioSynthesizeResponse, tags=["audio"])
+async def audio_synthesize(
+    req: AudioSynthesizeRequest,
+    request: Request,
+    format: str = Query(
+        default="base64",
+        description="Format de retour : 'base64' (JSON) ou 'wav' (flux audio/wav binaire)",
+    ),
+    client: str = Depends(require_client),
+):
+    """Synthèse vocale (TTS) Dioula via Meta MMS-TTS avec modulation de vitesse."""
+    state = request.app.state
+    _check_lang(state, req.lang, allow_pivot=False)
+    _check_length(state, req.text)
+
+    t0 = time.perf_counter()
+    wav_bytes, duration_s, sr = await state.audio.text_to_speech(
+        req.text, speaking_rate=req.speaking_rate
+    )
+    elapsed = elapsed_ms(t0)
+
+    log_event(
+        "audio_synthesize",
+        request_id=request.state.request_id,
+        client=client,
+        lang=req.lang,
+        speaking_rate=req.speaking_rate,
+        duration_s=duration_s,
+        time_ms=elapsed,
+    )
+
+    if format == "wav" or request.headers.get("accept") == "audio/wav":
+        return Response(content=wav_bytes, media_type="audio/wav")
+
+    return AudioSynthesizeResponse(
+        text=req.text,
+        lang=req.lang,
+        speaking_rate=req.speaking_rate,
+        audio_base64=base64.b64encode(wav_bytes).decode("ascii"),
+        sampling_rate=sr,
+        duration_s=duration_s,
+        time_ms=elapsed,
+    )
+
+
+@router.post("/audio/transcribe", response_model=AudioTranscribeResponse, tags=["audio"])
+async def audio_transcribe(
+    request: Request,
+    file: UploadFile = File(..., description="Fichier audio WAV, MP3 ou OGG"),
+    lang: str = Query(default="dyu", description="Langue de transcription"),
+    client: str = Depends(require_client),
+):
+    """Reconnaissance vocale (STT) Dioula via Whisper Dioula (16 kHz mono)."""
+    state = request.app.state
+    _check_lang(state, lang, allow_pivot=False)
+
+    audio_bytes = await file.read()
+    if not audio_bytes:
+        raise ApiError(422, "audio_vide", "Le fichier audio fourni est vide.")
+
+    t0 = time.perf_counter()
+    text = await state.audio.speech_to_text(audio_bytes, filename=file.filename or "audio.wav")
+    elapsed = elapsed_ms(t0)
+
+    log_event(
+        "audio_transcribe",
+        request_id=request.state.request_id,
+        client=client,
+        lang=lang,
+        filename=file.filename,
+        time_ms=elapsed,
+    )
+    return AudioTranscribeResponse(text=text, lang=lang, time_ms=elapsed)
+
+
+@router.post(
+    "/chat/voice",
+    response_model=VoiceChatResponse,
+    response_model_exclude_none=True,
+    tags=["chat", "audio"],
+)
+async def chat_voice(
+    request: Request,
+    session_id: str = Form(..., description="Identifiant de session de conversation"),
+    lang: str = Form(default="dyu", description="Langue de conversation"),
+    speaking_rate: float = Form(
+        default=0.75, description="Vitesse TTS (<1.0 = plus lent, 1.0 = normal)"
+    ),
+    file: UploadFile = File(..., description="Fichier audio parlé par l'utilisateur"),
+    debug: bool = Query(default=False, description="Détails internes si autorisés"),
+    client: str = Depends(require_client),
+):
+    """Pipeline multimodal complet : Audio parlé Dioula -> STT -> LLM -> TTS audio Dioula."""
+    state = request.app.state
+    _check_lang(state, lang, allow_pivot=False)
+
+    audio_bytes = await file.read()
+    if not audio_bytes:
+        raise ApiError(422, "audio_vide", "Le fichier audio fourni est vide.")
+
+    timings = {}
+    total_t0 = time.perf_counter()
+
+    # 1. Reconnaissance vocale (STT)
+    t0 = time.perf_counter()
+    user_transcript = await state.audio.speech_to_text(
+        audio_bytes, filename=file.filename or "audio.wav"
+    )
+    timings["stt"] = elapsed_ms(t0)
+
+    if not user_transcript:
+        raise ApiError(422, "audio_inintelligible", "Impossible de transcrire l'audio envoyé.")
+
+    # 2. Pipeline conversationnel (dyu -> fr -> LLM -> fr -> dyu)
+    try:
+        chat_result = await state.orchestrator.chat(
+            f"{client}:{session_id}", user_transcript, lang
+        )
+    except LLMUnavailable as exc:
+        raise ApiError(
+            503, "llm_indisponible", "Le service de conversation est indisponible, réessayez."
+        ) from exc
+    timings.update(chat_result.timings_ms)
+
+    # 3. Synthèse vocale de la réponse dioula (TTS)
+    t0 = time.perf_counter()
+    wav_bytes, duration_s, _ = await state.audio.text_to_speech(
+        chat_result.reply, speaking_rate=speaking_rate
+    )
+    timings["tts"] = elapsed_ms(t0)
+    timings["total"] = elapsed_ms(total_t0)
+
+    log_event(
+        "chat_voice",
+        request_id=request.state.request_id,
+        client=client,
+        lang=lang,
+        timings_ms=timings,
+        fallback=chat_result.fallback_reason,
+    )
+
+    response = VoiceChatResponse(
+        session_id=session_id,
+        lang=lang,
+        user_transcript=user_transcript,
+        reply_text=chat_result.reply,
+        audio_base64=base64.b64encode(wav_bytes).decode("ascii"),
+        timings_ms=timings,
+    )
+    if debug and state.settings.debug_allowed:
+        response.debug = ChatDebug(
+            fr_input=chat_result.fr_input,
+            fr_reply=chat_result.fr_reply,
+            timings_ms=timings,
+            fallback_reason=chat_result.fallback_reason,
         )
     return response

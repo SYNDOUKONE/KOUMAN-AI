@@ -19,13 +19,14 @@ from app.core.config import Settings, get_settings
 from app.core.errors import register_error_handlers
 from app.core.logging import log_event, setup_logging
 from app.core.security import ApiKeyStore, RateLimiter
+from app.services.audio import build_audio_service
 from app.services.llm import build_llm
 from app.services.orchestrator import ChatOrchestrator
 from app.services.safety import Fallbacks
 from app.services.sessions import SessionStore
 from app.services.translator import build_translator
 
-VERSION = "0.3.1"
+VERSION = "0.4.0"
 _REQUEST_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")
 
 
@@ -37,6 +38,7 @@ def _load_components(app: FastAPI, settings: Settings) -> None:
     state.sessions = SessionStore(settings.session_ttl_seconds, settings.history_max_turns)
     state.translator = build_translator(settings)
     state.llm = build_llm(settings)
+    state.audio = build_audio_service(settings)
     state.orchestrator = ChatOrchestrator(
         translator=state.translator,
         llm=state.llm,

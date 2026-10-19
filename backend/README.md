@@ -125,10 +125,13 @@ python -m scripts.run_scenarios --key $KEY --label gtx1650-beams2 --repeat 3
 
 | Route | Rôle |
 |---|---|
-| `GET /health` | État, modèle de traduction (mode, révision, réglages de génération), LLM et son modèle (public) |
+| `GET /health` | État, traducteur (mode, révision), LLM, audio (mode, TTS/STT), langues |
 | `GET /api/v1/languages` | Langues connues et activées |
 | `POST /api/v1/translate` | Traduction seule, fr ↔ langue locale |
 | `POST /api/v1/chat` | Tour de conversation (`?debug=true` si autorisé) |
+| `POST /api/v1/audio/synthesize` | Synthèse vocale dioula (TTS) avec vitesse réglable (`speaking_rate`) |
+| `POST /api/v1/audio/transcribe` | Transcription audio dioula (STT Whisper) |
+| `POST /api/v1/chat/voice` | Pipeline vocal complet : Audio dioula ➔ STT ➔ LLM ➔ TTS audio dioula |
 
 Erreurs, toujours au même format : `{"error": {"code": "...", "message": "..."}, "request_id": "..."}` — 401 clé invalide, 422 requête ou langue invalide, 429 trop de requêtes, 503 modèle en chargement (`modele_indisponible`) ou LLM en panne (`llm_indisponible`, l'échange n'est alors pas mémorisé).
 
@@ -180,6 +183,7 @@ docs/
 
 | Version | Date | Changements |
 |---|---|---|
+| 0.4.0 | 19/10/2026 | Endpoints Audio intégrés : TTS Dioula (`/audio/synthesize` avec `speaking_rate` via librosa time-stretch), STT Dioula (`/audio/transcribe` via Whisper Tiny Dioula), et pipeline vocal complet (`/chat/voice`). |
 | 0.3.1 | 13/10/2026 | Modèle officiel en révision `5c36e48`. Réponse du LLM traduite phrase par phrase en un seul lot. Plus d'avertissement `max_length` de transformers à chaque traduction. `KOUMA_MAX_NEW_TOKENS` par défaut à 64 (valeur recommandée pour le modèle). |
 | 0.3.0 | 12/10/2026 | Modèle fusionné `syndou/nllb-200-dioula` (révision 6763611f) chargé sans adaptateur ; `KOUMA_NLLB_REVISION` fige la version. LLM via OpenRouter (`anthropic/claude-sonnet-5`, PR #3). `/health` expose le mode du traducteur, les réglages de génération et le modèle du LLM. Script `run_scenarios.py` pour mesurer textes et latences. |
 | 0.2.0 | 05/10/2026 | Adaptateur NLLB v2 (`syndou/nllb-lora-dioula`, révision 160d1a9) testé sur GPU. Réponse du LLM nettoyée avant traduction. Panne du LLM : erreur 503 `llm_indisponible` au lieu de 500. |

@@ -43,3 +43,37 @@ class LanguageInfo(BaseModel):
     code: str
     name: str
     enabled: bool
+
+
+class AudioSynthesizeRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=1000, examples=["I ni sɔgɔma, i ka kɛnɛ wa ?"])
+    lang: str = Field(default="dyu", examples=["dyu"])
+    speaking_rate: float = Field(
+        default=0.75, ge=0.5, le=2.0, description="Vitesse de voix (0.75 = naturel et ralenti, 1.0 = normal)"
+    )
+
+
+class AudioSynthesizeResponse(BaseModel):
+    text: str
+    lang: str
+    speaking_rate: float
+    audio_base64: str
+    sampling_rate: int
+    duration_s: float
+    time_ms: float
+
+
+class AudioTranscribeResponse(BaseModel):
+    text: str
+    lang: str
+    time_ms: float
+
+
+class VoiceChatResponse(BaseModel):
+    session_id: str
+    lang: str
+    user_transcript: str
+    reply_text: str
+    audio_base64: str
+    timings_ms: dict[str, float]
+    debug: ChatDebug | None = None

@@ -43,6 +43,11 @@ class Settings:
     # --- Implémentations -------------------------------------------------
     translator_backend: str = "stub"  # "stub" | "nllb"
     llm_backend: str = "stub"  # "stub" | "gemini" | "openrouter"
+    audio_backend: str = "stub"  # "stub" | "real"
+    tts_model_id: str = "facebook/mms-tts-dyu"
+    stt_model_id: str = "Dama12/whisper-tiny-dioula"
+    stt_base_id: str = "openai/whisper-tiny"
+    tts_default_speaking_rate: float = 0.75
 
     # --- Traducteur NLLB + LoRA ------------------------------------------
     # Modèle chargé par transformers : un identifiant Hugging Face ou un dossier local.
@@ -103,6 +108,13 @@ class Settings:
         return cls(
             translator_backend=_env("KOUMA_TRANSLATOR", "stub"),
             llm_backend=_env("KOUMA_LLM", "stub"),
+            audio_backend=_env("KOUMA_AUDIO", "stub"),
+            tts_model_id=_env("KOUMA_TTS_MODEL", cls.tts_model_id),
+            stt_model_id=_env("KOUMA_STT_MODEL", cls.stt_model_id),
+            stt_base_id=_env("KOUMA_STT_BASE_MODEL", cls.stt_base_id),
+            tts_default_speaking_rate=float(
+                _env("KOUMA_TTS_SPEED", str(cls.tts_default_speaking_rate))
+            ),
             nllb_base_model=_env("KOUMA_NLLB_BASE_MODEL", cls.nllb_base_model),
             nllb_revision=_env("KOUMA_NLLB_REVISION"),
             adapter_fra_dyu=_env("KOUMA_ADAPTER_FRA_DYU"),
