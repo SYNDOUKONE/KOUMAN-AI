@@ -1,0 +1,24 @@
+# Scénarios de validation bidirectionnels pour Kouman AI (Français ⟷ Dioula).
+# Format complet et unifié compatible chat & traduction :
+# id,direction,src_lang,tgt_lang,lang,message,reference_translation,categorie
+id,direction,src_lang,tgt_lang,lang,message,reference_translation,categorie
+FR_01,fr->dyu,fr,dyu,fr,Bonjour comment allez-vous ?,Aw ni sɔgɔma aw ka kɛnɛ wa ?,salutation
+FR_02,fr->dyu,fr,dyu,fr,Je vais au marché pour acheter du riz.,N bɛ taa sugu la ka malo san.,commerce
+FR_03,fr->dyu,fr,dyu,fr,Où se trouve le centre de santé ?,Dɔgɔtɔrɔso bɛ min ?,sante
+FR_04,fr->dyu,fr,dyu,fr,Ce prix est très cher diminue un peu s'il te plaît.,Sɔngɔ nin ka gɛlɛn kosɛbɛ dɔ dɔgɔya dusu la.,commerce
+FR_05,fr->dyu,fr,dyu,fr,Donne-moi un peu d'eau s'il te plaît.,Jii dɔɔnin di n ma dusu la.,vie_quotidienne
+FR_06,fr->dyu,fr,dyu,fr,Le travail est difficile mais il est très utile.,Baara ka gɛlɛn nka a nafa ka bon kosɛbɛ.,travail
+FR_07,fr->dyu,fr,dyu,fr,Comment vous appelez-vous ?,Aw tɔgɔ bi di ?,presentation
+FR_08,fr->dyu,fr,dyu,fr,Est-ce qu'il va pleuvoir aujourd'hui ?,Sanji bɛna na bi wa ?,meteo
+FR_09,fr->dyu,fr,dyu,fr,Je comprends la langue dioula un peu.,Ne bɛ dioula kan mɛn dɔɔnin.,langue
+FR_10,fr->dyu,fr,dyu,fr,Merci beaucoup pour votre aide précieuse.,I ni cɛ kosɛbɛ aw ka dɛmɛ la.,remerciement
+DYU_01,dyu->fr,dyu,fr,dyu,Aw ni sɔgɔma, i ka kɛnɛ wa ?,Bonjour, comment vas-tu ?,salutation
+DYU_02,dyu->fr,dyu,fr,dyu,N bɛ taa sugu la bi ka malo san.,Je vais au marché aujourd'hui pour acheter du riz.,commerce
+DYU_03,dyu->fr,dyu,fr,dyu,Dɔgɔtɔrɔso bɛ min ?,Où se trouve le centre de santé ?,sante
+DYU_04,dyu->fr,dyu,fr,dyu,Sɔngɔ ka gɛlɛn kosɛbɛ, dɔ dɔgɔya.,Le prix est trop cher, diminue un peu.,commerce
+DYU_05,dyu->fr,dyu,fr,dyu,Jii di n ma dusu la.,Donne-moi de l'eau s'il te plaît.,vie_quotidienne
+DYU_06,dyu->fr,dyu,fr,dyu,Denmisɛn bɛ sunɔgɔ bon kɔnɔ.,L'enfant dort dans la chambre.,famille
+DYU_07,dyu->fr,dyu,fr,dyu,I tɔgɔ bi di ?,Comment t'appelles-tu ?,presentation
+DYU_08,dyu->fr,dyu,fr,dyu,Sanji bɛ na bi wa ?,Va-t-il pleuvoir aujourd'hui ?,meteo
+DYU_09,dyu->fr,dyu,fr,dyu,I bɛ se ka n dɛmɛ wa ?,Peux-tu m'aider ?,entraide
+DYU_10,dyu->fr,dyu,fr,dyu,An bɛ bɛn sini, i ni cɛ kosɛbɛ.,À demain, merci beaucoup.,remerciement

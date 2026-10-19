@@ -1,21 +1,37 @@
 /**
- * KOUMAN AI — Frontend Logic & Audio Pipeline (v0.4.0)
+ * KOUMAN AI — Frontend Logic & Audio Pipeline (v0.4.1)
  * Gère l'enregistrement vocal, la lecture TTS, le chat interactif et la transparence du pipeline.
+ * Validation bidirectionnelle FR⟷DYU (K3/K6).
  */
 
-// --- 10 SCÉNARIOS DE TEST VALIDÉS (K3) ---
-const SCENARIOS = [
-  { id: "S01", dyu: "I ni sɔgɔma, i ka kɛnɛ wa ?", cat: "Salutation", fr: "Bonjour, comment vas-tu ?" },
-  { id: "S02", dyu: "N bɛ taa sugu la bi", cat: "Commerce", fr: "Je vais au marché aujourd'hui" },
-  { id: "S03", dyu: "Dɔgɔtɔrɔso bɛ min ?", cat: "Santé", fr: "Où se trouve le centre de santé ?" },
-  { id: "S04", dyu: "Kɛnɛya bɛ wa ?", cat: "Santé", fr: "Comment va la santé ?" },
-  { id: "S05", dyu: "Sɔngɔ ka gɛlɛn kosɛbɛ", cat: "Commerce", fr: "Le prix est trop cher" },
-  { id: "S06", dyu: "N bɛ a fɛ ka dɔ fɔ i ye", cat: "Conversation", fr: "J'aimerais te dire quelque chose" },
-  { id: "S07", dyu: "I tɔgɔ bi di ?", cat: "Présentation", fr: "Comment t'appelles-tu ?" },
-  { id: "S08", dyu: "Sanji bɛ na bi wa ?", cat: "Météo", fr: "Va-t-il pleuvoir aujourd'hui ?" },
-  { id: "S09", dyu: "I bɛ se ka n dɛmɛ wa ?", cat: "Entraide", fr: "Peux-tu m'aider ?" },
-  { id: "S10", dyu: "I ni cɛ kosɛbɛ i ka dɛmɛ la", cat: "Remerciement", fr: "Merci beaucoup pour ton aide" },
+// --- SCÉNARIOS DE VALIDATION BIDIRECTIONNELS (K3 — 20 phrases certifiées) ---
+const SCENARIOS_BIDI = [
+  // Français → Dioula (fr->dyu)
+  { id: "FR_01", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Salutation",     text: "Bonjour comment allez-vous ?",                          ref: "Aw ni sɔgɔma aw ka kɛnɛ wa ?" },
+  { id: "FR_02", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Commerce",       text: "Je vais au marché pour acheter du riz.",                ref: "N bɛ taa sugu la ka malo san." },
+  { id: "FR_03", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Santé",          text: "Où se trouve le centre de santé ?",                    ref: "Dɔgɔtɔrɔso bɛ min ?" },
+  { id: "FR_04", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Commerce",       text: "Ce prix est très cher diminue un peu s'il te plaît.",   ref: "Sɔngɔ nin ka gɛlɛn kosɛbɛ dɔ dɔgɔya dusu la." },
+  { id: "FR_05", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Vie quotidienne",text: "Donne-moi un peu d'eau s'il te plaît.",                ref: "Jii dɔɔnin di n ma dusu la." },
+  { id: "FR_06", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Travail",        text: "Le travail est difficile mais il est très utile.",       ref: "Baara ka gɛlɛn nka a nafa ka bon kosɛbɛ." },
+  { id: "FR_07", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Présentation",   text: "Comment vous appelez-vous ?",                           ref: "Aw tɔgɔ bi di ?" },
+  { id: "FR_08", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Météo",          text: "Est-ce qu'il va pleuvoir aujourd'hui ?",                ref: "Sanji bɛna na bi wa ?" },
+  { id: "FR_09", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Langue",         text: "Je comprends la langue dioula un peu.",                 ref: "Ne bɛ dioula kan mɛn dɔɔnin." },
+  { id: "FR_10", direction: "fr->dyu", src_lang: "fr", tgt_lang: "dyu", cat: "Remerciement",   text: "Merci beaucoup pour votre aide précieuse.",             ref: "I ni cɛ kosɛbɛ aw ka dɛmɛ la." },
+  // Dioula → Français (dyu->fr)
+  { id: "DYU_01", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Salutation",     text: "Aw ni sɔgɔma, i ka kɛnɛ wa ?",           ref: "Bonjour, comment vas-tu ?" },
+  { id: "DYU_02", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Commerce",       text: "N bɛ taa sugu la bi ka malo san.",         ref: "Je vais au marché aujourd'hui pour acheter du riz." },
+  { id: "DYU_03", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Santé",          text: "Dɔgɔtɔrɔso bɛ min ?",                      ref: "Où se trouve le centre de santé ?" },
+  { id: "DYU_04", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Commerce",       text: "Sɔngɔ ka gɛlɛn kosɛbɛ, dɔ dɔgɔya.",       ref: "Le prix est trop cher, diminue un peu." },
+  { id: "DYU_05", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Vie quotidienne",text: "Jii di n ma dusu la.",                     ref: "Donne-moi de l'eau s'il te plaît." },
+  { id: "DYU_06", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Famille",        text: "Denmisɛn bɛ sunɔgɔ bon kɔnɔ.",            ref: "L'enfant dort dans la chambre." },
+  { id: "DYU_07", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Présentation",   text: "I tɔgɔ bi di ?",                            ref: "Comment t'appelles-tu ?" },
+  { id: "DYU_08", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Météo",          text: "Sanji bɛ na bi wa ?",                       ref: "Va-t-il pleuvoir aujourd'hui ?" },
+  { id: "DYU_09", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Entraide",       text: "I bɛ se ka n dɛmɛ wa ?",                   ref: "Peux-tu m'aider ?" },
+  { id: "DYU_10", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Remerciement",   text: "An bɛ bɛn sini, i ni cɛ kosɛbɛ.",         ref: "À demain, merci beaucoup." },
 ];
+
+// Filtre courant : 'all' | 'fr->dyu' | 'dyu->fr'
+let activeFilter = "all";
 
 class KoumanApp {
   constructor() {
@@ -200,21 +216,80 @@ class KoumanApp {
     this.scenariosQuickBar.innerHTML = "";
     this.welcomeChipsContainer.innerHTML = "";
 
-    SCENARIOS.forEach((item) => {
-      // Pour le welcome hero
+    // Filtre chips de direction (Tous / FR→DYU / DYU→FR)
+    const filterBar = document.createElement("div");
+    filterBar.className = "direction-filter-bar";
+    const filterDefs = [
+      { key: "all",     label: "🌐 Tous" },
+      { key: "fr->dyu", label: "🇫🇷 FR → 🗣️ DYU" },
+      { key: "dyu->fr", label: "🗣️ DYU → 🇫🇷 FR" },
+    ];
+    filterDefs.forEach(({ key, label }) => {
+      const btn = document.createElement("button");
+      btn.className = "filter-chip" + (activeFilter === key ? " active" : "");
+      btn.dataset.dir = key;
+      btn.textContent = label;
+      btn.addEventListener("click", () => {
+        activeFilter = key;
+        this.renderScenarios();
+      });
+      filterBar.appendChild(btn);
+    });
+    this.welcomeChipsContainer.appendChild(filterBar);
+
+    // Filtrage des scénarios
+    const visible = activeFilter === "all"
+      ? SCENARIOS_BIDI
+      : SCENARIOS_BIDI.filter(s => s.direction === activeFilter);
+
+    visible.forEach((item) => {
+      const isDyuSrc = item.src_lang === "dyu";
+      const dirIcon = isDyuSrc ? "🗣️→🇫🇷" : "🇫🇷→🗣️";
+
+      // Pour le welcome hero : carte enrichie avec direction et référence
       const chip = document.createElement("button");
-      chip.className = "chip-btn";
-      chip.innerHTML = `<span class="chip-category">${item.cat}</span> <span>${item.dyu}</span>`;
-      chip.addEventListener("click", () => this.injectScenario(item.dyu));
+      chip.className = "chip-btn bidi-chip";
+      chip.dataset.direction = item.direction;
+      chip.innerHTML =
+        `<span class="chip-dir">${dirIcon}</span>` +
+        `<span class="chip-category">${item.cat}</span>` +
+        `<span class="chip-text">${item.text}</span>`;
+      chip.title = `Réf : ${item.ref}`;
+      chip.addEventListener("click", () => this.injectScenarioBidi(item));
       this.welcomeChipsContainer.appendChild(chip);
 
       // Pour la barre rapide au-dessus de l'input
       const quickChip = document.createElement("button");
       quickChip.className = "chip-btn";
-      quickChip.innerHTML = `<strong>${item.id}:</strong> ${item.dyu}`;
-      quickChip.addEventListener("click", () => this.injectScenario(item.dyu));
+      quickChip.dataset.direction = item.direction;
+      quickChip.innerHTML = `<strong>${item.id}</strong> <em style="opacity:.6;font-size:.75em">${dirIcon}</em> ${item.text}`;
+      quickChip.addEventListener("click", () => this.injectScenarioBidi(item));
       this.scenariosQuickBar.appendChild(quickChip);
     });
+  }
+
+  /**
+   * Injecte un scénario bidirectionnel :
+   * - Si on est dans l'onglet Traducteur : positionne src/tgt et peuple le textarea.
+   * - Sinon (chat) : positionne le texte dans l'input et configure la langue.
+   */
+  injectScenarioBidi(item) {
+    const isTranslateTab = this.paneTranslate.classList.contains("active");
+    if (isTranslateTab) {
+      // Mettre à jour les selects src/tgt
+      this.selectSrcLang.value = item.src_lang;
+      this.selectTgtLang.value = item.tgt_lang;
+      this.translateSrcText.value = item.text;
+      this.translateTgtText.value = "";
+      this.translateTimeIndicator.textContent = `Réf : ${item.ref}`;
+      // Déclencher la traduction automatiquement
+      this.runDirectTranslate();
+    } else {
+      // Mode chat : utiliser la langue source
+      this.chatInputLang = item.src_lang; // mémorise la langue pour l'envoi
+      this.chatInput.value = item.text;
+      this.chatInput.focus();
+    }
   }
 
   injectScenario(text) {
@@ -234,6 +309,10 @@ class KoumanApp {
     this.chatInput.value = "";
     this.btnSend.disabled = true;
 
+    // Langue à utiliser : mémorisée via injectScenarioBidi ou auto-détectée
+    const lang = this.chatInputLang || "dyu";
+    this.chatInputLang = null; // reset pour le prochain message
+
     // Reset inspector
     this.inspectorStatusBadge.textContent = "Traitement...";
     this.stepSttText.textContent = "Mode texte (pas d'audio entrant)";
@@ -248,7 +327,7 @@ class KoumanApp {
         headers: this.getHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           session_id: this.sessionId,
-          lang: "dyu",
+          lang: lang,
           message: text,
         }),
       });
@@ -264,8 +343,10 @@ class KoumanApp {
       this.appendMessage("bot", data.reply, true);
       this.updateInspectorFromDebug(data.debug, elapsed);
 
-      // Lancer automatiquement la voix dioula
-      this.playTTS(data.reply, parseFloat(this.selectRate.value) || 0.75);
+      // Lancer automatiquement la voix (dioula si lang=dyu, pas de TTS si lang=fr)
+      if (lang === "dyu") {
+        this.playTTS(data.reply, parseFloat(this.selectRate.value) || 0.75);
+      }
 
     } catch (err) {
       this.appendMessage("bot", `⚠️ ${err.message}`);

@@ -883,3 +883,78 @@ body {
     transform: rotate(90deg);
   }
 }
+
+/* ==========================================================================
+   BIDI DIRECTION FILTER BAR & CHIPS (v0.4.1)
+   ========================================================================== */
+
+.direction-filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.filter-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary-light);
+  background: var(--primary-glow);
+}
+.filter-chip.active {
+  background: var(--primary-gradient);
+  border-color: transparent;
+  color: #0b0f19;
+  font-weight: 700;
+  box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* Chips enrichis pour les scénarios bidirectionnels */
+.bidi-chip {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  padding: 0.6rem 0.85rem;
+  max-width: 260px;
+  min-width: 160px;
+}
+.bidi-chip .chip-dir {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  letter-spacing: 0.03em;
+}
+.bidi-chip .chip-text {
+  font-size: 0.82rem;
+  line-height: 1.3;
+  word-break: break-word;
+}
+.bidi-chip[data-direction="fr->dyu"] {
+  border-left: 3px solid var(--primary);
+}
+.bidi-chip[data-direction="dyu->fr"] {
+  border-left: 3px solid var(--secondary);
+}
+.bidi-chip[data-direction="fr->dyu"]:hover {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--primary);
+}
+.bidi-chip[data-direction="dyu->fr"]:hover {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: var(--secondary);
+}
