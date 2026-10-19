@@ -183,12 +183,25 @@ class RealAudioService:
         import asyncio
 
         def _transcribe():
+            import subprocess
             import librosa
             import torch
 
             self._ensure_stt()
-            # Charger depuis le flux mémoire rééchantillonné à 16kHz
-            buf = io.BytesIO(audio_bytes)
+
+            # Conversion universelle de tout flux audio (WebM, Opus, MP4, OGG, WAV) en WAV 16kHz mono
+            raw_bytes = audio_bytes
+            try:
+                cmd = ["ffmpeg", "-y", "-i", "pipe:0", "-f", "wav", "-ar", "16000", "-ac", "1", "pipe:1"]
+                proc = subprocess.run(
+                    cmd, input=audio_bytes, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+                )
+                if proc.returncode == 0 and len(proc.stdout) > 44:
+                    raw_bytes = proc.stdout
+            except Exception:
+                pass
+
+            buf = io.BytesIO(raw_bytes)
             audio, _ = librosa.load(buf, sr=16000, mono=True)
             inputs = self.stt_feature_extractor(
                 audio, sampling_rate=16000, return_tensors="pt"

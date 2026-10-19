@@ -398,7 +398,8 @@ class KoumanApp {
       };
 
       this.mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(this.audioChunks, { type: "audio/wav" });
+        const mimeType = this.mediaRecorder.mimeType || "audio/webm";
+        const audioBlob = new Blob(this.audioChunks, { type: mimeType });
         stream.getTracks().forEach((track) => track.stop());
         this.sendVoiceMessage(audioBlob);
       };
@@ -430,11 +431,12 @@ class KoumanApp {
     this.appendMessage("user", "🎤 [Audio vocal envoyé, transcription en cours...]");
     const rate = parseFloat(this.selectRate.value) || 0.75;
 
+    const ext = audioBlob.type.includes("webm") ? "webm" : (audioBlob.type.includes("mp4") ? "mp4" : "wav");
     const formData = new FormData();
     formData.append("session_id", this.sessionId);
     formData.append("lang", "dyu");
     formData.append("speaking_rate", rate);
-    formData.append("file", audioBlob, "enregistrement.wav");
+    formData.append("file", audioBlob, `enregistrement.${ext}`);
 
     this.inspectorStatusBadge.textContent = "Pipeline vocal en cours...";
     this.stepSttText.textContent = "Reconnaissance vocale Whisper...";
