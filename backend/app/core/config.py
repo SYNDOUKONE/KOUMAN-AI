@@ -13,6 +13,13 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(ROOT_DIR / ".env")
+except ImportError:
+    pass
+
 
 def _env(name: str, default: str | None = None) -> str | None:
     value = os.environ.get(name)
