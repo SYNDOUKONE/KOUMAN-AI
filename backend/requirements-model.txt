@@ -7,3 +7,4 @@ sentencepiece>=0.1.99
 safetensors>=0.4
 google-genai>=1.0          # KOUMA_LLM=gemini
 openai>=1.40               # KOUMA_LLM=openrouter (API compatible OpenAI)
+librosa>=0.10.0

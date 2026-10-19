@@ -14,3 +14,4 @@ uvicorn>=0.22.0
 pydantic>=2.0.0
 google-genai>=0.1.0
 scipy>=1.10.0
+librosa>=0.10.0
