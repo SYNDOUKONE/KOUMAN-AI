@@ -71,7 +71,10 @@ class KoumanApp {
 
     // Inspector
     this.inspector = document.getElementById("pipeline-inspector");
+    this.inspectorOverlay = document.getElementById("inspector-overlay");
+    this.btnCloseInspector = document.getElementById("btn-close-inspector");
     this.btnToggleInspector = document.getElementById("btn-toggle-inspector");
+    this.welcomeFilterBar = document.getElementById("welcome-filter-bar");
     this.statTotalMs = document.getElementById("stat-total-ms");
     this.statSttMs = document.getElementById("stat-stt-ms");
     this.stepSttText = document.getElementById("step-stt-text");
@@ -129,11 +132,46 @@ class KoumanApp {
     // Voice recording
     this.btnRecord.addEventListener("click", () => this.toggleVoiceRecording());
 
-    // Inspector toggle
-    this.btnToggleInspector.addEventListener("click", () => {
-      const isVisible = this.inspector.style.display !== "none";
-      this.inspector.style.display = isVisible ? "none" : "flex";
-    });
+    // Inspector toggle & drawer mode
+    const toggleInspector = () => {
+      const isMobile = window.innerWidth <= 1024;
+      if (isMobile) {
+        const isOpen = this.inspector.classList.contains("open");
+        this.inspector.classList.toggle("open", !isOpen);
+        if (this.inspectorOverlay) {
+          this.inspectorOverlay.classList.toggle("open", !isOpen);
+        }
+      } else {
+        const isCollapsed = this.inspector.classList.contains("collapsed");
+        this.inspector.classList.toggle("collapsed", !isCollapsed);
+      }
+    };
+
+    this.btnToggleInspector.addEventListener("click", toggleInspector);
+    if (this.btnCloseInspector) {
+      this.btnCloseInspector.addEventListener("click", () => {
+        this.inspector.classList.remove("open");
+        if (this.inspectorOverlay) this.inspectorOverlay.classList.remove("open");
+      });
+    }
+    if (this.inspectorOverlay) {
+      this.inspectorOverlay.addEventListener("click", () => {
+        this.inspector.classList.remove("open");
+        this.inspectorOverlay.classList.remove("open");
+      });
+    }
+
+    // Filtres de scénarios dans le welcome hero
+    if (this.welcomeFilterBar) {
+      this.welcomeFilterBar.querySelectorAll(".filter-chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          this.welcomeFilterBar.querySelectorAll(".filter-chip").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeFilter = btn.dataset.dir || "all";
+          this.renderScenarios();
+        });
+      });
+    }
 
     // Settings modal
     this.btnOpenSettings.addEventListener("click", () => this.modalSettings.classList.add("open"));
@@ -216,55 +254,38 @@ class KoumanApp {
     this.scenariosQuickBar.innerHTML = "";
     this.welcomeChipsContainer.innerHTML = "";
 
-    // Filtre chips de direction (Tous / FR→DYU / DYU→FR)
-    const filterBar = document.createElement("div");
-    filterBar.className = "direction-filter-bar";
-    const filterDefs = [
-      { key: "all",     label: "🌐 Tous" },
-      { key: "fr->dyu", label: "🇫🇷 FR → 🗣️ DYU" },
-      { key: "dyu->fr", label: "🗣️ DYU → 🇫🇷 FR" },
-    ];
-    filterDefs.forEach(({ key, label }) => {
-      const btn = document.createElement("button");
-      btn.className = "filter-chip" + (activeFilter === key ? " active" : "");
-      btn.dataset.dir = key;
-      btn.textContent = label;
-      btn.addEventListener("click", () => {
-        activeFilter = key;
-        this.renderScenarios();
-      });
-      filterBar.appendChild(btn);
-    });
-    this.welcomeChipsContainer.appendChild(filterBar);
-
     // Filtrage des scénarios
     const visible = activeFilter === "all"
       ? SCENARIOS_BIDI
-      : SCENARIOS_BIDI.filter(s => s.direction === activeFilter);
+      : SCENARIOS_BIDI.filter((s) => s.direction === activeFilter);
 
     visible.forEach((item) => {
       const isDyuSrc = item.src_lang === "dyu";
-      const dirIcon = isDyuSrc ? "🗣️→🇫🇷" : "🇫🇷→🗣️";
+      const dirIcon = isDyuSrc ? "🗣️ ➔ 🇫🇷" : "🇫🇷 ➔ 🗣️";
 
-      // Pour le welcome hero : carte enrichie avec direction et référence
-      const chip = document.createElement("button");
-      chip.className = "chip-btn bidi-chip";
-      chip.dataset.direction = item.direction;
-      chip.innerHTML =
-        `<span class="chip-dir">${dirIcon}</span>` +
-        `<span class="chip-category">${item.cat}</span>` +
-        `<span class="chip-text">${item.text}</span>`;
-      chip.title = `Réf : ${item.ref}`;
-      chip.addEventListener("click", () => this.injectScenarioBidi(item));
-      this.welcomeChipsContainer.appendChild(chip);
+      // 1. Carte moderne et aérée pour le Welcome Hero
+      const card = document.createElement("div");
+      card.className = "bidi-card";
+      card.dataset.direction = item.direction;
+      card.innerHTML = `
+        <div class="bidi-card-top">
+          <span class="bidi-tag">${item.cat}</span>
+          <span class="bidi-dir-badge">${dirIcon} ${isDyuSrc ? "Dioula" : "Français"}</span>
+        </div>
+        <div class="bidi-card-text">${item.text}</div>
+        <div class="bidi-card-ref">« ${item.ref} »</div>
+      `;
+      card.addEventListener("click", () => this.injectScenarioBidi(item));
+      this.welcomeChipsContainer.appendChild(card);
 
-      // Pour la barre rapide au-dessus de l'input
-      const quickChip = document.createElement("button");
-      quickChip.className = "chip-btn";
-      quickChip.dataset.direction = item.direction;
-      quickChip.innerHTML = `<strong>${item.id}</strong> <em style="opacity:.6;font-size:.75em">${dirIcon}</em> ${item.text}`;
-      quickChip.addEventListener("click", () => this.injectScenarioBidi(item));
-      this.scenariosQuickBar.appendChild(quickChip);
+      // 2. Pilule fine et défilable pour la barre au-dessus de l'input
+      const pill = document.createElement("button");
+      pill.className = "quick-pill";
+      pill.dataset.direction = item.direction;
+      pill.innerHTML = `<strong>${item.id}</strong> <span>${item.text}</span>`;
+      pill.title = `${item.cat} — Réf : ${item.ref}`;
+      pill.addEventListener("click", () => this.injectScenarioBidi(item));
+      this.scenariosQuickBar.appendChild(pill);
     });
   }
 

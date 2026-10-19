@@ -54,22 +54,36 @@
           <div class="chat-conversation">
             <!-- Messages Stream -->
             <div class="messages-stream" id="messages-container">
-              <!-- Welcome Hero -->
+              <!-- Welcome Hero (Épuré & Moderne) -->
               <div class="welcome-hero" id="welcome-hero">
-                <div class="welcome-icon">🎙️</div>
+                <div class="welcome-badge">🌍 Intelligence Artificielle Locale & Vocale</div>
                 <h2>I bisimila ! Bienvenue sur Kouman AI</h2>
-                <p>Posez vos questions par écrit ou au micro en <strong>Dioula</strong> ou en <strong>Français</strong>. Kouman traduit, réfléchit et répond avec la voix naturelle.</p>
+                <p>Posez vos questions par écrit ou au micro en <strong>Dioula</strong> ou en <strong>Français</strong>.<br>Kouman traduit instantanément, raisonne avec le LLM et vous répond avec la voix.</p>
                 
-                <div class="quick-scenarios-title">⚡ Scénarios de Validation Bidirectionnels (20 phrases certifiées) :</div>
+                <div class="pipeline-tech-pills">
+                  <span class="tech-pill">🧠 <strong>NLLB-200</strong> Dioula</span>
+                  <span class="tech-pill">⚡ <strong>Claude Sonnet 5</strong> LLM</span>
+                  <span class="tech-pill">🎙️ <strong>MMS-TTS & Whisper</strong> STT</span>
+                </div>
+
+                <div class="scenarios-section-header">
+                  <div class="scenarios-section-title">✨ Exemples et Scénarios Rapides</div>
+                  <div class="direction-filter-bar" id="welcome-filter-bar">
+                    <button class="filter-chip active" data-dir="all">🌐 Tous</button>
+                    <button class="filter-chip" data-dir="fr->dyu">🇫🇷 FR ➔ 🗣️ DYU</button>
+                    <button class="filter-chip" data-dir="dyu->fr">🗣️ DYU ➔ 🇫🇷 FR</button>
+                  </div>
+                </div>
+
                 <div class="quick-chips-grid" id="welcome-chips-container">
-                  <!-- Injecté par JavaScript depuis SCENARIOS_BIDI — filtres FR↔DYU inclus -->
+                  <!-- Injecté par JavaScript — cards épurées -->
                 </div>
               </div>
             </div>
 
             <!-- Input Bar -->
             <div class="chat-input-bar">
-              <!-- Bar des scénarios cliquables -->
+              <!-- Bar des scénarios cliquables (défilable fluide) -->
               <div class="scenarios-quick-bar" id="scenarios-quick-bar">
                 <!-- Badges rapides horizontaux -->
               </div>
@@ -79,7 +93,7 @@
                 <button class="mic-btn" id="btn-record-voice" title="Maintenir ou cliquer pour parler en Dioula" aria-label="Enregistrer la voix">
                   <span id="mic-icon">🎙️</span>
                 </button>
-                <input type="text" class="chat-input" id="chat-input-text" placeholder="Écrivez un message en dioula ou en français (ex: I ni sɔgɔma...)" autocomplete="off">
+                <input type="text" class="chat-input" id="chat-input-text" placeholder="Posez une question en Dioula ou en Français..." autocomplete="off">
                 <button class="send-btn" id="btn-send-message" title="Envoyer le message" aria-label="Envoyer">
                   <span>➤</span>
                 </button>
@@ -87,12 +101,12 @@
 
               <!-- Footer hint & Speed controls -->
               <div class="input-footer-hint">
-                <span>Appuyez sur <kbd>Entrée</kbd> pour envoyer. Micro actif : 16 kHz Mono.</span>
+                <span class="hint-text">Appuyez sur <kbd>Entrée</kbd> pour envoyer</span>
                 <div class="speed-selector">
-                  <span>Vitesse voix Dioula :</span>
+                  <label for="select-speaking-rate">Vitesse voix :</label>
                   <select id="select-speaking-rate">
-                    <option value="0.6">0.6x (très lent)</option>
-                    <option value="0.75" selected>0.75x (recommandé)</option>
+                    <option value="0.6">0.6x (lent)</option>
+                    <option value="0.75" selected>0.75x (idéal)</option>
                     <option value="0.9">0.9x</option>
                     <option value="1.0">1.0x (normal)</option>
                   </select>
@@ -101,11 +115,17 @@
             </div>
           </div>
 
+          <!-- Overlay pour inspecteur en mode mobile/drawer -->
+          <div class="inspector-overlay" id="inspector-overlay"></div>
+
           <!-- Drawer Inspecteur de Pipeline -->
           <aside class="pipeline-inspector" id="pipeline-inspector">
             <div class="inspector-header">
-              <h3><span>🔬</span> Coulisses du Pipeline</h3>
-              <span class="step-latency-badge" id="inspector-status-badge">Prêt</span>
+              <div class="inspector-title-group">
+                <h3><span>🔬</span> Coulisses du Pipeline</h3>
+                <span class="step-latency-badge" id="inspector-status-badge">Prêt</span>
+              </div>
+              <button class="btn-icon btn-close-inspector" id="btn-close-inspector" title="Fermer l'inspecteur" aria-label="Fermer">✕</button>
             </div>
             <div class="inspector-body">
               <div class="total-latency-banner" id="total-latency-banner">
