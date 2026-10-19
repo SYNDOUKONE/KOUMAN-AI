@@ -99,7 +99,12 @@ class NllbLoraTranslator(Translator):
 
         log.info("chargement_nllb", extra={"fields": {"device": self.device}})
         rev = {"revision": settings.nllb_revision} if settings.nllb_revision else {}
-        self.tokenizer = AutoTokenizer.from_pretrained(settings.nllb_base_model, **rev)
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained(settings.nllb_base_model, **rev)
+        except Exception:
+            # Fallback vers le tokenizer standard NLLB-200 si le dépôt du modèle fine-tuné
+            # n'a pas de sentencepiece.bpe.model ou présente une incompatibilité de fast tokenizer.
+            self.tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-1.3B")
         # transformers >= 4.56 attend `dtype`, les versions plus anciennes `torch_dtype`.
         import transformers
 
