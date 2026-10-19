@@ -109,18 +109,22 @@ class ChatOrchestrator:
         session = self.sessions.get(session_id, lang)
         text = normalize_input(text, lang)
 
-        # 1. Langue locale -> français
-        t0 = time.perf_counter()
-        fr_input = await self.translate(text, lang, PIVOT)
-        timings["mt_in"] = elapsed_ms(t0)
-        if (reason := check_translation(text, fr_input)) is not None:
-            return ChatResult(
-                reply=self.fallbacks.get("not_understood", lang),
-                fr_input=fr_input,
-                fr_reply="",
-                timings_ms=timings,
-                fallback_reason=f"mt_in:{reason}",
-            )
+        if lang == PIVOT:
+            fr_input = text
+            timings["mt_in"] = 0.0
+        else:
+            # 1. Langue locale -> français
+            t0 = time.perf_counter()
+            fr_input = await self.translate(text, lang, PIVOT)
+            timings["mt_in"] = elapsed_ms(t0)
+            if (reason := check_translation(text, fr_input)) is not None:
+                return ChatResult(
+                    reply=self.fallbacks.get("not_understood", lang),
+                    fr_input=fr_input,
+                    fr_reply="",
+                    timings_ms=timings,
+                    fallback_reason=f"mt_in:{reason}",
+                )
 
         # 2. Réponse du LLM, en français, avec l'historique en français
         t0 = time.perf_counter()
@@ -136,21 +140,26 @@ class ChatOrchestrator:
         fr_reply = clean_llm_reply(raw_reply)
         if not fr_reply:
             return ChatResult(
-                reply=self.fallbacks.get("generic", lang),
+                reply=self.fallbacks.get("generic", lang if lang != PIVOT else "fr"),
                 fr_input=fr_input,
                 fr_reply="",
                 timings_ms=timings,
                 fallback_reason="llm:vide",
             )
 
-        # 3. Français -> langue locale
-        t0 = time.perf_counter()
-        reply = await self.translate_reply(fr_reply, PIVOT, lang)
-        timings["mt_out"] = elapsed_ms(t0)
-        fallback_reason = None
-        if (reason := check_translation(fr_reply, reply)) is not None:
-            reply = self.fallbacks.get("generic", lang)
-            fallback_reason = f"mt_out:{reason}"
+        if lang == PIVOT:
+            reply = fr_reply
+            timings["mt_out"] = 0.0
+            fallback_reason = None
+        else:
+            # 3. Français -> langue locale
+            t0 = time.perf_counter()
+            reply = await self.translate_reply(fr_reply, PIVOT, lang)
+            timings["mt_out"] = elapsed_ms(t0)
+            fallback_reason = None
+            if (reason := check_translation(fr_reply, reply)) is not None:
+                reply = self.fallbacks.get("generic", lang)
+                fallback_reason = f"mt_out:{reason}"
 
         # On mémorise l'échange en français, même si la sortie a été remplacée :
         # le LLM garde ainsi le fil de ce qu'il a voulu dire.

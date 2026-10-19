@@ -330,15 +330,16 @@ class KoumanApp {
     this.chatInput.value = "";
     this.btnSend.disabled = true;
 
-    // Langue à utiliser : mémorisée via injectScenarioBidi ou auto-détectée
-    const lang = this.chatInputLang || "dyu";
+    // Détection automatique : caractères ou mots dioula spécifiques
+    const isDyu = /[ɛɔɲŋ]/i.test(text) || /\b(aw|ni|sɔgɔma|tile|wula|su|kɛnɛ|baa|dɔn|taa|sugu|san|di|wa|ce|kosɛbɛ|i|an|u|ka)\b/i.test(text);
+    const lang = this.chatInputLang || (isDyu ? "dyu" : "fr");
     this.chatInputLang = null; // reset pour le prochain message
 
     // Reset inspector
     this.inspectorStatusBadge.textContent = "Traitement...";
     this.stepSttText.textContent = "Mode texte (pas d'audio entrant)";
     this.statSttMs.textContent = "0 ms";
-    this.stepMtInText.textContent = "Traduction en cours...";
+    this.stepMtInText.textContent = lang === "fr" ? "Message déjà en français." : "Traduction en cours...";
 
     const t0 = performance.now();
 
@@ -361,11 +362,12 @@ class KoumanApp {
       const data = await response.json();
       const elapsed = Math.round(performance.now() - t0);
 
-      this.appendMessage("bot", data.reply, true);
-      this.updateInspectorFromDebug(data.debug, elapsed);
+      const canPlayAudio = lang === "dyu";
+      this.appendMessage("bot", data.reply, canPlayAudio);
+      this.updateInspectorFromDebug(data.debug, elapsed, lang);
 
-      // Lancer automatiquement la voix (dioula si lang=dyu, pas de TTS si lang=fr)
-      if (lang === "dyu") {
+      // Lancer automatiquement la voix si la réponse est en dioula
+      if (canPlayAudio) {
         this.playTTS(data.reply, parseFloat(this.selectRate.value) || 0.75);
       }
 
@@ -515,19 +517,28 @@ class KoumanApp {
     this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
   }
 
-  updateInspectorFromDebug(debug, totalMs) {
+  updateInspectorFromDebug(debug, totalMs, lang = "dyu") {
     this.inspectorStatusBadge.textContent = "Terminé";
     this.statTotalMs.textContent = `${totalMs} ms`;
 
     if (debug) {
-      this.stepMtInText.textContent = debug.fr_input || "—";
-      this.stepLlmText.textContent = debug.fr_reply || "—";
-      this.stepMtOutText.textContent = "Traduction Dioula synthétisée.";
+      if (lang === "fr") {
+        this.stepMtInText.textContent = "Message rédigé en français (pas de traduction entrante).";
+        this.stepLlmText.textContent = debug.fr_reply || "—";
+        this.stepMtOutText.textContent = "Réponse envoyée en français (pas de traduction retour).";
+        this.statMtInMs.textContent = "0 ms";
+        this.statLlmMs.textContent = debug.timings_ms?.llm ? `${Math.round(debug.timings_ms.llm)} ms` : "— ms";
+        this.statMtOutMs.textContent = "0 ms";
+      } else {
+        this.stepMtInText.textContent = debug.fr_input || "—";
+        this.stepLlmText.textContent = debug.fr_reply || "—";
+        this.stepMtOutText.textContent = "Traduction Dioula générée.";
 
-      const timings = debug.timings_ms || {};
-      this.statMtInMs.textContent = timings.mt_in ? `${Math.round(timings.mt_in)} ms` : "— ms";
-      this.statLlmMs.textContent = timings.llm ? `${Math.round(timings.llm)} ms` : "— ms";
-      this.statMtOutMs.textContent = timings.mt_out ? `${Math.round(timings.mt_out)} ms` : "— ms";
+        const timings = debug.timings_ms || {};
+        this.statMtInMs.textContent = timings.mt_in ? `${Math.round(timings.mt_in)} ms` : "— ms";
+        this.statLlmMs.textContent = timings.llm ? `${Math.round(timings.llm)} ms` : "— ms";
+        this.statMtOutMs.textContent = timings.mt_out ? `${Math.round(timings.mt_out)} ms` : "— ms";
+      }
     }
   }
 

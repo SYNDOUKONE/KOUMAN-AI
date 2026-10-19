@@ -66,9 +66,11 @@ def require_client(request: Request, x_api_key: str | None = Depends(api_key_hea
 def _check_lang(state, code: str, allow_pivot: bool) -> None:
     if code == PIVOT and allow_pivot:
         return
-    if code not in LANGUAGES or code == PIVOT:
+    if code not in LANGUAGES:
         raise ApiError(422, "langue_inconnue", f"Langue inconnue : {code!r}.")
-    if code not in state.settings.enabled_languages:
+    if code == PIVOT and not allow_pivot:
+        raise ApiError(422, "langue_invalide", "Cette opération nécessite une langue locale (ex: 'dyu').")
+    if code != PIVOT and code not in state.settings.enabled_languages:
         raise ApiError(422, "langue_desactivee", f"Langue non activée : {code!r}.")
 
 
@@ -146,7 +148,7 @@ async def chat(
     client: str = Depends(require_client),
 ):
     state = request.app.state
-    _check_lang(state, req.lang, allow_pivot=False)
+    _check_lang(state, req.lang, allow_pivot=True)
     _check_length(state, req.message)
 
     # La session est rattachée au client : deux applis ne partagent jamais un historique.
