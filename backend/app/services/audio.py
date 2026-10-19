@@ -138,9 +138,14 @@ class RealAudioService:
         )
 
         self.stt_feature_extractor = WhisperFeatureExtractor.from_pretrained(self.stt_base_id)
-        self.stt_tokenizer = WhisperTokenizer.from_pretrained(
-            self.stt_base_id, language="dyu", task="transcribe"
-        )
+        try:
+            self.stt_tokenizer = WhisperTokenizer.from_pretrained(
+                self.stt_base_id, language="dyu", task="transcribe"
+            )
+        except Exception:
+            self.stt_tokenizer = WhisperTokenizer.from_pretrained(
+                self.stt_base_id, task="transcribe"
+            )
         self.stt_model = WhisperForConditionalGeneration.from_pretrained(self.stt_model_id).to(
             self._stt_device
         )
