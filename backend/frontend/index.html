@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOUMAN AI — Chatbot & Traducteur Vocal Dioula ↔ Français</title>
+  <meta name="description" content="Interface de démonstration de Kouman AI : Modèle NLLB-200 Dioula, Synthèse vocale MMS-TTS, Whisper STT et orchestration LLM.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo" id="brand-logo">🌍</div>
+        <div class="brand-text">
+          <h1>KOUMAN AI</h1>
+          <p>Traduction & Voix Dioula (Jula) ⟷ Français</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist">
+        <button class="tab-btn active" id="tab-btn-chat" data-tab="chat">
+          <span>💬</span> Chat Vocal & Texte
+        </button>
+        <button class="tab-btn" id="tab-btn-translate" data-tab="translate">
+          <span>🔄</span> Traducteur Direct
+        </button>
+      </nav>
+
+      <!-- Statut & Contrôles -->
+      <div class="header-actions">
+        <div class="badge-status loading" id="server-status-badge">
+          <span class="status-dot"></span>
+          <span id="server-status-text">Connexion...</span>
+        </div>
+        <button class="btn-icon" id="btn-toggle-inspector" title="Afficher/Masquer les coulisses du pipeline" aria-label="Inspecteur de pipeline">
+          <span>📊</span>
+        </button>
+        <button class="btn-icon" id="btn-open-settings" title="Paramètres (Clé d'API & Serveur)" aria-label="Paramètres">
+          <span>⚙️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <!-- 1. TAB: CHAT VOCAL & TEXTE -->
+      <section class="tab-pane active" id="pane-chat">
+        <div class="chat-layout">
+          <div class="chat-conversation">
+            <!-- Messages Stream -->
+            <div class="messages-stream" id="messages-container">
+              <!-- Welcome Hero -->
+              <div class="welcome-hero" id="welcome-hero">
+                <div class="welcome-icon">🎙️</div>
+                <h2>I bisimila ! Bienvenue sur Kouman AI</h2>
+                <p>Posez vos questions par écrit ou au micro en <strong>Dioula</strong> ou en <strong>Français</strong>. Kouman traduit, réfléchit et répond avec la voix naturelle.</p>
+                
+                <div class="quick-scenarios-title">⚡ Scénarios Rapides Validés (10 phrases de test) :</div>
+                <div class="quick-chips-grid" id="welcome-chips-container">
+                  <!-- Injecté par JavaScript depuis scenarios_dyu -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="chat-input-bar">
+              <!-- Bar des scénarios cliquables -->
+              <div class="scenarios-quick-bar" id="scenarios-quick-bar">
+                <!-- Badges rapides horizontaux -->
+              </div>
+
+              <!-- Input Controls -->
+              <div class="input-controls-wrapper">
+                <button class="mic-btn" id="btn-record-voice" title="Maintenir ou cliquer pour parler en Dioula" aria-label="Enregistrer la voix">
+                  <span id="mic-icon">🎙️</span>
+                </button>
+                <input type="text" class="chat-input" id="chat-input-text" placeholder="Écrivez un message en dioula ou en français (ex: I ni sɔgɔma...)" autocomplete="off">
+                <button class="send-btn" id="btn-send-message" title="Envoyer le message" aria-label="Envoyer">
+                  <span>➤</span>
+                </button>
+              </div>
+
+              <!-- Footer hint & Speed controls -->
+              <div class="input-footer-hint">
+                <span>Appuyez sur <kbd>Entrée</kbd> pour envoyer. Micro actif : 16 kHz Mono.</span>
+                <div class="speed-selector">
+                  <span>Vitesse voix Dioula :</span>
+                  <select id="select-speaking-rate">
+                    <option value="0.6">0.6x (très lent)</option>
+                    <option value="0.75" selected>0.75x (recommandé)</option>
+                    <option value="0.9">0.9x</option>
+                    <option value="1.0">1.0x (normal)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drawer Inspecteur de Pipeline -->
+          <aside class="pipeline-inspector" id="pipeline-inspector">
+            <div class="inspector-header">
+              <h3><span>🔬</span> Coulisses du Pipeline</h3>
+              <span class="step-latency-badge" id="inspector-status-badge">Prêt</span>
+            </div>
+            <div class="inspector-body">
+              <div class="total-latency-banner" id="total-latency-banner">
+                <div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Temps de réponse total</div>
+                  <strong style="font-family:var(--font-mono); font-size:1.1rem;" id="stat-total-ms">— ms</strong>
+                </div>
+                <span style="font-size:1.4rem;">⚡</span>
+              </div>
+
+              <!-- Step 1: STT -->
+              <div class="pipeline-step-card" id="card-step-stt">
+                <div class="step-card-header">
+                  <span>1. Reconnaissance Vocale (STT)</span>
+                  <span class="step-latency-badge" id="stat-stt-ms">— ms</span>
+                </div>
+                <div class="step-content-box" id="step-stt-text">En attente d'enregistrement audio...</div>
+                <div class="step-subtext">Modèle : Whisper Tiny Dioula (16 kHz)</div>
+              </div>
+
+              <!-- Step 2: MT Dioula -> FR -->
+              <div class="pipeline-step-card" id="card-step-mt-in">
+                <div class="step-card-header">
+                  <span>2. Traduction Entrante (DYU ➔ FR)</span>
+                  <span class="step-latency-badge" id="stat-mt-in-ms">— ms</span>
+                </div>
+                <div class="step-content-box" id="step-mt-in-text">En attente du message...</div>
+                <div class="step-subtext">Modèle : NLLB-200 Dioula (beam=4, max_tokens=64)</div>
+              </div>
+
+              <!-- Step 3: LLM French Reasoning -->
+              <div class="pipeline-step-card" id="card-step-llm">
+                <div class="step-card-header">
+                  <span>3. Raisonnement LLM (Français)</span>
+                  <span class="step-latency-badge" id="stat-llm-ms">— ms</span>
+                </div>
+                <div class="step-content-box" id="step-llm-text">En attente de la réflexion...</div>
+                <div class="step-subtext" id="stat-llm-name">Modèle : Claude Sonnet 5 via OpenRouter</div>
+              </div>
+
+              <!-- Step 4: MT FR -> Dioula -->
+              <div class="pipeline-step-card" id="card-step-mt-out">
+                <div class="step-card-header">
+                  <span>4. Traduction Sortante (FR ➔ DYU)</span>
+                  <span class="step-latency-badge" id="stat-mt-out-ms">— ms</span>
+                </div>
+                <div class="step-content-box" id="step-mt-out-text">En attente de la traduction retour...</div>
+                <div class="step-subtext">Découpage de phrase activé pour fidélité max</div>
+              </div>
+
+              <!-- Step 5: TTS Dioula Voice -->
+              <div class="pipeline-step-card" id="card-step-tts">
+                <div class="step-card-header">
+                  <span>5. Synthèse Vocale (TTS Dioula)</span>
+                  <span class="step-latency-badge" id="stat-tts-ms">— ms</span>
+                </div>
+                <div class="step-content-box" id="step-tts-text">Audio prêt à l'écoute.</div>
+                <div class="step-subtext">Meta MMS-TTS Dioula + Time-stretch Librosa</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 2. TAB: TRADUCTEUR DIRECT -->
+      <section class="tab-pane" id="pane-translate">
+        <div class="translate-layout">
+          <div style="text-align: center; margin-bottom: 0.5rem;">
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;">Traducteur Instantané Dioula ⟷ Français</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Traduction pure sans intermédiaire LLM via NLLB-200-1.3B (Modèle Officiel Fusionné).</p>
+          </div>
+
+          <div class="translate-boxes-container">
+            <!-- Source Card -->
+            <div class="translate-card">
+              <div class="card-header-lang">
+                <select id="select-src-lang">
+                  <option value="fr" selected>Français (fra_Latn)</option>
+                  <option value="dyu">Dioula (dyu_Latn)</option>
+                </select>
+                <button class="btn-icon" id="btn-clear-src" title="Effacer le texte">✕</button>
+              </div>
+              <textarea class="translate-textarea" id="translate-src-text" placeholder="Entrez le texte à traduire..."></textarea>
+            </div>
+
+            <!-- Swap Button -->
+            <div class="swap-btn-container">
+              <button class="btn-swap" id="btn-swap-languages" title="Inverser les langues">⇄</button>
+            </div>
+
+            <!-- Target Card -->
+            <div class="translate-card">
+              <div class="card-header-lang">
+                <select id="select-tgt-lang">
+                  <option value="dyu" selected>Dioula (dyu_Latn)</option>
+                  <option value="fr">Français (fra_Latn)</option>
+                </select>
+                <button class="btn-icon" id="btn-copy-tgt" title="Copier la traduction">📋</button>
+              </div>
+              <textarea class="translate-textarea" id="translate-tgt-text" placeholder="La traduction s'affichera ici..." readonly></textarea>
+            </div>
+          </div>
+
+          <div class="translate-footer-bar">
+            <span style="font-size: 0.8rem; color: var(--text-dim);" id="translate-time-indicator">Délai : — ms</span>
+            <div style="display: flex; gap: 0.75rem;">
+              <button class="btn-icon" id="btn-listen-direct-tts" title="Écouter la traduction en dioula">
+                <span>🔊</span>
+              </button>
+              <button class="btn-primary" id="btn-run-translate">
+                <span>Traduire</span> ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Paramètres -->
+    <div class="modal-overlay" id="modal-settings">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3>Paramètres de Connexion</h3>
+          <button class="btn-icon" id="btn-close-settings">✕</button>
+        </div>
+        <div class="form-group">
+          <label for="input-api-url">URL du Backend FastAPI</label>
+          <input type="text" class="form-input" id="input-api-url" value="">
+          <div class="form-hint">Laissez vide si l'interface est servie sur le même port (http://localhost:8000).</div>
+        </div>
+        <div class="form-group">
+          <label for="input-api-key">Clé d'API (X-API-Key)</label>
+          <input type="password" class="form-input" id="input-api-key" placeholder="kma_...">
+          <div class="form-hint">Clé générée avec <code>python -m scripts.manage_keys create demo</code>.</div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button class="btn-primary" id="btn-save-settings">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

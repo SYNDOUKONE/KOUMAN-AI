@@ -95,6 +95,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     register_error_handlers(app)
     app.include_router(public_router)
     app.include_router(router)
+
+    from pathlib import Path
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.responses import RedirectResponse
+
+    frontend_dir = Path(__file__).resolve().parents[1] / "frontend"
+    if frontend_dir.exists():
+        app.mount("/ui", StaticFiles(directory=str(frontend_dir), html=True), name="ui")
+
+        @app.get("/", include_in_schema=False)
+        def index():
+            return RedirectResponse(url="/ui")
+
     return app
 
 

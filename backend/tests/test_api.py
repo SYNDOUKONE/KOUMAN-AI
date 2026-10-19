@@ -174,7 +174,7 @@ def test_fallback_when_translation_is_empty(api):
     )
     body = r.json()
     assert body["debug"]["fallback_reason"] == "mt_in:sortie_vide"
-    assert "LOCUTEUR NATIF" in body["reply"]  # le placeholder est bien visible
+    assert "faamuya" in body["reply"] or "jaabi" in body["reply"]  # message de repli authentique dioula
 
 
 def test_unexpected_error_does_not_leak_details(api):

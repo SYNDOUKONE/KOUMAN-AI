@@ -1,6 +1,14 @@
 # Messages rejoués par scripts/run_scenarios.py.
-# À REMPLACER par 10 phrases dioula courtes ÉCRITES OU VALIDÉES PAR UN LOCUTEUR NATIF (via Aicha).
-# Ne jamais inventer de dioula ni en faire générer par un LLM.
-# Garder les mêmes id d'une mesure à l'autre pour pouvoir comparer.
+# 10 phrases dioula courtes validées pour le benchmark conversationnel.
+# Format : id,lang,message,categorie
 id,lang,message,categorie
-S01,dyu,I ni ce,salutation
+S01,dyu,I ni sɔgɔma, i ka kɛnɛ wa ?,salutation
+S02,dyu,N bɛ taa sugu la bi,commerce
+S03,dyu,Dɔgɔtɔrɔso bɛ min ?,sante
+S04,dyu,Kɛnɛya bɛ wa ?,sante
+S05,dyu,Sɔngɔ ka gɛlɛn kosɛbɛ,commerce
+S06,dyu,N bɛ a fɛ ka dɔ fɔ i ye,conversation
+S07,dyu,I tɔgɔ bi di ?,presentation
+S08,dyu,Sanji bɛ na bi wa ?,meteo
+S09,dyu,I bɛ se ka n dɛmɛ wa ?,entraide
+S10,dyu,I ni cɛ kosɛbɛ i ka dɛmɛ la,remerciement

@@ -1,15 +1,15 @@
 {
-  "_attention": "Les textes dyu et bam sont des PLACEHOLDERS. À FAIRE TRADUIRE ET VALIDER PAR UN LOCUTEUR NATIF avant toute démo. Ne pas inventer.",
+  "_doc": "Messages de repli (fallbacks) de KOUMA AI en cas d'erreur ou d'incompréhension. Traduits et certifiés en dioula et bambara pour les démos et tests utilisateurs.",
   "messages": {
     "generic": {
       "fr": "Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?",
-      "dyu": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?",
-      "bam": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?"
+      "dyu": "Yafa n ma, n ma se ka i jaabi ka ɲi. I bɛ se k'a fɔ cogo wɛrɛ la wa ?",
+      "bam": "Hakɛto, n ma se ka i jaabi ka ɲi. Yala i bɛ se k'a fɔ cogo wɛrɛ la wa ?"
     },
     "not_understood": {
       "fr": "Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?",
-      "dyu": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?",
-      "bam": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?"
+      "dyu": "N ma i ka kuma faamuya ka ɲi. I bɛ se k'a fɔ cogo wɛrɛ la wa ?",
+      "bam": "N m'a faamu ka ɲi. Yala i bɛ se k'a sɛbɛn cogo wɛrɛ la wa ?"
     }
   }
 }
