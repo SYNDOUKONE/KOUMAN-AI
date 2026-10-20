@@ -1,6 +1,11 @@
-# Messages rejoués par scripts/run_scenarios.py.
-# À REMPLACER par 10 phrases dioula courtes ÉCRITES OU VALIDÉES PAR UN LOCUTEUR NATIF (via Aicha).
-# Ne jamais inventer de dioula ni en faire générer par un LLM.
-# Garder les mêmes id d'une mesure à l'autre pour pouvoir comparer.
 id,lang,message,categorie
 S01,dyu,I ni ce,salutation
+S02,dyu,I be bolora bara juman le kɛra,question_metier
+S03,dyu,Jii be yi,question_disponibilite
+S04,dyu,A bi ji min na,action_quotidienne
+S05,dyu,Livru nin kadi nn ye,preference
+S06,dyu,N filila.,aveu_erreur
+S07,dyu,Nɛnɛ be yi,meteo
+S08,dyu,Ni bonni kaɲi dɛ.,compliment
+S09,dyu,N bi na sira kɛ seen na.,deplacement
+S10,dyu,Jɔn le ka kuran faga ?,question_evenement
