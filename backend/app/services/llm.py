@@ -122,6 +122,56 @@ class OpenRouterLLM(LLMClient):
 
         return content.strip()
 
+class GroqLLM(LLMClient):
+    name = "groq"
+
+    def __init__(self, settings: Settings) -> None:
+        if not settings.groq_api_key:
+            raise RuntimeError(
+                "GROQ_API_KEY absente : "
+                "impossible d'utiliser KOUMA_LLM=groq."
+            )
+        from openai import OpenAI
+        self.client = OpenAI(
+            api_key=settings.groq_api_key,
+            base_url="https://api.groq.com/openai/v1",
+            timeout=60.0,
+            max_retries=0,
+        )
+        self.model = settings.groq_model
+
+    def reply(
+        self,
+        history_fr: list[dict],
+        system_prompt: str,
+    ) -> str:
+        messages = [
+            {"role": "system", "content": system_prompt},
+            *history_fr,
+        ]
+
+        try:
+            response = self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            max_completion_tokens=1024,
+            reasoning_effort="low",
+            extra_body={"include_reasoning": False},
+
+            )
+        except Exception as exc:
+            raise LLMUnavailable(
+                f"Groq indisponible : {exc}"
+            ) from exc
+
+        content = response.choices[0].message.content
+
+        if not content or not content.strip():
+            raise LLMUnavailable(
+                "Groq a retourné une réponse vide."
+            )
+
+        return content.strip()
 
 def build_llm(settings: Settings) -> LLMClient:
     if settings.llm_backend == "stub":
@@ -130,4 +180,6 @@ def build_llm(settings: Settings) -> LLMClient:
         return GeminiLLM(settings)
     if settings.llm_backend == "openrouter":
         return OpenRouterLLM(settings)
+    if settings.llm_backend == "groq":
+        return GroqLLM(settings)
     raise ValueError(f"KOUMA_LLM inconnu : {settings.llm_backend!r}")

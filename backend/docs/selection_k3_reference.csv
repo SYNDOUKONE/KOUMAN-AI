@@ -1,0 +1,11 @@
+id,dyu,fr_reference,categorie,source
+S01,I ni ce,Salutation existante dans le fichier initial,salutation,scenarios_dyu.csv initial
+S02,I be bolora bara juman le kɛra,Quel métier faites-vous ?,question_metier,paire_segment_2.csv
+S03,Jii be yi,Il y a de l’eau ?,question_disponibilite,paire_segment_2.csv
+S04,A bi ji min na,Il boit de l’eau.,action_quotidienne,paire_segment_1.csv
+S05,Livru nin kadi nn ye,J’aime ce livre.,preference,paire_segment_1.csv
+S06,N filila.,J’ai fait une erreur.,aveu_erreur,paire_segment_1.csv
+S07,Nɛnɛ be yi,Le temps est froid.,meteo,paire_segment_2.csv
+S08,Ni bonni kaɲi dɛ.,Quelle jolie maison !,compliment,paire_segment_2.csv
+S09,N bi na sira kɛ seen na.,Je ferai la route à pied.,deplacement,paire_segment_3.csv
+S10,Jɔn le ka kuran faga ?,Qui a éteint la lumière ?,question_evenement,paire_segment_2.csv
