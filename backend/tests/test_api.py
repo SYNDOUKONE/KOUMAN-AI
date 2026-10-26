@@ -174,7 +174,11 @@ def test_fallback_when_translation_is_empty(api):
     )
     body = r.json()
     assert body["debug"]["fallback_reason"] == "mt_in:sortie_vide"
-    assert "LOCUTEUR NATIF" in body["reply"]  # le placeholder est bien visible
+    assert body["reply"] == (
+    "N’ m’i ka cikan faamu ka ɲɛ. "
+    "Yala i be se k’a sɛbɛ cogo wɛrɛ la wa?"
+)
+    assert "LOCUTEUR NATIF" not in body["reply"]
 
 
 def test_unexpected_error_does_not_leak_details(api):

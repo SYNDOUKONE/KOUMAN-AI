@@ -41,3 +41,6 @@ models/**/*.safetensors
 *.docx
 data/*.pdf
 data/*.backup*
+
+#dossier benchmark
+benchmark_results_test

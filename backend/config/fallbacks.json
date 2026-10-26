@@ -1,15 +1,15 @@
 {
-  "_attention": "Les textes dyu et bam sont des PLACEHOLDERS. À FAIRE TRADUIRE ET VALIDER PAR UN LOCUTEUR NATIF avant toute démo. Ne pas inventer.",
+  "_attention": "Les textes dyu et bam ont été renseignés. Vérifier leur validation avant la démonstration.",
   "messages": {
     "generic": {
       "fr": "Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?",
-      "dyu": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?",
-      "bam": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Désolé, je n'ai pas pu répondre correctement. Pouvez-vous reformuler ?"
+      "dyu": "Yafa n ma, n ma se k’a jaabi ka ɲɛ. Yala i be se k’o fɔ tugun wa?",
+      "bam": "Baasi tɛ, n ma se ka jaabi ɲuman di. Yala i bɛ se k’a fɔcogo kura ye wa?"
     },
     "not_understood": {
       "fr": "Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?",
-      "dyu": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?",
-      "bam": "[À FAIRE VALIDER PAR UN LOCUTEUR NATIF] Je n'ai pas bien compris votre message. Pouvez-vous l'écrire autrement ?"
+      "dyu": "N’ m’i ka cikan faamu ka ɲɛ. Yala i be se k’a sɛbɛ cogo wɛrɛ la wa?",
+      "bam": "N ma i ka cikan faamu kosɛbɛ. Yala i bɛ se k’a sɛbɛn cogo wɛrɛ la wa?"
     }
   }
 }
