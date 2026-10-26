@@ -157,6 +157,14 @@ class RealAudioService:
             self.tts_codec = BiCodecTokenizer(
                 model_dir=spark_dir, device=self.device, load_wav2vec2=False
             )
+
+            # Résoudre le nom humain du speaker en token SPEAKER_X
+            try:
+                from maliba_ai.config.speakers import Speakers
+                speaker_obj = getattr(Speakers, self.tts_speaker, None)
+                self._speaker_token = speaker_obj.id if speaker_obj else "SPEAKER_1"
+            except Exception:
+                self._speaker_token = "SPEAKER_1"
         else:
             from transformers import AutoTokenizer, VitsModel
 
@@ -234,11 +242,12 @@ class RealAudioService:
                 except Exception:
                     norm_text = text
 
-                # NE PAS inclure le nom du locuteur dans le contenu texte :
-                # il serait lu à voix haute. Le conditionnement speaker se fait
-                # via les global tokens générés par le LLM lui-même.
+                # Le modèle attend "SPEAKER_X: texte" (pas le nom humain).
+                # self._speaker_token est résolu au chargement (ex. "SPEAKER_3").
+                speaker_token = getattr(self, "_speaker_token", None) or "SPEAKER_1"
+                formatted = f"{speaker_token}: {norm_text}"
                 prompt = (
-                    f"<|task_tts|><|start_content|>{norm_text}<|end_content|><|start_global_token|>"
+                    f"<|task_tts|><|start_content|>{formatted}<|end_content|><|start_global_token|>"
                 )
                 inputs = self.tts_tokenizer([prompt], return_tensors="pt").to(self.device)
 
@@ -248,9 +257,11 @@ class RealAudioService:
                 with torch.inference_mode():
                     generated_ids = self.tts_model.generate(
                         **inputs,
-                        # Greedy decoding : plus rapide et voix cohérente
-                        max_new_tokens=300,
-                        do_sample=False,
+                        max_new_tokens=2048,
+                        do_sample=True,
+                        temperature=0.8,
+                        top_k=50,
+                        top_p=1.0,
                         eos_token_id=self.tts_tokenizer.eos_token_id,
                         pad_token_id=self.tts_tokenizer.pad_token_id,
                         use_cache=True,
