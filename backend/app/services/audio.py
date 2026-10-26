@@ -21,7 +21,7 @@ class AudioService(Protocol):
     def info(self) -> dict: ...
 
     async def text_to_speech(
-        self, text: str, speaking_rate: float = 0.75
+        self, text: str, speaking_rate: float = 1.0
     ) -> tuple[bytes, float, int]:
         """Convertit du texte en audio WAV.
 
@@ -37,7 +37,7 @@ class AudioService(Protocol):
 class StubAudioService:
     """Service audio factice pour tests rapides et développement local sans modèle."""
 
-    def __init__(self, default_speaking_rate: float = 0.75) -> None:
+    def __init__(self, default_speaking_rate: float = 1.0) -> None:
         self.default_speaking_rate = default_speaking_rate
 
     def info(self) -> dict:
@@ -48,7 +48,7 @@ class StubAudioService:
         }
 
     async def text_to_speech(
-        self, text: str, speaking_rate: float = 0.75
+        self, text: str, speaking_rate: float = 1.0
     ) -> tuple[bytes, float, int]:
         rate = speaking_rate or self.default_speaking_rate
         sampling_rate = 16000
@@ -86,7 +86,7 @@ class RealAudioService:
         stt_model_id: str = "Dama12/whisper-tiny-dioula",
         stt_base_id: str = "openai/whisper-tiny",
         device: str = "auto",
-        default_speaking_rate: float = 0.75,
+        default_speaking_rate: float = 1.0,
         tts_speaker: str = "Bourama",
     ) -> None:
         self.tts_model_id = tts_model_id
@@ -215,7 +215,7 @@ class RealAudioService:
         self._stt_fr_model.eval()
 
     async def text_to_speech(
-        self, text: str, speaking_rate: float = 0.75
+        self, text: str, speaking_rate: float = 1.0
     ) -> tuple[bytes, float, int]:
         import asyncio
 

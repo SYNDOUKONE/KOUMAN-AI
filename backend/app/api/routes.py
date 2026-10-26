@@ -273,7 +273,7 @@ async def chat_voice(
     lang: str = Form(default="dyu", description="Langue de conversation ('dyu' ou 'fr')"),
     tgt_lang: str | None = Form(default=None, description="Langue souhaitée pour la réponse ('dyu' ou 'fr')"),
     speaking_rate: float = Form(
-        default=0.75, description="Vitesse TTS (<1.0 = plus lent, 1.0 = normal)"
+        default=1.0, description="Vitesse TTS (1.0 = normal, <1.0 = plus lent)"
     ),
     file: UploadFile = File(..., description="Fichier audio parlé par l'utilisateur"),
     debug: bool = Query(default=False, description="Détails internes si autorisés"),

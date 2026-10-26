@@ -1242,7 +1242,7 @@ class KoumanApp {
           const res = await fetch(`${this.apiUrl}/api/v1/audio/synthesize`, {
             method: "POST",
             headers: this.getHeaders({ "Content-Type": "application/json" }),
-            body: JSON.stringify({ text, lang: "dyu", speaking_rate: 0.75 }),
+            body: JSON.stringify({ text, lang: "dyu", speaking_rate: 1.0 }),
           });
           if (!res.ok) throw new Error("Erreur TTS");
           const data = await res.json();

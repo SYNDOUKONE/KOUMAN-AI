@@ -55,7 +55,7 @@ class Settings:
     tts_speaker: str = "Bourama"
     stt_model_id: str = "Dama12/whisper-tiny-dioula"
     stt_base_id: str = "openai/whisper-tiny"
-    tts_default_speaking_rate: float = 0.75
+    tts_default_speaking_rate: float = 1.0
 
     # --- Traducteur NLLB + LoRA ------------------------------------------
     # Modèle chargé par transformers : un identifiant Hugging Face ou un dossier local.

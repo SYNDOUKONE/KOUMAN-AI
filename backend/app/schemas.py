@@ -50,7 +50,7 @@ class AudioSynthesizeRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=1000, examples=["I ni sɔgɔma, i ka kɛnɛ wa ?"])
     lang: str = Field(default="dyu", examples=["dyu"])
     speaking_rate: float = Field(
-        default=0.75, ge=0.5, le=2.0, description="Vitesse de voix (0.75 = naturel et ralenti, 1.0 = normal)"
+        default=1.0, ge=0.5, le=2.0, description="Vitesse de voix (1.0 = normal, 0.75 = ralenti)"
     )
 
 
