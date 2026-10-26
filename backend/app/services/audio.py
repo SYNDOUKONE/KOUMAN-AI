@@ -234,22 +234,26 @@ class RealAudioService:
                 except Exception:
                     norm_text = text
 
-                speaker = getattr(self, "tts_speaker", "Bourama") or "Bourama"
-                formatted = f"{speaker}: {norm_text}"
+                # NE PAS inclure le nom du locuteur dans le contenu texte :
+                # il serait lu à voix haute. Le conditionnement speaker se fait
+                # via les global tokens générés par le LLM lui-même.
                 prompt = (
-                    f"<|task_tts|><|start_content|>{formatted}<|end_content|><|start_global_token|>"
+                    f"<|task_tts|><|start_content|>{norm_text}<|end_content|><|start_global_token|>"
                 )
                 inputs = self.tts_tokenizer([prompt], return_tensors="pt").to(self.device)
+
+                # Seed fixe → voix stable entre les tours
+                torch.manual_seed(42)
+
                 with torch.inference_mode():
                     generated_ids = self.tts_model.generate(
                         **inputs,
-                        max_new_tokens=512,
-                        do_sample=True,
-                        temperature=0.8,
-                        top_k=50,
-                        top_p=1.0,
+                        # Greedy decoding : plus rapide et voix cohérente
+                        max_new_tokens=300,
+                        do_sample=False,
                         eos_token_id=self.tts_tokenizer.eos_token_id,
                         pad_token_id=self.tts_tokenizer.pad_token_id,
+                        use_cache=True,
                     )
                     trimmed = generated_ids[:, inputs.input_ids.shape[1] :]
                     predicted_text = self.tts_tokenizer.batch_decode(
