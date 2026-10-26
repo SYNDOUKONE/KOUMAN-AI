@@ -9,6 +9,7 @@ class ChatRequest(BaseModel):
     session_id: str = Field(..., min_length=1, max_length=128, examples=["user-42"])
     lang: str = Field(..., examples=["dyu"])
     message: str = Field(..., min_length=1, examples=["I ni sɔgɔma"])
+    tgt_lang: str | None = Field(default=None, examples=["fr", "dyu"], description="Langue de réponse souhaitée")
 
 
 class ChatDebug(BaseModel):
@@ -74,6 +75,7 @@ class VoiceChatResponse(BaseModel):
     lang: str
     user_transcript: str
     reply_text: str
-    audio_base64: str
+    audio_base64: str | None = None
+    reply_lang: str = "dyu"
     timings_ms: dict[str, float]
     debug: ChatDebug | None = None

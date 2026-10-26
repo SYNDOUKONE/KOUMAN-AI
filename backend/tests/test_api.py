@@ -323,3 +323,54 @@ def test_single_sentence_reply_uses_simple_translate(api):
 
     client.post("/api/v1/chat", json={"session_id": "d", "lang": "dyu", "message": "I ni ce"})
     assert all(c[0] == "un" for c in recorder.calls)
+
+
+def test_chat_bilingual_modes(api):
+    _, client = api
+    # Mode Dioula -> Français
+    r1 = client.post(
+        "/api/v1/chat",
+        json={"session_id": "bidi-1", "lang": "dyu", "tgt_lang": "fr", "message": "I ni sɔgɔma"},
+    )
+    assert r1.status_code == 200
+    assert r1.json()["lang"] == "fr"
+    assert "→dyu" not in r1.json()["reply"]
+
+    # Mode Français -> Dioula
+    r2 = client.post(
+        "/api/v1/chat",
+        json={"session_id": "bidi-2", "lang": "fr", "tgt_lang": "dyu", "message": "Bonjour"},
+    )
+    assert r2.status_code == 200
+    assert r2.json()["lang"] == "dyu"
+    assert "→dyu" in r2.json()["reply"]
+
+    # Mode Français -> Français
+    r3 = client.post(
+        "/api/v1/chat",
+        json={"session_id": "bidi-3", "lang": "fr", "tgt_lang": "fr", "message": "Bonjour"},
+    )
+    assert r3.status_code == 200
+    assert r3.json()["lang"] == "fr"
+
+
+def test_chat_dynamic_language_switch(api):
+    _, client = api
+    # Demande explicite de répondre en français
+    r1 = client.post(
+        "/api/v1/chat",
+        json={"session_id": "dyn-1", "lang": "dyu", "message": "I ni ce, réponds en français s'il te plaît"},
+    )
+    assert r1.status_code == 200
+    assert r1.json()["lang"] == "fr"
+    assert "→dyu" not in r1.json()["reply"]
+
+    # Puis demande explicite de répondre en dioula
+    r2 = client.post(
+        "/api/v1/chat",
+        json={"session_id": "dyn-1", "lang": "fr", "message": "Merci ! Maintenant parle en dioula"},
+    )
+    assert r2.status_code == 200
+    assert r2.json()["lang"] == "dyu"
+    assert "→dyu" in r2.json()["reply"]
+

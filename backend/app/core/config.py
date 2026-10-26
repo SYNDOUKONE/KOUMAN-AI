@@ -52,6 +52,7 @@ class Settings:
     llm_backend: str = "stub"  # "stub" | "gemini" | "openrouter"
     audio_backend: str = "stub"  # "stub" | "real"
     tts_model_id: str = "facebook/mms-tts-dyu"
+    tts_speaker: str = "Bourama"
     stt_model_id: str = "Dama12/whisper-tiny-dioula"
     stt_base_id: str = "openai/whisper-tiny"
     tts_default_speaking_rate: float = 0.75
@@ -117,6 +118,7 @@ class Settings:
             llm_backend=_env("KOUMA_LLM", "stub"),
             audio_backend=_env("KOUMA_AUDIO", "stub"),
             tts_model_id=_env("KOUMA_TTS_MODEL", cls.tts_model_id),
+            tts_speaker=_env("KOUMA_TTS_SPEAKER", cls.tts_speaker),
             stt_model_id=_env("KOUMA_STT_MODEL", cls.stt_model_id),
             stt_base_id=_env("KOUMA_STT_BASE_MODEL", cls.stt_base_id),
             tts_default_speaking_rate=float(

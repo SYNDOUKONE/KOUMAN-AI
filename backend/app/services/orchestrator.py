@@ -66,6 +66,7 @@ class ChatResult:
     fr_reply: str
     timings_ms: dict[str, float] = field(default_factory=dict)
     fallback_reason: str | None = None
+    reply_lang: str = "dyu"
 
 
 class ChatOrchestrator:
@@ -104,10 +105,47 @@ class ChatOrchestrator:
             parts = await asyncio.to_thread(self.translator.translate_batch, sentences, src, tgt)
         return " ".join(p.strip() for p in parts if p.strip())
 
-    async def chat(self, session_id: str, text: str, lang: str) -> ChatResult:
+    async def chat(
+        self,
+        session_id: str,
+        text: str,
+        lang: str = "dyu",
+        tgt_lang: str | None = None,
+    ) -> ChatResult:
         timings: dict[str, float] = {}
-        session = self.sessions.get(session_id, lang)
+        session = self.sessions.get(session_id, lang, keep_history=True)
         text = normalize_input(text, lang)
+
+        # Détection d'une consigne explicite de langue de réponse dans le texte
+        lower_text = text.lower().strip()
+        explicit_tgt: str | None = None
+        if re.search(
+            r"\b(r[ée]ponds?|parle|dis(?:-moi)?|explique|kouman)\s+(?:-moi\s+)?(?:en\s+)?français\b",
+            lower_text,
+        ) or re.search(r"\b(?:en\s+)?français\s*(?:s['’]il\s+te\s+pla[îi]t|svp)?\s*$", lower_text):
+            explicit_tgt = PIVOT
+        elif re.search(
+            r"\b(r[ée]ponds?|parle|dis(?:-moi)?|explique|kouman)\s+(?:-moi\s+)?(?:en\s+)?(?:dioula|dyu|jula)\b",
+            lower_text,
+        ) or re.search(
+            r"\b(a\s+f[ɔo]|kouman)\s+(?:dioula|jula|dioulakan|julakan|tubabukan)\b",
+            lower_text,
+        ) or re.search(r"\b(?:en\s+)?(?:dioula|dyu|jula)\s*(?:s['’]il\s+te\s+pla[îi]t|svp)?\s*$", lower_text):
+            if "tubabukan" in lower_text:
+                explicit_tgt = PIVOT
+            else:
+                explicit_tgt = "dyu"
+
+        if explicit_tgt is not None:
+            effective_tgt_lang = explicit_tgt
+        elif tgt_lang in (PIVOT, "dyu"):
+            effective_tgt_lang = tgt_lang
+        elif getattr(session, "tgt_lang", None) in (PIVOT, "dyu"):
+            effective_tgt_lang = session.tgt_lang
+        else:
+            effective_tgt_lang = lang
+
+        session.tgt_lang = effective_tgt_lang
 
         if lang == PIVOT:
             fr_input = text
@@ -119,18 +157,31 @@ class ChatOrchestrator:
             timings["mt_in"] = elapsed_ms(t0)
             if (reason := check_translation(text, fr_input)) is not None:
                 return ChatResult(
-                    reply=self.fallbacks.get("not_understood", lang),
+                    reply=self.fallbacks.get("not_understood", effective_tgt_lang),
                     fr_input=fr_input,
                     fr_reply="",
                     timings_ms=timings,
                     fallback_reason=f"mt_in:{reason}",
+                    reply_lang=effective_tgt_lang,
                 )
 
         # 2. Réponse du LLM, en français, avec l'historique en français
         t0 = time.perf_counter()
         history = [*session.history_fr, {"role": "user", "content": fr_input}]
+        system_instruction = self.system_prompt
+        if effective_tgt_lang == PIVOT:
+            system_instruction += (
+                "\nL'utilisateur souhaite que tu répondes directement et entièrement en FRANÇAIS, "
+                "de façon claire, courtoise et concise (2 à 3 phrases maximum)."
+            )
+        else:
+            system_instruction += (
+                "\nL'utilisateur souhaite une réponse en DIOULA. Réponds en français simple, concis "
+                "et direct (1 à 2 phrases courtes), qui sera traduite fidèlement en dioula."
+            )
+
         try:
-            raw_reply = await asyncio.to_thread(self.llm.reply, history, self.system_prompt)
+            raw_reply = await asyncio.to_thread(self.llm.reply, history, system_instruction)
         except Exception as exc:
             # Panne du LLM (réseau, quota, clé...) : le détail va dans les logs, pas au client.
             # On sort AVANT d'écrire dans l'historique : l'échange raté n'est pas mémorisé.
@@ -140,28 +191,36 @@ class ChatOrchestrator:
         fr_reply = clean_llm_reply(raw_reply)
         if not fr_reply:
             return ChatResult(
-                reply=self.fallbacks.get("generic", lang if lang != PIVOT else "fr"),
+                reply=self.fallbacks.get("generic", effective_tgt_lang),
                 fr_input=fr_input,
                 fr_reply="",
                 timings_ms=timings,
                 fallback_reason="llm:vide",
+                reply_lang=effective_tgt_lang,
             )
 
-        if lang == PIVOT:
+        if effective_tgt_lang == PIVOT:
             reply = fr_reply
             timings["mt_out"] = 0.0
             fallback_reason = None
         else:
-            # 3. Français -> langue locale
+            # 3. Français -> langue locale (dioula)
             t0 = time.perf_counter()
-            reply = await self.translate_reply(fr_reply, PIVOT, lang)
+            reply = await self.translate_reply(fr_reply, PIVOT, "dyu")
             timings["mt_out"] = elapsed_ms(t0)
             fallback_reason = None
             if (reason := check_translation(fr_reply, reply)) is not None:
-                reply = self.fallbacks.get("generic", lang)
+                reply = self.fallbacks.get("generic", "dyu")
                 fallback_reason = f"mt_out:{reason}"
 
         # On mémorise l'échange en français, même si la sortie a été remplacée :
         # le LLM garde ainsi le fil de ce qu'il a voulu dire.
         self.sessions.append(session, fr_input, fr_reply)
-        return ChatResult(reply, fr_input, fr_reply, timings, fallback_reason)
+        return ChatResult(
+            reply=reply,
+            fr_input=fr_input,
+            fr_reply=fr_reply,
+            timings_ms=timings,
+            fallback_reason=fallback_reason,
+            reply_lang=effective_tgt_lang,
+        )

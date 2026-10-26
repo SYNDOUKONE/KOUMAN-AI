@@ -17,6 +17,7 @@ class Session:
     lang: str
     history_fr: list[dict] = field(default_factory=list)
     last_seen: float = field(default_factory=time.monotonic)
+    tgt_lang: str | None = None
 
 
 class SessionStore:
@@ -31,15 +32,16 @@ class SessionStore:
         for k in expired:
             del self._sessions[k]
 
-    def get(self, key: str, lang: str) -> Session:
+    def get(self, key: str, lang: str, keep_history: bool = False) -> Session:
         now = time.monotonic()
         with self._lock:
             self._purge(now)
             session = self._sessions.get(key)
-            if session is None or session.lang != lang:
-                # Changer de langue en cours de route = nouvelle conversation.
+            if session is None or (session.lang != lang and not keep_history):
                 session = Session(lang=lang)
                 self._sessions[key] = session
+            elif session.lang != lang:
+                session.lang = lang
             session.last_seen = now
             return session
 

@@ -153,7 +153,12 @@ async def chat(
 
     # La session est rattachée au client : deux applis ne partagent jamais un historique.
     try:
-        result = await state.orchestrator.chat(f"{client}:{req.session_id}", req.message, req.lang)
+        result = await state.orchestrator.chat(
+            f"{client}:{req.session_id}",
+            req.message,
+            req.lang,
+            tgt_lang=req.tgt_lang,
+        )
     except LLMUnavailable as exc:
         raise ApiError(
             503, "llm_indisponible", "Le service de conversation est indisponible, réessayez."
@@ -163,10 +168,11 @@ async def chat(
         request_id=request.state.request_id,
         client=client,
         lang=req.lang,
+        tgt_lang=result.reply_lang,
         timings_ms=result.timings_ms,
         fallback=result.fallback_reason,
     )
-    response = ChatResponse(session_id=req.session_id, lang=req.lang, reply=result.reply)
+    response = ChatResponse(session_id=req.session_id, lang=result.reply_lang, reply=result.reply)
     if debug and state.settings.debug_allowed:
         response.debug = ChatDebug(
             fr_input=result.fr_input,
@@ -264,7 +270,8 @@ async def audio_transcribe(
 async def chat_voice(
     request: Request,
     session_id: str = Form(..., description="Identifiant de session de conversation"),
-    lang: str = Form(default="dyu", description="Langue de conversation"),
+    lang: str = Form(default="dyu", description="Langue de conversation ('dyu' ou 'fr')"),
+    tgt_lang: str | None = Form(default=None, description="Langue souhaitée pour la réponse ('dyu' ou 'fr')"),
     speaking_rate: float = Form(
         default=0.75, description="Vitesse TTS (<1.0 = plus lent, 1.0 = normal)"
     ),
@@ -272,9 +279,9 @@ async def chat_voice(
     debug: bool = Query(default=False, description="Détails internes si autorisés"),
     client: str = Depends(require_client),
 ):
-    """Pipeline multimodal complet : Audio parlé Dioula -> STT -> LLM -> TTS audio Dioula."""
+    """Pipeline multimodal complet : Audio parlé -> STT -> LLM -> TTS audio (si dioula)."""
     state = request.app.state
-    _check_lang(state, lang, allow_pivot=False)
+    _check_lang(state, lang, allow_pivot=True)
 
     audio_bytes = await file.read()
     if not audio_bytes:
@@ -286,17 +293,17 @@ async def chat_voice(
     # 1. Reconnaissance vocale (STT)
     t0 = time.perf_counter()
     user_transcript = await state.audio.speech_to_text(
-        audio_bytes, filename=file.filename or "audio.wav"
+        audio_bytes, filename=file.filename or "audio.wav", lang=lang
     )
     timings["stt"] = elapsed_ms(t0)
 
     if not user_transcript:
         raise ApiError(422, "audio_inintelligible", "Impossible de transcrire l'audio envoyé.")
 
-    # 2. Pipeline conversationnel (dyu -> fr -> LLM -> fr -> dyu)
+    # 2. Pipeline conversationnel avec support bilingue et consigne dynamique
     try:
         chat_result = await state.orchestrator.chat(
-            f"{client}:{session_id}", user_transcript, lang
+            f"{client}:{session_id}", user_transcript, lang, tgt_lang=tgt_lang
         )
     except LLMUnavailable as exc:
         raise ApiError(
@@ -304,12 +311,18 @@ async def chat_voice(
         ) from exc
     timings.update(chat_result.timings_ms)
 
-    # 3. Synthèse vocale de la réponse dioula (TTS)
-    t0 = time.perf_counter()
-    wav_bytes, duration_s, _ = await state.audio.text_to_speech(
-        chat_result.reply, speaking_rate=speaking_rate
-    )
-    timings["tts"] = elapsed_ms(t0)
+    reply_lang = getattr(chat_result, "reply_lang", lang)
+    audio_b64 = None
+
+    # 3. Synthèse vocale si la réponse est en Dioula
+    if reply_lang == "dyu":
+        t0 = time.perf_counter()
+        wav_bytes, duration_s, _ = await state.audio.text_to_speech(
+            chat_result.reply, speaking_rate=speaking_rate
+        )
+        timings["tts"] = elapsed_ms(t0)
+        audio_b64 = base64.b64encode(wav_bytes).decode("ascii")
+
     timings["total"] = elapsed_ms(total_t0)
 
     log_event(
@@ -317,6 +330,7 @@ async def chat_voice(
         request_id=request.state.request_id,
         client=client,
         lang=lang,
+        tgt_lang=reply_lang,
         timings_ms=timings,
         fallback=chat_result.fallback_reason,
     )
@@ -326,7 +340,8 @@ async def chat_voice(
         lang=lang,
         user_transcript=user_transcript,
         reply_text=chat_result.reply,
-        audio_base64=base64.b64encode(wav_bytes).decode("ascii"),
+        audio_base64=audio_b64,
+        reply_lang=reply_lang,
         timings_ms=timings,
     )
     if debug and state.settings.debug_allowed:

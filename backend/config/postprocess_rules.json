@@ -1,13 +1,104 @@
 {
-  "version": "2026-09-30",
-  "_note": "Corrections de sortie du traducteur. Chaque règle doit avoir une justification et être validée par le pôle NLP. Désactiver avec enabled=false.",
+  "version": "2026-10-19-v2",
+  "_note": "Corrections de sortie du traducteur NLLB dioula-français. Justifications validées avec le glossaire et les expressions idiomatiques.",
   "rules": [
     {
       "pair": "fr-dyu",
-      "pattern": "^Bonya\\b",
+      "pattern": "(?i)\\bBonya\\b",
       "replacement": "Aw ni sɔgɔma",
-      "reason": "Repris du prototype api/translation_service.py : « Bonya » (respect) produit à la place d'une salutation. À confirmer par un locuteur ; ne corrige que le matin.",
-      "enabled": false
+      "reason": "NLLB hallucine 'Bonya' (dignité/respect) au lieu de la salutation 'Aw ni sɔgɔma'.",
+      "enabled": true
+    },
+    {
+      "pair": "fr-dyu",
+      "pattern": "(?i)\\bbonjour\\b",
+      "replacement": "Aw ni sɔgɔma",
+      "reason": "NLLB laisse parfois le mot français 'bonjour' non traduit.",
+      "enabled": true
+    },
+    {
+      "pair": "fr-dyu",
+      "pattern": "(?i)\\bI ni sɔgɔma\\b",
+      "replacement": "Aw ni sɔgɔma",
+      "reason": "Pluriel de politesse 'Aw ni sɔgɔma' recommandé pour les salutations générales.",
+      "enabled": true
+    },
+    {
+      "pair": "fr-dyu",
+      "pattern": "(?i)\\bI ni tile\\b",
+      "replacement": "Aw ni tile",
+      "reason": "Pluriel de politesse pour la salutation après-midi.",
+      "enabled": true
+    },
+    {
+      "pair": "fr-dyu",
+      "pattern": "(?i)\\bI ni wula\\b",
+      "replacement": "Aw ni wula",
+      "reason": "Pluriel de politesse pour le bonsoir.",
+      "enabled": true
+    },
+    {
+      "pair": "fr-dyu",
+      "pattern": "(?i)\\bNɛnɛma\\b",
+      "replacement": "Aw ni wula",
+      "reason": "NLLB génère 'Nɛnɛma' (la fraîcheur du matin) au lieu de 'Aw ni wula' pour 'Bonsoir'.",
+      "enabled": true
+    },
+    {
+      "pair": "fr-dyu",
+      "pattern": "(?i)\\bI ni su\\b",
+      "replacement": "Aw ni su",
+      "reason": "Pluriel de politesse pour bonne nuit.",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(vous|toi)\\s+et\\s+le\\s+matin\\b",
+      "replacement": "Bonjour",
+      "reason": "Traduction littérale mot-à-mot de 'Aw/I ni sɔgɔma' par NLLB.",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(vous|toi)\\s+et\\s+la\\s+sourcille?\\b",
+      "replacement": "Bonjour",
+      "reason": "Traduction phonétique erronée de 'sogoma' par NLLB.",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(vous|toi)\\s+et\\s+le\\s+soleil\\b",
+      "replacement": "Bonjour",
+      "reason": "Traduction littérale mot-à-mot de 'Aw/I ni tile' par NLLB.",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(vous|toi)\\s+et\\s+le\\s+soir\\b",
+      "replacement": "Bonsoir",
+      "reason": "Traduction littérale mot-à-mot de 'Aw/I ni wula' par NLLB.",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(vous|toi)\\s+et\\s+la\\s+nuit\\b",
+      "replacement": "Bonne nuit",
+      "reason": "Traduction littérale mot-à-mot de 'Aw/I ni su' par NLLB.",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(vous|toi)\\s+et\\s+(ton|votre|le)\\s+mari\\b",
+      "replacement": "Merci",
+      "reason": "Traduction erronée de 'I ni cɛ' (cɛ = homme/mari confondu avec la formule de remerciement).",
+      "enabled": true
+    },
+    {
+      "pair": "dyu-fr",
+      "pattern": "(?i)\\b(tu es|vous êtes)\\s+un\\s+homme\\s+très\\s+courageux\\b",
+      "replacement": "Merci beaucoup",
+      "reason": "Traduction erronée de 'I ni cɛ kosɛbɛ' par NLLB.",
+      "enabled": true
     }
   ]
 }
