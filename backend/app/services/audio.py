@@ -251,9 +251,6 @@ class RealAudioService:
                 )
                 inputs = self.tts_tokenizer([prompt], return_tensors="pt").to(self.device)
 
-                # Seed fixe → voix stable entre les tours
-                torch.manual_seed(42)
-
                 with torch.inference_mode():
                     generated_ids = self.tts_model.generate(
                         **inputs,
@@ -261,7 +258,7 @@ class RealAudioService:
                         do_sample=True,
                         temperature=0.8,
                         top_k=50,
-                        top_p=1.0,
+                        top_p=0.9,
                         eos_token_id=self.tts_tokenizer.eos_token_id,
                         pad_token_id=self.tts_tokenizer.pad_token_id,
                         use_cache=True,

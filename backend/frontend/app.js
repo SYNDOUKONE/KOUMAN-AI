@@ -464,8 +464,8 @@ class KoumanApp {
     });
 
     // Direct TTS speed
-    let directSpeed = 0.75;
-    const directSpeeds = [0.6, 0.75, 0.9, 1.0, 1.25, 1.5];
+    let directSpeed = 1.0;
+    const directSpeeds = [0.75, 0.9, 1.0, 1.25, 1.5];
     if (this.btnDirectTtsSpeed) {
       this.btnDirectTtsSpeed.addEventListener("click", () => {
         const idx = directSpeeds.indexOf(directSpeed);
@@ -986,7 +986,7 @@ class KoumanApp {
       const canPlayAudio = replyLang === "dyu";
       this.appendMessage("bot", data.reply, canPlayAudio, null, true);
       this.updateInspectorFromDebug(data.debug, elapsed, lang);
-      if (canPlayAudio) this.playTTS(data.reply, parseFloat(this.selectRate.value) || 0.75);
+      if (canPlayAudio) this.playTTS(data.reply, parseFloat(this.selectRate?.value) || 1.0);
 
     } catch (err) {
       this.appendMessage("bot", `⚠️ ${err.message}`, false, null, false);
@@ -1054,7 +1054,7 @@ class KoumanApp {
     // Placeholder temporaire non sauvegardé dans l'historique
     this.appendMessage("user", "🎤 [Audio vocal envoyé, transcription en cours...]", false, null, false);
     const [modeSrc, modeTgt] = (this.currentMode || "fr->dyu").split("->");
-    const rate = parseFloat(this.selectRate.value) || 0.75;
+    const rate = parseFloat(this.selectRate?.value) || 1.0;
     const lang = this.voiceLang || modeSrc;
     const tgt_lang = modeTgt || "dyu";
     const ext = audioBlob.type.includes("webm") ? "webm" : (audioBlob.type.includes("mp4") ? "mp4" : "wav");
@@ -1190,8 +1190,8 @@ class KoumanApp {
     let currentBase64 = base64Audio;
     let audioElement = null;
     let isPlaying = false;
-    let currentSpeed = parseFloat(this.selectRate?.value) || 0.75;
-    const speeds = [0.6, 0.75, 0.9, 1.0, 1.25, 1.5];
+    let currentSpeed = parseFloat(this.selectRate?.value) || 1.0;
+    const speeds = [0.75, 0.9, 1.0, 1.25, 1.5];
 
     const playBtn = document.createElement("button");
     playBtn.className = "player-play-btn";
@@ -1332,7 +1332,7 @@ class KoumanApp {
   // =====================================================================
   // TTS / AUDIO
   // =====================================================================
-  async playTTS(text, rate = 0.75) {
+  async playTTS(text, rate = 1.0) {
     try {
       this.showToast("Génération de la voix dioula...");
       const res = await fetch(`${this.apiUrl}/api/v1/audio/synthesize`, {
