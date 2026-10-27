@@ -83,8 +83,9 @@ class RealAudioService:
     def __init__(
         self,
         tts_model_id: str = "facebook/mms-tts-dyu",
-        stt_model_id: str = "Dama12/whisper-tiny-dioula",
-        stt_base_id: str = "openai/whisper-tiny",
+        stt_model_id: str = "kalilouisangare/whisper-small-bambara-v2-kis",
+        stt_base_id: str = "openai/whisper-small",
+        stt_fr_model_id: str = "openai/whisper-base",
         device: str = "auto",
         default_speaking_rate: float = 1.0,
         tts_speaker: str = "Bourama",
@@ -93,6 +94,7 @@ class RealAudioService:
         self.tts_speaker = tts_speaker
         self.stt_model_id = stt_model_id
         self.stt_base_id = stt_base_id
+        self.stt_fr_model_id = stt_fr_model_id
         self.default_speaking_rate = default_speaking_rate
 
         import torch
@@ -112,6 +114,10 @@ class RealAudioService:
         self.stt_model = None
         self.stt_feature_extractor = None
         self.stt_tokenizer = None
+        self._stt_fr_model = None
+        self._stt_fr_tokenizer = None
+        self._stt_fr_feature_extractor = None
+        self._stt_fr_forced_ids = None
         self._stt_device = "cpu"  # Whisper avec aten::isin plus stable sur CPU que MPS
 
     @property
@@ -125,6 +131,7 @@ class RealAudioService:
             "tts_model": self.tts_model_id,
             "tts_speaker": self.tts_speaker if self.is_spark_tts else None,
             "stt_model": self.stt_model_id,
+            "stt_fr_model": self.stt_fr_model_id,
             "device": self.device,
         }
 
@@ -176,48 +183,67 @@ class RealAudioService:
         if self.stt_model is not None:
             return
         from transformers import (
-            WhisperFeatureExtractor,
+            AutoFeatureExtractor,
+            AutoTokenizer,
             WhisperForConditionalGeneration,
-            WhisperTokenizer,
         )
 
-        if self.stt_feature_extractor is None:
-            self.stt_feature_extractor = WhisperFeatureExtractor.from_pretrained(self.stt_base_id)
-        # Tokenizer dyu : utilise le prompt natif de Dama12 (generation_config contient
-        # [[1, None], [2, 50359]] → détection langue auto + tâche transcription)
+        token = None
         try:
-            self.stt_tokenizer = WhisperTokenizer.from_pretrained(
-                self.stt_base_id, language="dyu", task="transcribe"
+            from huggingface_hub import HfFolder
+            token = HfFolder.get_token()
+        except Exception:
+            pass
+
+        # Feature extractor : modèle spécifique ou fallback base
+        try:
+            self.stt_feature_extractor = AutoFeatureExtractor.from_pretrained(
+                self.stt_model_id, token=token
             )
         except Exception:
-            self.stt_tokenizer = WhisperTokenizer.from_pretrained(
-                self.stt_base_id, task="transcribe"
+            self.stt_feature_extractor = AutoFeatureExtractor.from_pretrained(
+                self.stt_base_id, token=token
             )
-        self.stt_model = WhisperForConditionalGeneration.from_pretrained(self.stt_model_id).to(
-            self._stt_device
-        )
+
+        # Tokenizer : modèle spécifique ou fallback base
+        try:
+            self.stt_tokenizer = AutoTokenizer.from_pretrained(
+                self.stt_model_id, token=token
+            )
+        except Exception:
+            try:
+                self.stt_tokenizer = AutoTokenizer.from_pretrained(
+                    self.stt_base_id, language="dyu", task="transcribe", token=token
+                )
+            except Exception:
+                self.stt_tokenizer = AutoTokenizer.from_pretrained(
+                    self.stt_base_id, task="transcribe", token=token
+                )
+
+        self.stt_model = WhisperForConditionalGeneration.from_pretrained(
+            self.stt_model_id, token=token
+        ).to(self._stt_device)
         self.stt_model.eval()
 
     def _ensure_stt_fr(self) -> None:
-        """Charge openai/whisper-tiny pour la transcription du français."""
+        """Charge le modèle Whisper haute précision pour le français (ex. whisper-base)."""
         if getattr(self, "_stt_fr_model", None) is not None:
             return
         from transformers import (
-            WhisperFeatureExtractor,
+            AutoFeatureExtractor,
+            AutoTokenizer,
             WhisperForConditionalGeneration,
-            WhisperTokenizer,
         )
 
-        # Réutilise le même feature extractor si déjà chargé
-        if self.stt_feature_extractor is None:
-            self.stt_feature_extractor = WhisperFeatureExtractor.from_pretrained(self.stt_base_id)
-        self._stt_fr_tokenizer = WhisperTokenizer.from_pretrained(
-            self.stt_base_id, language="french", task="transcribe"
+        fr_id = getattr(self, "stt_fr_model_id", "openai/whisper-base") or "openai/whisper-base"
+        self._stt_fr_feature_extractor = AutoFeatureExtractor.from_pretrained(fr_id)
+        self._stt_fr_tokenizer = AutoTokenizer.from_pretrained(
+            fr_id, language="french", task="transcribe"
         )
         self._stt_fr_forced_ids = self._stt_fr_tokenizer.get_decoder_prompt_ids(
             language="french", task="transcribe"
         )
-        self._stt_fr_model = WhisperForConditionalGeneration.from_pretrained(self.stt_base_id).to(
+        self._stt_fr_model = WhisperForConditionalGeneration.from_pretrained(fr_id).to(
             self._stt_device
         )
         self._stt_fr_model.eval()
@@ -322,31 +348,34 @@ class RealAudioService:
             buf = io.BytesIO(raw_bytes)
             audio, _ = librosa.load(buf, sr=16000, mono=True)
 
-            # --- Normalisation amplitude + trim silence -------------------
+            # --- Normalisation amplitude + trim silence doux -------------
             if len(audio) == 0:
                 return ""
-            # Trim silence (top_db=25 : seuil adapté au micro navigateur)
-            audio, _ = librosa.effects.trim(audio, top_db=25)
-            # Normalisation à 0.95 pour éviter la saturation
+            # Trim doux (top_db=35) pour ne pas tronquer les premières syllabes
+            audio, _ = librosa.effects.trim(audio, top_db=35)
+            # Padding de sécurité (100ms) pour garantir l'attaque phonétique
+            pad = np.zeros(int(16000 * 0.1), dtype=np.float32)
+            audio = np.concatenate([pad, audio, pad])
+            # Normalisation à 0.95 pour un signal clair sans saturation
             peak = np.max(np.abs(audio))
             if peak > 0:
                 audio = audio / peak * 0.95
 
-            # --- Préparer le modèle et feature extractor selon la langue ---
+            # --- Sélection du modèle et du feature extractor selon la langue ---
             if lang == "fr":
-                # Whisper tiny standard, forcé sur le français
                 self._ensure_stt_fr()
                 stt_model = self._stt_fr_model
                 stt_tokenizer = self._stt_fr_tokenizer
+                stt_fe = self._stt_fr_feature_extractor
                 forced_ids = self._stt_fr_forced_ids
             else:
-                # Whisper Dioula fine-tuné (Dama12), prompt depuis generation_config
                 self._ensure_stt()
                 stt_model = self.stt_model
                 stt_tokenizer = self.stt_tokenizer
+                stt_fe = self.stt_feature_extractor
                 forced_ids = None
 
-            inputs = self.stt_feature_extractor(
+            inputs = stt_fe(
                 audio, sampling_rate=16000, return_tensors="pt"
             ).to(self._stt_device)
 
@@ -378,6 +407,7 @@ def build_audio_service(settings: Settings) -> AudioService:
             tts_speaker=getattr(settings, "tts_speaker", "Bourama"),
             stt_model_id=settings.stt_model_id,
             stt_base_id=settings.stt_base_id,
+            stt_fr_model_id=getattr(settings, "stt_fr_model_id", "openai/whisper-base"),
             device=settings.device,
             default_speaking_rate=settings.tts_default_speaking_rate,
         )

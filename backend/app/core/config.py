@@ -47,14 +47,14 @@ def _env_list(name: str, default: list[str]) -> list[str]:
 
 @dataclass(frozen=True)
 class Settings:
-    # --- Implémentations -------------------------------------------------
     translator_backend: str = "stub"  # "stub" | "nllb"
     llm_backend: str = "stub"  # "stub" | "gemini" | "openrouter"
     audio_backend: str = "stub"  # "stub" | "real"
     tts_model_id: str = "facebook/mms-tts-dyu"
     tts_speaker: str = "Bourama"
-    stt_model_id: str = "Dama12/whisper-tiny-dioula"
-    stt_base_id: str = "openai/whisper-tiny"
+    stt_model_id: str = "kalilouisangare/whisper-small-bambara-v2-kis"
+    stt_base_id: str = "openai/whisper-small"
+    stt_fr_model_id: str = "openai/whisper-base"
     tts_default_speaking_rate: float = 1.0
 
     # --- Traducteur NLLB + LoRA ------------------------------------------
@@ -121,6 +121,7 @@ class Settings:
             tts_speaker=_env("KOUMA_TTS_SPEAKER", cls.tts_speaker),
             stt_model_id=_env("KOUMA_STT_MODEL", cls.stt_model_id),
             stt_base_id=_env("KOUMA_STT_BASE_MODEL", cls.stt_base_id),
+            stt_fr_model_id=_env("KOUMA_STT_FR_MODEL", cls.stt_fr_model_id),
             tts_default_speaking_rate=float(
                 _env("KOUMA_TTS_SPEED", str(cls.tts_default_speaking_rate))
             ),
