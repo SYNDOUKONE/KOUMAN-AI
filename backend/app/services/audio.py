@@ -382,7 +382,7 @@ class RealAudioService:
             # --- Transcription selon la langue ----------------------------
             with torch.no_grad():
                 gen_kwargs = {
-                    "num_beams": 3,
+                    "num_beams": 1,
                     "max_new_tokens": 128,
                 }
                 if forced_ids is not None:
