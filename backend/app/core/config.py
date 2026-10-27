@@ -16,7 +16,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 try:
     from dotenv import load_dotenv
 
-    load_dotenv(ROOT_DIR / ".env")
+    load_dotenv(ROOT_DIR / ".env", override=True)
 except ImportError:
     pass
 
