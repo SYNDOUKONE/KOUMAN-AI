@@ -710,9 +710,10 @@ class KoumanApp {
         </div>
 
         <div class="pipeline-tech-pills">
-          <span class="tech-pill">🧠 <strong>NLLB-200</strong> Dioula</span>
+          <span class="tech-pill">🧠 <strong>NLLB-200</strong> Dioula (5c36e48)</span>
           <span class="tech-pill">⚡ <strong>Claude Sonnet 5</strong></span>
-          <span class="tech-pill">🎙️ <strong>MMS-TTS & Whisper</strong></span>
+          <span class="tech-pill">🎙️ <strong>MALIBA-AI ASR-v3</strong> (Whisper Large)</span>
+          <span class="tech-pill">🔊 <strong>Spark-TTS</strong> Bambara (Bourama)</span>
         </div>
         <div class="scenarios-section-header">
           <div class="scenarios-section-title">✨ Scénarios rapides</div>
@@ -1316,7 +1317,7 @@ class KoumanApp {
     this.inspectorStatusBadge.textContent = "Terminé (Vocal)";
     this.statTotalMs.textContent = `${totalMs} ms`;
     this.stepSttText.textContent = data.user_transcript || "—";
-    this.stepTtsText.textContent = "Audio généré via Meta MMS-TTS Dioula";
+    this.stepTtsText.textContent = "Audio généré via Spark-TTS Bambara (Bourama)";
     const t = data.timings_ms || {};
     this.statSttMs.textContent = t.stt ? `${Math.round(t.stt)} ms` : "— ms";
     this.statMtInMs.textContent = t.mt_in ? `${Math.round(t.mt_in)} ms` : "— ms";
