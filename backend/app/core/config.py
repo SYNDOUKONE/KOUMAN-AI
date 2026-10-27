@@ -52,8 +52,8 @@ class Settings:
     audio_backend: str = "stub"  # "stub" | "real"
     tts_model_id: str = "facebook/mms-tts-dyu"
     tts_speaker: str = "Bourama"
-    stt_model_id: str = "kalilouisangare/whisper-small-bambara-v2-kis"
-    stt_base_id: str = "openai/whisper-small"
+    stt_model_id: str = "MALIBA-AI/bambara-asr-v3"
+    stt_base_id: str = "openai/whisper-large-v3"
     stt_fr_model_id: str = "openai/whisper-base"
     tts_default_speaking_rate: float = 1.0
 
