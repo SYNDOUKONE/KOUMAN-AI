@@ -30,6 +30,30 @@ const SCENARIOS_BIDI = [
   { id: "DYU_10", direction: "dyu->fr", src_lang: "dyu", tgt_lang: "fr", cat: "Remerciement",   text: "An bɛ bɛn sini, i ni cɛ kosɛbɛ.",         ref: "À demain, merci beaucoup." },
 ];
 
+// --- SUGGESTIONS ÉPURÉES POUR NOUVELLE CONVERSATION ---
+const SUGGESTIONS_PROMPTS = {
+  fr: [
+    { icon: "🌾", cat: "Commerce & Marché", text: "Combien coûte le sac de riz au marché aujourd'hui ?" },
+    { icon: "🏥", cat: "Santé & Soins", text: "Où se trouve le centre de santé le plus proche ?" },
+    { icon: "🌦️", cat: "Météo du jour", text: "Est-ce qu'il va pleuvoir aujourd'hui ?" },
+    { icon: "🤝", cat: "Salutations", text: "Comment saluer les aînés avec respect en dioula ?" },
+    { icon: "🚗", cat: "Transport", text: "Je cherche un taxi pour aller au grand marché." },
+    { icon: "💡", cat: "Culture mandingue", text: "Explique-moi le proverbe : 'Dɔɔni-dɔɔni kɔnɔ bɛ nyɛa da'." },
+    { icon: "🍲", cat: "Gastronomie", text: "Quels sont les ingrédients pour préparer un bon tô avec sauce gombo ?" },
+    { icon: "📚", cat: "Langue & Politesse", text: "Comment dit-on 'merci pour votre hospitalité' en dioula ?" },
+  ],
+  dyu: [
+    { icon: "🌾", cat: "Sugu la", text: "N bɛ taa sugu la bi ka malo san." },
+    { icon: "🏥", cat: "Kɛnɛya", text: "Dɔgɔtɔrɔso bɛ min yɔrɔ juman ?" },
+    { icon: "🌧️", cat: "Sanji", text: "Sanji bɛna na bi wa ?" },
+    { icon: "🤝", cat: "Foli ni sabali", text: "Aw ni sɔgɔma, i ka kɛnɛ wa ?" },
+    { icon: "🏠", cat: "So kɔnɔ", text: "Jii dɔɔnin di n ma dusu la." },
+    { icon: "💼", cat: "Baara la", text: "Baara ka gɛlɛn nka a nafa ka bon kosɛbɛ." },
+    { icon: "👨‍👩‍👧", cat: "Somɔgɔw", text: "Somɔgɔw bɛ di ? Denmisɛnw bɛ kɛnɛya la wa ?" },
+    { icon: "🌙", cat: "Sini foli", text: "An bɛ bɛn sini, Ala k'an si hɛrɛ la." },
+  ]
+};
+
 let activeFilter = "all";
 
 // ==========================================================================
@@ -224,6 +248,8 @@ class KoumanApp {
     this.mediaRecorder = null;
     this.audioChunks = [];
     this.isRecording = false;
+    this.isStartingRecording = false;
+    this.isStoppingRecording = false;
     this.isProcessingVoice = false;  // Guard anti-double-envoi
     this.activeAudio = null;
     this.voiceLang = "fr";  // Langue de la voix : "dyu" ou "fr"
@@ -257,6 +283,7 @@ class KoumanApp {
     this.welcomeHero = document.getElementById("welcome-hero");
     this.chatInput = document.getElementById("chat-input-text");
     this.btnSend = document.getElementById("btn-send-message");
+    this.btnCancelRequest = document.getElementById("btn-cancel-request");
     this.btnRecord = document.getElementById("btn-record-voice");
     this.micIcon = document.getElementById("mic-icon");
     this.btnVoiceLang = document.getElementById("btn-voice-lang");
@@ -289,19 +316,22 @@ class KoumanApp {
     this.inspectorOverlay = document.getElementById("inspector-overlay");
     this.btnCloseInspector = document.getElementById("btn-close-inspector");
     this.btnToggleInspector = document.getElementById("btn-toggle-inspector");
-    this.welcomeFilterBar = document.getElementById("welcome-filter-bar");
     this.statTotalMs = document.getElementById("stat-total-ms");
     this.statSttMs = document.getElementById("stat-stt-ms");
     this.stepSttText = document.getElementById("step-stt-text");
+    this.stepSttModel = document.getElementById("step-stt-model");
     this.statMtInMs = document.getElementById("stat-mt-in-ms");
     this.stepMtInText = document.getElementById("step-mt-in-text");
+    this.stepMtInModel = document.getElementById("step-mt-in-model");
     this.statLlmMs = document.getElementById("stat-llm-ms");
     this.stepLlmText = document.getElementById("step-llm-text");
     this.statLlmName = document.getElementById("stat-llm-name");
     this.statMtOutMs = document.getElementById("stat-mt-out-ms");
     this.stepMtOutText = document.getElementById("step-mt-out-text");
+    this.stepMtOutModel = document.getElementById("step-mt-out-model");
     this.statTtsMs = document.getElementById("stat-tts-ms");
     this.stepTtsText = document.getElementById("step-tts-text");
+    this.stepTtsModel = document.getElementById("step-tts-model");
     this.inspectorStatusBadge = document.getElementById("inspector-status-badge");
 
     // Statut & Modal
@@ -355,12 +385,13 @@ class KoumanApp {
     this.tabChat.addEventListener("click", () => this.switchTab("chat"));
     this.tabTranslate.addEventListener("click", () => this.switchTab("translate"));
 
-    // Chat actions
-    this.btnSend.addEventListener("click", () => this.sendTextMessage());
+    // Chat actions (assignation directe .onclick pour empêcher tout listener dupliqué)
+    this.btnSend.onclick = (e) => { e.preventDefault(); this.sendTextMessage(); };
     this.chatInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); this.sendTextMessage(); }
     });
-    this.btnRecord.addEventListener("click", () => this.toggleVoiceRecording());
+    this.btnRecord.onclick = (e) => { e.preventDefault(); this.toggleVoiceRecording(); };
+    if (this.btnCancelRequest) this.btnCancelRequest.onclick = () => this._cancelRequest();
 
     // Toggle langue voix
     this.btnVoiceLang?.addEventListener("click", () => {
@@ -406,14 +437,9 @@ class KoumanApp {
 
     // Inspector toggle
     const toggleInspector = () => {
-      const isMobile = window.innerWidth <= 1024;
-      if (isMobile) {
-        const isOpen = this.inspector.classList.contains("open");
-        this.inspector.classList.toggle("open", !isOpen);
-        if (this.inspectorOverlay) this.inspectorOverlay.classList.toggle("open", !isOpen);
-      } else {
-        this.inspector.classList.toggle("collapsed");
-      }
+      const isOpen = this.inspector.classList.contains("open");
+      this.inspector.classList.toggle("open", !isOpen);
+      if (this.inspectorOverlay) this.inspectorOverlay.classList.toggle("open", !isOpen);
     };
     this.btnToggleInspector?.addEventListener("click", toggleInspector);
     this.btnCloseInspector?.addEventListener("click", () => {
@@ -427,17 +453,8 @@ class KoumanApp {
       });
     }
 
-    // Filtres scénarios
-    if (this.welcomeFilterBar) {
-      this.welcomeFilterBar.querySelectorAll(".filter-chip").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          this.welcomeFilterBar.querySelectorAll(".filter-chip").forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          activeFilter = btn.dataset.dir || "all";
-          this.renderScenarios();
-        });
-      });
-    }
+    // Bouton rotation des suggestions de questions
+    document.getElementById("btn-refresh-suggestions")?.addEventListener("click", () => this.rotateSuggestions());
 
     // Settings modal
     this.btnOpenSettings?.addEventListener("click", () => this.modalSettings.classList.add("open"));
@@ -454,11 +471,23 @@ class KoumanApp {
     this.btnSwapLanguages?.addEventListener("click", () => this.swapLanguages());
     this.btnClearSrc?.addEventListener("click", () => {
       this.translateSrcText.value = "";
-      this.translateTgtText.value = "";
+      if (this.translateTgtText) {
+        if ('value' in this.translateTgtText) this.translateTgtText.value = "";
+        this.translateTgtText.textContent = "";
+      }
+      if (this.translateTimeIndicator) this.translateTimeIndicator.textContent = "";
+      this.translateSrcText.focus();
+    });
+    this.translateSrcText?.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        this.runDirectTranslate();
+      }
     });
     this.btnCopyTgt?.addEventListener("click", () => {
-      if (this.translateTgtText.value) {
-        navigator.clipboard.writeText(this.translateTgtText.value);
+      const val = (this.translateTgtText?.value || this.translateTgtText?.textContent || "").trim();
+      if (val) {
+        navigator.clipboard.writeText(val);
         this.showToast("Traduction copiée !");
       }
     });
@@ -470,7 +499,9 @@ class KoumanApp {
       this.btnDirectTtsSpeed.addEventListener("click", () => {
         const idx = directSpeeds.indexOf(directSpeed);
         directSpeed = directSpeeds[(idx + 1) % directSpeeds.length];
-        this.btnDirectTtsSpeed.querySelector("strong").textContent = `${directSpeed}x`;
+        const strong = this.btnDirectTtsSpeed.querySelector("strong");
+        if (strong) strong.textContent = `${directSpeed}×`;
+        else this.btnDirectTtsSpeed.textContent = `${directSpeed}×`;
         if (this.activeAudio) {
           this.activeAudio.playbackRate = directSpeed;
           this.activeAudio.preservesPitch = true;
@@ -480,7 +511,7 @@ class KoumanApp {
     }
 
     this.btnListenDirect?.addEventListener("click", () => {
-      const text = this.translateTgtText.value || this.translateSrcText.value;
+      const text = (this.translateTgtText?.value || this.translateTgtText?.textContent || this.translateSrcText?.value || "").trim();
       if (text) this.playTTS(text, directSpeed);
     });
   }
@@ -665,83 +696,30 @@ class KoumanApp {
     if (notify) {
       this.showToast(`Mode activé : ${cfg.label}`);
     }
+
+    // Actualise les suggestions de questions selon la langue choisie
+    this.renderSuggestions();
   }
 
   clearMessages() {
-    // Réinitialise le conteneur de messages et réaffiche le welcome hero
-    this.messagesContainer.innerHTML = "";
+    // 1. Supprime toutes les bulles de messages existantes (conversation en cours)
+    const messageRows = this.messagesContainer.querySelectorAll(".message-row, .thinking-bubble, .date-separator");
+    messageRows.forEach((row) => row.remove());
+
+    // 2. Si le welcomeHero a été détaché du DOM, le réinsérer au début
+    if (this.welcomeHero && !this.messagesContainer.contains(this.welcomeHero)) {
+      this.messagesContainer.prepend(this.welcomeHero);
+    }
+
+    // 3. Réactiver et mettre à jour le welcome hero
     if (this.welcomeHero) {
-      const hero = document.createElement("div");
-      hero.className = "welcome-hero";
-      hero.id = "welcome-hero";
-      hero.innerHTML = `
-        <div class="welcome-badge">🌍 Intelligence Artificielle Locale & Vocale</div>
-        <h2>I bisimila ! <span id="welcome-username">${this.escapeHtml(this.profile.name)} !</span></h2>
-        <p>Posez vos questions par écrit ou au micro en <strong>Dioula</strong> ou en <strong>Français</strong>.<br>Kouman traduit, raisonne et vous répond avec la voix.</p>
-
-        <!-- 🎯 Choix du Mode d'échange au début de conversation -->
-        <div class="welcome-modes-section">
-          <div class="welcome-modes-title">
-            <span class="welcome-modes-icon">🎯</span>
-            <span>Choisissez le mode d'échange pour cette conversation :</span>
-          </div>
-          <div class="welcome-modes-grid" id="welcome-modes-grid">
-            <button class="welcome-mode-card ${this.currentMode === "fr->dyu" ? "active" : ""}" data-mode="fr->dyu">
-              <div class="card-flags">🇫🇷 ➔ 🗣️</div>
-              <div class="card-title">Français ➔ Dioula</div>
-              <div class="card-desc">Vous vous exprimez en Français, Kouman répond en Dioula avec audio.</div>
-            </button>
-            <button class="welcome-mode-card ${this.currentMode === "dyu->fr" ? "active" : ""}" data-mode="dyu->fr">
-              <div class="card-flags">🗣️ ➔ 🇫🇷</div>
-              <div class="card-title">Dioula ➔ Français</div>
-              <div class="card-desc">Vous vous exprimez en Dioula, Kouman répond en Français.</div>
-            </button>
-            <button class="welcome-mode-card ${this.currentMode === "dyu->dyu" ? "active" : ""}" data-mode="dyu->dyu">
-              <div class="card-flags">🗣️ ➔ 🗣️</div>
-              <div class="card-title">Dioula ➔ Dioula</div>
-              <div class="card-desc">Conversation intégrale en Dioula avec synthèse vocale.</div>
-            </button>
-            <button class="welcome-mode-card ${this.currentMode === "fr->fr" ? "active" : ""}" data-mode="fr->fr">
-              <div class="card-flags">🇫🇷 ➔ 🇫🇷</div>
-              <div class="card-title">Français ➔ Français</div>
-              <div class="card-desc">Conversation intégrale en Français fluide.</div>
-            </button>
-          </div>
-        </div>
-
-        <div class="pipeline-tech-pills">
-          <span class="tech-pill">🧠 <strong>NLLB-200</strong> Dioula (5c36e48)</span>
-          <span class="tech-pill">⚡ <strong>Claude Sonnet 5</strong></span>
-          <span class="tech-pill">🎙️ <strong>MALIBA-AI ASR-v3</strong> (Whisper Large)</span>
-          <span class="tech-pill">🔊 <strong>Spark-TTS</strong> Bambara (Bourama)</span>
-        </div>
-        <div class="scenarios-section-header">
-          <div class="scenarios-section-title">✨ Scénarios rapides</div>
-          <div class="direction-filter-bar" id="welcome-filter-bar">
-            <button class="filter-chip ${activeFilter === "all" ? "active" : ""}" data-dir="all">🌐 Tous</button>
-            <button class="filter-chip ${activeFilter === "fr->dyu" ? "active" : ""}" data-dir="fr->dyu">🇫🇷 ➔ 🗣️</button>
-            <button class="filter-chip ${activeFilter === "dyu->fr" ? "active" : ""}" data-dir="dyu->fr">🗣️ ➔ 🇫🇷</button>
-          </div>
-        </div>
-        <div class="quick-chips-grid" id="welcome-chips-container"></div>
-      `;
-      this.messagesContainer.appendChild(hero);
-      this.welcomeHero = hero;
-      this.welcomeChipsContainer = hero.querySelector("#welcome-chips-container");
-      this.welcomeFilterBar = hero.querySelector("#welcome-filter-bar");
-
-      // Re-bind filtres scenarios
-      this.welcomeFilterBar?.querySelectorAll(".filter-chip").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          this.welcomeFilterBar.querySelectorAll(".filter-chip").forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          activeFilter = btn.dataset.dir || "all";
-          this.renderScenarios();
-        });
-      });
-
+      this.welcomeHero.style.display = "flex";
+      const usernameSpan = this.welcomeHero.querySelector("#welcome-username");
+      if (usernameSpan && this.profile) {
+        usernameSpan.textContent = this.profile.name;
+      }
       this.bindWelcomeModes();
-      this.renderScenarios();
+      this.renderSuggestions();
     }
   }
 
@@ -852,7 +830,18 @@ class KoumanApp {
       const data = await res.json();
       this.statusBadge.className = "badge-status";
       this.statusText.textContent = `En ligne`;
-      if (data.llm_model) this.statLlmName.textContent = `Modèle : ${data.llm_model}`;
+      if (data.llm_model && this.statLlmName) this.statLlmName.textContent = data.llm_model;
+      if (data.translator?.base_model) {
+        const transName = `${data.translator.base_model} (NLLB)`;
+        if (this.stepMtInModel) this.stepMtInModel.textContent = transName;
+        if (this.stepMtOutModel) this.stepMtOutModel.textContent = transName;
+      }
+      if (data.audio?.stt_model && this.stepSttModel) {
+        this.stepSttModel.textContent = `${data.audio.stt_model} (Whisper)`;
+      }
+      if (data.audio?.tts_model && this.stepTtsModel) {
+        this.stepTtsModel.textContent = `${data.audio.tts_model} (${data.audio.tts_speaker || "Voix"})`;
+      }
     } catch {
       this.statusBadge.className = "badge-status error";
       this.statusText.textContent = "Hors ligne";
@@ -860,41 +849,57 @@ class KoumanApp {
   }
 
   // =====================================================================
-  // SCÉNARIOS
+  // SUGGESTIONS DE QUESTIONS (Épurées & Modernes)
   // =====================================================================
-  renderScenarios() {
-    if (!this.scenariosQuickBar || !this.welcomeChipsContainer) return;
-    this.scenariosQuickBar.innerHTML = "";
+  renderSuggestions() {
+    if (!this.welcomeChipsContainer) return;
     this.welcomeChipsContainer.innerHTML = "";
 
-    const visible = activeFilter === "all"
-      ? SCENARIOS_BIDI
-      : SCENARIOS_BIDI.filter((s) => s.direction === activeFilter);
+    // Masque la barre de test horizontale si présente
+    if (this.scenariosQuickBar) {
+      this.scenariosQuickBar.classList.add("hidden");
+    }
 
-    visible.forEach((item) => {
-      const isDyuSrc = item.src_lang === "dyu";
-      const dirIcon = isDyuSrc ? "🗣️ ➔ 🇫🇷" : "🇫🇷 ➔ 🗣️";
+    // Détermine la langue des suggestions selon le mode actif
+    const isDyuInput = this.currentMode === "dyu->fr" || this.currentMode === "dyu->dyu";
+    const list = isDyuInput ? SUGGESTIONS_PROMPTS.dyu : SUGGESTIONS_PROMPTS.fr;
 
-      const card = document.createElement("div");
-      card.className = "bidi-card";
+    if (typeof this._suggestionIndex !== "number") this._suggestionIndex = 0;
+    const count = 4;
+    const start = this._suggestionIndex % list.length;
+    let selected = list.slice(start, start + count);
+    if (selected.length < count) {
+      selected = selected.concat(list.slice(0, count - selected.length));
+    }
+
+    selected.forEach((item) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "suggestion-card";
       card.innerHTML = `
-        <div class="bidi-card-top">
-          <span class="bidi-tag">${item.cat}</span>
-          <span class="bidi-dir-badge">${dirIcon}</span>
+        <span class="suggestion-icon">${item.icon}</span>
+        <div class="suggestion-body">
+          <div class="suggestion-cat">${item.cat}</div>
+          <div class="suggestion-text">${item.text}</div>
         </div>
-        <div class="bidi-card-text">${item.text}</div>
-        <div class="bidi-card-ref">« ${item.ref} »</div>
       `;
-      card.addEventListener("click", () => this.injectScenarioBidi(item));
+      card.addEventListener("click", () => {
+        this.chatInput.value = item.text;
+        this.chatInput.focus();
+        this.chatInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
       this.welcomeChipsContainer.appendChild(card);
-
-      const pill = document.createElement("button");
-      pill.className = "quick-pill";
-      pill.innerHTML = `<strong>${item.id}</strong> <span>${item.text}</span>`;
-      pill.title = `${item.cat} — Réf : ${item.ref}`;
-      pill.addEventListener("click", () => this.injectScenarioBidi(item));
-      this.scenariosQuickBar.appendChild(pill);
     });
+  }
+
+  rotateSuggestions() {
+    this._suggestionIndex = (this._suggestionIndex || 0) + 4;
+    this.renderSuggestions();
+  }
+
+  // Alias pour rétrocompatibilité
+  renderScenarios() {
+    this.renderSuggestions();
   }
 
   injectScenarioBidi(item) {
@@ -914,6 +919,31 @@ class KoumanApp {
   }
 
   // =====================================================================
+  // CANCEL / ABORT HELPERS
+  // =====================================================================
+  _showCancelBtn() {
+    this.btnCancelRequest?.classList.remove("hidden");
+  }
+
+  _hideCancelBtn() {
+    this.btnCancelRequest?.classList.add("hidden");
+  }
+
+  _cancelRequest() {
+    if (this._currentAbortController) {
+      this._currentAbortController.abort();
+      this._currentAbortController = null;
+    }
+    // Annule aussi l'enregistrement vocal en cours
+    if (this.isRecording) this.stopVoiceRecording();
+    this._hideCancelBtn();
+    this.btnSend.disabled = false;
+    this.isProcessingVoice = false;
+    this.showToast("⛔ Requête annulée");
+    this.inspectorStatusBadge.textContent = "Annulé";
+  }
+
+  // =====================================================================
   // CHAT TEXT
   // =====================================================================
   async sendTextMessage() {
@@ -926,6 +956,8 @@ class KoumanApp {
     this.appendMessage("user", text, false, null, true);
     this.chatInput.value = "";
     this.btnSend.disabled = true;
+    this._currentAbortController = new AbortController();
+    this._showCancelBtn();
 
     // Détection de consigne explicite dans le texte ("réponds en français" / "réponds en dioula")
     const lower = text.toLowerCase();
@@ -963,10 +995,17 @@ class KoumanApp {
     }
 
     // Reset inspector
-    this.inspectorStatusBadge.textContent = "Traitement...";
-    this.stepSttText.textContent = "Mode texte";
-    this.statSttMs.textContent = "0 ms";
-    this.stepMtInText.textContent = lang === "fr" ? "Message en français." : "Traduction en cours...";
+    if (this.inspectorStatusBadge) {
+      this.inspectorStatusBadge.className = "inspector-badge processing";
+      this.inspectorStatusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current animate-ping"></span><span>Traitement...</span>`;
+    }
+    if (this.statTotalMs) this.statTotalMs.textContent = "...";
+    if (this.stepSttText) this.stepSttText.textContent = `⌨️ « ${text} »`;
+    if (this.statSttMs) this.statSttMs.textContent = "0 ms";
+    if (this.stepMtInText) this.stepMtInText.textContent = lang === "fr" ? "Message en français (pivot direct)" : "Traduction vers pivot français en cours...";
+    if (this.stepLlmText) this.stepLlmText.textContent = "Génération LLM en cours...";
+    if (this.stepMtOutText) this.stepMtOutText.textContent = "En attente...";
+    if (this.stepTtsText) this.stepTtsText.textContent = "En attente...";
     const t0 = performance.now();
 
     try {
@@ -974,6 +1013,7 @@ class KoumanApp {
         method: "POST",
         headers: this.getHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({ session_id: this.currentSessionId, lang, tgt_lang: effectiveTgt, message: text }),
+        signal: this._currentAbortController?.signal,
       });
 
       if (!response.ok) {
@@ -986,13 +1026,25 @@ class KoumanApp {
       const replyLang = data.lang || effectiveTgt;
       const canPlayAudio = replyLang === "dyu";
       this.appendMessage("bot", data.reply, canPlayAudio, null, true);
-      this.updateInspectorFromDebug(data.debug, elapsed, lang);
+      this.updateInspectorFromDebug(data.debug, elapsed, lang, text, data.reply);
       if (canPlayAudio) this.playTTS(data.reply, parseFloat(this.selectRate?.value) || 1.0);
 
     } catch (err) {
-      this.appendMessage("bot", `⚠️ ${err.message}`, false, null, false);
-      this.inspectorStatusBadge.textContent = "Erreur";
+      if (err.name === "AbortError") {
+        if (this.inspectorStatusBadge) {
+          this.inspectorStatusBadge.className = "inspector-badge idle";
+          this.inspectorStatusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>Annulé</span>`;
+        }
+      } else {
+        this.appendMessage("bot", `⚠️ ${err.message}`, false, null, false);
+        if (this.inspectorStatusBadge) {
+          this.inspectorStatusBadge.className = "inspector-badge error";
+          this.inspectorStatusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>Erreur</span>`;
+        }
+      }
     } finally {
+      this._currentAbortController = null;
+      this._hideCancelBtn();
       this.btnSend.disabled = false;
     }
   }
@@ -1001,47 +1053,174 @@ class KoumanApp {
   // VOICE RECORDING
   // =====================================================================
   async toggleVoiceRecording() {
-    if (this.isRecording) this.stopVoiceRecording();
-    else await this.startVoiceRecording();
-  }
-
-  async startVoiceRecording() {
-    try {
-      // Contraintes optimales pour la reconnaissance vocale
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          channelCount: 1,
-          sampleRate: 16000,
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true,
-        }
-      });
-      this.audioChunks = [];
-      this.mediaRecorder = new MediaRecorder(stream);
-      this.mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) this.audioChunks.push(e.data); };
-      this.mediaRecorder.onstop = () => {
-        const mimeType = this.mediaRecorder.mimeType || "audio/webm";
-        const audioBlob = new Blob(this.audioChunks, { type: mimeType });
-        stream.getTracks().forEach(t => t.stop());
-        this.sendVoiceMessage(audioBlob);
-      };
-      this.mediaRecorder.start();
-      this.isRecording = true;
-      this.btnRecord.classList.add("recording");
-      this.micIcon.textContent = "⏹️";
-      const langLabel = this.voiceLang === "fr" ? "Français 🇫🇷" : "Dioula 🗣️";
-      this.showToast(`Enregistrement… Parlez en ${langLabel}`);
-    } catch (err) {
-      alert("Impossible d'accéder au micro : " + err.message);
+    // Verrou strict : ignorer tout clic pendant le démarrage, l'arrêt ou le traitement
+    if (this.isProcessingVoice || this.isStartingRecording || this.isStoppingRecording) return;
+    if (this.isRecording) {
+      this.stopVoiceRecording();
+    } else {
+      await this.startVoiceRecording();
     }
   }
 
-  stopVoiceRecording() {
-    if (this.mediaRecorder && this.isRecording) {
-      this.mediaRecorder.stop();
+  async startVoiceRecording() {
+    // Double sécurité : si déjà actif ou en démarrage, on abandonne
+    if (this.isRecording || this.isStartingRecording || this.isProcessingVoice) return;
+    this.isStartingRecording = true;
+    this.btnRecord.disabled = true;
+    this.btnRecord.style.pointerEvents = "none";
+    this.micIcon.textContent = "⏳";
+
+    try {
+      // Contraintes optimisées pour la reconnaissance vocale
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          channelCount: 1,
+          sampleRate: { ideal: 16000 },
+          echoCancellation: true,
+          noiseSuppression: false,
+          autoGainControl: true,
+        }
+      });
+
+      // Si l'utilisateur ou le système a annulé entre-temps
+      if (!this.isStartingRecording) {
+        stream.getTracks().forEach(t => t.stop());
+        return;
+      }
+
+      this._currentStream = stream;
+      this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const source = this._audioCtx.createMediaStreamSource(stream);
+      this._analyser = this._audioCtx.createAnalyser();
+      this._analyser.fftSize = 256;
+      source.connect(this._analyser);
+      this._vuData = new Uint8Array(this._analyser.frequencyBinCount);
+      this._startVuMeter();
+
+      this.audioChunks = [];
+      this._recordingStart = Date.now();
+
+      const recorderOptions = {};
+      if (MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) {
+        recorderOptions.mimeType = "audio/webm;codecs=opus";
+        recorderOptions.audioBitsPerSecond = 64000;
+      }
+      const recorder = new MediaRecorder(stream, recorderOptions);
+      this.mediaRecorder = recorder;
+
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) this.audioChunks.push(e.data);
+      };
+
+      let hasHandledStop = false;
+      recorder.onstop = () => {
+        // Empêcher toute double exécution de onstop (trigger fantôme de track.stop())
+        if (hasHandledStop) return;
+        hasHandledStop = true;
+
+        // Détacher immédiatement les listeners pour éviter les triggers parasites
+        recorder.onstop = null;
+        recorder.ondataavailable = null;
+
+        this._stopVuMeter();
+        const durationMs = Date.now() - this._recordingStart;
+        const mimeType = recorder.mimeType || "audio/webm";
+        const chunks = this.audioChunks.slice();
+        this.audioChunks = []; // Vider immédiatement pour empêcher les ré-envois
+
+        // Arrêter proprement les pistes audio après avoir détaché le listener
+        try {
+          stream.getTracks().forEach(t => t.stop());
+        } catch (e) {}
+        this._currentStream = null;
+
+        if (durationMs < 500 || chunks.length === 0) {
+          this.showToast("⚠️ Enregistrement trop court, réessayez", "warning");
+          this.isRecording = false;
+          this.isStoppingRecording = false;
+          this.btnRecord.disabled = false;
+          this.btnRecord.style.pointerEvents = "";
+          this.btnRecord.classList.remove("recording");
+          this.micIcon.textContent = "🎙️";
+          return;
+        }
+
+        const audioBlob = new Blob(chunks, { type: mimeType });
+        if (this._avgVolume < 10) {
+          this.showToast("⚠️ Volume très faible — rapprochez-vous du micro", "warning");
+        }
+        this.sendVoiceMessage(audioBlob);
+      };
+
+      recorder.start(250); // chunks réguliers
+      this.isRecording = true;
+      this.isStartingRecording = false;
+      this.btnRecord.disabled = false;
+      this.btnRecord.style.pointerEvents = "";
+      this.btnRecord.classList.add("recording");
+      this.micIcon.textContent = "⏹️";
+      const langLabel = this.voiceLang === "fr" ? "Français 🇫🇷" : "Dioula 🗣️";
+      this.showToast(`🎙️ Parlez clairement en ${langLabel}…`);
+    } catch (err) {
+      alert("Impossible d'accéder au micro : " + err.message);
       this.isRecording = false;
+      this.isStartingRecording = false;
+      this.isStoppingRecording = false;
+      this.btnRecord.disabled = false;
+      this.btnRecord.style.pointerEvents = "";
       this.btnRecord.classList.remove("recording");
+      this.micIcon.textContent = "🎙️";
+    }
+  }
+
+  /** Affiche un indicateur visuel du niveau sonore sur le bouton micro */
+  _startVuMeter() {
+    this._avgVolume = 0;
+    this._vuSamples = 0;
+    this._vuInterval = setInterval(() => {
+      if (!this._analyser) return;
+      this._analyser.getByteFrequencyData(this._vuData);
+      const avg = this._vuData.reduce((a, b) => a + b, 0) / this._vuData.length;
+      this._avgVolume = ((this._avgVolume * this._vuSamples) + avg) / (this._vuSamples + 1);
+      this._vuSamples++;
+      // Couleur du bouton : vert si bon niveau, orange si faible, rouge si trop fort
+      if (this.btnRecord) {
+        const pct = Math.min(avg / 128, 1);
+        if (avg < 5) {
+          this.btnRecord.style.boxShadow = "0 0 0 3px rgba(239,68,68,0.5)";  // rouge = rien
+        } else if (avg < 30) {
+          this.btnRecord.style.boxShadow = "0 0 0 3px rgba(245,158,11,0.5)"; // orange = faible
+        } else {
+          this.btnRecord.style.boxShadow = `0 0 0 ${3 + pct * 8}px rgba(34,197,94,0.4)`; // vert = OK
+        }
+      }
+    }, 100);
+  }
+
+  _stopVuMeter() {
+    if (this._vuInterval) clearInterval(this._vuInterval);
+    if (this._audioCtx) { this._audioCtx.close().catch(() => {}); this._audioCtx = null; }
+    if (this.btnRecord) this.btnRecord.style.boxShadow = "";
+  }
+
+  stopVoiceRecording() {
+    if (!this.mediaRecorder || !this.isRecording || this.isStoppingRecording) return;
+    this.isStoppingRecording = true;
+    this.isRecording = false;
+    this.btnRecord.disabled = true;
+    this.btnRecord.style.pointerEvents = "none";
+    this.btnRecord.classList.remove("recording");
+    this.micIcon.textContent = "⏳";
+
+    try {
+      if (this.mediaRecorder.state !== "inactive") {
+        this.mediaRecorder.stop();
+      }
+    } catch (e) {
+      console.warn("Erreur stop MediaRecorder:", e);
+      this.isStoppingRecording = false;
+      this.btnRecord.disabled = false;
+      this.btnRecord.style.pointerEvents = "";
       this.micIcon.textContent = "🎙️";
     }
   }
@@ -1050,6 +1229,12 @@ class KoumanApp {
     // Guard anti-double-envoi : on rejette si un envoi est déjà en cours
     if (this.isProcessingVoice) return;
     this.isProcessingVoice = true;
+
+    // Verrouiller les contrôles pendant tout le pipeline vocal
+    this.btnRecord.disabled = true;
+    this.btnRecord.style.pointerEvents = "none";
+    this.btnRecord.style.opacity = "0.5";
+    this.btnSend.disabled = true;
 
     if (this.welcomeHero) this.welcomeHero.style.display = "none";
     // Placeholder temporaire non sauvegardé dans l'historique
@@ -1065,8 +1250,18 @@ class KoumanApp {
     formData.append("tgt_lang", tgt_lang);
     formData.append("speaking_rate", rate);
     formData.append("file", audioBlob, `enregistrement.${ext}`);
-    this.inspectorStatusBadge.textContent = "Pipeline vocal...";
-    this.stepSttText.textContent = "Reconnaissance vocale Whisper...";
+    this._currentAbortController = new AbortController();
+    this._showCancelBtn();
+    if (this.inspectorStatusBadge) {
+      this.inspectorStatusBadge.className = "inspector-badge processing";
+      this.inspectorStatusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current animate-ping"></span><span>Pipeline vocal...</span>`;
+    }
+    if (this.statTotalMs) this.statTotalMs.textContent = "...";
+    if (this.stepSttText) this.stepSttText.textContent = "Transcription vocale Whisper ASR en cours...";
+    if (this.stepMtInText) this.stepMtInText.textContent = "En attente de transcription...";
+    if (this.stepLlmText) this.stepLlmText.textContent = "En attente...";
+    if (this.stepMtOutText) this.stepMtOutText.textContent = "En attente...";
+    if (this.stepTtsText) this.stepTtsText.textContent = "En attente...";
     const t0 = performance.now();
 
     try {
@@ -1074,6 +1269,7 @@ class KoumanApp {
         method: "POST",
         headers: this.getHeaders(),
         body: formData,
+        signal: this._currentAbortController?.signal,
       });
       if (!response.ok) {
         const err = await response.json().catch(() => ({}));
@@ -1132,14 +1328,32 @@ class KoumanApp {
         if (lastBotPlayer) setTimeout(() => lastBotPlayer.click(), 200);
       }
     } catch (err) {
-      const lastUserMsg = this.messagesContainer.querySelector(".message-row.user:last-child .msg-text");
-      if (lastUserMsg && lastUserMsg.textContent.includes("en cours...")) {
-        lastUserMsg.textContent = "🎤 [Échec de l'envoi vocal]";
+      if (err.name === "AbortError") {
+        const lastUserMsg = this.messagesContainer.querySelector(".message-row.user:last-child .msg-text");
+        if (lastUserMsg && lastUserMsg.textContent.includes("en cours...")) {
+          lastUserMsg.textContent = "🎤 [Annulé]";
+        }
+        if (this.inspectorStatusBadge) this.inspectorStatusBadge.textContent = "Annulé";
+      } else {
+        const lastUserMsg = this.messagesContainer.querySelector(".message-row.user:last-child .msg-text");
+        if (lastUserMsg && lastUserMsg.textContent.includes("en cours...")) {
+          lastUserMsg.textContent = "🎤 [Échec de l'envoi vocal]";
+        }
+        this.appendMessage("bot", `⚠️ ${err.message}`, false, null, false);
+        if (this.inspectorStatusBadge) this.inspectorStatusBadge.textContent = "Erreur";
       }
-      this.appendMessage("bot", `⚠️ ${err.message}`, false, null, false);
-      this.inspectorStatusBadge.textContent = "Erreur";
     } finally {
+      this._currentAbortController = null;
+      this._hideCancelBtn();
       this.isProcessingVoice = false;
+      this.isStartingRecording = false;
+      this.isStoppingRecording = false;
+      this.btnRecord.disabled = false;
+      this.btnRecord.style.pointerEvents = "";
+      this.btnRecord.style.opacity = "";
+      this.btnRecord.classList.remove("recording");
+      this.btnSend.disabled = false;
+      this.micIcon.textContent = "🎙️";
     }
   }
 
@@ -1290,44 +1504,94 @@ class KoumanApp {
   // =====================================================================
   // INSPECTOR
   // =====================================================================
-  updateInspectorFromDebug(debug, totalMs, lang = "dyu") {
-    this.inspectorStatusBadge.textContent = "Terminé";
-    this.statTotalMs.textContent = `${totalMs} ms`;
-    if (debug) {
-      if (lang === "fr") {
-        this.stepMtInText.textContent = "Message rédigé en français.";
-        this.stepLlmText.textContent = debug.fr_reply || "—";
-        this.stepMtOutText.textContent = "Réponse en français.";
-        this.statMtInMs.textContent = "0 ms";
-        this.statLlmMs.textContent = debug.timings_ms?.llm ? `${Math.round(debug.timings_ms.llm)} ms` : "— ms";
-        this.statMtOutMs.textContent = "0 ms";
+  updateInspectorFromDebug(debug, totalMs, lang = "dyu", userText = "", botReply = "") {
+    if (this.inspectorStatusBadge) {
+      this.inspectorStatusBadge.className = "inspector-badge done";
+      this.inspectorStatusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>Terminé (${totalMs} ms)</span>`;
+    }
+    if (this.statTotalMs) this.statTotalMs.textContent = `${totalMs} ms`;
+
+    // Étape 1 : Saisie / STT
+    if (this.stepSttText) {
+      this.stepSttText.textContent = userText ? `« ${userText} »` : "Saisie texte direct";
+    }
+    if (this.statSttMs) this.statSttMs.textContent = "0 ms";
+    if (this.stepSttModel) this.stepSttModel.textContent = "Clavier / Saisie directe";
+
+    // Étape 2 : MT In (vers français)
+    const t = debug?.timings_ms || {};
+    if (lang === "fr") {
+      if (this.stepMtInText) this.stepMtInText.textContent = userText ? `« ${userText} » (Langue pivot directe)` : "Message reçu directement en français (pivot).";
+      if (this.statMtInMs) this.statMtInMs.textContent = "0 ms";
+    } else {
+      if (this.stepMtInText) this.stepMtInText.textContent = debug?.fr_input ? `« ${debug.fr_input} »` : "Traduction en français effectuée.";
+      if (this.statMtInMs) this.statMtInMs.textContent = t.mt_in ? `${Math.round(t.mt_in)} ms` : "0 ms";
+    }
+
+    // Étape 3 : LLM
+    if (this.stepLlmText) this.stepLlmText.textContent = debug?.fr_reply ? `« ${debug.fr_reply} »` : "Réponse générée par le modèle.";
+    if (this.statLlmMs) this.statLlmMs.textContent = t.llm ? `${Math.round(t.llm)} ms` : "— ms";
+
+    // Étape 4 : MT Out (vers dioula)
+    if (botReply) {
+      if (this.stepMtOutText) this.stepMtOutText.textContent = `« ${botReply} »`;
+    } else {
+      if (this.stepMtOutText) this.stepMtOutText.textContent = "Traduction Dioula générée.";
+    }
+    if (this.statMtOutMs) this.statMtOutMs.textContent = t.mt_out ? `${Math.round(t.mt_out)} ms` : "0 ms";
+
+    // Étape 5 : TTS (si dioula)
+    if (this.stepTtsText) {
+      if (botReply && lang !== "fr") {
+        this.stepTtsText.textContent = "Audio synthétisé via Spark-TTS Bambara (Bourama - 24kHz).";
+        if (this.statTtsMs) this.statTtsMs.textContent = "Actif";
       } else {
-        this.stepMtInText.textContent = debug.fr_input || "—";
-        this.stepLlmText.textContent = debug.fr_reply || "—";
-        this.stepMtOutText.textContent = "Traduction Dioula générée.";
-        const t = debug.timings_ms || {};
-        this.statMtInMs.textContent = t.mt_in ? `${Math.round(t.mt_in)} ms` : "— ms";
-        this.statLlmMs.textContent = t.llm ? `${Math.round(t.llm)} ms` : "— ms";
-        this.statMtOutMs.textContent = t.mt_out ? `${Math.round(t.mt_out)} ms` : "— ms";
+        this.stepTtsText.textContent = "Mode texte pur (Pas de synthèse audio demandée).";
+        if (this.statTtsMs) this.statTtsMs.textContent = "0 ms";
       }
     }
   }
 
   updateInspectorFromVoice(data, totalMs) {
-    this.inspectorStatusBadge.textContent = "Terminé (Vocal)";
-    this.statTotalMs.textContent = `${totalMs} ms`;
-    this.stepSttText.textContent = data.user_transcript || "—";
-    this.stepTtsText.textContent = "Audio généré via Spark-TTS Bambara (Bourama)";
-    const t = data.timings_ms || {};
-    this.statSttMs.textContent = t.stt ? `${Math.round(t.stt)} ms` : "— ms";
-    this.statMtInMs.textContent = t.mt_in ? `${Math.round(t.mt_in)} ms` : "— ms";
-    this.statLlmMs.textContent = t.llm ? `${Math.round(t.llm)} ms` : "— ms";
-    this.statMtOutMs.textContent = t.mt_out ? `${Math.round(t.mt_out)} ms` : "— ms";
-    this.statTtsMs.textContent = t.tts ? `${Math.round(t.tts)} ms` : "— ms";
-    if (data.debug) {
-      this.stepMtInText.textContent = data.debug.fr_input || "—";
-      this.stepLlmText.textContent = data.debug.fr_reply || "—";
+    if (this.inspectorStatusBadge) {
+      this.inspectorStatusBadge.className = "inspector-badge done";
+      this.inspectorStatusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current"></span><span>Terminé (Vocal - ${totalMs} ms)</span>`;
     }
+    if (this.statTotalMs) this.statTotalMs.textContent = `${totalMs} ms`;
+
+    const t = data.timings_ms || {};
+
+    // Étape 1 : STT
+    if (this.stepSttText) this.stepSttText.textContent = data.user_transcript ? `« ${data.user_transcript} »` : "Audio transcrit avec succès.";
+    if (this.statSttMs) this.statSttMs.textContent = t.stt ? `${Math.round(t.stt)} ms` : "— ms";
+
+    // Étape 2 : MT In
+    if (this.stepMtInText) {
+      if (data.debug?.fr_input) {
+        this.stepMtInText.textContent = `« ${data.debug.fr_input} »`;
+      } else if (data.lang === "fr") {
+        this.stepMtInText.textContent = data.user_transcript ? `« ${data.user_transcript} » (Langue pivot)` : "Audio capté en français.";
+      } else {
+        this.stepMtInText.textContent = "Traduction vers pivot effectuée.";
+      }
+    }
+    if (this.statMtInMs) this.statMtInMs.textContent = t.mt_in ? `${Math.round(t.mt_in)} ms` : "0 ms";
+
+    // Étape 3 : LLM
+    if (this.stepLlmText) this.stepLlmText.textContent = data.debug?.fr_reply ? `« ${data.debug.fr_reply} »` : "Réponse générée par le modèle.";
+    if (this.statLlmMs) this.statLlmMs.textContent = t.llm ? `${Math.round(t.llm)} ms` : "— ms";
+
+    // Étape 4 : MT Out
+    if (this.stepMtOutText) this.stepMtOutText.textContent = data.reply_text ? `« ${data.reply_text} »` : "Traduction Dioula finale.";
+    if (this.statMtOutMs) this.statMtOutMs.textContent = t.mt_out ? `${Math.round(t.mt_out)} ms` : "0 ms";
+
+    // Étape 5 : TTS
+    if (this.stepTtsText) {
+      this.stepTtsText.textContent = data.audio_base64
+        ? "Audio synthétisé via Spark-TTS Bambara (Bourama - 24kHz)."
+        : "Synthèse vocale terminée.";
+    }
+    if (this.statTtsMs) this.statTtsMs.textContent = t.tts ? `${Math.round(t.tts)} ms` : "0 ms";
   }
 
   // =====================================================================

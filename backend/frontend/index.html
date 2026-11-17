@@ -1,470 +1,2184 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KOUMAN AI — Chatbot & Traducteur Vocal Dioula ↔ Français</title>
-  <meta name="description" content="Interface de démonstration de Kouman AI : Modèle NLLB-200 Dioula, Synthèse vocale MMS-TTS, Whisper STT et orchestration LLM.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>KOUMAN AI — Intelligence Conversationnelle Dioula ↔ Français</title>
+  <meta name="description"
+    content="Interface Kouman AI : chatbot bilingue Dioula-Français avec reconnaissance vocale, traduction et synthèse audio souveraine.">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..24,400..700,0..1,-50..200"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-surface": "#30312e", "tertiary": "#8e4e14", "on-tertiary-container": "#4c2500",
+            "on-primary-container": "#5b1604", "on-tertiary": "#ffffff", "primary": "#9a442d",
+            "primary-fixed": "#ffdbd2", "on-error-container": "#93000a", "primary-container": "#e07a5f",
+            "on-tertiary-fixed-variant": "#6f3800", "secondary-fixed": "#e5e1e4", "surface": "#fbf9f5",
+            "on-secondary-container": "#656466", "error-container": "#ffdad6", "on-primary-fixed": "#3c0800",
+            "inverse-on-surface": "#f2f0ed", "surface-container-highest": "#e4e2de",
+            "on-surface-variant": "#55423e", "tertiary-fixed-dim": "#ffb780",
+            "on-primary-fixed-variant": "#7c2e19", "surface-container-lowest": "#ffffff",
+            "surface-tint": "#9a442d", "error": "#ba1a1a", "secondary-container": "#e5e1e4",
+            "on-tertiary-fixed": "#2f1400", "surface-bright": "#fbf9f5", "outline-variant": "#dbc1ba",
+            "secondary": "#5f5e60", "outline": "#88726d", "tertiary-fixed": "#ffdcc4",
+            "on-background": "#1b1c1a", "on-secondary": "#ffffff", "on-error": "#ffffff",
+            "on-primary": "#ffffff", "tertiary-container": "#d18547", "primary-fixed-dim": "#ffb4a1",
+            "inverse-primary": "#ffb4a1", "surface-container": "#efeeea", "surface-container-low": "#f5f3ef",
+            "surface-variant": "#e4e2de", "surface-dim": "#dbdad6", "surface-container-high": "#eae8e4",
+            "on-surface": "#1b1c1a", "background": "#fbf9f5", "secondary-fixed-dim": "#c8c6c8",
+          },
+          fontFamily: {
+            "sans": ["Plus Jakarta Sans", "sans-serif"],
+            "display": ["Plus Jakarta Sans", "sans-serif"],
+            "label": ["Space Grotesk", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="style.css?v=2.1">
+  <style>
+    ::-webkit-scrollbar {
+      display: none
+    }
+
+    body {
+      overscroll-behavior: none;
+      font-family: 'Plus Jakarta Sans', sans-serif
+    }
+
+    #tab-btn-chat.active,
+    #tab-btn-translate.active,
+    #tab-btn-infos.active {
+      background: #efeeea;
+      color: #1b1c1a;
+      font-weight: 700
+    }
+
+    #pane-chat,
+    #pane-translate {
+      display: none
+    }
+
+    #pane-chat.active,
+    #pane-translate.active {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 0%;
+      overflow: hidden
+    }
+
+    #pane-infos {
+      display: none
+    }
+
+    #pane-infos.active {
+      display: block;
+      overflow-y: auto;
+      flex: 1 1 0%
+    }
+
+    #sessions-sidebar.open {
+      transform: translateX(0) !important
+    }
+
+    #sidebar-overlay.open {
+      display: block !important
+    }
+
+    #pipeline-inspector.open {
+      transform: translateX(0) !important
+    }
+
+    #inspector-overlay.open {
+      display: block !important
+    }
+
+    #chat-mode-dropdown.open {
+      display: block !important
+    }
+
+    #modal-settings.open,
+    #modal-delete-conv.open {
+      display: flex !important
+    }
+
+    #btn-cancel-request.visible {
+      display: flex !important
+    }
+
+    #server-status-badge.error {
+      background: #ba1a1a;
+      animation: none
+    }
+
+    #server-status-badge.loading {
+      background: #d18547
+    }
+
+    @keyframes loginCardOut {
+      to {
+        opacity: 0;
+        transform: scale(.96) translateY(-8px)
+      }
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+      max-width: 92vw;
+      width: max-content;
+    }
+
+    .toast {
+      background: #30312e;
+      color: #f2f0ed;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .25s ease;
+      pointer-events: none;
+      max-width: 90vw;
+      word-break: break-word;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    @keyframes recordPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(186, 26, 26, .4)
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(186, 26, 26, 0)
+      }
+    }
+
+    .recording-active {
+      animation: recordPulse 1.2s ease-in-out infinite !important;
+      background: #ba1a1a !important;
+      color: white !important
+    }
+
+    @keyframes cancelPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(186, 26, 26, .4)
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(186, 26, 26, 0)
+      }
+    }
+
+    #btn-cancel-request {
+      animation: cancelPulse 1.5s ease-in-out infinite
+    }
+
+    .message-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end
+    }
+
+    .message-row.user {
+      flex-direction: row-reverse
+    }
+
+    .msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-family: 'Space Grotesk', sans-serif
+    }
+
+    .message-row.bot .msg-avatar {
+      background: #efeeea;
+      color: #9a442d;
+      border: 1.5px solid #dbc1ba
+    }
+
+    .message-row.user .msg-avatar {
+      background: #9a442d;
+      color: white
+    }
+
+    .msg-bubble {
+      max-width: min(72%, 580px);
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.6;
+      position: relative
+    }
+
+    .message-row.bot .msg-bubble {
+      background: #fff;
+      border: 1px solid #dbc1ba;
+      color: #1b1c1a;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(45, 38, 34, .06)
+    }
+
+    .message-row.user .msg-bubble {
+      background: linear-gradient(135deg, #9a442d, #c05e44);
+      color: white;
+      border-bottom-right-radius: 4px
+    }
+
+    .msg-meta {
+      font-size: 10px;
+      opacity: .55;
+      margin-top: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      letter-spacing: .04em
+    }
+
+    .message-row.user .msg-meta {
+      text-align: right
+    }
+
+    .audio-player-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0, 0, 0, .08)
+    }
+
+    .audio-play-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #9a442d;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      flex-shrink: 0;
+      transition: transform .15s
+    }
+
+    .audio-play-btn:hover {
+      transform: scale(1.1)
+    }
+
+    .audio-play-btn .material-symbols-outlined {
+      font-size: 16px
+    }
+
+    .audio-waveform {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 28px
+    }
+
+    .audio-waveform span {
+      display: block;
+      width: 3px;
+      border-radius: 3px;
+      background: #dbc1ba;
+      transition: height .1s
+    }
+
+    .audio-waveform.playing span {
+      background: #9a442d
+    }
+
+    .audio-time-label {
+      font-size: 10px;
+      color: #88726d;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600
+    }
+
+    .session-item {
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background .15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #55423e
+    }
+
+    .session-item:hover {
+      background: #efeeea
+    }
+
+    .session-item.active {
+      background: #ffdbd2;
+      color: #3c0800;
+      font-weight: 600
+    }
+
+    .session-item-title {
+      flex: 1;
+      min-width: 0;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    .session-delete-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #88726d;
+      font-size: 14px;
+      opacity: 0;
+      transition: all .15s
+    }
+
+    .session-item:hover .session-delete-btn {
+      opacity: 1
+    }
+
+    .session-delete-btn:hover {
+      background: #ffdad6;
+      color: #ba1a1a
+    }
+
+    .scenario-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 9999px;
+      background: #fff;
+      border: 1px solid #dbc1ba;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #55423e;
+      transition: all .15s;
+      font-family: 'Space Grotesk', sans-serif;
+      white-space: nowrap
+    }
+
+    .scenario-chip:hover {
+      background: #ffdbd2;
+      border-color: #e07a5f;
+      color: #3c0800
+    }
+
+    .mode-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #1b1c1a;
+      transition: background .1s;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600
+    }
+
+    .mode-dropdown-item:hover {
+      background: #ffdbd2
+    }
+
+    .thinking-dot {
+      display: inline-block;
+      animation: blink 1.2s infinite
+    }
+
+    .thinking-dot:nth-child(2) {
+      animation-delay: .2s
+    }
+
+    .thinking-dot:nth-child(3) {
+      animation-delay: .4s
+    }
+
+    @keyframes blink {
+
+      0%,
+      80%,
+      100% {
+        opacity: .2
+      }
+
+      40% {
+        opacity: 1
+      }
+    }
+
+    #phrases-chevron.open {
+      transform: rotate(180deg)
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #efeeea
+    }
+
+    .stat-row:last-child {
+      border-bottom: none
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #55423e;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600
+    }
+
+    .stat-value {
+      font-size: 12px;
+      font-weight: 700;
+      color: #9a442d;
+      font-family: 'Space Grotesk', sans-serif
+    }
+
+    .step-detail {
+      font-size: 11px;
+      color: #88726d;
+      margin-top: 2px;
+      line-height: 1.4
+    }
+
+    .inspector-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-family: 'Space Grotesk', sans-serif
+    }
+
+    .inspector-badge.idle {
+      background: #efeeea;
+      color: #55423e
+    }
+
+    .inspector-badge.processing {
+      background: #ffdbd2;
+      color: #3c0800
+    }
+
+    .inspector-badge.done {
+      background: #d18547;
+      color: white
+    }
+
+    .inspector-badge.error {
+      background: #ffdad6;
+      color: #93000a
+    }
+  </style>
 </head>
-<body>
 
-  <!-- ======================================================
-       ÉCRAN DE LOGIN / SÉLECTION DE PROFIL
-  ====================================================== -->
-  <div class="login-screen" id="login-screen">
-    <div class="login-bg-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="mesh-grid-overlay"></div>
+<body class="bg-surface text-on-surface antialiased">
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen"
+    class="fixed inset-0 z-[100] bg-surface overflow-y-auto flex items-center justify-center p-4 sm:p-6">
+    <div
+      class="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] max-w-full h-[600px] rounded-full bg-gradient-to-b from-primary-fixed/30 via-tertiary-fixed/15 to-transparent blur-3xl pointer-events-none">
     </div>
-    <div class="login-card">
-      <div class="login-logo" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none" class="brand-svg-logo">
-          <circle cx="24" cy="24" r="22" stroke="url(#logo-grad-1)" stroke-width="2.5" opacity="0.6" stroke-dasharray="4 3"/>
-          <circle cx="24" cy="24" r="16" fill="url(#logo-grad-2)" opacity="0.15"/>
-          <path d="M14 24C14 20 18 16 24 16C30 16 34 20 34 24C34 28 30 32 24 32C18 32 14 28 14 24Z" stroke="url(#logo-grad-1)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M19 22V26M24 19V29M29 22V26" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="34" cy="14" r="2.5" fill="#f59e0b"/>
-          <defs>
-            <linearGradient id="logo-grad-1" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#fcd34d"/>
-              <stop offset="0.5" stop-color="#f59e0b"/>
-              <stop offset="1" stop-color="#ea580c"/>
-            </linearGradient>
-            <linearGradient id="logo-grad-2" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#f59e0b"/>
-              <stop offset="1" stop-color="#06b6d4"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-      <div class="login-badge">IA VOCALE AFRICAINE</div>
-      <h1 class="login-title">KOUMAN AI</h1>
-      <p class="login-subtitle">Intelligence Conversationnelle & Traduction<br><strong>Dioula ⟷ Français</strong></p>
-
-      <!-- Profils existants -->
-      <div class="login-profiles" id="login-profiles">
-        <!-- Injecté par JS -->
-      </div>
-
-      <!-- Créer un nouveau profil -->
-      <div class="login-new-profile" id="login-new-profile-form">
-        <div class="login-input-wrapper">
-          <span class="login-input-icon">👤</span>
-          <input
-            type="text"
-            class="login-input"
-            id="input-new-profile-name"
-            placeholder="Votre prénom ou pseudo..."
-            maxlength="32"
-            autocomplete="off"
-          >
+    <div class="w-full max-w-md mx-auto my-auto">
+      <div class="flex flex-col items-center text-center mb-5 sm:mb-7">
+        <div class="relative w-28 h-28 sm:w-36 sm:h-36 mb-3 sm:mb-5 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full border-2 border-dashed border-primary-container/40 animate-spin"
+            style="animation-duration:26s"></div>
+          <div class="absolute inset-3 rounded-full border border-inverse-surface/30 animate-spin"
+            style="animation-duration:18s;animation-direction:reverse"></div>
+          <div
+            class="absolute inset-5 rounded-full bg-gradient-to-tr from-primary via-primary-container to-tertiary-container opacity-25 blur-xl animate-pulse"
+            style="animation-duration:2.2s"></div>
+          <div
+            class="w-16 h-16 rounded-full bg-inverse-surface text-surface shadow-xl flex flex-col items-center justify-center z-10 border-2 border-surface absolute">
+            <div
+              class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shadow-inner">
+              <span class="material-symbols-outlined text-[17px]">forum</span>
+            </div>
+            <span class="font-label text-[8px] tracking-wider text-surface font-bold mt-0.5">KOUMAN</span>
+            <div class="flex items-center gap-0.5 mt-0.5">
+              <span class="w-1 h-1 rounded-full bg-tertiary-container animate-bounce"
+                style="animation-delay:0ms"></span>
+              <span class="w-1 h-1 rounded-full bg-tertiary-container animate-bounce"
+                style="animation-delay:150ms"></span>
+              <span class="w-1 h-1 rounded-full bg-tertiary-container animate-bounce"
+                style="animation-delay:300ms"></span>
+            </div>
+          </div>
+          <div class="absolute top-1 right-6 w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"
+            style="animation-duration:3s"></div>
+          <div class="absolute bottom-3 left-4 w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></div>
         </div>
-        <button class="btn-login-create" id="btn-create-profile">
-          <span>✦</span> Commencer la session
-        </button>
-      </div>
-
-      <div class="login-footer">
-        <span>Kouman AI · NLLB-200 Dioula · MALIBA-AI Whisper · SYNDOU</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================
-       APPLICATION PRINCIPALE (cachée jusqu'au login)
-  ====================================================== -->
-  <div class="app-container" id="app-container" style="display:none">
-
-    <!-- SIDEBAR SESSIONS -->
-    <aside class="sessions-sidebar" id="sessions-sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-brand">
-          <svg viewBox="0 0 32 32" fill="none" class="sidebar-brand-svg">
-            <circle cx="16" cy="16" r="14" stroke="url(#side-logo-grad)" stroke-width="2" opacity="0.6"/>
-            <path d="M10 16C10 13.5 12.5 11 16 11C19.5 11 22 13.5 22 16C22 18.5 19.5 21 16 21C12.5 21 10 18.5 10 16Z" stroke="url(#side-logo-grad)" stroke-width="2"/>
-            <path d="M13 15V17M16 13V19M19 15V17" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="23" cy="9" r="1.5" fill="#f59e0b"/>
-            <defs>
-              <linearGradient id="side-logo-grad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#fcd34d"/>
-                <stop offset="0.5" stop-color="#f59e0b"/>
-                <stop offset="1" stop-color="#ea580c"/>
-              </linearGradient>
-            </defs>
-          </svg>
-          <strong>KOUMAN AI</strong>
+        <div
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container border border-outline-variant/30 mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span>
+          <span class="font-label text-[10px] text-tertiary uppercase tracking-wider font-bold">&#x2726; I NI SOGOMA
+            &bull; BIENVENUE &#x2726;</span>
         </div>
-        <button class="btn-icon sidebar-close-btn" id="btn-close-sidebar" aria-label="Fermer le menu">✕</button>
+        <h1 class="text-[28px] font-extrabold tracking-tight text-on-surface leading-tight">Kouman<span
+            class="text-primary-container font-extrabold">&middot;AI</span></h1>
+        <p class="text-[13px] text-on-surface-variant mt-1.5 max-w-xs leading-relaxed">Intelligence conversationnelle
+          souveraine<br>Bilingue Dioula &amp; Fran&#xe7;ais</p>
       </div>
-
-      <!-- Profil actif -->
-      <div class="sidebar-profile" id="sidebar-profile">
-        <div class="profile-avatar" id="sidebar-avatar">K</div>
-        <div class="profile-info">
-          <div class="profile-name" id="sidebar-profile-name">Utilisateur</div>
-          <div class="profile-meta" id="sidebar-profile-meta">0 conversation</div>
-        </div>
-        <button class="btn-icon" id="btn-logout" title="Changer de profil" aria-label="Se déconnecter">↩</button>
-      </div>
-
-      <!-- Bouton nouvelle conversation -->
-      <button class="btn-new-conv" id="btn-new-conversation">
-        <span>✦</span> Nouvelle conversation
-      </button>
-
-      <!-- Liste des conversations -->
-      <div class="sessions-list" id="sessions-list">
-        <!-- Injecté par JS -->
-      </div>
-
-      <div class="sidebar-footer">
-        <button class="btn-icon-text" id="btn-open-settings" title="Paramètres">
-          <span>⚙️</span> Paramètres
-        </button>
-        <button class="btn-icon-text" id="btn-toggle-inspector" title="Pipeline">
-          <span>📊</span> Pipeline
-        </button>
-      </div>
-    </aside>
-
-    <!-- Overlay sidebar mobile -->
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-    <!-- CONTENU PRINCIPAL -->
-    <div class="main-wrapper" id="main-wrapper">
-
-      <!-- Header Mobile -->
-      <header class="app-header">
-        <button class="btn-icon" id="btn-open-sidebar" aria-label="Menu sessions">
-          <span>☰</span>
-        </button>
-        <div class="header-title-group">
-          <span class="header-conv-name" id="header-conv-name">Nouvelle conversation</span>
-          <div class="chat-mode-selector-wrapper">
-            <button class="chat-mode-pill" id="btn-chat-mode-selector" title="Cliquer pour changer le mode d'échange">
-              <span id="chat-mode-icon">🇫🇷 ➔ 🗣️</span>
-              <span id="chat-mode-label">Français ➔ Dioula</span>
-              <span class="pill-caret">▾</span>
-            </button>
-            <div class="chat-mode-dropdown" id="chat-mode-dropdown">
-              <div class="mode-dropdown-header">Mode d'échange</div>
-              <button class="mode-dropdown-item active" data-mode="fr->dyu">
-                <span class="mode-item-flags">🇫🇷 ➔ 🗣️</span>
-                <div class="mode-item-info">
-                  <span class="mode-item-title">Français ➔ Dioula</span>
-                  <span class="mode-item-sub">Vous en français, Kouman en dioula</span>
-                </div>
-              </button>
-              <button class="mode-dropdown-item" data-mode="dyu->fr">
-                <span class="mode-item-flags">🗣️ ➔ 🇫🇷</span>
-                <div class="mode-item-info">
-                  <span class="mode-item-title">Dioula ➔ Français</span>
-                  <span class="mode-item-sub">Vous en dioula, Kouman en français</span>
-                </div>
-              </button>
-              <button class="mode-dropdown-item" data-mode="dyu->dyu">
-                <span class="mode-item-flags">🗣️ ➔ 🗣️</span>
-                <div class="mode-item-info">
-                  <span class="mode-item-title">Dioula ➔ Dioula</span>
-                  <span class="mode-item-sub">100% Dioula avec voix audio</span>
-                </div>
-              </button>
-              <button class="mode-dropdown-item" data-mode="fr->fr">
-                <span class="mode-item-flags">🇫🇷 ➔ 🇫🇷</span>
-                <div class="mode-item-info">
-                  <span class="mode-item-title">Français ➔ Français</span>
-                  <span class="mode-item-sub">100% Français</span>
-                </div>
+      <div class="bg-surface-container-lowest rounded-2xl shadow-md border border-outline-variant/30 overflow-hidden">
+        <div class="h-[3px] bg-gradient-to-r from-primary via-tertiary-container to-primary-container"></div>
+        <div class="p-5">
+          <h2 class="font-label text-[14px] font-bold text-on-surface mb-4 uppercase tracking-wider">Choisir un profil
+          </h2>
+          <div id="login-profiles" class="flex flex-col gap-2 mb-4 max-h-48 overflow-y-auto"></div>
+          <div class="pt-4 border-t border-outline-variant/30">
+            <p class="font-label text-[11px] text-on-surface-variant mb-2.5 uppercase tracking-wider font-bold">Nouveau
+              profil</p>
+            <div class="flex gap-2">
+              <input type="text" id="input-new-profile-name" placeholder="Votre pr&#xe9;nom..."
+                class="flex-1 px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary-container/20 focus:outline-none text-on-surface placeholder:text-on-surface-variant/60 text-sm transition-all"
+                autocomplete="off">
+              <button id="btn-create-profile"
+                class="px-4 py-2.5 rounded-xl bg-inverse-surface hover:bg-black text-surface font-label text-[12px] font-bold shadow-md transition-all active:scale-95 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px]">add</span>Cr&#xe9;er
               </button>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="mt-5 flex items-center justify-center gap-4 text-on-surface-variant font-label text-[10px] uppercase tracking-wider">
+        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">lock</span>Chiffrement
+          AES</span>
+        <span class="text-outline-variant">&bull;</span>
+        <span>H&#xe9;bergement local souverain</span>
+        <span class="text-outline-variant">&bull;</span>
+        <span>&copy; 2025 Kouman-AI</span>
+      </div>
+    </div>
+  </div>
 
-        <!-- Navigation Tabs -->
-        <nav class="nav-tabs" role="tablist">
-          <button class="tab-btn active" id="tab-btn-chat" data-tab="chat">
-            <span>💬</span> <span class="tab-label">Chat</span>
-          </button>
-          <button class="tab-btn" id="tab-btn-translate" data-tab="translate">
-            <span>🔄</span> <span class="tab-label">Traducteur</span>
-          </button>
-        </nav>
+  <!-- APP CONTAINER -->
+  <div id="app-container" style="display:none" class="h-screen w-full flex flex-col overflow-hidden">
 
-        <!-- Statut & Contrôles -->
-        <div class="header-actions">
-          <div class="badge-status loading" id="server-status-badge">
-            <span class="status-dot"></span>
-            <span id="server-status-text">...</span>
-          </div>
+    <!-- HEADER -->
+    <header
+      class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(45,38,34,0.06)] border-b border-outline-variant/20">
+      <div
+        class="w-full px-2.5 sm:px-5 flex flex-wrap sm:flex-nowrap items-center justify-between gap-1.5 sm:gap-3 py-1.5 sm:py-0 sm:h-16">
+
+        <!-- 1. GAUCHE : Menu Sidebar + Logo -->
+        <div class="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-shrink-0 order-1">
+          <button id="btn-open-sidebar"
+            class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors flex-shrink-0"
+            title="Menu des conversations" aria-label="Menu">
+            <span class="material-symbols-outlined text-[19px] sm:text-[20px]">menu</span>
+          </button>
+          <a class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0" href="#">
+            <div
+              class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-primary flex items-center justify-center shadow-[0_2px_8px_rgba(154,68,45,0.25)]">
+              <span class="material-symbols-outlined text-on-primary text-[18px] sm:text-[20px]">chat_bubble</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-[14px] sm:text-[16px] font-bold leading-none tracking-tight text-on-surface">Kouman<span
+                  class="text-primary">.AI</span></span>
+              <span
+                class="font-label text-[7px] sm:text-[8px] text-tertiary-container uppercase tracking-widest mt-0.5 hidden xs:inline">Souveraine</span>
+            </div>
+          </a>
+          <span id="header-conv-name"
+            class="hidden xl:inline text-on-surface-variant text-[13px] truncate max-w-[140px] ml-1"></span>
         </div>
-      </header>
 
-      <!-- MAIN CONTENT -->
-      <main class="app-main">
+        <!-- 2. ACTIONS : En haut à droite sur mobile (order-2), À droite sur desktop (sm:order-3) -->
+        <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0 order-2 sm:order-3 ml-auto sm:ml-0">
+          <div
+            class="flex items-center gap-1.5 px-1.5 py-1 sm:px-2 sm:py-1 bg-surface-container rounded-full border border-outline-variant/30">
+            <span id="server-status-badge"
+              class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse flex-shrink-0"></span>
+            <span id="server-status-text"
+              class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider hidden md:inline">Init...</span>
+          </div>
+          <button id="btn-toggle-inspector"
+            class="flex items-center gap-1 px-2 py-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant border border-outline-variant/30 transition-all"
+            title="Inspecteur Pipeline" aria-label="Pipeline">
+            <span class="material-symbols-outlined text-[15px] text-primary">tune</span>
+            <span class="hidden md:inline font-label text-[10px] uppercase tracking-wider">Pipeline</span>
+          </button>
+          <div class="relative">
+            <button id="btn-chat-mode-selector"
+              class="flex items-center gap-1 px-2 py-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 transition-all"
+              title="Changer le mode de dialogue" aria-label="Mode">
+              <span id="chat-mode-icon" class="text-[12px] sm:text-[13px]">🇫🇷→🗣️</span>
+              <span id="chat-mode-label"
+                class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider hidden lg:inline">Mode</span>
+            </button>
+            <div id="chat-mode-dropdown"
+              class="absolute right-0 top-full mt-2 bg-surface-container-lowest rounded-2xl shadow-xl border border-outline-variant/30 overflow-hidden z-20 min-w-[240px] max-w-[calc(100vw-20px)] hidden p-1.5 flex flex-col gap-1">
+              <div
+                class="px-3 py-1.5 font-label text-[10px] text-on-surface-variant font-bold uppercase tracking-wider border-b border-outline-variant/20 mb-1">
+                Mode d'échange</div>
+              <button
+                class="mode-dropdown-item active w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left hover:bg-surface-container transition-all"
+                data-mode="fr->dyu">
+                <span class="text-base flex-shrink-0">🇫🇷 ➔ 🗣️</span>
+                <div class="min-w-0">
+                  <div class="font-label text-[12px] font-bold text-on-surface">Français ➔ Dioula</div>
+                  <div class="text-[10px] text-on-surface-variant">Vous en FR, Kouman en dioula</div>
+                </div>
+              </button>
+              <button
+                class="mode-dropdown-item w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left hover:bg-surface-container transition-all"
+                data-mode="dyu->fr">
+                <span class="text-base flex-shrink-0">🗣️ ➔ 🇫🇷</span>
+                <div class="min-w-0">
+                  <div class="font-label text-[12px] font-bold text-on-surface">Dioula ➔ Français</div>
+                  <div class="text-[10px] text-on-surface-variant">Vous en dioula, Kouman en FR</div>
+                </div>
+              </button>
+              <button
+                class="mode-dropdown-item w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left hover:bg-surface-container transition-all"
+                data-mode="dyu->dyu">
+                <span class="text-base flex-shrink-0">🗣️ ➔ 🗣️</span>
+                <div class="min-w-0">
+                  <div class="font-label text-[12px] font-bold text-on-surface">Dioula ➔ Dioula</div>
+                  <div class="text-[10px] text-on-surface-variant">Conversation 100% dioula</div>
+                </div>
+              </button>
+              <button
+                class="mode-dropdown-item w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left hover:bg-surface-container transition-all"
+                data-mode="fr->fr">
+                <span class="text-base flex-shrink-0">🇫🇷 ➔ 🇫🇷</span>
+                <div class="min-w-0">
+                  <div class="font-label text-[12px] font-bold text-on-surface">Français ➔ Français</div>
+                  <div class="text-[10px] text-on-surface-variant">Conversation 100% français</div>
+                </div>
+              </button>
+            </div>
+          </div>
+          <button id="btn-open-settings"
+            class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary flex items-center justify-center shadow-sm text-on-primary ring-2 ring-primary-fixed/50 transition-all hover:ring-primary-fixed flex-shrink-0"
+            title="Profil & Paramètres" aria-label="Profil">
+            <span class="material-symbols-outlined text-[15px] sm:text-[17px]">person</span>
+          </button>
+          <button id="btn-logout"
+            class="w-7 h-7 sm:w-8 sm:h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors flex-shrink-0 hidden sm:flex"
+            title="Déconnexion" aria-label="Déconnexion">
+            <span class="material-symbols-outlined text-[15px] sm:text-[17px]">logout</span>
+          </button>
+        </div>
 
-        <!-- 1. TAB: CHAT VOCAL & TEXTE -->
-        <section class="tab-pane active" id="pane-chat">
-          <div class="chat-layout">
-            <div class="chat-conversation">
+        <!-- 3. NAVIGATION ONGLETS : Ligne 2 complète sur mobile (order-3 w-full), Centré sur desktop (sm:order-2 sm:w-auto) -->
+        <nav
+          class="flex items-center justify-center bg-surface-container rounded-full p-0.5 border border-outline-variant/30 w-full sm:w-auto flex-shrink-0 order-3 sm:order-2 mt-1 sm:mt-0">
+          <button id="tab-btn-chat"
+            class="flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-full font-label text-[11px] sm:text-[12px] font-semibold text-center text-on-surface-variant hover:text-on-surface transition-all">Dialogue</button>
+          <button id="tab-btn-translate"
+            class="flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-full font-label text-[11px] sm:text-[12px] font-semibold text-center text-on-surface-variant hover:text-on-surface transition-all">Traduction</button>
+          <button id="tab-btn-infos"
+            class="flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-full font-label text-[11px] sm:text-[12px] font-semibold text-center text-on-surface-variant hover:text-on-surface transition-all">Infos</button>
+        </nav>
+      </div>
+      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-40">
+      </div>
+    </header>
 
-              <!-- Messages Stream -->
-              <div class="messages-stream" id="messages-container">
-                <!-- Welcome Hero -->
-                <div class="welcome-hero" id="welcome-hero">
-                  <div class="welcome-badge">🌍 Intelligence Artificielle Locale & Vocale</div>
-                  <h2>I bisimila ! <span id="welcome-username">Bienvenue</span></h2>
-                  <p>Posez vos questions par écrit ou au micro en <strong>Dioula</strong> ou en <strong>Français</strong>.<br>Kouman traduit, raisonne et vous répond avec la voix.</p>
+    <div class="flex flex-1 pt-[94px] sm:pt-[66px] overflow-hidden h-full">
 
-                  <!-- 🎯 Choix du Mode d'échange au début de conversation -->
-                  <div class="welcome-modes-section">
-                    <div class="welcome-modes-title">
-                      <span class="welcome-modes-icon">🎯</span>
-                      <span>Choisissez le mode d'échange pour cette conversation :</span>
-                    </div>
-                    <div class="welcome-modes-grid" id="welcome-modes-grid">
-                      <button class="welcome-mode-card active" data-mode="fr->dyu">
-                        <div class="card-flags">🇫🇷 ➔ 🗣️</div>
-                        <div class="card-title">Français ➔ Dioula</div>
-                        <div class="card-desc">Vous vous exprimez en Français, Kouman répond en Dioula avec audio.</div>
-                      </button>
-                      <button class="welcome-mode-card" data-mode="dyu->fr">
-                        <div class="card-flags">🗣️ ➔ 🇫🇷</div>
-                        <div class="card-title">Dioula ➔ Français</div>
-                        <div class="card-desc">Vous vous exprimez en Dioula, Kouman répond en Français.</div>
-                      </button>
-                      <button class="welcome-mode-card" data-mode="dyu->dyu">
-                        <div class="card-flags">🗣️ ➔ 🗣️</div>
-                        <div class="card-title">Dioula ➔ Dioula</div>
-                        <div class="card-desc">Conversation intégrale en Dioula avec synthèse vocale.</div>
-                      </button>
-                      <button class="welcome-mode-card" data-mode="fr->fr">
-                        <div class="card-flags">🇫🇷 ➔ 🇫🇷</div>
-                        <div class="card-title">Français ➔ Français</div>
-                        <div class="card-desc">Conversation intégrale en Français fluide.</div>
-                      </button>
-                    </div>
+      <!-- SIDEBAR -->
+      <aside id="sessions-sidebar"
+        class="fixed inset-y-0 left-0 z-40 w-[85vw] max-w-[300px] sm:w-72 bg-surface-container-low border-r border-outline-variant/30 flex flex-col shadow-2xl transform -translate-x-full transition-transform duration-300 pt-[94px] sm:pt-[66px]">
+        <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-high">
+          <div class="flex items-center gap-3">
+            <div id="sidebar-avatar"
+              class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold shadow-sm text-[14px]">
+              K</div>
+            <div>
+              <div id="sidebar-profile-name" class="font-label text-[13px] text-on-surface font-bold leading-tight">
+                Profil</div>
+              <div id="sidebar-profile-meta"
+                class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider">0 conversation</div>
+            </div>
+          </div>
+          <button id="btn-close-sidebar"
+            class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+        <div class="p-3 border-b border-outline-variant/20">
+          <button id="btn-new-conversation"
+            class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-inverse-surface hover:bg-black text-surface font-label text-[12px] font-bold shadow-sm transition-all active:scale-95">
+            <span class="material-symbols-outlined text-[18px]">add_comment</span>Nouvelle conversation
+          </button>
+        </div>
+        <div id="sessions-list" class="flex-1 overflow-y-auto p-2 flex flex-col gap-1"></div>
+        <div class="p-3 border-t border-outline-variant/20">
+          <button onclick="document.getElementById('btn-logout').click()"
+            class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl hover:bg-surface-container text-on-surface-variant font-label text-[11px] font-semibold uppercase tracking-wider transition-all">
+            <span class="material-symbols-outlined text-[16px]">logout</span>D&#xe9;connexion
+          </button>
+        </div>
+      </aside>
+      <div id="sidebar-overlay" class="fixed inset-0 bg-inverse-surface/30 backdrop-blur-sm z-30 hidden"></div>
+
+      <!-- MAIN -->
+      <main class="flex-1 flex flex-col overflow-hidden">
+
+        <!-- CHAT PANE -->
+        <div id="pane-chat" class="flex-1 flex flex-col overflow-hidden active">
+          <div id="scenarios-quick-bar" class="hidden"></div>
+          <div id="messages-container" class="flex-1 overflow-y-auto px-4 py-5 flex flex-col gap-3 relative">
+            <div id="welcome-hero"
+              class="flex flex-col items-center justify-center text-center py-5 px-4 flex-1 min-h-[360px] relative">
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden -z-10">
+                <div
+                  class="w-[450px] h-[450px] rounded-full bg-gradient-to-b from-primary-fixed/20 via-tertiary-fixed/10 to-transparent blur-3xl">
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 mb-3 opacity-70">
+                <svg class="h-2.5 text-inverse-surface" fill="currentColor" viewBox="0 0 40 10">
+                  <path d="M0 5L5 0L10 5L15 0L20 5L25 0L30 5L35 0L40 5L35 10L30 5L25 10L20 5L15 10L10 5L5 10Z" />
+                </svg>
+                <span class="h-0.5 w-5 rounded-full bg-primary-container"></span>
+                <svg class="h-2.5 text-tertiary-container" fill="currentColor" viewBox="0 0 20 10">
+                  <polygon points="0,5 5,0 10,5 5,10" />
+                  <polygon points="10,5 15,0 20,5 15,10" />
+                </svg>
+                <span class="h-0.5 w-7 rounded-full bg-inverse-surface opacity-50"></span>
+                <span class="h-0.5 w-3 rounded-full bg-primary-container"></span>
+                <svg class="h-2.5 text-inverse-surface" fill="currentColor" viewBox="0 0 40 10">
+                  <path d="M0 5L5 0L10 5L15 0L20 5L25 0L30 5L35 0L40 5L35 10L30 5L25 10L20 5L15 10L10 5L5 10Z" />
+                </svg>
+              </div>
+              <div class="relative w-32 h-32 sm:w-36 sm:h-36 mb-3 flex items-center justify-center">
+                <div
+                  class="absolute inset-0 rounded-full border-2 border-dashed border-primary-container/40 animate-spin"
+                  style="animation-duration:26s"></div>
+                <div class="absolute inset-2 rounded-full border border-inverse-surface/30 animate-spin"
+                  style="animation-duration:18s;animation-direction:reverse"></div>
+                <div
+                  class="absolute inset-4 rounded-full bg-gradient-to-tr from-primary via-primary-container to-tertiary-container opacity-25 blur-xl animate-pulse"
+                  style="animation-duration:2.2s"></div>
+                <div
+                  class="absolute inset-6 rounded-full bg-surface-container-low flex items-center justify-center shadow-inner border border-outline-variant/30">
+                  <svg class="w-full h-full p-1 text-primary" fill="none" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" opacity="0.35" r="44" stroke="currentColor" stroke-dasharray="3 5"
+                      stroke-width="1.5" />
+                    <circle cx="50" cy="50" opacity="0.5" r="36" stroke="currentColor" stroke-dasharray="6 4"
+                      stroke-width="1.2" />
+                    <circle cx="50" cy="50" opacity="0.75" r="28" stroke="currentColor" stroke-dasharray="2 3"
+                      stroke-width="1.5" />
+                  </svg>
+                </div>
+                <div
+                  class="absolute w-16 h-16 rounded-full bg-inverse-surface text-surface shadow-xl flex flex-col items-center justify-center z-10 border-2 border-surface">
+                  <div
+                    class="w-6 h-6 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shadow-inner">
+                    <span class="material-symbols-outlined text-[15px]">forum</span>
                   </div>
+                  <span class="font-label text-[6.5px] tracking-wider text-surface font-bold mt-0.5">KOUMAN</span>
+                </div>
+                <div class="absolute top-1 right-5 w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"
+                  style="animation-duration:3s"></div>
+                <div class="absolute bottom-2 left-4 w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></div>
+              </div>
+              <div
+                class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-surface-container border border-outline-variant/30 mb-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span>
+                <span class="font-label text-[9px] text-tertiary uppercase tracking-wider font-bold">&#x2726; I NI
+                  SOGOMA &bull; BIENVENUE &#x2726;</span>
+              </div>
+              <h2 class="text-[22px] sm:text-[24px] font-extrabold tracking-tight text-on-surface">Bonjour,&nbsp;<span
+                  id="welcome-username" class="text-primary">Utilisateur</span></h2>
+              <p class="text-[12px] sm:text-[13px] text-on-surface-variant max-w-sm mt-1 leading-relaxed">Posez votre
+                question en Dioula ou en Français, ou choisissez une suggestion.</p>
 
-                  <div class="pipeline-tech-pills">
-                    <span class="tech-pill">🧠 <strong>NLLB-200</strong> Dioula (5c36e48)</span>
-                    <span class="tech-pill">⚡ <strong>Claude Sonnet 5</strong></span>
-                    <span class="tech-pill">🎙️ <strong>MALIBA-AI ASR-v3</strong> (Whisper Large)</span>
-                    <span class="tech-pill">🔊 <strong>Spark-TTS</strong> Bambara (Bourama)</span>
-                  </div>
-
-                  <div class="scenarios-section-header">
-                    <div class="scenarios-section-title">✨ Scénarios rapides</div>
-                    <div class="direction-filter-bar" id="welcome-filter-bar">
-                      <button class="filter-chip active" data-dir="all">🌐 Tous</button>
-                      <button class="filter-chip" data-dir="fr->dyu">🇫🇷 ➔ 🗣️</button>
-                      <button class="filter-chip" data-dir="dyu->fr">🗣️ ➔ 🇫🇷</button>
-                    </div>
-                  </div>
-
-                  <div class="quick-chips-grid" id="welcome-chips-container">
-                    <!-- Injecté par JavaScript -->
-                  </div>
+              <!-- Mode selector (compact) -->
+              <div class="w-full max-w-lg mt-3 mb-2">
+                <div
+                  class="text-[10px] font-label font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 flex items-center justify-center gap-1">
+                  <span class="material-symbols-outlined text-[13px] text-primary">swap_horiz</span>
+                  <span>Mode d'échange</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="welcome-modes-grid">
+                  <button
+                    class="welcome-mode-card active p-2 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary transition-all text-left flex flex-col gap-0.5 cursor-pointer"
+                    data-mode="fr->dyu">
+                    <div class="text-[13px]">🇫🇷 ➔ 🗣️</div>
+                    <div class="font-label text-[11px] font-bold text-on-surface leading-tight">FR ➔ Dioula</div>
+                    <div class="text-[9px] text-on-surface-variant leading-tight">Audio Dioula</div>
+                  </button>
+                  <button
+                    class="welcome-mode-card p-2 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary transition-all text-left flex flex-col gap-0.5 cursor-pointer"
+                    data-mode="dyu->fr">
+                    <div class="text-[13px]">🗣️ ➔ 🇫🇷</div>
+                    <div class="font-label text-[11px] font-bold text-on-surface leading-tight">Dioula ➔ FR</div>
+                    <div class="text-[9px] text-on-surface-variant leading-tight">Texte Français</div>
+                  </button>
+                  <button
+                    class="welcome-mode-card p-2 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary transition-all text-left flex flex-col gap-0.5 cursor-pointer"
+                    data-mode="dyu->dyu">
+                    <div class="text-[13px]">🗣️ ➔ 🗣️</div>
+                    <div class="font-label text-[11px] font-bold text-on-surface leading-tight">100% Dioula</div>
+                    <div class="text-[9px] text-on-surface-variant leading-tight">Audio Dioula</div>
+                  </button>
+                  <button
+                    class="welcome-mode-card p-2 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-primary transition-all text-left flex flex-col gap-0.5 cursor-pointer"
+                    data-mode="fr->fr">
+                    <div class="text-[13px]">🇫🇷 ➔ 🇫🇷</div>
+                    <div class="font-label text-[11px] font-bold text-on-surface leading-tight">100% Français</div>
+                    <div class="text-[9px] text-on-surface-variant leading-tight">Fluide</div>
+                  </button>
                 </div>
               </div>
 
-              <!-- Input Bar -->
-              <div class="chat-input-bar">
-                <div class="scenarios-quick-bar" id="scenarios-quick-bar"></div>
-
-                <div class="input-controls-wrapper">
-                  <button class="mic-btn" id="btn-record-voice" title="Parler en Dioula" aria-label="Enregistrer la voix">
-                    <span id="mic-icon">🎙️</span>
-                  </button>
-                  <button class="lang-toggle-btn" id="btn-voice-lang" title="Voix en Dioula (cliquer pour passer en Français)" aria-label="Langue de la voix">🗣️</button>
-                  <input type="text" class="chat-input" id="chat-input-text" placeholder="Dioula ou Français..." autocomplete="off">
-                  <button class="send-btn" id="btn-send-message" title="Envoyer" aria-label="Envoyer">
-                    <span>➤</span>
+              <!-- Suggestions de conversation épurées (4 cartes max) -->
+              <div class="w-full max-w-lg mt-3">
+                <div class="flex items-center justify-between mb-2 px-1">
+                  <span
+                    class="font-label text-[10px] text-on-surface-variant font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[13px] text-primary">auto_awesome</span>
+                    Suggestions de questions
+                  </span>
+                  <button id="btn-refresh-suggestions" type="button"
+                    class="font-label text-[10px] text-primary hover:text-primary-container font-bold uppercase tracking-wider flex items-center gap-1 transition-colors cursor-pointer"
+                    title="Afficher d'autres suggestions">
+                    <span class="material-symbols-outlined text-[13px]">refresh</span>
+                    Changer
                   </button>
                 </div>
+                <div id="welcome-chips-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Input bar -->
+          <div class="border-t border-outline-variant/30 bg-surface-container-low shrink-0 chat-input-bar-container">
+            <div class="px-3 py-2 sm:px-4 sm:py-3">
+              <div
+                class="flex items-center gap-2 bg-surface-container-lowest rounded-2xl border-2 border-outline-variant/40 hover:border-primary-container focus-within:border-primary focus-within:ring-2 focus-within:ring-primary-container/20 transition-all px-2 py-1 sm:px-3 sm:py-1.5 shadow-sm">
+                <button id="btn-record-voice"
+                  class="w-11 h-11 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container active:bg-surface-container transition-all flex-shrink-0 touch-manipulation"
+                  title="Enregistrer la voix" aria-label="Enregistrer la voix">
+                  <span id="mic-icon" class="material-symbols-outlined text-[22px] sm:text-[20px]">mic</span>
+                </button>
+                <button id="btn-voice-lang"
+                  class="w-9 h-9 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors flex-shrink-0 text-base sm:text-sm font-bold touch-manipulation"
+                  title="Langue de la voix" aria-label="Langue de la voix">&#x1F5E3;&#xFE0F;</button>
+                <input type="text" id="chat-input-text"
+                  class="flex-1 bg-transparent text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none text-sm py-2 min-w-0"
+                  placeholder="Dioula ou Fran&#xe7;ais..." autocomplete="off" autocorrect="off" autocapitalize="off">
+                <button id="btn-cancel-request"
+                  class="hidden w-11 h-11 sm:w-9 sm:h-9 rounded-full items-center justify-center text-error border border-error/30 bg-error/10 hover:bg-error/20 transition-all flex-shrink-0 touch-manipulation"
+                  title="Annuler" aria-label="Annuler">
+                  <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+                <button id="btn-send-message"
+                  class="w-11 h-11 sm:w-9 sm:h-9 rounded-xl bg-inverse-surface hover:bg-black text-surface flex items-center justify-center shadow-sm transition-all active:scale-95 flex-shrink-0 touch-manipulation"
+                  title="Envoyer" aria-label="Envoyer">
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
+              </div>
+              <div class="flex items-center justify-between px-1 mt-1.5">
+                <span
+                  class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider hidden sm:inline">Entr&#xe9;e
+                  pour envoyer</span>
+                <div class="flex items-center gap-1.5 text-on-surface-variant ml-auto">
+                  <span class="font-label text-[10px] uppercase tracking-wider">Vitesse :</span>
+                  <select id="select-speaking-rate"
+                    class="bg-transparent font-label text-[10px] text-on-surface-variant focus:outline-none cursor-pointer uppercase tracking-wider py-1">
+                    <option value="0.75">0.75&#xd7;</option>
+                    <option value="0.9">0.9&#xd7;</option>
+                    <option value="1.0" selected>1.0&#xd7;</option>
+                    <option value="1.25">1.25&#xd7;</option>
+                    <option value="1.5">1.5&#xd7;</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <div class="input-footer-hint">
-                  <span class="hint-text">Entrée pour envoyer</span>
-                  <div class="speed-selector">
-                    <label for="select-speaking-rate">Vitesse :</label>
-                    <select id="select-speaking-rate">
-                      <option value="0.75">0.75x (Ralenti)</option>
-                      <option value="0.9">0.9x</option>
-                      <option value="1.0" selected>1.0x (Normal)</option>
-                      <option value="1.25">1.25x</option>
+        <!-- TRANSLATE PANE -->
+        <div id="pane-translate" class="flex-1 overflow-y-auto w-full">
+          <div
+            class="w-full bg-surface-container-low px-3 sm:px-6 lg:px-10 py-3 sm:py-4 shadow-sm flex-shrink-0 border-b border-outline-variant/20">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
+              <div class="flex items-center gap-3">
+                <div class="w-2.5 h-8 bg-primary-container rounded-full flex-shrink-0"></div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-label text-[10px] text-primary uppercase tracking-widest font-bold">Moteur
+                      Linguistique Souverain</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                    <span class="font-label text-[10px] text-on-surface-variant">Mod&#xe8;le NLLB-200 LoRA v2</span>
+                  </div>
+                  <h2 class="text-[16px] sm:text-[18px] font-bold text-on-surface tracking-tight">Traduction
+                    Bidirectionnelle <span class="text-[13px] sm:text-[14px] text-tertiary font-medium">Fran&#xe7;ais
+                      &#x27f7; Dioula</span></h2>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-2 bg-surface-container px-3 py-1.5 sm:py-2 rounded-xl shadow-sm self-start sm:self-auto flex-shrink-0">
+                <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                <div class="flex flex-col">
+                  <span class="font-label text-[10px] text-on-surface font-bold uppercase tracking-wider">Pr&#xe9;cision
+                    S&#xe9;mantique</span>
+                  <span class="text-[11px] text-on-surface-variant">Registres oraux &amp; transcriptions N'Ko</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-4 sm:py-5">
+            <!-- Barre de sélection des langues (1 ligne responsive même sur petit mobile) -->
+            <div
+              class="relative bg-surface-container-lowest rounded-2xl shadow-md p-2.5 sm:p-3 mb-4 sm:mb-5 overflow-hidden border border-outline-variant/30">
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-tertiary-container to-primary-container">
+              </div>
+              <div class="grid grid-cols-[1fr,auto,1fr] items-center gap-1.5 sm:gap-3 pt-1">
+                <!-- Source -->
+                <div
+                  class="flex items-center justify-between bg-surface-container-low px-2.5 sm:px-4 py-2 rounded-xl shadow-sm min-w-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse flex-shrink-0"></span>
+                    <select id="select-src-lang"
+                      class="bg-transparent text-[13px] sm:text-[15px] font-bold text-on-surface focus:outline-none cursor-pointer truncate max-w-full">
+                      <option value="fr">Fran&#xe7;ais</option>
+                      <option value="dyu">Dioula (Julakan)</option>
                     </select>
                   </div>
+                  <span
+                    class="font-label text-[9px] sm:text-[10px] text-on-surface-variant bg-surface-container px-1.5 sm:px-2 py-0.5 rounded uppercase hidden xs:inline flex-shrink-0">FR</span>
+                </div>
+
+                <!-- Swap Button -->
+                <button id="btn-swap-languages"
+                  class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-primary-container hover:bg-primary text-on-primary flex items-center justify-center shadow-md transition-all active:scale-95 duration-300 flex-shrink-0"
+                  title="Inverser les langues" aria-label="Inverser les langues">
+                  <span class="material-symbols-outlined text-[19px] sm:text-[22px]">swap_horiz</span>
+                </button>
+
+                <!-- Target -->
+                <div
+                  class="flex items-center justify-between bg-surface-container-low px-2.5 sm:px-4 py-2 rounded-xl shadow-sm min-w-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-container flex-shrink-0"></span>
+                    <select id="select-tgt-lang"
+                      class="bg-transparent text-[13px] sm:text-[15px] font-bold text-on-surface focus:outline-none cursor-pointer truncate max-w-full">
+                      <option value="dyu">Dioula (Julakan)</option>
+                      <option value="fr">Fran&#xe7;ais</option>
+                    </select>
+                  </div>
+                  <span
+                    class="font-label text-[9px] sm:text-[10px] font-bold text-on-tertiary-container bg-tertiary-fixed px-1.5 sm:px-2 py-0.5 rounded hidden xs:inline flex-shrink-0">DYU</span>
                 </div>
               </div>
             </div>
 
-            <!-- Overlay inspecteur mobile -->
-            <div class="inspector-overlay" id="inspector-overlay"></div>
-
-            <!-- Drawer Inspecteur de Pipeline -->
-            <aside class="pipeline-inspector" id="pipeline-inspector">
-              <div class="inspector-header">
-                <div class="inspector-title-group">
-                  <h3><span>🔬</span> Pipeline</h3>
-                  <span class="step-latency-badge" id="inspector-status-badge">Prêt</span>
+            <!-- Grille des 2 cartes de traduction -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+              <!-- Carte Source -->
+              <div
+                class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border border-outline-variant/30">
+                <div
+                  class="flex items-center justify-between px-3.5 sm:px-4 py-2.5 sm:py-3 bg-surface-container-low border-b border-outline-variant/20">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-[18px]">edit_note</span>
+                    <span
+                      class="font-label text-[11px] uppercase tracking-wider text-on-surface-variant font-bold">Texte
+                      source</span>
+                  </div>
+                  <button id="btn-clear-src" class="p-1 hover:text-error text-on-surface-variant transition-colors"
+                    title="Effacer le texte">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                  </button>
                 </div>
-                <button class="btn-icon btn-close-inspector" id="btn-close-inspector" aria-label="Fermer">✕</button>
+                <div class="p-3.5 sm:p-4 flex-1 flex flex-col">
+                  <textarea id="translate-src-text"
+                    class="w-full flex-1 bg-transparent resize-none outline-none text-[14px] sm:text-[15px] text-on-surface placeholder:text-outline/60 leading-relaxed font-normal min-h-[140px] sm:min-h-[190px]"
+                    placeholder="Entrez le texte à traduire en dioula ou en français..." rows="5"></textarea>
+                  <div
+                    class="flex flex-wrap items-center justify-between gap-2 pt-3 mt-auto border-t border-outline-variant/20">
+                    <span
+                      class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider hidden sm:inline">Ctrl
+                      + Entrée pour traduire</span>
+                    <button id="btn-run-translate"
+                      class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-inverse-surface hover:bg-black text-surface font-label text-[12px] font-bold shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 sm:ml-auto">
+                      <span class="material-symbols-outlined text-[16px]">translate</span>Traduire
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="inspector-body">
-                <div class="total-latency-banner" id="total-latency-banner">
+
+              <!-- Carte Traduction -->
+              <div
+                class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border border-outline-variant/30">
+                <div
+                  class="flex items-center justify-between px-3.5 sm:px-4 py-2.5 sm:py-3 bg-surface-container-low border-b border-outline-variant/20">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-tertiary text-[18px]">translate</span>
+                    <span
+                      class="font-label text-[11px] uppercase tracking-wider text-on-surface font-bold">Traduction</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span id="translate-time-indicator"
+                      class="font-label text-[10px] text-on-surface-variant font-medium"></span>
+                    <button id="btn-copy-tgt"
+                      class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label text-[11px] flex items-center gap-1 transition-colors"
+                      title="Copier la traduction">
+                      <span class="material-symbols-outlined text-[15px]">content_copy</span>Copier
+                    </button>
+                  </div>
+                </div>
+                <div class="p-3.5 sm:p-4 flex-1 flex flex-col">
+                  <textarea id="translate-tgt-text"
+                    class="w-full flex-1 bg-transparent resize-none outline-none text-[14px] sm:text-[15px] text-on-surface placeholder:text-outline/60 leading-relaxed font-medium min-h-[140px] sm:min-h-[190px]"
+                    placeholder="La traduction apparaîtra ici..." rows="5" readonly></textarea>
+                  <div class="flex items-center justify-between gap-2 pt-3 mt-auto border-t border-outline-variant/20">
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                      <button id="btn-direct-tts-speed"
+                        class="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface-variant font-label text-[11px] font-bold hover:bg-surface-container-high transition-colors"
+                        title="Vitesse de lecture">1.0×</button>
+                      <button id="btn-listen-direct-tts"
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-surface-container hover:bg-primary hover:text-white text-on-surface flex items-center justify-center transition-all shadow-sm flex-shrink-0"
+                        title="Écouter la traduction">
+                        <span class="material-symbols-outlined text-[18px] sm:text-[20px]">volume_up</span>
+                      </button>
+                    </div>
+                    <span
+                      class="font-label text-[9px] sm:text-[10px] text-on-surface-variant uppercase tracking-wider truncate text-right">Synthèse
+                      vocale souveraine</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordéon Formules & Sagesses -->
+            <div
+              class="mt-4 sm:mt-5 bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border border-outline-variant/30">
+              <button type="button"
+                onclick="const c=document.getElementById('phrases-content'),i=document.getElementById('phrases-chevron');c.classList.toggle('hidden');i.classList.toggle('open')"
+                class="w-full px-3.5 sm:px-4 py-3 bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between text-left cursor-pointer">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div
+                    class="w-8 h-8 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-container shadow-sm flex-shrink-0">
+                    <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                  </div>
+                  <div class="min-w-0">
+                    <span class="text-[13px] sm:text-[15px] font-bold text-on-surface block truncate">Formules courantes
+                      &amp; Sagesses
+                      Mandingues</span>
+                    <p class="text-[11px] sm:text-[12px] text-on-surface-variant truncate">Salutations, proverbes,
+                      expressions du quotidien</p>
+                  </div>
+                </div>
+                <span
+                  class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 flex-shrink-0 ml-2"
+                  id="phrases-chevron">expand_more</span>
+              </button>
+              <div class="hidden p-3 sm:p-4" id="phrases-content">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                  <button
+                    class="text-left p-2.5 sm:p-3 bg-surface-container hover:bg-tertiary-fixed transition-colors rounded-xl flex flex-col shadow-sm cursor-pointer"
+                    onclick="injectTransPhrase('I ni s\u0254g\u0254ma')" type="button"><span
+                      class="font-label text-[12px] text-on-surface font-bold">I ni s&#x254;g&#x254;ma</span><span
+                      class="text-[11px] text-on-surface-variant">Bonjour (Matin)</span></button>
+                  <button
+                    class="text-left p-2.5 sm:p-3 bg-surface-container hover:bg-tertiary-fixed transition-colors rounded-xl flex flex-col shadow-sm cursor-pointer"
+                    onclick="injectTransPhrase('I ni baara')" type="button"><span
+                      class="font-label text-[12px] text-on-surface font-bold">I ni baara</span><span
+                      class="text-[11px] text-on-surface-variant">Merci pour ton travail</span></button>
+                  <button
+                    class="text-left p-2.5 sm:p-3 bg-surface-container hover:bg-tertiary-fixed transition-colors rounded-xl flex flex-col shadow-sm cursor-pointer"
+                    onclick="injectTransPhrase('I bisimila')" type="button"><span
+                      class="font-label text-[12px] text-on-surface font-bold">I bisimila</span><span
+                      class="text-[11px] text-on-surface-variant">Bienvenue / Sois b&#xe9;ni</span></button>
+                  <button
+                    class="text-left p-2.5 sm:p-3 bg-surface-container hover:bg-tertiary-fixed transition-colors rounded-xl flex flex-col shadow-sm cursor-pointer"
+                    onclick="injectTransPhrase('D\u0254\u0254ni-d\u0254\u0254ni k\u0254n\u0254 b\u025b ny\u025ba da')"
+                    type="button"><span
+                      class="font-label text-[12px] text-on-surface font-bold">D&#x254;&#x254;ni-d&#x254;&#x254;ni</span><span
+                      class="text-[11px] text-on-surface-variant">Petit &#xe0; petit, l'oiseau...</span></button>
+                  <button
+                    class="text-left p-2.5 sm:p-3 bg-surface-container hover:bg-tertiary-fixed transition-colors rounded-xl flex flex-col shadow-sm cursor-pointer"
+                    onclick="injectTransPhrase('Ala k\\'an si h\u025br\u025b la')" type="button"><span
+                      class="font-label text-[12px] text-on-surface font-bold">Ala k'an si h&#x25b;r&#x25b;
+                      la</span><span class="text-[11px] text-on-surface-variant">Bonne nuit / Paix du
+                      soir</span></button>
+                  <button
+                    class="text-left p-2.5 sm:p-3 bg-surface-container hover:bg-tertiary-fixed transition-colors rounded-xl flex flex-col shadow-sm cursor-pointer"
+                    onclick="injectTransPhrase('I ka k\u025bn\u025b wa ?')" type="button"><span
+                      class="font-label text-[12px] text-on-surface font-bold">I ka k&#x25b;n&#x25b; wa ?</span><span
+                      class="text-[11px] text-on-surface-variant">Comment vas-tu ?</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFOS PANE -->
+        <div id="pane-infos" class="flex-1 overflow-y-auto bg-surface w-full">
+          <!-- SECTION 1 : BÂTISSEURS & SUIVI DES TRAVAUX -->
+          <section class="relative w-full overflow-hidden bg-surface py-8 sm:py-12 md:py-14">
+            <div
+              class="absolute -top-32 -right-24 w-96 h-96 rounded-full bg-tertiary-fixed opacity-30 blur-3xl pointer-events-none">
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
+              <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
+                <div class="max-w-2xl">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-fixed rounded-full mb-3">
+                    <span class="material-symbols-outlined text-on-primary-fixed text-[16px]">diversity_3</span>
+                    <span
+                      class="font-label text-[10px] text-on-primary-fixed uppercase tracking-wider font-bold">Collectif
+                      &amp; Feuille de Route</span>
+                  </div>
+                  <h1
+                    class="text-[26px] sm:text-[34px] md:text-[38px] font-extrabold text-on-surface tracking-tight leading-tight">
+                    Les
+                    B&#xe2;tisseurs de Kouman.AI &amp; Avancement</h1>
+                  <p class="text-[13px] sm:text-[15px] text-on-surface-variant mt-2 leading-relaxed">
+                    Suivi op&#xe9;rationnel des livrables et attributions par p&#xf4;le pour le d&#xe9;veloppement de
+                    l'assistant souverain Baoul&#xe9; &amp; Dioula.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Grille des 6 Bâtisseurs & Chantiers -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                <!-- 1. Aïcha : Collecte et annotation -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between border-t-4 border-emerald-600">
                   <div>
-                    <div style="font-size:0.75rem; color:var(--text-muted);">Temps total</div>
-                    <strong style="font-family:var(--font-mono); font-size:1.1rem;" id="stat-total-ms">— ms</strong>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div
+                          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-100 border-2 border-emerald-500/40 flex items-center justify-center text-emerald-800 font-bold text-[14px] flex-shrink-0 shadow-sm">
+                          AG
+                        </div>
+                        <div class="min-w-0">
+                          <h3 class="text-[15px] font-bold text-on-surface truncate">Gban&#xe9; A&#xef;cha</h3>
+                          <p class="font-label text-[11px] text-emerald-700 font-semibold truncate">Collecte &amp;
+                            annotation des donn&#xe9;es</p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-800 border border-emerald-500/30 flex-shrink-0 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Termin&#xe9;
+                      </span>
+                    </div>
+
+                    <!-- Barre de progression -->
+                    <div class="mb-3">
+                      <div
+                        class="flex justify-between items-center text-[11px] font-label font-bold text-on-surface mb-1">
+                        <span>Progression</span>
+                        <span class="text-emerald-700">100%</span>
+                      </div>
+                      <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full w-full"></div>
+                      </div>
+                    </div>
+
+                    <!-- Scope & Échéance -->
+                    <div
+                      class="bg-surface rounded-xl p-2.5 mb-3 border border-outline-variant/30 flex flex-col gap-1 text-[11px]">
+                      <div class="flex items-center gap-1.5 text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-[15px] text-emerald-700">flag</span>
+                        <span>S1 : Corpus constitu&#xe9; + choix mod&#xe8;les</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[15px] text-tertiary">calendar_today</span>
+                        <span>Livrable le <strong>28/09/26</strong></span>
+                      </div>
+                    </div>
+
+                    <p class="text-[12px] text-on-surface-variant leading-relaxed">
+                      Collecte et contr&#xf4;le qualit&#xe9; des corpus AfriSpeech Baoul&#xe9;/Dioula (5&#x202f;485
+                      clips) et Mozilla Baoul&#xe9; (5&#x202f;623 clips, 14.35h). Nettoyage strict, d&#xe9;doublonnage
+                      et validation technique.
+                    </p>
                   </div>
-                  <span style="font-size:1.4rem;">⚡</span>
+
+                  <div class="mt-4 pt-3 border-t border-outline-variant/30 flex flex-wrap gap-1.5">
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-on-surface-variant font-bold border border-outline-variant/20">Corpus
+                      Baoul&#xe9;-Dioula</span>
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-emerald-700 font-bold border border-outline-variant/20">11k
+                      clips valid&#xe9;s</span>
+                  </div>
                 </div>
 
-                <div class="pipeline-step-card">
-                  <div class="step-card-header">
-                    <span>1. STT</span>
-                    <span class="step-latency-badge" id="stat-stt-ms">— ms</span>
+                <!-- 2. Syndou : Traduction automatique / NLP -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between border-t-4 border-emerald-600">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div
+                          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-100 border-2 border-emerald-500/40 flex items-center justify-center text-emerald-800 font-bold text-[14px] flex-shrink-0 shadow-sm">
+                          SK
+                        </div>
+                        <div class="min-w-0">
+                          <h3 class="text-[15px] font-bold text-on-surface truncate">Kon&#xe9; Y. Syndou</h3>
+                          <p class="font-label text-[11px] text-emerald-700 font-semibold truncate">Traduction auto. /
+                            NLP (NLLB)</p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-800 border border-emerald-500/30 flex-shrink-0 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Termin&#xe9;
+                      </span>
+                    </div>
+
+                    <!-- Barre de progression -->
+                    <div class="mb-3">
+                      <div
+                        class="flex justify-between items-center text-[11px] font-label font-bold text-on-surface mb-1">
+                        <span>Progression</span>
+                        <span class="text-emerald-700">100%</span>
+                      </div>
+                      <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full w-full"></div>
+                      </div>
+                    </div>
+
+                    <!-- Scope & Échéance -->
+                    <div
+                      class="bg-surface rounded-xl p-2.5 mb-3 border border-outline-variant/30 flex flex-col gap-1 text-[11px]">
+                      <div class="flex items-center gap-1.5 text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-[15px] text-emerald-700">flag</span>
+                        <span>S1 : choix mod&#xe8;les &#x2794; S3 : &#xe9;valuation qualit&#xe9;</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[15px] text-tertiary">calendar_today</span>
+                        <span>Livrable le <strong>29/09/26</strong> (au plus tard jeudi)</span>
+                      </div>
+                    </div>
+
+                    <p class="text-[12px] text-on-surface-variant leading-relaxed">
+                      Fine-tuning LoRA v1 &amp; v2 sur NLLB-200, bancs d'&#xe9;valuation sacreBLEU/chrF++, validation
+                      Test Sacr&#xe9; (<strong>29.14 BLEU</strong>, gain +17.11 pts) et certification anti-leakage 100%.
+                    </p>
                   </div>
-                  <div class="step-content-box" id="step-stt-text">En attente...</div>
-                  <div class="step-subtext">MALIBA-AI Bambara ASR-v3 / Whisper-Base FR</div>
+
+                  <div class="mt-4 pt-3 border-t border-outline-variant/30 flex flex-wrap gap-1.5">
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-on-surface-variant font-bold border border-outline-variant/20">LoRA
+                      v2 (160d1a9)</span>
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-emerald-700 font-bold border border-outline-variant/20">BLEU
+                      29.14</span>
+                  </div>
                 </div>
 
-                <div class="pipeline-step-card">
-                  <div class="step-card-header">
-                    <span>2. DYU ➔ FR</span>
-                    <span class="step-latency-badge" id="stat-mt-in-ms">— ms</span>
+                <!-- 3. Falibeta : Backend & API -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between border-t-4 border-amber-500">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div
+                          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-100 border-2 border-amber-500/40 flex items-center justify-center text-amber-800 font-bold text-[14px] flex-shrink-0 shadow-sm">
+                          FS
+                        </div>
+                        <div class="min-w-0">
+                          <h3 class="text-[15px] font-bold text-on-surface truncate">Falibeta Soro</h3>
+                          <p class="font-label text-[11px] text-amber-800 font-semibold truncate">Backend &amp; API REST
+                          </p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider bg-amber-500/15 text-amber-800 border border-amber-500/30 flex-shrink-0 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>Termin&#xe9;
+                      </span>
+                    </div>
+
+                    <!-- Barre de progression -->
+                    <div class="mb-3">
+                      <div
+                        class="flex justify-between items-center text-[11px] font-label font-bold text-on-surface mb-1">
+                        <span>Progression</span>
+                        <span class="text-emerald-700">100%</span>
+                      </div>
+                      <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full w-full"></div>
+                      </div>
+                    </div>
+
+                    <!-- Scope & Échéance -->
+                    <div
+                      class="bg-surface rounded-xl p-2.5 mb-3 border border-outline-variant/30 flex flex-col gap-1 text-[11px]">
+                      <div class="flex items-center gap-1.5 text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-[15px] text-amber-600">flag</span>
+                        <span>S2 : API backend fonctionnelle</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[15px] text-tertiary">calendar_today</span>
+                        <span>D&#xe9;but <strong>01/10/26</strong> ; <strong>05/10/26</strong> (PR #2 en
+                          relecture)</span>
+                      </div>
+                    </div>
+
+                    <p class="text-[12px] text-on-surface-variant leading-relaxed">
+                      Architecture FastAPI asynchrone, routes de dialogue bilingue, s&#xe9;curit&#xe9; HTTPS/TLS,
+                      gestion des sessions et int&#xe9;gration de la cascade multi-LLM (Claude Sonnet &#x2794; Groq Qwen
+                      &#x2794; Gemini Flash).
+                    </p>
                   </div>
-                  <div class="step-content-box" id="step-mt-in-text">En attente...</div>
-                  <div class="step-subtext">NLLB-200 Dioula (beam=4)</div>
+
+                  <div class="mt-4 pt-3 border-t border-outline-variant/30 flex flex-wrap gap-1.5">
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-on-surface-variant font-bold border border-outline-variant/20">FastAPI
+                      Asynchrone</span>
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-amber-700 font-bold border border-outline-variant/20">PR
+                      #2 en relecture</span>
+                  </div>
                 </div>
 
-                <div class="pipeline-step-card">
-                  <div class="step-card-header">
-                    <span>3. LLM (FR)</span>
-                    <span class="step-latency-badge" id="stat-llm-ms">— ms</span>
+                <!-- 4. Kadi : Intégration LLM & pipeline -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between border-t-4 border-amber-500">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div
+                          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-100 border-2 border-amber-500/40 flex items-center justify-center text-amber-800 font-bold text-[14px] flex-shrink-0 shadow-sm">
+                          KS
+                        </div>
+                        <div class="min-w-0">
+                          <h3 class="text-[15px] font-bold text-on-surface truncate">Sacko Kadiatou</h3>
+                          <p class="font-label text-[11px] text-amber-800 font-semibold truncate">Int&#xe9;gration LLM
+                            &amp; pipeline</p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider bg-amber-500/15 text-amber-800 border border-amber-500/30 flex-shrink-0 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>Termin&#xe9;
+                      </span>
+                    </div>
+
+                    <!-- Barre de progression -->
+                    <div class="mb-3">
+                      <div
+                        class="flex justify-between items-center text-[11px] font-label font-bold text-on-surface mb-1">
+                        <span>Progression</span>
+                        <span class="text-emerald-700">100%</span>
+                      </div>
+                      <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full w-full"></div>
+                      </div>
+                    </div>
+
+                    <!-- Scope & Échéance -->
+                    <div
+                      class="bg-surface rounded-xl p-2.5 mb-3 border border-outline-variant/30 flex flex-col gap-1 text-[11px]">
+                      <div class="flex items-center gap-1.5 text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-[15px] text-amber-600">flag</span>
+                        <span>S2 : Premier prototype pipeline</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[15px] text-tertiary">calendar_today</span>
+                        <span>D&#xe9;but&#xe9; le <strong>30/09/26</strong></span>
+                      </div>
+                    </div>
+
+                    <p class="text-[12px] text-on-surface-variant leading-relaxed">
+                      Orchestration de la cascade d'inf&#xe9;rence en 5 &#xe9;tapes (STT &#x2794; MT In &#x2794; LLM
+                      &#x2794; MT Out &#x2794; TTS). Synchronisation des latences, cadrage des r&#xe9;ponses et
+                      optimisation du streaming.
+                    </p>
                   </div>
-                  <div class="step-content-box" id="step-llm-text">En attente...</div>
-                  <div class="step-subtext" id="stat-llm-name">Claude Sonnet 5</div>
+
+                  <div class="mt-4 pt-3 border-t border-outline-variant/30 flex flex-wrap gap-1.5">
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-on-surface-variant font-bold border border-outline-variant/20">Pipeline
+                      5 &#xc9;tapes</span>
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-amber-700 font-bold border border-outline-variant/20">Prototype
+                      S2</span>
+                  </div>
                 </div>
 
-                <div class="pipeline-step-card">
-                  <div class="step-card-header">
-                    <span>4. FR ➔ DYU</span>
-                    <span class="step-latency-badge" id="stat-mt-out-ms">— ms</span>
+                <!-- 5. Ivan + Ezé : Intégration et tests -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between border-t-4 border-slate-400">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div
+                          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-100 border-2 border-slate-300 flex items-center justify-center text-slate-700 font-bold text-[14px] flex-shrink-0 shadow-sm">
+                          I
+                        </div>
+                        <div class="min-w-0">
+                          <h3 class="text-[15px] font-bold text-on-surface truncate">Ivan</h3>
+                          <p class="font-label text-[11px] text-slate-600 font-semibold truncate">Int&#xe9;gration &amp;
+                            tests applicatifs</p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider bg-slate-200 text-slate-700 border border-slate-300 flex-shrink-0">
+                        Termin&#xe9;
+                      </span>
+                    </div>
+
+                    <!-- Barre de progression -->
+                    <div class="mb-3">
+                      <div
+                        class="flex justify-between items-center text-[11px] font-label font-bold text-on-surface mb-1">
+                        <span>Progression</span>
+                        <span class="text-emerald-700">100%</span>
+                      </div>
+                      <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full w-full"></div>
+                      </div>
+                    </div>
+
+                    <!-- Scope & Échéance -->
+                    <div
+                      class="bg-surface rounded-xl p-2.5 mb-3 border border-outline-variant/30 flex flex-col gap-1 text-[11px]">
+                      <div class="flex items-center gap-1.5 text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-[15px] text-slate-600">flag</span>
+                        <span>S3 : Int&#xe9;gration app tierce termin&#xe9;e</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[15px] text-tertiary">calendar_today</span>
+                        <span>Pr&#xe9;vu pour <strong>Cycle S3</strong></span>
+                      </div>
+                    </div>
+
+                    <p class="text-[12px] text-on-surface-variant leading-relaxed">
+                      Tests d'int&#xe9;gration end-to-end, validation acoustique des voix TTS mandingues,
+                      compatibilit&#xe9; avec interfaces clientes tierces et validation de la r&#xe9;activit&#xe9;
+                      mobile.
+                    </p>
                   </div>
-                  <div class="step-content-box" id="step-mt-out-text">En attente...</div>
-                  <div class="step-subtext">Découpage par phrase</div>
+
+                  <div class="mt-4 pt-3 border-t border-outline-variant/30 flex flex-wrap gap-1.5">
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-on-surface-variant font-bold border border-outline-variant/20">Tests
+                      End-to-End</span>
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-slate-600 font-bold border border-outline-variant/20">Apps
+                      Tierces</span>
+                  </div>
                 </div>
 
-                <div class="pipeline-step-card">
-                  <div class="step-card-header">
-                    <span>5. TTS Dioula</span>
-                    <span class="step-latency-badge" id="stat-tts-ms">— ms</span>
+                <!-- 5. Ivan + Ezé : Intégration et tests -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between border-t-4 border-slate-400">
+                  <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div
+                          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-100 border-2 border-slate-300 flex items-center justify-center text-slate-700 font-bold text-[14px] flex-shrink-0 shadow-sm">
+                          EC
+                        </div>
+                        <div class="min-w-0">
+                          <h3 class="text-[15px] font-bold text-on-surface truncate">Ez&#xe9;jideakou christian</h3>
+                          <p class="font-label text-[11px] text-slate-600 font-semibold truncate">Int&#xe9;gration &amp;
+                            tests applicatifs</p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-2.5 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider bg-slate-200 text-slate-700 border border-slate-300 flex-shrink-0">
+                        Termin&#xe9;
+                      </span>
+                    </div>
+
+                    <!-- Barre de progression -->
+                    <div class="mb-3">
+                      <div
+                        class="flex justify-between items-center text-[11px] font-label font-bold text-on-surface mb-1">
+                        <span>Progression</span>
+                        <span class="text-emerald-700">100%</span>
+                      </div>
+                      <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-600 h-full rounded-full w-full"></div>
+                      </div>
+                    </div>
+
+                    <!-- Scope & Échéance -->
+                    <div
+                      class="bg-surface rounded-xl p-2.5 mb-3 border border-outline-variant/30 flex flex-col gap-1 text-[11px]">
+                      <div class="flex items-center gap-1.5 text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-[15px] text-slate-600">flag</span>
+                        <span>S3 : Int&#xe9;gration app tierce termin&#xe9;e</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[15px] text-tertiary">calendar_today</span>
+                        <span>Pr&#xe9;vu pour <strong>Cycle S3</strong></span>
+                      </div>
+                    </div>
+
+                    <p class="text-[12px] text-on-surface-variant leading-relaxed">
+                      Tests d'int&#xe9;gration end-to-end, validation acoustique des voix TTS mandingues,
+                      compatibilit&#xe9; avec interfaces clientes tierces et validation de la r&#xe9;activit&#xe9;
+                      mobile.
+                    </p>
                   </div>
-                  <div class="step-content-box" id="step-tts-text">Audio prêt.</div>
-                  <div class="step-subtext">MALIBA-AI Spark-TTS Bambara (Bourama)</div>
+
+                  <div class="mt-4 pt-3 border-t border-outline-variant/30 flex flex-wrap gap-1.5">
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-on-surface-variant font-bold border border-outline-variant/20">Tests
+                      End-to-End</span>
+                    <span
+                      class="px-2 py-0.5 bg-surface rounded-md font-label text-[10px] text-slate-600 font-bold border border-outline-variant/20">Apps
+                      Tierces</span>
+                  </div>
                 </div>
               </div>
-            </aside>
-          </div>
-        </section>
-
-        <!-- 2. TAB: TRADUCTEUR DIRECT -->
-        <section class="tab-pane" id="pane-translate">
-          <div class="translate-layout">
-            <div style="text-align: center; margin-bottom: 1rem;">
-              <h2 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;">Traducteur Dioula ⟷ Français</h2>
-              <p style="color: var(--text-muted); font-size: 0.85rem;">NLLB-200 Dioula fusionné · Sans intermédiaire LLM</p>
             </div>
+          </section>
 
-            <div class="translate-boxes-container">
-              <div class="translate-card">
-                <div class="card-header-lang">
-                  <select id="select-src-lang">
-                    <option value="fr" selected>Français</option>
-                    <option value="dyu">Dioula</option>
-                  </select>
-                  <button class="btn-icon" id="btn-clear-src" title="Effacer">✕</button>
+          <!-- SECTION 2 : MÉTRIQUES EMPIRIQUES & BENCHMARKS NLP DU PROJET -->
+          <section class="w-full bg-surface-container-low py-10 sm:py-12 border-y border-outline-variant/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+              <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                <div>
+                  <span class="font-label text-[10px] text-primary uppercase tracking-widest font-bold">R&#xe9;sultats
+                    Empiriques Officiels</span>
+                  <h2 class="text-[22px] sm:text-[28px] font-bold text-on-surface tracking-tight mt-1">M&#xe9;triques
+                    &amp; Benchmarks NLP</h2>
+                  <p class="text-[13px] sm:text-[14px] text-on-surface-variant mt-1">Mesures extraites rigoureusement de
+                    <code>data/baselines_results.tsv</code> et valid&#xe9;es par le contr&#xf4;le anti-fuite.
+                  </p>
                 </div>
-                <textarea class="translate-textarea" id="translate-src-text" placeholder="Texte à traduire..."></textarea>
+                <div
+                  class="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-xl border border-outline-variant/30 text-xs font-semibold text-emerald-800 self-start md:self-auto shadow-sm">
+                  <span class="material-symbols-outlined text-emerald-600 text-[18px]">verified_user</span>
+                  <span>&#xc9;tanch&#xe9;it&#xe9; 100% Certifi&#xe9;e (0 fuite)</span>
+                </div>
               </div>
 
-              <div class="swap-btn-container">
-                <button class="btn-swap" id="btn-swap-languages" title="Inverser">⇄</button>
+              <!-- 4 Cartes métriques clés -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                <!-- Métrique 1 : BLEU Test Sacré -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-label text-[11px] text-on-surface-variant font-bold uppercase tracking-wider">Test
+                      Sacr&#xe9; (BLEU)</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">+17.11
+                      pts</span>
+                  </div>
+                  <div class="text-[28px] sm:text-[32px] font-black text-primary leading-none my-1">29.14</div>
+                  <p class="text-[12px] text-on-surface-variant mt-1">Passage de 12.03 (base NLLB) &#xe0;
+                    <strong>29.14</strong> en FR &#x2794; Dioula sur les 144 phrases quotidiennes.
+                  </p>
+                </div>
+
+                <!-- Métrique 2 : chrF++ -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-label text-[11px] text-on-surface-variant font-bold uppercase tracking-wider">Pr&#xe9;cision
+                      Morphologique</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">+10.48
+                      pts</span>
+                  </div>
+                  <div class="text-[28px] sm:text-[32px] font-black text-tertiary leading-none my-1">44.24</div>
+                  <p class="text-[12px] text-on-surface-variant mt-1">Score chrF++ sur Test Sacr&#xe9; (vs 33.76 pour la
+                    base), refl&#xe9;tant l'exactitude des affixes mandingues.</p>
+                </div>
+
+                <!-- Métrique 3 : Anti-Leakage -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-label text-[11px] text-on-surface-variant font-bold uppercase tracking-wider">Contr&#xf4;le
+                      Anti-Fuite</span>
+                    <span
+                      class="text-xs px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-bold">&#xc9;tanche</span>
+                  </div>
+                  <div class="text-[28px] sm:text-[32px] font-black text-on-surface leading-none my-1">100%</div>
+                  <p class="text-[12px] text-on-surface-variant mt-1">0 fuite exacte FR, 0 fuite DYU certifi&#xe9;es par
+                    <code>check_test_leakage.py</code> (425 doublons exclus).
+                  </p>
+                </div>
+
+                <!-- Métrique 4 : Données Audio & Corpus -->
+                <div
+                  class="p-4 sm:p-5 rounded-2xl bg-surface shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-label text-[11px] text-on-surface-variant font-bold uppercase tracking-wider">Clips
+                      Audio Valid&#xe9;s</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-tertiary-fixed text-tertiary font-bold">22.4
+                      h</span>
+                  </div>
+                  <div class="text-[28px] sm:text-[32px] font-black text-emerald-700 leading-none my-1">11&#x202f;108
+                  </div>
+                  <p class="text-[12px] text-on-surface-variant mt-1">5&#x202f;485 clips AfriSpeech Jula + 5&#x202f;623
+                    clips Mozilla Baoul&#xe9; nettoy&#xe9;s et contr&#xf4;l&#xe9;s.</p>
+                </div>
               </div>
 
-              <div class="translate-card">
-                <div class="card-header-lang">
-                  <select id="select-tgt-lang">
-                    <option value="dyu" selected>Dioula</option>
-                    <option value="fr">Français</option>
-                  </select>
-                  <button class="btn-icon" id="btn-copy-tgt" title="Copier">📋</button>
+              <!-- Tableau comparatif Sacré BLEU / chrF++ (Responsive avec scroll horizontal si nécessaire) -->
+              <div class="bg-surface rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm">
+                <div
+                  class="px-4 py-3 bg-surface-container border-b border-outline-variant/20 flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-[18px]">table_chart</span>
+                    <span class="font-label text-[11px] font-bold text-on-surface uppercase tracking-wider">Tableau
+                      Comparatif des Performances NLLB-200</span>
+                  </div>
+                  <span class="text-[11px] text-on-surface-variant font-medium">Direction FR &#x2794; DYU (Test
+                    Sacr&#xe9; - 144 phrases)</span>
                 </div>
-                <textarea class="translate-textarea" id="translate-tgt-text" placeholder="Traduction..." readonly></textarea>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-[12px] sm:text-[13px]">
+                    <thead
+                      class="bg-surface-container-low text-on-surface-variant font-label text-[10px] uppercase tracking-wider border-b border-outline-variant/20">
+                      <tr>
+                        <th class="py-2.5 px-4 font-bold">Mod&#xe8;le / Architecture</th>
+                        <th class="py-2.5 px-3 font-bold">Dataset d'&#xc9;valuation</th>
+                        <th class="py-2.5 px-3 font-bold text-center">chrF++</th>
+                        <th class="py-2.5 px-3 font-bold text-center">BLEU</th>
+                        <th class="py-2.5 px-4 font-bold text-right">Statut / Gain</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/20">
+                      <tr class="hover:bg-surface-container/50">
+                        <td class="py-2.5 px-4 font-medium text-on-surface">NLLB-200 Zero-Shot (Base Meta)</td>
+                        <td class="py-2.5 px-3 text-on-surface-variant">Test Sacr&#xe9; (144 phrases)</td>
+                        <td class="py-2.5 px-3 text-center text-on-surface-variant font-mono">33.76</td>
+                        <td class="py-2.5 px-3 text-center text-on-surface-variant font-mono">12.03</td>
+                        <td class="py-2.5 px-4 text-right"><span
+                            class="px-2 py-0.5 bg-surface-variant rounded text-[10px] text-on-surface-variant font-bold">Baseline</span>
+                        </td>
+                      </tr>
+                      <tr class="hover:bg-surface-container/50 bg-primary-fixed/10">
+                        <td class="py-2.5 px-4 font-bold text-primary flex items-center gap-1.5">
+                          <span class="material-symbols-outlined text-[15px] text-primary">auto_awesome</span>
+                          LoRA v1 (Fine-tun&#xe9; Kouman)
+                        </td>
+                        <td class="py-2.5 px-3 text-on-surface-variant">Test Sacr&#xe9; (144 phrases)</td>
+                        <td class="py-2.5 px-3 text-center font-bold text-tertiary font-mono">44.24</td>
+                        <td class="py-2.5 px-3 text-center font-black text-primary font-mono">29.14</td>
+                        <td class="py-2.5 px-4 text-right"><span
+                            class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-bold">+17.11
+                            BLEU</span></td>
+                      </tr>
+                      <tr class="hover:bg-surface-container/50">
+                        <td class="py-2.5 px-4 font-medium text-on-surface">LoRA v2 (R&#xe9;vision 160d1a9)</td>
+                        <td class="py-2.5 px-3 text-on-surface-variant">Test Sacr&#xe9; &amp; Validation V2</td>
+                        <td class="py-2.5 px-3 text-center text-on-surface-variant font-mono">Hybride</td>
+                        <td class="py-2.5 px-3 text-center text-on-surface-variant font-mono">RAG + Post-proc</td>
+                        <td class="py-2.5 px-4 text-right"><span
+                            class="px-2 py-0.5 bg-emerald-500/15 text-emerald-800 border border-emerald-500/30 rounded text-[10px] font-bold">Actif
+                            en Prod</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-
-            <div class="translate-footer-bar">
-              <span style="font-size: 0.8rem; color: var(--text-dim);" id="translate-time-indicator">Délai : — ms</span>
-              <div style="display: flex; gap: 0.5rem; align-items: center;">
-                <button class="player-speed-btn" id="btn-direct-tts-speed" title="Vitesse d'écoute">
-                  <span>⚡</span> <strong>0.75x</strong>
-                </button>
-                <button class="btn-icon" id="btn-listen-direct-tts" title="Écouter en dioula">
-                  <span>🔊</span>
-                </button>
-                <button class="btn-primary" id="btn-run-translate">
-                  <span>Traduire</span> ➔
-                </button>
+          </section>
+          </section>
+          <section class="w-full bg-surface py-12 md:py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+              <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="font-label text-[10px] text-tertiary uppercase tracking-widest font-bold">Ing&#xe9;nierie
+                  de Pointe</span>
+                <h2 class="text-[28px] sm:text-[34px] font-black text-on-surface tracking-tight mt-1">Les Trois Piliers
+                  Technologiques</h2>
+                <p class="text-[15px] text-on-surface-variant mt-2">Le triple d&#xe9;fi de la langue tonale, du
+                  mat&#xe9;riel contraint et de la souverainet&#xe9; open-source.</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                  class="flex flex-col p-6 rounded-2xl bg-surface-container-low shadow-sm hover:shadow-lg transition-shadow duration-300">
+                  <div
+                    class="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center mb-5 shadow-sm">
+                    <span class="material-symbols-outlined text-[28px]">graphic_eq</span>
+                  </div>
+                  <h3 class="text-[18px] font-bold text-on-surface">Moteur Vocal S&#xe9;mantique</h3>
+                  <p class="text-[14px] text-on-surface-variant mt-3 flex-1">Mod&#xe8;les ASR et TTS calibr&#xe9;s sur
+                    la prosodie et les accents africains. L'algorithme comprend la polys&#xe9;mie contextuelle propre au
+                    langage oral.</p>
+                  <div class="mt-5 pt-4 bg-surface-container rounded-xl p-3">
+                    <div class="flex items-center justify-between text-on-surface font-label text-[11px]"><span>Latence
+                        audio</span><span class="text-primary font-bold">&lt; 140ms</span></div>
+                    <div class="w-full bg-surface-variant h-1.5 rounded-full mt-2 overflow-hidden">
+                      <div class="bg-primary-container h-full rounded-full w-11/12"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col p-6 rounded-2xl bg-surface-container-low shadow-sm hover:shadow-lg transition-shadow duration-300">
+                  <div
+                    class="w-12 h-12 rounded-2xl bg-tertiary-container text-on-tertiary flex items-center justify-center mb-5 shadow-sm">
+                    <span class="material-symbols-outlined text-[28px]">bolt</span>
+                  </div>
+                  <h3 class="text-[18px] font-bold text-on-surface">IA Frugale &amp; Edge Offline</h3>
+                  <p class="text-[14px] text-on-surface-variant mt-3 flex-1">Quantification 4-bit (GGML/GGUF) pour
+                    ex&#xe9;cuter sur smartphones reconditionnés en mode totalement d&#xe9;connect&#xe9; via r&#xe9;seau
+                    2G/3G intermittent.</p>
+                  <div class="mt-5 pt-4 bg-surface-container rounded-xl p-3">
+                    <div class="flex items-center justify-between text-on-surface font-label text-[11px]">
+                      <span>Empreinte RAM minimale</span><span class="text-tertiary font-bold">1.2 Go</span>
+                    </div>
+                    <div class="w-full bg-surface-variant h-1.5 rounded-full mt-2 overflow-hidden">
+                      <div class="bg-tertiary-container h-full rounded-full w-4/5"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col p-6 rounded-2xl bg-surface-container-low shadow-sm hover:shadow-lg transition-shadow duration-300">
+                  <div
+                    class="w-12 h-12 rounded-2xl bg-secondary text-on-secondary flex items-center justify-center mb-5 shadow-sm">
+                    <span class="material-symbols-outlined text-[28px]">hub</span>
+                  </div>
+                  <h3 class="text-[18px] font-bold text-on-surface">Communs Open Source</h3>
+                  <p class="text-[14px] text-on-surface-variant mt-3 flex-1">Donn&#xe9;es et repr&#xe9;sentations
+                    s&#xe9;mantiques disponibles pour d&#xe9;veloppeurs, universit&#xe9;s et startups africaines sous
+                    licence solidaire.</p>
+                  <div class="mt-5 pt-4 bg-surface-container rounded-xl p-3">
+                    <div class="flex items-center justify-between text-on-surface font-label text-[11px]">
+                      <span>Mod&#xe8;les communautaires</span><span class="text-on-surface font-bold">Licence
+                        Ouverte</span>
+                    </div>
+                    <div class="w-full bg-surface-variant h-1.5 rounded-full mt-2 overflow-hidden">
+                      <div class="bg-secondary-fixed-dim h-full rounded-full w-full"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+          <footer class="w-full bg-surface-container-low py-5 border-t border-outline-variant/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+              <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+                <div><span class="text-[16px] font-bold text-on-surface">Kouman<span
+                      class="text-primary">.AI</span></span></div>
+                <div class="flex items-center gap-2 text-tertiary"><span
+                    class="material-symbols-outlined text-[14px]">shield</span><span
+                    class="font-label text-[11px] uppercase tracking-wider text-on-surface">Souverainet&#xe9; Cognitive
+                    Africaine</span></div>
+                <span class="text-[12px] text-on-surface-variant">&copy; 2025 Kouman-AI. Tous droits
+                  r&#xe9;serv&#xe9;s.</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+
       </main>
+
+      <!-- PIPELINE INSPECTOR -->
+      <aside id="pipeline-inspector"
+        class="fixed inset-y-0 right-0 z-50 w-full sm:w-[440px] md:w-[480px] max-w-full bg-surface-container-low border-l border-outline-variant/30 flex flex-col shadow-2xl transform translate-x-full transition-transform duration-300 pt-[94px] sm:pt-[66px]">
+        <div
+          class="p-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-high flex-shrink-0">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
+              <span class="material-symbols-outlined text-[20px]">account_tree</span>
+            </div>
+            <div>
+              <h3 class="font-label text-[14px] font-bold text-on-surface">Pipeline d'Inférence IA</h3>
+              <p class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider">Flux Cascade : STT ➔ MT
+                ➔ LLM ➔ MT ➔ TTS</p>
+            </div>
+          </div>
+          <button id="btn-close-inspector"
+            class="w-8 h-8 rounded-xl hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
+          <!-- Bandeau statut & latence globale -->
+          <div
+            class="bg-surface-container rounded-2xl p-3.5 border border-outline-variant/30 flex items-center justify-between shadow-sm">
+            <div class="flex flex-col">
+              <span class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Statut
+                du pipeline</span>
+              <span id="inspector-status-badge" class="inspector-badge idle mt-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                <span>En attente</span>
+              </span>
+            </div>
+            <div class="flex flex-col items-end">
+              <span
+                class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Latence
+                totale</span>
+              <span id="stat-total-ms" class="font-label text-[18px] font-black text-primary">—</span>
+            </div>
+          </div>
+
+          <!-- Stepper visuel rapide 5 étapes -->
+          <div
+            class="bg-surface-container/60 rounded-xl p-2.5 border border-outline-variant/20 flex items-center justify-between text-center">
+            <div class="flex-1 flex flex-col items-center">
+              <div
+                class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface">
+                🎙️</div>
+              <span class="font-label text-[9px] text-on-surface-variant mt-1 font-semibold uppercase">1. STT</span>
+            </div>
+            <span class="text-outline-variant text-xs">➔</span>
+            <div class="flex-1 flex flex-col items-center">
+              <div
+                class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface">
+                🔄</div>
+              <span class="font-label text-[9px] text-on-surface-variant mt-1 font-semibold uppercase">2. MT In</span>
+            </div>
+            <span class="text-outline-variant text-xs">➔</span>
+            <div class="flex-1 flex flex-col items-center">
+              <div
+                class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface">
+                🧠</div>
+              <span class="font-label text-[9px] text-on-surface-variant mt-1 font-semibold uppercase">3. LLM</span>
+            </div>
+            <span class="text-outline-variant text-xs">➔</span>
+            <div class="flex-1 flex flex-col items-center">
+              <div
+                class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface">
+                🔄</div>
+              <span class="font-label text-[9px] text-on-surface-variant mt-1 font-semibold uppercase">4. MT Out</span>
+            </div>
+            <span class="text-outline-variant text-xs">➔</span>
+            <div class="flex-1 flex flex-col items-center">
+              <div
+                class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface">
+                🔊</div>
+              <span class="font-label text-[9px] text-on-surface-variant mt-1 font-semibold uppercase">5. TTS</span>
+            </div>
+          </div>
+
+          <!-- Détail étape par étape avec résultats intermédiaires -->
+          <div class="flex flex-col gap-2.5">
+
+            <!-- Étape 1 : STT -->
+            <div
+              class="bg-surface-container rounded-xl p-3 border border-outline-variant/30 flex flex-col gap-1.5 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">🎙️</span>
+                  <div>
+                    <h4 class="font-label text-[12px] font-bold text-on-surface leading-tight">1. Transcription Vocale
+                      (STT)</h4>
+                    <p id="step-stt-model" class="font-label text-[9px] text-on-surface-variant">
+                      MALIBA-AI/bambara-asr-v3 (Whisper)</p>
+                  </div>
+                </div>
+                <span id="stat-stt-ms"
+                  class="stat-value font-mono text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high">—</span>
+              </div>
+              <div class="mt-1 bg-surface-container-lowest/80 rounded-lg p-2.5 border border-outline-variant/20">
+                <div
+                  class="font-label text-[9px] uppercase tracking-wider text-primary font-bold mb-0.5 flex items-center justify-between">
+                  <span>Résultat intermédiaire (Texte capté) :</span>
+                  <span
+                    class="material-symbols-outlined text-[13px] text-on-surface-variant/70">record_voice_over</span>
+                </div>
+                <div id="step-stt-text"
+                  class="text-[12px] text-on-surface font-sans leading-relaxed select-text italic text-on-surface-variant/80">
+                  En attente d'un message...</div>
+              </div>
+            </div>
+
+            <!-- Étape 2 : Traduction Langue Locale -> Français -->
+            <div
+              class="bg-surface-container rounded-xl p-3 border border-outline-variant/30 flex flex-col gap-1.5 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">🔄</span>
+                  <div>
+                    <h4 class="font-label text-[12px] font-bold text-on-surface leading-tight">2. Traduction vers Pivot
+                      (MT In)</h4>
+                    <p id="step-mt-in-model" class="font-label text-[9px] text-on-surface-variant">
+                      syndou/nllb-200-dioula (NLLB-200)</p>
+                  </div>
+                </div>
+                <span id="stat-mt-in-ms"
+                  class="stat-value font-mono text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high">—</span>
+              </div>
+              <div class="mt-1 bg-surface-container-lowest/80 rounded-lg p-2.5 border border-outline-variant/20">
+                <div
+                  class="font-label text-[9px] uppercase tracking-wider text-primary font-bold mb-0.5 flex items-center justify-between">
+                  <span>Résultat intermédiaire (Français envoyé au LLM) :</span>
+                  <span class="material-symbols-outlined text-[13px] text-on-surface-variant/70">translate</span>
+                </div>
+                <div id="step-mt-in-text"
+                  class="text-[12px] text-on-surface font-sans leading-relaxed select-text italic text-on-surface-variant/80">
+                  En attente d'un message...</div>
+              </div>
+            </div>
+
+            <!-- Étape 3 : LLM Cognitif -->
+            <div
+              class="bg-surface-container rounded-xl p-3 border border-outline-variant/30 flex flex-col gap-1.5 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">🧠</span>
+                  <div>
+                    <h4 class="font-label text-[12px] font-bold text-on-surface leading-tight">3. Raisonnement Cognitif
+                      (LLM)</h4>
+                    <p id="stat-llm-name"
+                      class="font-label text-[9px] text-on-surface-variant uppercase tracking-wider">
+                      anthropic/claude-sonnet-5</p>
+                  </div>
+                </div>
+                <span id="stat-llm-ms"
+                  class="stat-value font-mono text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high">—</span>
+              </div>
+              <div class="mt-1 bg-surface-container-lowest/80 rounded-lg p-2.5 border border-outline-variant/20">
+                <div
+                  class="font-label text-[9px] uppercase tracking-wider text-primary font-bold mb-0.5 flex items-center justify-between">
+                  <span>Résultat intermédiaire (Réponse générée en français) :</span>
+                  <span class="material-symbols-outlined text-[13px] text-on-surface-variant/70">psychology</span>
+                </div>
+                <div id="step-llm-text"
+                  class="text-[12px] text-on-surface font-sans leading-relaxed select-text italic text-on-surface-variant/80">
+                  En attente d'un message...</div>
+              </div>
+            </div>
+
+            <!-- Étape 4 : Traduction Français -> Langue Locale -->
+            <div
+              class="bg-surface-container rounded-xl p-3 border border-outline-variant/30 flex flex-col gap-1.5 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">🔄</span>
+                  <div>
+                    <h4 class="font-label text-[12px] font-bold text-on-surface leading-tight">4. Traduction vers Dioula
+                      (MT Out)</h4>
+                    <p id="step-mt-out-model" class="font-label text-[9px] text-on-surface-variant">
+                      syndou/nllb-200-dioula (NLLB-200)</p>
+                  </div>
+                </div>
+                <span id="stat-mt-out-ms"
+                  class="stat-value font-mono text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high">—</span>
+              </div>
+              <div class="mt-1 bg-surface-container-lowest/80 rounded-lg p-2.5 border border-outline-variant/20">
+                <div
+                  class="font-label text-[9px] uppercase tracking-wider text-primary font-bold mb-0.5 flex items-center justify-between">
+                  <span>Résultat intermédiaire (Réponse traduite en Dioula) :</span>
+                  <span class="material-symbols-outlined text-[13px] text-on-surface-variant/70">check_circle</span>
+                </div>
+                <div id="step-mt-out-text"
+                  class="text-[12px] text-on-surface font-sans leading-relaxed select-text italic text-on-surface-variant/80">
+                  En attente d'un message...</div>
+              </div>
+            </div>
+
+            <!-- Étape 5 : Synthèse Vocale (TTS) -->
+            <div
+              class="bg-surface-container rounded-xl p-3 border border-outline-variant/30 flex flex-col gap-1.5 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">🔊</span>
+                  <div>
+                    <h4 class="font-label text-[12px] font-bold text-on-surface leading-tight">5. Synthèse Vocale Dioula
+                      (TTS)</h4>
+                    <p id="step-tts-model" class="font-label text-[9px] text-on-surface-variant">MALIBA-AI/bambara-tts
+                      (Bourama)</p>
+                  </div>
+                </div>
+                <span id="stat-tts-ms"
+                  class="stat-value font-mono text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high">—</span>
+              </div>
+              <div class="mt-1 bg-surface-container-lowest/80 rounded-lg p-2.5 border border-outline-variant/20">
+                <div
+                  class="font-label text-[9px] uppercase tracking-wider text-primary font-bold mb-0.5 flex items-center justify-between">
+                  <span>Résultat intermédiaire (Flux Audio) :</span>
+                  <span class="material-symbols-outlined text-[13px] text-on-surface-variant/70">volume_up</span>
+                </div>
+                <div id="step-tts-text"
+                  class="text-[12px] text-on-surface font-sans leading-relaxed select-text italic text-on-surface-variant/80">
+                  En attente d'un message...</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Note d'architecture -->
+          <div class="bg-surface-container rounded-xl p-3 border border-outline-variant/20 mt-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="material-symbols-outlined text-[15px] text-primary">hub</span>
+              <h4 class="font-label text-[11px] text-on-surface font-bold">Architecture Cascade Frugale</h4>
+            </div>
+            <p class="text-[11px] text-on-surface-variant leading-relaxed">
+              Les requêtes en langue locale sont pivotées vers le français pour exploiter le raisonnement du LLM sans
+              perte de nuance, puis traduites fidèlement vers le dioula avant vocalisation.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-3 border-t border-outline-variant/30 bg-surface-container flex-shrink-0">
+          <p class="font-label text-[10px] text-center text-on-surface-variant uppercase tracking-wider">Kouman-AI
+            &bull; Souverainet&#xe9; Linguistique Africaine</p>
+        </div>
+      </aside>
+      <div id="inspector-overlay" class="fixed inset-0 bg-inverse-surface/30 backdrop-blur-sm z-40 hidden"></div>
     </div>
   </div>
 
-  <!-- Modal Paramètres -->
-  <div class="modal-overlay" id="modal-settings">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>⚙️ Paramètres de Connexion</h3>
-        <button class="btn-icon" id="btn-close-settings">✕</button>
+  <!-- SETTINGS MODAL -->
+  <div id="modal-settings"
+    class="fixed inset-0 z-[200] bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div
+      class="bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 w-full max-w-md overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <div class="h-[3px] bg-gradient-to-r from-primary via-tertiary-container to-primary-container"></div>
+      <div class="p-5 border-b border-outline-variant/30 flex items-center justify-between">
+        <div>
+          <h2 class="text-[16px] font-bold text-on-surface">Param&#xe8;tres de connexion</h2>
+          <p class="text-[12px] text-on-surface-variant mt-0.5">Configuration du serveur Kouman-AI</p>
+        </div>
+        <button id="btn-close-settings"
+          class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
       </div>
-      <div class="form-group">
-        <label for="input-api-url">URL du Backend FastAPI</label>
-        <input type="text" class="form-input" id="input-api-url" value="">
-        <div class="form-hint">Laissez vide si servi sur le même port (localhost:8000).</div>
+      <div class="p-5 flex flex-col gap-4">
+        <div class="flex flex-col gap-1.5">
+          <label class="font-label text-[11px] text-on-surface font-semibold uppercase tracking-wider">URL du serveur
+            API</label>
+          <input id="input-api-url" type="url" placeholder="http://localhost:8000"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary-container/20 focus:outline-none text-on-surface text-sm transition-all">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="font-label text-[11px] text-on-surface font-semibold uppercase tracking-wider">Cl&#xe9; API
+            (optionnel)</label>
+          <input id="input-api-key" type="password"
+            placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 focus:border-primary focus:ring-2 focus:ring-primary-container/20 focus:outline-none text-on-surface text-sm transition-all">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="input-api-key">Clé d'API (X-API-Key)</label>
-        <input type="password" class="form-input" id="input-api-key" placeholder="kma_...">
-        <div class="form-hint">Générée avec <code>python -m scripts.manage_keys create demo</code>.</div>
-      </div>
-      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
-        <button class="btn-primary" id="btn-save-settings">Enregistrer</button>
+      <div class="p-5 border-t border-outline-variant/30 flex items-center justify-end gap-3">
+        <button onclick="document.getElementById('modal-settings').classList.remove('open')"
+          class="px-4 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-label text-[12px] font-semibold transition-colors">Annuler</button>
+        <button id="btn-save-settings"
+          class="px-4 py-2 rounded-xl bg-inverse-surface hover:bg-black text-surface font-label text-[12px] font-bold shadow-md transition-all active:scale-95">Enregistrer</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Confirmation Suppression -->
-  <div class="modal-overlay" id="modal-delete-conv">
-    <div class="modal-box modal-box-sm">
-      <div class="modal-header">
-        <h3>🗑️ Supprimer la conversation ?</h3>
-        <button class="btn-icon" id="btn-cancel-delete">✕</button>
+  <!-- DELETE MODAL -->
+  <div id="modal-delete-conv"
+    class="fixed inset-0 z-[200] bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div
+      class="bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 w-full max-w-sm overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <div class="p-5 border-b border-outline-variant/30 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center">
+          <span class="material-symbols-outlined text-error text-[20px]">delete_forever</span>
+        </div>
+        <div>
+          <h2 class="text-[16px] font-bold text-on-surface">Supprimer la conversation</h2>
+          <p class="text-[12px] text-on-surface-variant mt-0.5">Cette action est irr&#xe9;versible.</p>
+        </div>
       </div>
-      <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Cette action est irréversible. L'historique local sera effacé.</p>
-      <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
-        <button class="btn-secondary" id="btn-cancel-delete-2">Annuler</button>
-        <button class="btn-danger" id="btn-confirm-delete">Supprimer</button>
+      <div class="p-5 flex items-center justify-end gap-3">
+        <button id="btn-cancel-delete"
+          class="px-4 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-label text-[12px] font-semibold transition-colors">Annuler</button>
+        <button id="btn-cancel-delete-2"
+          class="px-4 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-label text-[12px] font-semibold transition-colors hidden">Annuler</button>
+        <button id="btn-confirm-delete"
+          class="px-4 py-2 rounded-xl bg-error hover:opacity-90 text-on-error font-label text-[12px] font-bold shadow-md transition-all active:scale-95">Supprimer</button>
       </div>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script>
+    // Infos tab wiring (app.js handles chat/translate only)
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabInfos = document.getElementById('tab-btn-infos');
+      const paneInfos = document.getElementById('pane-infos');
+      const tabChat = document.getElementById('tab-btn-chat');
+      const tabTranslate = document.getElementById('tab-btn-translate');
+      const paneChat = document.getElementById('pane-chat');
+      const paneTranslate = document.getElementById('pane-translate');
+      if (tabInfos) {
+        tabInfos.addEventListener('click', () => {
+          tabChat.classList.remove('active');
+          tabTranslate.classList.remove('active');
+          paneChat.classList.remove('active');
+          paneTranslate.classList.remove('active');
+          tabInfos.classList.add('active');
+          paneInfos.classList.add('active');
+          paneInfos.style.display = 'block';
+        });
+      }
+      tabChat && tabChat.addEventListener('click', () => {
+        tabInfos && tabInfos.classList.remove('active');
+        if (paneInfos) { paneInfos.classList.remove('active'); paneInfos.style.display = 'none'; }
+      }, true);
+      tabTranslate && tabTranslate.addEventListener('click', () => {
+        tabInfos && tabInfos.classList.remove('active');
+        if (paneInfos) { paneInfos.classList.remove('active'); paneInfos.style.display = 'none'; }
+      }, true);
+    });
+    function injectTransPhrase(text) {
+      const input = document.getElementById('translate-src-text');
+      if (input) { input.value = text; input.focus(); }
+    }
+  </script>
+  <script src="app.js?v=2.2"></script>
 </body>
+
 </html>

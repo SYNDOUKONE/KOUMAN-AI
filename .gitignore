@@ -41,3 +41,8 @@ models/**/*.safetensors
 *.docx
 data/*.pdf
 data/*.backup*
+
+# Certificats et binaires locaux
+*.pem
+bin/
+models/

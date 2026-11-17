@@ -90,6 +90,8 @@ class Settings:
 
     openrouter_api_key: str | None = None
     openrouter_model: str = "anthropic/claude-sonnet-5"
+    groq_api_key: str | None = None
+    groq_model: str = "qwen/qwen3.8-27b"
     # Plafond de tokens de la réponse. Les modèles « à raisonnement » (ex. GPT-5 Mini)
     # comptent aussi leur réflexion : en dessous de ~1000 ils tronquent (benchmark du 08/10).
     llm_max_tokens: int = 1000
@@ -139,6 +141,8 @@ class Settings:
             gemini_model=_env("KOUMA_GEMINI_MODEL", cls.gemini_model),
             openrouter_api_key=_env("OPENROUTER_API_KEY"),
             openrouter_model=_env("KOUMA_OPENROUTER_MODEL", cls.openrouter_model),
+            groq_api_key=_env("GROQ_API_KEY"),
+            groq_model=_env("KOUMA_GROQ_MODEL", cls.groq_model),
             llm_max_tokens=_env_int("KOUMA_LLM_MAX_TOKENS", cls.llm_max_tokens),
             llm_timeout_seconds=float(
                 _env("KOUMA_LLM_TIMEOUT_SECONDS", str(cls.llm_timeout_seconds))

@@ -213,7 +213,7 @@ class RealAudioService:
         except Exception:
             try:
                 self.stt_tokenizer = AutoTokenizer.from_pretrained(
-                    self.stt_base_id, language="dyu", task="transcribe", token=token
+                    self.stt_base_id, language="bm", task="transcribe", token=token
                 )
             except Exception:
                 self.stt_tokenizer = AutoTokenizer.from_pretrained(
@@ -224,6 +224,17 @@ class RealAudioService:
             self.stt_model_id, token=token
         ).to(self._stt_device)
         self.stt_model.eval()
+
+        # Forcer la langue Bambara/Dioula pour éviter que Whisper détecte de l'anglais.
+        # "bm" = Bambara (code ISO 639-1 le plus proche du Dioula/Jula, reconnu par Whisper).
+        # Ce forced_ids s'applique à TOUS les audios non-français passés à ce modèle.
+        try:
+            self._stt_dyu_forced_ids = self.stt_tokenizer.get_decoder_prompt_ids(
+                language="bm", task="transcribe"
+            )
+        except Exception:
+            # Modèle fine-tuné sans support multilingue : on n'impose pas la langue
+            self._stt_dyu_forced_ids = None
 
     def _ensure_stt_fr(self) -> None:
         """Charge le modèle Whisper haute précision pour le français (ex. whisper-base)."""
@@ -373,7 +384,8 @@ class RealAudioService:
                 stt_model = self.stt_model
                 stt_tokenizer = self.stt_tokenizer
                 stt_fe = self.stt_feature_extractor
-                forced_ids = None
+                # Forcer Bambara/Dioula : empêche Whisper de détecter de l'anglais
+                forced_ids = getattr(self, "_stt_dyu_forced_ids", None)
 
             inputs = stt_fe(
                 audio, sampling_rate=16000, return_tensors="pt"
